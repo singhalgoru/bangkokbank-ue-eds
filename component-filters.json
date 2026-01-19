@@ -15,7 +15,8 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "header"
     ]
   },
   {
@@ -37,6 +38,22 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "header",
+    "components": [
+      "utility-link",
+      "language-option",
+      "mega-menu-category",
+      "mega-menu-footer-item",
+      "menu-item"
+    ]
+  },
+  {
+    "id": "mega-menu-category",
+    "components": [
+      "menu-item"
     ]
   }
 ]

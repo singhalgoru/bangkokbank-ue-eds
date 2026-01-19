@@ -1,0 +1,80 @@
+{
+  "id": "mega-menu-category",
+  "fields": [
+    {
+      "component": "tab",
+      "label": "Category",
+      "name": "category"
+    },
+    {
+      "component": "custom-asset-namespace:custom-asset",
+      "name": "categoryImage",
+      "label": "Category Image",
+      "description": "Image displayed for this service category",
+      "placeholder": "Select image",
+      "configUrl": "/content/dam/image.config.json",
+      "valueType": "string"
+    },
+    {
+      "component": "custom-asset-namespace:custom-asset-mimetype",
+      "valueType": "string",
+      "name": "categoryImageMimeType"
+    },
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "categoryImageAlt",
+      "label": "Image Alt Text",
+      "description": "Alternative text for the category image",
+      "condition": {
+        "===": [
+          {
+            "var": "categoryImageAltHide"
+          },
+          false
+        ]
+      },
+      "value": ""
+    },
+    {
+      "component": "boolean",
+      "label": "Don't provide alternative text",
+      "name": "categoryImageAltHide",
+      "description": "Mark as decorative if image adds no meaning",
+      "valueType": "boolean"
+    },
+    {
+      "component": "text-input",
+      "valueType": "string",
+      "name": "title",
+      "label": "Category Title",
+      "description": "e.g., 'Save and Invest', 'Cards For Me'",
+      "value": "",
+      "required": true
+    },
+    {
+      "component": "tab",
+      "label": "Services",
+      "name": "services"
+    },
+    {
+      "component": "text-input",
+      "valueType": "string",
+      "name": "servicesNote",
+      "label": "Note",
+      "description": "Add 'Menu Item' components below for services in this category.",
+      "value": "",
+      "readonly": true
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
