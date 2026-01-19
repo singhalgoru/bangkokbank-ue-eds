@@ -13,7 +13,7 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  color: var(--background-color);
+  color: var(--bbl-text-inverse);
 }
 
 .hero picture {
@@ -30,7 +30,7 @@
   height: 100%;
 }
 
-@media (width >= 900px) {
+@media (width >= 1025px) {
   .hero {
     padding: 40px 32px;
   }
