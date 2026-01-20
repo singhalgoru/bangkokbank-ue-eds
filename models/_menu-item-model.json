@@ -1,0 +1,25 @@
+{
+  "id": "menu-item",
+  "fields": [
+    {
+      "component": "text-input",
+      "valueType": "string",
+      "name": "title",
+      "label": "Link Text",
+      "description": "Display text for the menu item",
+      "value": "",
+      "required": true
+    },
+    {
+      "component": "aem-content",
+      "valueType": "string",
+      "name": "link",
+      "label": "Link URL",
+      "description": "Destination URL for the link",
+      "value": "",
+      "required": true
+    }
+  ]
+}
+
+

@@ -1,8 +1,8 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+// media query match that indicates desktop width
+const isDesktop = window.matchMedia('(min-width: 1025px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -113,6 +113,10 @@ export default async function decorate(block) {
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
   const fragment = await loadFragment(navPath);
 
+  const navUtilityMeta = getMetadata('nav-utility');
+  const navMegaMenuMeta = getMetadata('nav-mega-menu');
+  const navLoginPanelMeta = getMetadata('nav-login-panel');
+
   // decorate nav DOM
   block.textContent = '';
   const nav = document.createElement('nav');
@@ -134,6 +138,16 @@ export default async function decorate(block) {
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
+    // Optional: replace the authored mega menu section with a dedicated fragment (authoring "tab")
+    if (navMegaMenuMeta) {
+      const megaPath = new URL(navMegaMenuMeta, window.location).pathname;
+      const megaFragment = await loadFragment(megaPath);
+      const megaSection = megaFragment?.querySelector(':scope > .section') || megaFragment?.firstElementChild;
+      if (megaSection) {
+        navSections.replaceChildren(...megaSection.childNodes);
+      }
+    }
+
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
       navSection.addEventListener('click', () => {
@@ -144,6 +158,35 @@ export default async function decorate(block) {
         }
       });
     });
+  }
+
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    // Optional: inject utility content as a dedicated fragment (authoring "tab")
+    if (navUtilityMeta) {
+      const utilityPath = new URL(navUtilityMeta, window.location).pathname;
+      const utilityFragment = await loadFragment(utilityPath);
+      const utilitySection = utilityFragment?.querySelector(':scope > .section') || utilityFragment?.firstElementChild;
+      if (utilitySection) {
+        const slot = document.createElement('div');
+        slot.className = 'nav-utility';
+        slot.append(...utilitySection.childNodes);
+        navTools.prepend(slot);
+      }
+    }
+
+    // Optional: append login panel content (authoring "tab") for future slide-in behavior
+    if (navLoginPanelMeta) {
+      const loginPath = new URL(navLoginPanelMeta, window.location).pathname;
+      const loginFragment = await loadFragment(loginPath);
+      const loginSection = loginFragment?.querySelector(':scope > .section') || loginFragment?.firstElementChild;
+      if (loginSection) {
+        const panel = document.createElement('div');
+        panel.className = 'nav-login-panel';
+        panel.append(...loginSection.childNodes);
+        navTools.append(panel);
+      }
+    }
   }
 
   // hamburger for mobile

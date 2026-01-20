@@ -1,0 +1,137 @@
+{
+  "id": "mega-menu-footer-item",
+  "fields": [
+    {
+      "component": "tab",
+      "label": "Content",
+      "name": "content"
+    },
+    {
+      "component": "select",
+      "name": "itemType",
+      "label": "Item Type",
+      "description": "Type of footer item",
+      "valueType": "string",
+      "value": "icon-text",
+      "options": [
+        {
+          "name": "Icon + Text",
+          "value": "icon-text"
+        },
+        {
+          "name": "Logo + Text",
+          "value": "logo-text"
+        },
+        {
+          "name": "Text Only",
+          "value": "text-only"
+        }
+      ]
+    },
+    {
+      "component": "custom-asset-namespace:custom-asset",
+      "name": "icon",
+      "label": "Icon/Logo",
+      "description": "Icon or logo image",
+      "placeholder": "Select icon/image",
+      "configUrl": "/content/dam/image.config.json",
+      "valueType": "string",
+      "condition": {
+        "in": [
+          {
+            "var": "itemType"
+          },
+          ["icon-text", "logo-text"]
+        ]
+      }
+    },
+    {
+      "component": "custom-asset-namespace:custom-asset-mimetype",
+      "valueType": "string",
+      "name": "iconMimeType",
+      "condition": {
+        "in": [
+          {
+            "var": "itemType"
+          },
+          ["icon-text", "logo-text"]
+        ]
+      }
+    },
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "iconAlt",
+      "label": "Icon Alt Text",
+      "description": "Alternative text for icon/logo",
+      "condition": {
+        "all": [
+          {
+            "===": [
+              {
+                "var": "iconAltHide"
+              },
+              false
+            ]
+          },
+          {
+            "in": [
+              {
+                "var": "itemType"
+              },
+              ["icon-text", "logo-text"]
+            ]
+          }
+        ]
+      },
+      "value": ""
+    },
+    {
+      "component": "boolean",
+      "label": "Don't provide alternative text",
+      "name": "iconAltHide",
+      "description": "Mark as decorative if icon adds no meaning",
+      "valueType": "boolean",
+      "condition": {
+        "in": [
+          {
+            "var": "itemType"
+          },
+          ["icon-text", "logo-text"]
+        ]
+      }
+    },
+    {
+      "component": "text-input",
+      "valueType": "string",
+      "name": "title",
+      "label": "Title",
+      "description": "Title text for this footer item",
+      "value": "",
+      "required": true
+    },
+    {
+      "component": "tab",
+      "label": "Link",
+      "name": "link"
+    },
+    {
+      "component": "aem-content",
+      "valueType": "string",
+      "name": "link",
+      "label": "Link URL",
+      "description": "Optional link destination",
+      "value": ""
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+

@@ -179,15 +179,350 @@
     ]
   },
   {
-    "id": "hero",
+    "id": "header",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
+        "component": "tab",
+        "label": "Utility Bar",
+        "name": "utility"
       },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "utilitySectionNote",
+        "label": "Note",
+        "description": "Add 'Utility Link' components below this section for utility bar links. Add 'Language Option' components for language selector.",
+        "value": "",
+        "readonly": true
+      },
+      {
+        "component": "tab",
+        "label": "Mega Menu",
+        "name": "megamenu"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "navigationTitle",
+        "label": "Navigation Title",
+        "description": "Title shown in navigation button and mega menu heading (e.g., 'Personal Banking', 'Business Banking')",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "megaMenuNote",
+        "label": "Note",
+        "description": "Add 'Mega Menu Category' components below this section for service categories. Add 'Mega Menu Footer Item' components at the bottom for footer items.",
+        "value": "",
+        "readonly": true
+      },
+      {
+        "component": "tab",
+        "label": "Footer",
+        "name": "footer"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "footerNote",
+        "label": "Note",
+        "description": "Footer items are added as 'Mega Menu Footer Item' components in the Mega Menu tab.",
+        "value": "",
+        "readonly": true
+      }
+    ]
+  },
+  {
+    "id": "utility-link",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "title",
+        "label": "Link Text",
+        "description": "Display text for the utility link",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link URL",
+        "description": "Destination URL for the link",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "language-option",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "code",
+        "label": "Language Code",
+        "description": "Language code (e.g., 'en', 'th', 'zh')",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "label",
+        "label": "Language Label",
+        "description": "Display name (e.g., 'English', 'ไทย', '中文')",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "url",
+        "label": "Language URL",
+        "description": "Optional URL for language switching",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "mega-menu-category",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Category",
+        "name": "category"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "name": "categoryImage",
+        "label": "Category Image",
+        "description": "Image displayed for this service category",
+        "placeholder": "Select image",
+        "configUrl": "/content/dam/image.config.json",
+        "valueType": "string"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "categoryImageMimeType"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "categoryImageAlt",
+        "label": "Image Alt Text",
+        "description": "Alternative text for the category image",
+        "condition": {
+          "===": [
+            {
+              "var": "categoryImageAltHide"
+            },
+            false
+          ]
+        },
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "label": "Don't provide alternative text",
+        "name": "categoryImageAltHide",
+        "description": "Mark as decorative if image adds no meaning",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "title",
+        "label": "Category Title",
+        "description": "e.g., 'Save and Invest', 'Cards For Me'",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "tab",
+        "label": "Services",
+        "name": "services"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "servicesNote",
+        "label": "Note",
+        "description": "Add 'Menu Item' components below for services in this category.",
+        "value": "",
+        "readonly": true
+      }
+    ]
+  },
+  {
+    "id": "mega-menu-footer-item",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Content",
+        "name": "content"
+      },
+      {
+        "component": "select",
+        "name": "itemType",
+        "label": "Item Type",
+        "description": "Type of footer item",
+        "valueType": "string",
+        "value": "icon-text",
+        "options": [
+          {
+            "name": "Icon + Text",
+            "value": "icon-text"
+          },
+          {
+            "name": "Logo + Text",
+            "value": "logo-text"
+          },
+          {
+            "name": "Text Only",
+            "value": "text-only"
+          }
+        ]
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "name": "icon",
+        "label": "Icon/Logo",
+        "description": "Icon or logo image",
+        "placeholder": "Select icon/image",
+        "configUrl": "/content/dam/image.config.json",
+        "valueType": "string",
+        "condition": {
+          "in": [
+            {
+              "var": "itemType"
+            },
+            [
+              "icon-text",
+              "logo-text"
+            ]
+          ]
+        }
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "iconMimeType",
+        "condition": {
+          "in": [
+            {
+              "var": "itemType"
+            },
+            [
+              "icon-text",
+              "logo-text"
+            ]
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "iconAlt",
+        "label": "Icon Alt Text",
+        "description": "Alternative text for icon/logo",
+        "condition": {
+          "all": [
+            {
+              "===": [
+                {
+                  "var": "iconAltHide"
+                },
+                false
+              ]
+            },
+            {
+              "in": [
+                {
+                  "var": "itemType"
+                },
+                [
+                  "icon-text",
+                  "logo-text"
+                ]
+              ]
+            }
+          ]
+        },
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "label": "Don't provide alternative text",
+        "name": "iconAltHide",
+        "description": "Mark as decorative if icon adds no meaning",
+        "valueType": "boolean",
+        "condition": {
+          "in": [
+            {
+              "var": "itemType"
+            },
+            [
+              "icon-text",
+              "logo-text"
+            ]
+          ]
+        }
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "description": "Title text for this footer item",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "tab",
+        "label": "Link",
+        "name": "link"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link URL",
+        "description": "Optional link destination",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "menu-item",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "title",
+        "label": "Link Text",
+        "description": "Display text for the menu item",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link URL",
+        "description": "Destination URL for the link",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "hero-item",
+    "fields": [
       {
         "component": "text",
         "valueType": "string",

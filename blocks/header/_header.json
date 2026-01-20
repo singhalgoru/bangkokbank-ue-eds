@@ -1,0 +1,131 @@
+{
+  "definitions": [
+    {
+      "title": "Header",
+      "id": "header",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Header",
+              "model": "header",
+              "filter": "header"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Utility Link",
+      "id": "utility-link",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Utility Link",
+              "model": "utility-link"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Language Option",
+      "id": "language-option",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Language Option",
+              "model": "language-option"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Mega Menu Category",
+      "id": "mega-menu-category",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Mega Menu Category",
+              "model": "mega-menu-category"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Mega Menu Footer Item",
+      "id": "mega-menu-footer-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Mega Menu Footer Item",
+              "model": "mega-menu-footer-item"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Menu Item",
+      "id": "menu-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Menu Item",
+              "model": "menu-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "...": "../../models/_header-model.json"
+    },
+    {
+      "...": "../../models/_utility-link-model.json"
+    },
+    {
+      "...": "../../models/_language-option-model.json"
+    },
+    {
+      "...": "../../models/_mega-menu-category-model.json"
+    },
+    {
+      "...": "../../models/_mega-menu-footer-item-model.json"
+    },
+    {
+      "...": "../../models/_menu-item-model.json"
+    }
+  ],
+  "filters": [
+    {
+      "id": "header",
+      "components": [
+        "utility-link",
+        "language-option",
+        "mega-menu-category",
+        "mega-menu-footer-item",
+        "menu-item"
+      ]
+    },
+    {
+      "id": "mega-menu-category",
+      "components": ["menu-item"]
+    }
+  ]
+}

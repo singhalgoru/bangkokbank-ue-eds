@@ -39,7 +39,9 @@
         "hero",
         "cards",
         "columns",
-        "fragment"
+        "fragment",
+        "header",
+        "megamenu"
       ]
     }
   ]
