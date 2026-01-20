@@ -40,8 +40,12 @@
                   "value": "central-aligned"
                 },
                 {
-                  "name": "Full Width Padding",
-                  "value": "full-width-padding"
+                  "name": "Full Bleed Special",
+                  "value": "full-bleed-special"
+                },
+                {
+                  "name": "Full Bleed Background",
+                  "value": "full-bleed-bg"
                 }
               ]
             },

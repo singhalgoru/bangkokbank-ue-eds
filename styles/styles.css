@@ -19,21 +19,6 @@
   --nav-height: 64px;
 }
 
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
-}
-
-
-
 body {
   display: none;
   margin: 0;
@@ -174,36 +159,56 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* sections (default) */
 main > .section {
-  margin: 40px 0;
+  width: 100%;
+  padding: 0 84px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-main > .section > div {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 24px;
-}
-
-main > .section:first-of-type {
-  margin-top: 0;
-}
-
-@media (width >= 1025px) {
-  main > .section > div {
-    padding: 0 32px;
+@media (width >= 1400px) {
+  main > .section {
+    max-width: 1240px;
+    padding: 0;
   }
 }
 
-/* section metadata */
-main .section.light,
-main .section.highlight {
-  background-color: var(--bbl-bg-secondary);
-  margin: 0;
-  padding: 40px 0;
+/* sections (full-bleed-bg) */
+main > .section .full-bleed-bg > .content {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+@media (width >= 1920px) {
+  main > .section .full-bleed-bg > .content {
+    max-width: 1752px;
+  }
+}
+
+/* section metadata: full-bleed-special */
+main .section.full-bleed-special {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 84px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (width >= 1920px) {
+  main .section.full-bleed-special {
+    max-width: 1752px;
+    padding: 0;
+  }
 }
 
 /* section metadata: central-aligned-section */
-main .section.central-aligned-section > div {
-  text-align: center;
+main .section.central-aligned {
+  max-width: 900px;
+  margin: 0 auto;
 }
+
+
+
