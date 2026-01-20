@@ -532,7 +532,7 @@
     ]
   },
   {
-    "id": "hero",
+    "id": "hero-item",
     "fields": [
       {
         "component": "reference",

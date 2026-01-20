@@ -16,7 +16,8 @@
       "cards",
       "columns",
       "fragment",
-      "header"
+      "header",
+      "megamenu"
     ]
   },
   {
@@ -54,6 +55,12 @@
     "id": "mega-menu-category",
     "components": [
       "menu-item"
+    ]
+  },
+  {
+    "id": "hero",
+    "components": [
+      "hero-item"
     ]
   }
 ]
