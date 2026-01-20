@@ -27,25 +27,6 @@
         },
         {
           "component": "multiselect",
-          "name": "style",
-          "label": "Style",
-          "options": [
-            {
-              "name": "Highlight",
-              "value": "highlight"
-            },
-            {
-              "name": "Central Aligned Section",
-              "value": "central-aligned"
-            },
-            {
-              "name": "Full Width Padding Section",
-              "value": "full-width-padding"
-            }
-          ]
-        },
-        {
-          "component": "multiselect",
           "name": "classes",
           "label": "Style",
           "valueType": "string",
