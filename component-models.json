@@ -130,7 +130,7 @@
       },
       {
         "component": "multiselect",
-        "name": "classes",
+        "name": "style",
         "label": "Style",
         "valueType": "string",
         "required": false,
