@@ -136,6 +136,14 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Central Aligned Section",
+            "value": "central-aligned"
+          },
+          {
+            "name": "Full Width Padding Section",
+            "value": "full-width-padding"
           }
         ]
       }
