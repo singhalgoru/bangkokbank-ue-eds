@@ -51,12 +51,6 @@ button,
   margin: 12px 0;
 }
 
-button:focus-visible,
-.button:focus-visible {
-  outline: 2px solid var(--bbl-color-active-blue);
-  outline-offset: 2px;
-}
-
 /* =========================================================================
    BUTTON SIZES
    Mobile-first: S is default, then override for larger screens
@@ -110,13 +104,19 @@ button.primary {
   border: none;
 }
 
+button:focus-visible,
+.button:focus-visible {
+  outline: 2px solid var(--bbl-color-active-blue);
+  outline-offset: 2px;
+}
+
 /* Hover */
 .button:hover,
 .button-primary:hover,
 button[type="submit"]:hover {
   background: var(--bbl-color-blue-70);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
+  box-shadow: 0 4px 12px rgb(0 100 255 / 30%);
 }
 
 /* Active/Pressed */
@@ -140,16 +140,16 @@ button[type="submit"]:disabled {
 }
 
 /* Primary Inverted (for Dark Backgrounds) */
-.button-primary--inverted {
+.button-primary-inverted {
   background: var(--bbl-color-white);
   color: var(--bbl-color-truthful-blue);
 }
 
-.button-primary--inverted:hover {
+.button-primary-inverted:hover {
   background: var(--bbl-color-blue-10);
 }
 
-.button-primary--inverted:disabled {
+.button-primary-inverted:disabled {
   background: var(--bbl-color-grey-80);
   color: var(--bbl-color-grey-60);
 }
@@ -190,19 +190,19 @@ button.secondary {
 }
 
 /* Secondary Inverted (for Dark Backgrounds) */
-.button-secondary--inverted {
+.button-secondary-inverted {
   background: transparent;
   color: var(--bbl-color-white);
   border-color: var(--bbl-color-white);
 }
 
-.button-secondary--inverted:hover {
+.button-secondary-inverted:hover {
   background: var(--bbl-color-white-alpha-10);
   border-color: var(--bbl-color-blue-30);
   color: var(--bbl-color-blue-30);
 }
 
-.button-secondary--inverted:disabled {
+.button-secondary-inverted:disabled {
   border-color: var(--bbl-color-grey-70);
   color: var(--bbl-color-grey-70);
   background: transparent;
@@ -259,15 +259,15 @@ button.tertiary {
 }
 
 /* Tertiary Inverted (for Dark Backgrounds) */
-.button-tertiary--inverted {
+.button-tertiary-inverted {
   color: var(--bbl-color-white);
 }
 
-.button-tertiary--inverted:hover {
+.button-tertiary-inverted:hover {
   color: var(--bbl-color-blue-30);
 }
 
-.button-tertiary--inverted:disabled {
+.button-tertiary-inverted:disabled {
   color: var(--bbl-color-grey-70);
 }
 
@@ -306,19 +306,19 @@ a[aria-disabled="true"],
 }
 
 /* Links Inverted (for Dark Backgrounds) */
-.link--inverted,
-a.link--inverted {
+.link-inverted,
+a.link-inverted {
   color: var(--bbl-color-white);
 }
 
-.link--inverted:hover,
-a.link--inverted:hover {
+.link-inverted:hover,
+a.link-inverted:hover {
   color: var(--bbl-color-blue-30);
 }
 
-.link--inverted[aria-disabled="true"],
-.link--inverted:disabled,
-a.link--inverted[aria-disabled="true"] {
+.link-inverted[aria-disabled="true"],
+.link-inverted:disabled,
+a.link-inverted[aria-disabled="true"] {
   color: var(--bbl-color-grey-70);
 }
 
@@ -388,7 +388,7 @@ a.link--inverted[aria-disabled="true"] {
   left: 50%;
   margin-left: -8px;
   margin-top: -8px;
-  border: 2px solid currentColor;
+  border: 2px solid currentcolor;
   border-radius: 50%;
   border-top-color: transparent;
   animation: button-spinner 0.6s linear infinite;

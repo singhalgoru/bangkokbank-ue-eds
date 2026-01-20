@@ -202,3 +202,8 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* section metadata: central-aligned-section */
+main .section.central-aligned-section > div {
+  text-align: center;
+}
