@@ -24,6 +24,57 @@
           "name": "name",
           "label": "Section Name",
           "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "required": false,
+          "options": [
+            {
+              "name": "Section type",
+              "children": [
+                {
+                  "name": "Central Aligned",
+                  "value": "central-aligned"
+                },
+                {
+                  "name": "Full Width Padding",
+                  "value": "full-width-padding"
+                }
+              ]
+            },
+            {
+              "name": "Background Color",
+              "children": [
+                {
+                  "name": "Grey",
+                  "value": "bg-spectrum-gray-700"
+                },
+                {
+                  "name": "Blue",
+                  "value": "bg-spectrum-blue-700"
+                },
+                {
+                  "name": "Green",
+                  "value": "bg-spectrum-green-700"
+                },
+                {
+                  "name": "Orange",
+                  "value": "bg-spectrum-orange-700"
+                },
+                {
+                  "name": "Red",
+                  "value": "bg-spectrum-red-700"
+                },
+                {
+                  "name": "Celery",
+                  "value": "bg-spectrum-celery-700"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
