@@ -115,13 +115,13 @@
 
 /* ==========================================================================
    RESPONSIVE SPACING OVERRIDES
-   Breakpoint: >= 1025px (Desktop)
+   Breakpoint: >= 760px (Mobile-first approach) --bbl-breakpoint-tablet-min
    
    Note: Most spacing remains consistent, but container padding and section
    spacing may increase on larger screens for better proportion.
    ========================================================================== */
 
-@media (width >= 1025px) {
+@media (width >= 760px) {
   :root {
     /* Container padding increases on desktop */
     --bbl-space-container-xs: var(--bbl-space-300);  /* 24px (up from 16px) */

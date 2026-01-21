@@ -53,28 +53,24 @@
               "name": "Background Color",
               "children": [
                 {
-                  "name": "Grey",
-                  "value": "bg-spectrum-gray-700"
+                  "name": "Truthful Blue",
+                  "value": "bg-truthful-blue"
                 },
                 {
-                  "name": "Blue",
-                  "value": "bg-spectrum-blue-700"
+                  "name": "Ice Blue",
+                  "value": "bg-ice-blue"
                 },
                 {
-                  "name": "Green",
-                  "value": "bg-spectrum-green-700"
+                  "name": "Grey 10",
+                  "value": "bg-grey-10"
                 },
                 {
-                  "name": "Orange",
-                  "value": "bg-spectrum-orange-700"
+                  "name": "Grey 05",
+                  "value": "bg-grey-05"
                 },
                 {
-                  "name": "Red",
-                  "value": "bg-spectrum-red-700"
-                },
-                {
-                  "name": "Celery",
-                  "value": "bg-spectrum-celery-700"
+                  "name": "Grey 100",
+                  "value": "bg-grey-100 "
                 }
               ]
             }

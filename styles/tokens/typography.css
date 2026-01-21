@@ -229,10 +229,10 @@
 
 /* ==========================================================================
    DESKTOP TYPOGRAPHY OVERRIDES
-   Breakpoint: >= 1025px (Desktop)
+   Breakpoint: >= 760px (Mobile-first approach) --bbl-breakpoint-tablet-min
    ========================================================================== */
 
-@media (width >= 1025px) {
+@media (width >= 760px) {
   :root {
     /* --- Display / Hero Title - Desktop --- */
     --bbl-heading-d1-size: 5.6rem;        /* 90px (up from 46px) */
