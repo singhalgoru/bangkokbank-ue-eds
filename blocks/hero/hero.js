@@ -24,4 +24,3 @@ export default function decorate(block) {
 
   block.replaceChildren(items);
 }
-
