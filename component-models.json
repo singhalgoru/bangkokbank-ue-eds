@@ -139,10 +139,50 @@
         "component": "multiselect",
         "name": "style",
         "label": "Style",
+        "valueType": "string",
+        "required": false,
         "options": [
           {
-            "name": "Highlight",
-            "value": "highlight"
+            "name": "Section type",
+            "children": [
+              {
+                "name": "Central Aligned",
+                "value": "central-aligned"
+              },
+              {
+                "name": "Full Bleed Special",
+                "value": "full-bleed-special"
+              },
+              {
+                "name": "Full Bleed Background",
+                "value": "full-bleed-bg"
+              }
+            ]
+          },
+          {
+            "name": "Background Color",
+            "children": [
+              {
+                "name": "Truthful Blue",
+                "value": "bg-truthful-blue"
+              },
+              {
+                "name": "Ice Blue",
+                "value": "bg-ice-blue"
+              },
+              {
+                "name": "Grey 10",
+                "value": "bg-grey-10"
+              },
+              {
+                "name": "Grey 05",
+                "value": "bg-grey-05"
+              },
+              {
+                "name": "Grey 100",
+                "value": "bg-grey-100 "
+              }
+            ]
           }
         ]
       }
