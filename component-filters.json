@@ -40,11 +40,5 @@
       "button",
       "title"
     ]
-  },
-  {
-    "id": "hero",
-    "components": [
-      "hero-item"
-    ]
   }
 ]

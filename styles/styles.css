@@ -176,15 +176,19 @@ main > .section {
 }
 
 /* sections (full-bleed-bg) */
-main > .section .full-bleed-bg > .content {
-  width: 100%;
+main > .section.full-bleed-bg {
   max-width: 100%;
   padding: 0;
   margin: 0 auto;
 }
 
+main > .section.full-bleed-bg .content {
+  padding: 0;
+  margin: 0 auto;
+}
+
 @media (width >= 1920px) {
-  main > .section .full-bleed-bg > .content {
+  main > .section.full-bleed-bg .content {
     max-width: 1752px;
   }
 }
