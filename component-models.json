@@ -20,6 +20,13 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "richtext",
+        "name": "breadcrumb",
+        "value": "",
+        "label": "Breadcrumb",
+        "valueType": "string"
       }
     ]
   },
