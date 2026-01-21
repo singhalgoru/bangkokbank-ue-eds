@@ -1,36 +1,98 @@
 /* stylelint-disable max-line-length */
 @font-face {
-  font-family: roboto-condensed;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('../fonts/roboto-condensed-bold.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-family: BangkokBank-Black;
+  src: url("../fonts/BBLSans-regular.eot");
+  src: url("../fonts/BBLSans-regular.woff") format("woff"),url("../fonts/BBLSans-regular.woff2") format("woff2");
+  font-style: normal
 }
 
 @font-face {
-  font-family: roboto;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('../fonts/roboto-bold.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-family: BangkokBank-Regular;
+  src: url("../fonts/BBLSans-regular.eot");
+  src: url("../fonts/BBLSans-regular.woff") format("woff"),url("../fonts/BBLSans-regular.woff2") format("woff2");
+  font-style: normal
 }
 
 @font-face {
-  font-family: roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('../fonts/roboto-medium.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-family: BangkokBank-Medium;
+  src: url("../fonts/BBLSans-medium.eot");
+  src: url("../fonts/BBLSans-medium.woff") format("woff"),url("../fonts/BBLSans-medium.woff2") format("woff2");
+  font-style: normal
 }
 
 @font-face {
-  font-family: roboto;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('../fonts/roboto-regular.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-family: BangkokBank-Light;
+  src: url("../fonts/BBLSans-Light.eot");
+  src: url("../fonts/BBLSans-Light.woff") format("woff"),url("../fonts/BBLSans-Light.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: BangkokBank-Bold;
+  src: url("../fonts/BBLSans-bold.eot");
+  src: url("../fonts/BBLSans-bold.woff") format("woff"),url("../fonts/BBLSans-bold.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: "BangkokBank_Text-Regular";
+  src: url("../fonts/BBLSans_looped-Regular.eot");
+  src: url("../fonts/BBLSans_looped-Regular.woff") format("woff"),url("../fonts/BBLSans_looped-Regular.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: "BangkokBank_Text-Medium";
+  src: url("../fonts/BBLSans_looped-medium.eot");
+  src: url("../fonts/BBLSans_looped-medium.woff") format("woff"),url("../fonts/BBLSans_looped-medium.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: "BangkokBank_Text-Bold";
+  src: url("../fonts/BBLSans_looped-Bold.eot");
+  src: url("../fonts/BBLSans_looped-Bold.woff") format("woff"),url("../fonts/BBLSans_looped-Bold.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: BangkokBank-Regular-Italic;
+  src: url("../fonts/BBLSans-RegularItalic.eot");
+  src: url("../fonts/BBLSans-RegularItalic.woff") format("woff"),url("../fonts/BBLSans-RegularItalic.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: BangkokBank-Bold-Italic;
+  src: url("../fonts/BBLSans-BoldItalic.eot");
+  src: url("../fonts/BBLSans-BoldItalic.woff") format("woff"),url("../fonts/BBLSans-BoldItalic.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: Muli-Regular;
+  src: url("../fonts/BBLSans-regular.eot");
+  src: url("../fonts/BBLSans-regular.woff") format("woff"),url("../fonts/BBLSans-regular.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: Muli-Light;
+  src: url("../fonts/BBLSans-Regular.eot");
+  src: url("../fonts/BBLSans-Regular.woff") format("woff"),url("../fonts/BBLSans-Regular.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: Muli-Bold;
+  src: url("../fonts/BBLSans-bold.eot");
+  src: url("../fonts/BBLSans-bold.woff") format("woff"),url("../fonts/BBLSans-bold.woff2") format("woff2");
+  font-style: normal
+}
+
+@font-face {
+  font-family: icomoon;
+  src: url("../fonts/icomoon.woff") format("woff");
+  font-weight: 300;
+  font-style: normal
 }
