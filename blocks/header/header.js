@@ -26,7 +26,7 @@ async function fetchPlaceholders() {
   if (window.placeholders) {
     return window.placeholders;
   }
-  
+
   // Return empty object as fallback
   window.placeholders = {};
   return window.placeholders;
@@ -186,8 +186,6 @@ async function buildBreadcrumbs() {
   return breadcrumbs;
 }
 
-
-
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -249,13 +247,18 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  
-  if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
-    console.warn("breadcrumb received is : "+getMetadata('breadcrumbs'));
+  // Check breadcrumbs metadata - use default value from page.json if not set
+  const breadcrumbsMeta = getMetadata('breadcrumbs') || 'true'; // default from page.json
+  console.warn('Breadcrumb metadata value:', breadcrumbsMeta);
+
+  if (breadcrumbsMeta.toLowerCase() === 'true') {
+    console.warn('Breadcrumb is enabled!');
     const breadcrumbsElement = await buildBreadcrumbs();
     const breadcrumbData = await buildBreadcrumbsFromNavTree(nav.querySelector('.nav-sections'), document.location.href);
     console.warn('Breadcrumbs loaded:', breadcrumbData);
     console.warn('Breadcrumb HTML:', breadcrumbsElement.outerHTML);
     navWrapper.append(breadcrumbsElement);
+  } else {
+    console.warn('Breadcrumb is disabled');
   }
 }
