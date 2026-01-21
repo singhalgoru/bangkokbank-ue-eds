@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   const items = document.createElement('div');
   items.className = 'hero-items';
@@ -6,6 +8,7 @@ export default function decorate(block) {
     const [imageCell, altCell, textCell] = [...row.children];
     const item = document.createElement('div');
     item.className = 'hero-item';
+    moveInstrumentation(row, item);
 
     const picture = imageCell?.querySelector('picture');
     const img = picture?.querySelector('img');
