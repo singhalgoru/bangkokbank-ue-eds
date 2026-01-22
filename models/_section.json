@@ -92,7 +92,9 @@
         "columns",
         "fragment",
         "header",
-        "megamenu"
+        "megamenu",
+        "news-and-activities",
+        "rate-card"
       ]
     }
   ]

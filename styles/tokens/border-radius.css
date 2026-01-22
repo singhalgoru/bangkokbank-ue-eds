@@ -24,6 +24,9 @@
   /* --- Medium --- */
   --bbl-rounded-100: 0.5rem;              /* 8px - Medium rounding */
   
+  /* --- Medium Large --- */
+  --bbl-rounded-150: 0.75rem;             /* 12px - Medium-large rounding */
+
   /* --- Large --- */
   --bbl-rounded-200: 1rem;                /* 16px - Large rounding */
   
@@ -50,6 +53,10 @@
   /* --- Medium Rounded --- */
   --bbl-radius-md: var(--bbl-rounded-100);
   /* Used for data visualisation elements, tags, logos and toast components. */
+
+  /* --- 12px Rounded --- */
+  --bbl-radius-12: var(--bbl-rounded-150);
+  /* Used when design calls for 12px rounding (between 8px and 16px). */
   
   /* --- Default Rounded --- */
   --bbl-radius-default: var(--bbl-rounded-200);
@@ -97,8 +104,8 @@
   --bbl-radius-avatar: var(--bbl-rounded-full);       /* 50% - circular */
   
   /* --- Buttons & Interactive --- */
-  --bbl-radius-button: var(--bbl-rounded-full);       /* 50% - pill shape */
-  --bbl-radius-button-square: var(--bbl-rounded-100); /* 8px - square button */
+  --bbl-radius-button: var(--bbl-rounded-150);        /* 12px - button radius */
+  --bbl-radius-button-square: var(--bbl-rounded-150); /* 12px - square button radius */
   --bbl-radius-fab: var(--bbl-rounded-full);          /* 50% - floating action button */
   --bbl-radius-toggle: var(--bbl-rounded-full);       /* 50% - toggle switch */
   
