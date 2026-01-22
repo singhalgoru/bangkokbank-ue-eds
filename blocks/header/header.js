@@ -131,60 +131,18 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
-  const crumbs = [];
-
-  const homeUrl = document.querySelector('.nav-brand a[href]').href;
-
-  let menuItem = Array.from(nav.querySelectorAll('a')).find((a) => a.href === currentUrl);
-  if (menuItem) {
-    do {
-      const link = menuItem.querySelector(':scope > a');
-      crumbs.unshift({ title: getDirectTextContent(menuItem), url: link ? link.href : null });
-      menuItem = menuItem.closest('ul')?.closest('li');
-    } while (menuItem);
-  } else if (currentUrl !== homeUrl) {
-    crumbs.unshift({ title: getMetadata('og:title'), url: currentUrl });
-  }
-
-  const placeholders = await fetchPlaceholders();
-  const homePlaceholder = placeholders.breadcrumbsHomeLabel || 'Home';
-
-  crumbs.unshift({ title: homePlaceholder, url: homeUrl });
-
-  // last link is current page and should not be linked
-  if (crumbs.length > 1) {
-    crumbs[crumbs.length - 1].url = null;
-  }
-  crumbs[crumbs.length - 1]['aria-current'] = 'page';
-  return crumbs;
+/**
+ * Converts a URL segment to a readable title
+ * @param {string} segment The URL segment
+ * @returns {string} The formatted title
+ */
+function formatUrlSegmentAsTitle(segment) {
+  return segment
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
-async function buildBreadcrumbs() {
-  const breadcrumbs = document.createElement('nav');
-  breadcrumbs.className = 'breadcrumbs';
-  breadcrumbs.ariaLabel = 'Breadcrumb';
-
-  const crumbs = await buildBreadcrumbsFromNavTree(document.querySelector('.nav-sections'), document.location.href);
-
-  const ol = document.createElement('ol');
-  ol.append(...crumbs.map((item) => {
-    const li = document.createElement('li');
-    if (item['aria-current']) li.setAttribute('aria-current', item['aria-current']);
-    if (item.url) {
-      const a = document.createElement('a');
-      a.href = item.url;
-      a.textContent = item.title;
-      li.append(a);
-    } else {
-      li.textContent = item.title;
-    }
-    return li;
-  }));
-
-  breadcrumbs.append(ol);
-  return breadcrumbs;
-}
 
 /**
  * loads and decorates the header, mainly the nav
@@ -289,19 +247,4 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
-
-  // Check breadcrumbs metadata - use default value from page.json if not set
-  const breadcrumbsMeta = getMetadata('breadcrumbs') || 'true'; // default from page.json
-  console.warn('Breadcrumb metadata value:', breadcrumbsMeta);
-
-  if (breadcrumbsMeta.toLowerCase() === 'true') {
-    console.warn('Breadcrumb is enabled!');
-    const breadcrumbsElement = await buildBreadcrumbs();
-    const breadcrumbData = await buildBreadcrumbsFromNavTree(nav.querySelector('.nav-sections'), document.location.href);
-    console.warn('Breadcrumbs loaded:', breadcrumbData);
-    console.warn('Breadcrumb HTML:', breadcrumbsElement.outerHTML);
-    navWrapper.append(breadcrumbsElement);
-  } else {
-    console.warn('Breadcrumb is disabled');
-  }
 }

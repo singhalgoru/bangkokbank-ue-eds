@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 /**
@@ -44,6 +45,52 @@ export function moveInstrumentation(from, to) {
       .map(({ nodeName }) => nodeName)
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
+}
+
+/**
+ * Builds breadcrumb navigation from the current URL path
+ * @returns {Element} The breadcrumb element
+ */
+function buildBreadcrumb() {
+  const breadcrumb = document.createElement('div');
+  breadcrumb.className = 'breadcrumb';
+  breadcrumb.setAttribute('aria-label', 'Breadcrumb');
+
+  const ol = document.createElement('ol');
+  breadcrumb.appendChild(ol);
+
+  // Get path segments from current location
+  const pathSegments = window.location.pathname
+    .split('/')
+    .filter((segment) => segment.length > 0);
+
+  // Build breadcrumb items from path segments
+  let currentPath = '';
+  pathSegments.forEach((segment, index) => {
+    currentPath += `/${segment}`;
+    const li = document.createElement('li');
+
+    // Convert segment to readable text (replace hyphens with spaces, capitalize)
+    const text = segment
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+
+    if (index === pathSegments.length - 1) {
+      // Last item - current page (no link)
+      li.textContent = text;
+      li.setAttribute('aria-current', 'page');
+    } else {
+      // Intermediate items - create links
+      const link = document.createElement('a');
+      link.href = currentPath;
+      link.textContent = text;
+      li.appendChild(link);
+    }
+
+    ol.appendChild(li);
+  });
+
+  return breadcrumb;
 }
 
 /**
@@ -93,6 +140,7 @@ async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
+
   if (main) {
     decorateMain(main);
     document.body.classList.add('appear');
@@ -123,6 +171,16 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+
+  // Add breadcrumb above footer if enabled
+  const breadcrumbsMeta = getMetadata('breadcrumbs') || 'true';
+  if (breadcrumbsMeta.toLowerCase() === 'true') {
+    const footer = doc.querySelector('footer');
+    if (footer) {
+      const breadcrumb = buildBreadcrumb();
+      footer.parentNode.insertBefore(breadcrumb, footer);
+    }
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
