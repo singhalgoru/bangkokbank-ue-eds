@@ -213,6 +213,14 @@
         "label": "Button Text",
         "description": "Text for the CTA button",
         "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "ctaTitle",
+        "label": "Button Title",
+        "description": "Optional title attribute for the CTA link/button",
+        "value": ""
       }
     ]
   },
