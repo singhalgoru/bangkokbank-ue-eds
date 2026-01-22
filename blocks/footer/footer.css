@@ -1,20 +1,302 @@
+/* ==========================================================================
+   Footer Block - Bangkok Bank Style
+   Mobile-first approach with accordion (< 992px) and multi-column (>= 992px)
+   ========================================================================== */
+
+/* Base footer styles */
 footer {
-  background-color: var(--bbl-bg-secondary);
-  font-size: var(--bbl-text-footer-size);
+  background-color: var(--bbl-color-truthful-blue);
+  color: var(--bbl-color-white);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .footer>div {
+  margin: 0;
+  padding: 0;
 }
 
+/* Remove default margins */
 footer .footer p {
   margin: 0;
 }
 
-@media (width >= 1025px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+footer .footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Links styling */
+footer .footer a {
+  color: var(--bbl-color-white);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+footer .footer a:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   MOBILE STYLES (Default - Mobile First)
+   0px - 991px: Accordion layout
+   ========================================================================== */
+
+.footer-container {
+  width: 100%;
+}
+
+.footer-inner {
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.footer-row {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0 16px;
+}
+
+.footer-column {
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-column:last-child {
+  border-bottom: none;
+}
+
+.footer-group {
+  position: relative;
+}
+
+/* Footer title (accordion header on mobile) */
+.footer-title {
+  margin: 0;
+  padding: 20px 0;
+  font-family: var(--bbl-font-family-looped);
+  font-size: 15.4px;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Toggle icon (+ / -) */
+.footer-toggle-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.footer-toggle-icon::before,
+.footer-toggle-icon::after {
+  content: '';
+  position: absolute;
+  background-color: var(--bbl-color-white);
+  transition: transform 0.3s ease;
+}
+
+/* Horizontal line (always visible) */
+.footer-toggle-icon::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+/* Vertical line (hidden when active) */
+.footer-toggle-icon::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+/* When accordion is active, rotate vertical line to hide it */
+.footer-group.active .footer-toggle-icon::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+/* Links container (hidden by default on mobile) */
+.footer-links {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.footer-group.active .footer-links {
+  max-height: 500px;
+  /* Large enough for content */
+  padding-bottom: 16px;
+}
+
+.footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links li {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Bottom bar (copyright, legal links) */
+.footer-bottom {
+  background-color: var(--bbl-color-truthful-blue);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px 0;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.footer-bottom p:last-child {
+  margin-bottom: 0;
+}
+
+.footer-bottom a {
+  color: var(--bbl-color-white);
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   TABLET STYLES
+   768px - 991px: Still accordion, but with adjusted spacing
+   ========================================================================== */
+
+@media (width >=768px) {
+  .footer-inner {
+    padding: 0 32px;
+  }
+
+  .footer-row {
+    padding: 32px 0 20px;
+  }
+
+  .footer-title {
+    font-size: 16px;
+  }
+
+  .footer-links li {
+    font-size: 15px;
+  }
+
+  .footer-bottom p {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP STYLES
+   992px+: Multi-column layout, no accordion
+   ========================================================================== */
+
+@media (width >=992px) {
+  .footer-inner {
+    max-width: 1200px;
+    padding: 0 40px;
+  }
+
+  .footer-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 40px 0 32px;
+  }
+
+  .footer-column {
+    width: auto;
+    flex: 1;
+    border-bottom: none;
+  }
+
+  /* Disable accordion behavior on desktop */
+  .footer-title {
+    padding: 0 0 20px 0;
+    cursor: default;
+    font-size: 17.6px;
+  }
+
+  .footer-toggle-icon {
+    display: none;
+    /* Hide +/- icon on desktop */
+  }
+
+  /* Always show links on desktop */
+  .footer-links {
+    max-height: none;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  .footer-group.active .footer-links {
+    padding-bottom: 0;
+  }
+
+  .footer-links ul {
+    gap: 8px;
+  }
+
+  .footer-links li {
+    font-size: 16px;
+  }
+
+  .footer-bottom {
+    padding: 24px 0;
+  }
+
+  .footer-bottom .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+}
+
+/* ==========================================================================
+   LARGE DESKTOP STYLES
+   1400px+: Increased max-width
+   ========================================================================== */
+
+@media (width >=1400px) {
+  .footer-inner {
+    max-width: 1440px;
+    padding: 0;
+  }
+
+  .footer-row {
+    gap: 32px;
   }
 }
