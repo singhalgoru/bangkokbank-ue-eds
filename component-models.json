@@ -197,6 +197,22 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta",
+        "label": "Button Link",
+        "description": "Optional CTA link for the card",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "Button Text",
+        "description": "Text for the CTA button",
+        "value": ""
       }
     ]
   },
