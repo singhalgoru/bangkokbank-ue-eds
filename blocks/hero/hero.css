@@ -198,7 +198,7 @@ main > .section.hero-container {
 
     .hero-banner__thumbnail-list {
         max-width: initial;
-        padding: 14px 0 0;
+        padding: 14px var(--bbl-space-250) 0;
         width: max-content;
         flex-wrap: nowrap;
     }

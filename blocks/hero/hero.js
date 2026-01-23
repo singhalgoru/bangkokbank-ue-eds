@@ -1,5 +1,17 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+function changeBanner(block) {
+  block.addEventListener('mouseenter', (e) => {
+    const thumbnail = e.target.closest('.hero-banner__thumbnail-item');
+
+    const idx = thumbnail.dataset.index;
+    block.querySelectorAll('[data-index]').forEach((el) => {
+      el.classList.toggle('hero-banner__item--active', el.classList.contains('hero-banner__item') && el.dataset.index === idx);
+      el.classList.toggle('hero-banner__thumbnail-item--active', el.classList.contains('hero-banner__thumbnail-item') && el.dataset.index === idx);
+    });
+  }, true);
+}
+
 export default function decorate(block) {
   const mainImgContainer = document.createElement('div');
   mainImgContainer.className = 'hero-banner__main-img-container';
@@ -91,28 +103,5 @@ export default function decorate(block) {
 
   block.replaceChildren(wrapper);
 
-  const bannerItems = block.querySelectorAll('.hero-banner__item');
-  const thumbnailItems = block.querySelectorAll('.hero-banner__thumbnail-item');
-
-  if (bannerItems.length && thumbnailItems.length) {
-    block.addEventListener(
-      'mouseenter',
-      (e) => {
-        const thumbnailItem = e.target.closest('.hero-banner__thumbnail-item');
-        if (!thumbnailItem) return;
-
-        const index = Number(thumbnailItem.dataset.index);
-
-        bannerItems.forEach((item) => {
-          item.classList.remove('hero-banner__item--active');
-        });
-
-        thumbnailItems.forEach((item) => item.classList.remove('hero-banner__thumbnail-item--active'));
-
-        bannerItems[index].classList.add('hero-banner__item--active');
-        thumbnailItem.classList.add('hero-banner__thumbnail-item--active');
-      },
-      true,
-    );
-  }
+  changeBanner(block);
 }
