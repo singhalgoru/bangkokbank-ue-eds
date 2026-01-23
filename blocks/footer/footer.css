@@ -40,7 +40,7 @@ footer .footer a {
 }
 
 footer .footer a:hover {
-  opacity: 0.8;
+  color: var(--bbl-color-active-blue);
   text-decoration: none;
 }
 
@@ -63,12 +63,11 @@ footer .footer a:hover {
 .footer-row {
   display: flex;
   flex-direction: column;
-  padding: 24px 0 16px;
+  padding: 0;
 }
 
 .footer-column {
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .footer-column:last-child {
@@ -83,16 +82,16 @@ footer .footer a:hover {
 .footer-title {
   margin: 0;
   padding: 20px 0;
-  font-family: var(--bbl-font-family-looped);
   font-size: 15.4px;
-  font-weight: 700;
-  line-height: 1.4;
+  font-weight: 400;
+  line-height: normal;
   cursor: pointer;
   user-select: none;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Toggle icon (+ / -) */
@@ -104,36 +103,22 @@ footer .footer a:hover {
   margin-left: 12px;
 }
 
-.footer-toggle-icon::before,
-.footer-toggle-icon::after {
-  content: '';
+.footer-toggle-icon::before {
+  content: "+";
+  color: rgba(255, 255, 255, 0.6);
   position: absolute;
-  background-color: var(--bbl-color-white);
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 28px Muli-Light;
   transition: transform 0.3s ease;
 }
 
-/* Horizontal line (always visible) */
-.footer-toggle-icon::before {
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  transform: translateY(-50%);
-}
-
-/* Vertical line (hidden when active) */
-.footer-toggle-icon::after {
-  top: 0;
-  left: 50%;
-  width: 2px;
-  height: 100%;
-  transform: translateX(-50%);
-}
-
-/* When accordion is active, rotate vertical line to hide it */
-.footer-group.active .footer-toggle-icon::after {
-  transform: translateX(-50%) rotate(90deg);
-  opacity: 0;
+/* When accordion is active, show minus */
+.footer-group.active .footer-toggle-icon::before {
+  content: "-";
+  font-size: 46px;
+  margin-top: -3px;
 }
 
 /* Links container (hidden by default on mobile) */
@@ -145,46 +130,54 @@ footer .footer a:hover {
 
 .footer-group.active .footer-links {
   max-height: 500px;
-  /* Large enough for content */
-  padding-bottom: 16px;
 }
 
-.footer-links ul {
+footer .footer .footer-links ul {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .footer-links li {
   font-size: 14px;
-  line-height: 1.5;
+  line-height: normal;
 }
 
 /* Bottom bar (copyright, legal links) */
 .footer-bottom {
   background-color: var(--bbl-color-truthful-blue);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 20px 0;
+  padding: 25px 0 30px;
 }
 
-.footer-bottom p {
-  font-size: 12px;
-  line-height: 1.6;
-  margin-bottom: 12px;
-  text-align: center;
+.footer .footer-bottom p {
+  font-size: 12.6px;
+  line-height: 1;
+  margin-bottom: 16px;
+  color: rgba(255, 255, 255, .3);
+}
+
+.footer .footer-bottom p:nth-child(2) {
+  margin-top: 20px;
 }
 
 .footer-bottom p:last-child {
   margin-bottom: 0;
 }
 
-.footer-bottom a {
-  color: var(--bbl-color-white);
-  text-decoration: none;
+.footer .footer-bottom a {
+  color: rgba(255, 255, 255, .3);
+  text-decoration: underline;
+  padding: 0 10px;
 }
 
-.footer-bottom a:hover {
+.footer .footer-bottom a:first-child {
+  padding-left: 0;
+}
+
+.footer .footer-bottom a:hover {
   text-decoration: underline;
+  color: unset;
 }
 
 /* ==========================================================================
@@ -194,15 +187,7 @@ footer .footer a:hover {
 
 @media (width >=768px) {
   .footer-inner {
-    padding: 0 32px;
-  }
-
-  .footer-row {
-    padding: 32px 0 20px;
-  }
-
-  .footer-title {
-    font-size: 16px;
+    padding: 0 48px;
   }
 
   .footer-links li {
