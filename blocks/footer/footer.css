@@ -206,28 +206,31 @@ footer .footer .footer-links ul {
 
 @media (width >=992px) {
   .footer-inner {
-    max-width: 1200px;
-    padding: 0 40px;
+    max-width: 1752px;
+    padding: 0 84px;
+    margin: auto;
+    border-bottom: 1px solid rgb(255, 255, 255, .1);
   }
 
   .footer-row {
     flex-direction: row;
     justify-content: space-between;
-    gap: 24px;
-    padding: 40px 0 32px;
+    padding: 25px 0 30px;
   }
 
   .footer-column {
-    width: auto;
+    width: 100%;
     flex: 1;
     border-bottom: none;
+    padding: 0 20px;
   }
 
   /* Disable accordion behavior on desktop */
   .footer-title {
-    padding: 0 0 20px 0;
+    padding: 20px 0;
     cursor: default;
     font-size: 17.6px;
+    border: 0;
   }
 
   .footer-toggle-icon {
@@ -246,42 +249,37 @@ footer .footer .footer-links ul {
     padding-bottom: 0;
   }
 
-  .footer-links ul {
-    gap: 8px;
-  }
-
   .footer-links li {
     font-size: 16px;
   }
 
   .footer-bottom {
-    padding: 24px 0;
+    padding: 25px 0 18px;
   }
 
   .footer-bottom .footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: inline-block;
+    border: 0;
   }
 
-  .footer-bottom p {
+  .footer .footer-bottom p {
     font-size: 14px;
     margin-bottom: 8px;
+    width: fit-content;
+    display: inline-block;
+    margin-right: 20px;
   }
-}
 
-/* ==========================================================================
-   LARGE DESKTOP STYLES
-   1400px+: Increased max-width
-   ========================================================================== */
-
-@media (width >=1400px) {
-  .footer-inner {
-    max-width: 1440px;
+  footer .footer .footer-links ul {
     padding: 0;
+    border: 0;
   }
 
-  .footer-row {
-    gap: 32px;
+  .footer .footer-bottom p:nth-child(2) {
+    margin: 0;
   }
+
+   .footer .footer-bottom p:last-child {
+      display: block;
+   }
 }
