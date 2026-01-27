@@ -48,6 +48,9 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+        {
+          "...": "../../models/elements/_button-fields.json#/fields"
         }
       ]
     }

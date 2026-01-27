@@ -207,27 +207,27 @@
       },
       {
         "component": "aem-content",
-        "name": "cta",
-        "label": "Button Link",
+        "name": "link",
+        "label": "Link",
         "description": "Destination URL for the button"
       },
       {
         "component": "text",
-        "name": "ctaText",
-        "label": "Button Text",
+        "name": "linkText",
+        "label": "Text",
         "description": "Button label text",
         "required": true
       },
       {
         "component": "text",
-        "name": "ctaTitle",
-        "label": "Button Title",
+        "name": "linkTitle",
+        "label": "Title",
         "description": "Accessibility title attribute (optional)"
       },
       {
         "component": "select",
-        "name": "ctaType",
-        "label": "Button Style",
+        "name": "linkType",
+        "label": "Type",
         "description": "Button style variant",
         "valueType": "string",
         "value": "",
