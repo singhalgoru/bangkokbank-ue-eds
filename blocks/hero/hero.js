@@ -13,6 +13,9 @@ function changeBanner(block) {
 }
 
 export default function decorate(block) {
+  const [variantEl] = block.children;
+  const variant = variantEl?.textContent?.trim() || '';
+
   const mainImgContainer = document.createElement('div');
   mainImgContainer.className = 'hero-banner__main-img-container';
 
@@ -99,7 +102,8 @@ export default function decorate(block) {
   thumbnailOuter.append(thumbnailList);
 
   const wrapper = document.createElement('div');
-  wrapper.className = 'hero-banner';
+  wrapper.classList = `hero-banner hero-banner--${variant}`;
+
   wrapper.append(mainImgContainer);
   wrapper.append(thumbnailOuter);
 

@@ -230,6 +230,32 @@
     ]
   },
   {
+    "id": "hero",
+    "fields": [
+      {
+        "component": "select",
+        "name": "Variant",
+        "value": "default",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "Hero with thumbnail images",
+            "value": "hero_with_thumbnail_images"
+          },
+          {
+            "name": "Simple Banner",
+            "value": "simple_banner"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "hero-item",
     "fields": [
       {
