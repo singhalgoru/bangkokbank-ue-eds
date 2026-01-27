@@ -152,7 +152,7 @@
                 "template": {
                   "name": "Hero",
                   "filter": "hero",
-                  "description": "Add up to 6 hero banner items"
+                  "label": "Add up to 6 hero banner items"
                 }
               }
             }
@@ -168,7 +168,7 @@
                 "template": {
                   "name": "Hero Item",
                   "model": "hero-item",
-                  "description": "Maximum 6 items allowed"
+                  "label": "Maximum 6 items allowed"
                 }
               }
             }
