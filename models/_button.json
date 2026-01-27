@@ -47,10 +47,6 @@
           "value": "",
           "options": [
             {
-              "name": "Default",
-              "value": ""
-            },
-            {
               "name": "Primary",
               "value": "primary"
             },

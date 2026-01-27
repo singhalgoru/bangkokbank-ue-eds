@@ -111,10 +111,6 @@
         "value": "",
         "options": [
           {
-            "name": "Default",
-            "value": ""
-          },
-          {
             "name": "Primary",
             "value": "primary"
           },
@@ -236,10 +232,6 @@
         "valueType": "string",
         "value": "",
         "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
           {
             "name": "Primary",
             "value": "primary"
