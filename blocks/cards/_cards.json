@@ -78,7 +78,8 @@
           "options": [
             { "name": "Default", "value": "" },
             { "name": "Primary", "value": "primary" },
-            { "name": "Secondary", "value": "secondary" }
+            { "name": "Secondary", "value": "secondary" },
+            { "name": "Territory", "value": "territory" }
           ]
         }
       ]

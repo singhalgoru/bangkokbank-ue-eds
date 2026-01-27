@@ -247,6 +247,10 @@
           {
             "name": "Secondary",
             "value": "secondary"
+          },
+          {
+            "name": "Territory",
+            "value": "territory"
           }
         ]
       }
