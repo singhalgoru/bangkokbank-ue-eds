@@ -66,7 +66,7 @@
           "valueType": "string"
         },
         {
-          "...": "../../models/elements/_button-fields.json"
+          "...": "../../models/elements/_button-fields.json#fields"
         },
         {
           "component": "reference",

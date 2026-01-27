@@ -1,4 +1,5 @@
-
+{
+  "fields": [
     {
       "component": "aem-content",
       "name": "link",
@@ -40,4 +41,5 @@
         }
       ]
     }
-
+  ]
+}
