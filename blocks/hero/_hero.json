@@ -65,50 +65,9 @@
           "label": "Sub Title",
           "valueType": "string"
         },
-    {
-      "component": "aem-content",
-      "name": "link",
-      "label": "Link",
-      "description": "Destination URL for the button"
-    },
-    {
-      "component": "text",
-      "name": "linkText",
-      "label": "Text",
-      "description": "Button label text",
-      "required": true
-    },
-    {
-      "component": "text",
-      "name": "linkTitle",
-      "label": "Title",
-      "description": "Accessibility title attribute (optional)"
-    },
-    {
-      "component": "select",
-      "name": "linkType",
-      "label": "Type",
-      "description": "Button style variant",
-      "valueType": "string",
-      "value": "",
-      "options": [
         {
-          "name": "Primary",
-          "value": "primary"
+          "...": "../../models/elements/_button-fields.json"
         },
-        {
-          "name": "Secondary",
-          "value": "secondary"
-        },
-        {
-          "name": "Tertiary",
-          "value": "tertiary"
-        }
-      ]
-    },
-  
-
-
         {
           "component": "reference",
           "valueType": "string",
@@ -116,7 +75,7 @@
           "label": "Thumbnail Image",
           "multi": false
         },
-        {
+       {
           "component": "text",
           "valueType": "string",
           "name": "homeThumbImageAlt",
