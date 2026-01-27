@@ -63,7 +63,7 @@
           "label": "Sub Title",
           "valueType": "string"
         },
-         {
+        {
           "component": "aem-content",
           "valueType": "string",
           "name": "ctaButtonLink",
@@ -79,14 +79,14 @@
           "component": "reference",
           "valueType": "string",
           "name": "homeThumbImage",
-          "label": "Image",
+          "label": "Thumbnail Image",
           "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "homeThumbImageAlt",
-          "label": "Alt",
+          "label": "Thumbnail Alt",
           "value": ""
         }
       ]
@@ -97,7 +97,9 @@
       "id": "hero",
       "components": [
         "hero-item"
-      ]
+      ],
+      "maxItems": 6,
+      "description": "Maximum 6 hero items allowed"
     }
   ]
 }

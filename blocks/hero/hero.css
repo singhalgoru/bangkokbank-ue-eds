@@ -80,8 +80,8 @@ main > .section.hero-container {
 .hero-banner__content-inner {
     float: left;
 
-    .hero-banner__btn {
-        background: var(--bbl-color-active-blue);
+    .hero-banner__btn, .button {
+        /* background: var(--bbl-color-active-blue); */
         color: var(--bbl-color-white);
         min-width: 155px;
         border: 1px solid var(--bbl-color-active-blue);
@@ -299,13 +299,21 @@ main > .section.hero-container {
         padding: 0 var(--bbl-space-1050);
     }
 
-  @media (width >= 1025px) and (width <= 1920px) {
+      .hero-banner__thumbnail-outer::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hero-banner__thumbnail-outer {
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
     main .section.full-bleed-special.hero-banner__thumbnail-outer {
         max-width: calc(100% - 168px);
         width: calc(100% - 168px);
         padding: 0;
     }
-}
+
 
     .hero-banner__thumbnail-list {
         margin: 0;

@@ -27,7 +27,9 @@ export default function decorate(block) {
 
   let bannerIndex = 0;
 
-  [...block.children].forEach((row) => {
+  const items = [...block.children].slice(0, 6);
+
+  items.forEach((row) => {
     const [imageCell, headingCell, textCell, linkCell, thumbImgCell] = [
       ...row.children,
     ];
@@ -65,7 +67,7 @@ export default function decorate(block) {
 
     const link = linkCell?.querySelector('a');
     if (link) {
-      link.className = 'hero-banner__btn';
+      link.classList = 'hero-banner__btn button button-primary';
       contentInner.append(link);
     }
 

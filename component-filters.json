@@ -45,6 +45,8 @@
     "id": "hero",
     "components": [
       "hero-item"
-    ]
+    ],
+    "maxItems": 6,
+    "description": "Maximum 6 hero items allowed"
   }
 ]
