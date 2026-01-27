@@ -49,7 +49,7 @@ export function moveInstrumentation(from, to) {
 
 /**
  * Builds breadcrumb navigation from the current URL path
- * @returns {Element} The breadcrumb element
+ * @returns {HTMLElement} The breadcrumb element
  */
 function buildBreadcrumb() {
   const breadcrumb = document.createElement('div');
@@ -59,39 +59,61 @@ function buildBreadcrumb() {
   const ol = document.createElement('ol');
   breadcrumb.appendChild(ol);
 
-  // Get path segments from current location
   const pathSegments = window.location.pathname
     .split('/')
-    .filter((segment) => segment.length > 0);
+    .filter(Boolean);
 
-  // Build breadcrumb items from path segments
-  let currentPath = '';
-  pathSegments.forEach((segment, index) => {
-    currentPath += `/${segment}`;
+  const langPattern = /^([a-z]{2}(-[A-Z]{2})?)$/;
+  const startIndex =
+    pathSegments.length && langPattern.test(pathSegments[0]) ? 1 : 0;
+
+  // Homepage only
+  if (pathSegments.length === startIndex) {
+    breadcrumb.classList.add('is-homepage');
+
     const li = document.createElement('li');
+    li.textContent = 'Homepage - Bangkok Bank';
+    li.setAttribute('aria-current', 'page');
+    ol.appendChild(li);
 
-    // Convert segment to readable text (replace hyphens with spaces, capitalize)
-    const text = segment
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase());
+    return breadcrumb;
+  }
 
-    if (index === pathSegments.length - 1) {
-      // Last item - current page (no link)
-      li.textContent = text;
+  let currentPath = '';
+
+  for (let i = startIndex; i < pathSegments.length; i += 1) {
+    const segment = pathSegments[i];
+    currentPath += `/${segment}`;
+
+    const li = document.createElement('li');
+    const label = formatSegmentLabel(segment);
+    const isLast = i === pathSegments.length - 1;
+
+    if (isLast) {
+      li.textContent = label;
       li.setAttribute('aria-current', 'page');
     } else {
-      // Intermediate items - create links
       const link = document.createElement('a');
       link.href = currentPath;
-      link.textContent = text;
+      link.textContent = label;
       li.appendChild(link);
     }
 
     ol.appendChild(li);
-  });
+  }
 
   return breadcrumb;
 }
+
+/**
+ * Converts a URL segment into a readable breadcrumb label
+ */
+function formatSegmentLabel(segment) {
+  return segment
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
 
 /**
  * load fonts.css and set a session storage flag
