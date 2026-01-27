@@ -234,7 +234,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "Variant",
+        "name": "variant",
         "value": "default",
         "label": "Variant",
         "valueType": "string",
