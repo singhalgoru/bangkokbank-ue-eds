@@ -39,7 +39,7 @@ button,
   text-align: center;
   
   /* Layout */
-  border-radius: var(--bbl-radius-full);
+  border-radius: var(--bbl-radius-button);
   transition: all 0.2s ease-in-out;
   white-space: nowrap;
   
