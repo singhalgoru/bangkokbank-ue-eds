@@ -27,7 +27,7 @@ export default function decorate(block) {
 
   let bannerIndex = 0;
 
-  const items = [...block.children].slice(0, 6);
+  const items = [...block.children].slice(0, 7);
 
   items.forEach((row) => {
     const [imageCell, headingCell, textCell, linkCell, thumbImgCell] = [
