@@ -119,8 +119,8 @@
             "value": "secondary"
           },
           {
-            "name": "Territory",
-            "value": "territory"
+            "name": "Tertiary",
+            "value": "tertiary"
           }
         ]
       }
@@ -241,8 +241,8 @@
             "value": "secondary"
           },
           {
-            "name": "Territory",
-            "value": "territory"
+            "name": "Tertiary",
+            "value": "tertiary"
           }
         ]
       }
