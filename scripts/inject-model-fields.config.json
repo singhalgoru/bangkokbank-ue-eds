@@ -1,0 +1,25 @@
+{
+  "sources": [
+    {
+      "sourceFile": "models/_button.json",
+      "sourceModelId": "button",
+      "targets": [
+        {
+          "targetModelId": "card",
+          "nameMap": {
+            "link": "cta",
+            "linkText": "ctaText",
+            "linkTitle": "ctaTitle",
+            "linkType": "ctaType"
+          },
+          "labelMap": {
+            "Link": "Button Link",
+            "Text": "Button Text",
+            "Title": "Button Title",
+            "Type": "Button Style"
+          }
+        }
+      ]
+    }
+  ]
+}
