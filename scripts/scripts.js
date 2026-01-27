@@ -1,7 +1,6 @@
 import {
   loadHeader,
   loadFooter,
-  decorateButtons,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -12,6 +11,10 @@ import {
   loadCSS,
   getMetadata,
 } from './aem.js';
+
+import {
+  decorateButtons,
+} from './bbl-utils.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
