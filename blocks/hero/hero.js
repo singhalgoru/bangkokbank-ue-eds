@@ -30,7 +30,15 @@ export default function decorate(block) {
   const items = [...block.children].slice(0, 7);
 
   items.forEach((row) => {
-    const [imageCell, headingCell, textCell, linkCell, thumbImgCell] = [
+    const [
+      imageCell,
+      headingCell,
+      textCell,
+      linkCell,
+      linkTextCell,
+      linkTitleCell,
+      linkTypeCell,
+      thumbImgCell] = [
       ...row.children,
     ];
 
@@ -65,9 +73,21 @@ export default function decorate(block) {
       contentInner.innerHTML += textCell.innerHTML;
     }
 
-    const link = linkCell?.querySelector('a');
-    if (link) {
-      link.classList = 'hero-banner__btn button button-primary';
+    const linkUrl = linkCell?.textContent?.trim();
+    const linkText = linkTextCell?.textContent?.trim();
+    const linkTitle = linkTitleCell?.textContent?.trim();
+    const linkType = linkTypeCell?.textContent?.trim() || 'primary';
+
+    if (linkUrl && linkText) {
+      const link = document.createElement('a');
+      link.href = linkUrl;
+      link.textContent = linkText;
+
+      link.className = `hero-banner__btn button button-${linkType}`;
+      if (linkTitle) {
+        link.title = linkTitle;
+      }
+
       contentInner.append(link);
     }
 

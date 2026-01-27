@@ -66,16 +66,7 @@
           "valueType": "string"
         },
         {
-          "component": "aem-content",
-          "valueType": "string",
-          "name": "ctaButtonLink",
-          "label": "*Cta Link"
-        },
-        {
-          "component": "text-input",
-          "name": "ctaButtonLinkText",
-          "label": "Cta Button Link Text",
-          "valueType": "string"
+          "...": "../../models/elements/_button-fields.json"
         },
         {
           "component": "reference",
