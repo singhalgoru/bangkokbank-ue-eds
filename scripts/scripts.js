@@ -56,7 +56,6 @@ export function moveInstrumentation(from, to) {
  */
 function buildBreadcrumb() {
   const shortTitle = getMetadata('short-title');
-  console.warn('Short Title Metadata:', shortTitle);
   const breadcrumb = document.createElement('div');
   breadcrumb.className = 'breadcrumb';
   breadcrumb.setAttribute('aria-label', 'Breadcrumb');

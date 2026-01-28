@@ -61,15 +61,13 @@
           "valueType": "string",
           "name": "icon",
           "label": "Icon",
-          "multi": false,
-          "required": true
+          "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "url",
-          "label": "URL",
-          "required": true
+          "label": "URL"
         }
       ]
     }
