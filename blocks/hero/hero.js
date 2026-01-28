@@ -1,4 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { decorateButtons } from '../../scripts/bbl-utils.js';
 
 function changeBanner(block) {
   block.addEventListener('mouseenter', (e) => {
@@ -65,11 +66,11 @@ export default function decorate(block) {
       contentInner.innerHTML += textCell.innerHTML;
     }
 
-    const link = linkCell?.querySelector('a');
-    if (link) {
-      link.classList = 'hero-banner__btn button button-primary button-m';
-      contentInner.append(link);
+    if (linkCell) {
+      contentInner.innerHTML += linkCell.innerHTML;
     }
+
+    decorateButtons(contentInner);
 
     content.append(contentInner);
     bannerItem.append(content);

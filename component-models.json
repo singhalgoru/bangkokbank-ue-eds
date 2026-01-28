@@ -278,6 +278,38 @@
     ]
   },
   {
+    "id": "hero",
+    "fields": [
+      {
+        "component": "select",
+        "name": "variant",
+        "value": "default",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Hero With Thumbnail Images",
+            "value": "hero_with_thumbnail_images"
+          },
+          {
+            "name": "Simple",
+            "value": "simple"
+          }
+        ]
+      },
+      {
+        "component": "blocks",
+        "label": "Hero Item",
+        "name": "hero-item",
+        "valueType": "block",
+        "multi": true,
+        "allowedBlocks": [
+          "hero-item"
+        ]
+      }
+    ]
+  },
+  {
     "id": "hero-item",
     "fields": [
       {
