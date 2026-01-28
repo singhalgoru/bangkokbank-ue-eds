@@ -1,14 +1,14 @@
 /* ==========================================================================
    Footer Block - Bangkok Bank Style
-   Mobile-first approach with accordion (< 1024px) and multi-column (>= 1024px)
+   Mobile-first approach with accordion (<= 1024px) and multi-column (>= 1025px)
    ========================================================================== */
 
 /* Base footer styles */
 .footer {
   background-color: var(--bbl-color-truthful-blue);
   color: var(--bbl-color-white);
-  font-size: var(--bbl-font-size-b2);
-  line-height: var(--bbl-line-height-body);
+  font-size: var(--bbl-text-footer-size);
+  line-height: var(--bbl-text-footer-line-height);
 }
 
 .footer > div {
@@ -46,7 +46,7 @@
 
 /* ==========================================================================
    MOBILE STYLES (Default - Mobile First)
-   0px - 1023px: Accordion layout
+   < 761px: Accordion layout
    ========================================================================== */
 
 .footer .footer-container {
@@ -140,7 +140,7 @@
 }
 
 .footer .footer-links li {
-  font-size: var(--bbl-font-size-b2);
+  font-size: var(--bbl-text-footer-size);
   line-height: normal;
 }
 
@@ -266,7 +266,7 @@
   }
 
   .footer .footer-bottom p {
-    font-size: var(--bbl-font-size-b2);
+    font-size: var(--bbl-text-footer-size);
     margin-bottom: var(--bbl-space-100);
     width: fit-content;
     display: inline-block;
