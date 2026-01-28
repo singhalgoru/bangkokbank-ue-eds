@@ -152,6 +152,7 @@
                 "template": {
                   "name": "Hero",
                   "filter": "hero",
+                  "model": "hero",
                   "label": "Add up to 6 hero banner items"
                 }
               }

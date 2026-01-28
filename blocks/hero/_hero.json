@@ -10,6 +10,7 @@
             "template": {
               "name": "Hero",
               "filter": "hero",
+              "model": "hero",
               "label": "Add up to 6 hero banner items"
             }
           }
@@ -37,7 +38,7 @@
     {
       "id": "hero",
       "fields": [
-          {
+        {
           "component": "select",
           "name": "Variant",
           "value": "default",
@@ -45,12 +46,12 @@
           "valueType": "string",
           "options": [
             { 
-                "name": "Hero With Thumbnail Images ", 
-                "value": "hero_with_thumbnail_images" 
+              "name": "Hero With Thumbnail Images", 
+              "value": "hero_with_thumbnail_images" 
             },
             {
-                "name": "Simple", 
-                "value": "simple" 
+              "name": "Simple", 
+              "value": "simple" 
             }
           ]
         },
