@@ -1,6 +1,9 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
+// Breakpoint matching design system tokens (760px tablet, 1024px desktop)
+const DESKTOP_BREAKPOINT = 1024;
+
 /**
  * Builds the footer structure from EDS content
  * Creates both mobile (accordion) and desktop (multi-column) layouts
@@ -114,8 +117,8 @@ function setupAccordion(block) {
 
   headers.forEach((header) => {
     header.addEventListener('click', () => {
-      // Only work on mobile/tablet (< 992px)
-      if (window.innerWidth >= 992) return;
+      // Only work on mobile/tablet (< 1024px)
+      if (window.innerWidth >= DESKTOP_BREAKPOINT) return;
 
       const parent = header.closest('.footer-group');
       const isActive = parent.classList.contains('active');

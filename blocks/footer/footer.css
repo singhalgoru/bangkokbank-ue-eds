@@ -1,85 +1,85 @@
 /* ==========================================================================
    Footer Block - Bangkok Bank Style
-   Mobile-first approach with accordion (< 992px) and multi-column (>= 992px)
+   Mobile-first approach with accordion (< 1024px) and multi-column (>= 1024px)
    ========================================================================== */
 
 /* Base footer styles */
-footer {
+.footer {
   background-color: var(--bbl-color-truthful-blue);
   color: var(--bbl-color-white);
   font-size: var(--bbl-font-size-b2);
   line-height: var(--bbl-line-height-body);
 }
 
-footer .footer>div {
+.footer > div {
   margin: 0;
   padding: 0;
 }
 
 /* Remove default margins */
-footer .footer p {
+.footer p {
   margin: 0;
 }
 
-footer .footer ul {
+.footer ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-footer .footer li {
+.footer li {
   margin: 0;
   padding: 0;
 }
 
 /* Links styling */
-footer .footer a {
+.footer a {
   color: var(--bbl-color-white);
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
-footer .footer a:hover {
+.footer a:hover {
   color: var(--bbl-color-active-blue);
   text-decoration: none;
 }
 
 /* ==========================================================================
    MOBILE STYLES (Default - Mobile First)
-   0px - 991px: Accordion layout
+   0px - 1023px: Accordion layout
    ========================================================================== */
 
-.footer-container {
+.footer .footer-container {
   width: 100%;
 }
 
-.footer-inner {
+.footer .footer-inner {
   width: 100%;
   padding: 0 var(--bbl-space-container-xs);
   margin: 0 auto;
   box-sizing: border-box;
 }
 
-.footer-row {
+.footer .footer-row {
   display: flex;
   flex-direction: column;
   padding: 0;
 }
 
-.footer-column {
+.footer .footer-column {
   width: 100%;
 }
 
-.footer-column:last-child {
+.footer .footer-column:last-child {
   border-bottom: none;
 }
 
-.footer-group {
+.footer .footer-group {
   position: relative;
 }
 
 /* Footer title (accordion header on mobile) */
-.footer-title {
+.footer .footer-title {
   margin: 0;
   padding: var(--bbl-space-250) 0;
   font-size: 15.4px;
@@ -95,7 +95,7 @@ footer .footer a:hover {
 }
 
 /* Toggle icon (+ / -) */
-.footer-toggle-icon {
+.footer .footer-toggle-icon {
   position: relative;
   width: 20px;
   height: 20px;
@@ -103,7 +103,7 @@ footer .footer a:hover {
   margin-left: var(--bbl-space-150);
 }
 
-.footer-toggle-icon::before {
+.footer .footer-toggle-icon::before {
   content: "+";
   color: rgba(255, 255, 255, 0.6);
   position: absolute;
@@ -115,37 +115,37 @@ footer .footer a:hover {
 }
 
 /* When accordion is active, show minus */
-.footer-group.active .footer-toggle-icon::before {
+.footer .footer-group.active .footer-toggle-icon::before {
   content: "-";
   font-size: 46px;
   margin-top: -3px;
 }
 
 /* Links container (hidden by default on mobile) */
-.footer-links {
+.footer .footer-links {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
-.footer-group.active .footer-links {
+.footer .footer-group.active .footer-links {
   max-height: 500px;
 }
 
-footer .footer .footer-links ul {
+.footer .footer-links ul {
   display: flex;
   flex-direction: column;
   padding: var(--bbl-space-250) 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.footer-links li {
+.footer .footer-links li {
   font-size: var(--bbl-font-size-b2);
   line-height: normal;
 }
 
 /* Bottom bar (copyright, legal links) */
-.footer-bottom {
+.footer .footer-bottom {
   background-color: var(--bbl-color-truthful-blue);
   padding: var(--bbl-space-300) 0 var(--bbl-space-350);
 }
@@ -161,7 +161,7 @@ footer .footer .footer-links ul {
   margin-top: var(--bbl-space-250);
 }
 
-.footer-bottom p:last-child {
+.footer .footer-bottom p:last-child {
   margin-bottom: 0;
 }
 
@@ -182,43 +182,43 @@ footer .footer .footer-links ul {
 
 /* ==========================================================================
    TABLET STYLES
-   768px - 991px: Still accordion, but with adjusted spacing
+   760px - 1023px: Still accordion, but with adjusted spacing
    ========================================================================== */
 
-@media (width >=768px) {
+@media (width >= 760px) {
   .footer-inner {
     padding: 0 var(--bbl-space-600);
   }
 
-  .footer-links li {
+  .footer .footer-links li {
     font-size: 15px;
   }
 
-  .footer-bottom p {
+  .footer .footer-bottom p {
     font-size: 13px;
   }
 }
 
 /* ==========================================================================
    DESKTOP STYLES
-   992px+: Multi-column layout, no accordion
+   1024px+: Multi-column layout, no accordion
    ========================================================================== */
 
-@media (width >=992px) {
-  .footer-inner {
+@media (width >= 1024px) {
+  .footer .footer-inner {
     max-width: 1752px;
     padding: 0 var(--bbl-space-1050);
     margin: auto;
     border-bottom: 1px solid rgb(255, 255, 255, .1);
   }
 
-  .footer-row {
+  .footer .footer-row {
     flex-direction: row;
     justify-content: space-between;
     padding: var(--bbl-space-300) 0 var(--bbl-space-350);
   }
 
-  .footer-column {
+  .footer .footer-column {
     width: 100%;
     flex: 1;
     border-bottom: none;
@@ -226,38 +226,38 @@ footer .footer .footer-links ul {
   }
 
   /* Disable accordion behavior on desktop */
-  .footer-title {
+  .footer .footer-title {
     padding: var(--bbl-space-250) 0;
     cursor: default;
     font-size: 17.6px;
     border: 0;
   }
 
-  .footer-toggle-icon {
+  .footer .footer-toggle-icon {
     display: none;
     /* Hide +/- icon on desktop */
   }
 
   /* Always show links on desktop */
-  .footer-links {
+  .footer .footer-links {
     max-height: none;
     overflow: visible;
     padding-bottom: 0;
   }
 
-  .footer-group.active .footer-links {
+  .footer .footer-group.active .footer-links {
     padding-bottom: 0;
   }
 
-  .footer-links li {
+  .footer .footer-links li {
     font-size: var(--bbl-font-size-b1);
   }
 
-  .footer-bottom {
+  .footer .footer-bottom {
     padding: var(--bbl-space-300) 0 var(--bbl-space-200);
   }
 
-  .footer-bottom .footer-inner {
+  .footer .footer-bottom .footer-inner {
     display: inline-block;
     border: 0;
   }
@@ -270,7 +270,7 @@ footer .footer .footer-links ul {
     margin-right: var(--bbl-space-250);
   }
 
-  footer .footer .footer-links ul {
+  .footer .footer-links ul {
     padding: 0;
     border: 0;
   }
