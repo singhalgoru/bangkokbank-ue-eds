@@ -91,7 +91,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgb(255 255 255 / 20%);
+  border-bottom: 1px solid var(--bbl-color-white-alpha-20);
 }
 
 /* Toggle icon (+ / -) */
@@ -105,7 +105,7 @@
 
 .footer .footer-toggle-icon::before {
   content: "+";
-  color: rgb(255 255 255 / 60%);
+  color: var(--bbl-color-white-alpha-60);
   position: absolute;
   right: 10px;
   top: 50%;
@@ -136,7 +136,7 @@
   display: flex;
   flex-direction: column;
   padding: var(--bbl-space-250) 0;
-  border-bottom: 1px solid rgb(255 255 255 / 20%);
+  border-bottom: 1px solid var(--bbl-color-white-alpha-20);
 }
 
 .footer .footer-links li {
@@ -154,7 +154,7 @@
   font-size: 12.6px;
   line-height: 1;
   margin-bottom: var(--bbl-space-200);
-  color: rgb(255 255 255 / 30%);
+  color: var(--bbl-color-white-alpha-30);
 }
 
 .footer .footer-bottom p:nth-child(2) {
@@ -166,7 +166,7 @@
 }
 
 .footer .footer-bottom a {
-  color: rgb(255 255 255 / 30%);
+  color: var(--bbl-color-white-alpha-30);
   text-decoration: underline;
   padding: 0 var(--bbl-space-150);
 }
@@ -182,10 +182,10 @@
 
 /* ==========================================================================
    TABLET STYLES
-   760px - 1023px: Still accordion, but with adjusted spacing
+   761px - 1024px: Still accordion, but with adjusted spacing
    ========================================================================== */
 
-@media (width >= 760px) {
+@media (width >= 761px) {
   .footer-inner {
     padding: 0 var(--bbl-space-600);
   }
@@ -201,15 +201,15 @@
 
 /* ==========================================================================
    DESKTOP STYLES
-   1024px+: Multi-column layout, no accordion
+   1025px+: Multi-column layout, no accordion
    ========================================================================== */
 
-@media (width >= 1024px) {
+@media (width >= 1025px) {
   .footer .footer-inner {
-    max-width: 1752px;
+    max-width: var(--bbl-layout-content-max-width-1920);
     padding: 0 var(--bbl-space-1050);
     margin: auto;
-    border-bottom: 1px solid rgb(255 255 255 / 10%);
+    border-bottom: 1px solid var(--bbl-color-white-alpha-10);
   }
 
   .footer .footer-row {
@@ -257,7 +257,7 @@
   .footer .footer-bottom {
     padding: var(--bbl-space-300) 0 var(--bbl-space-200);
     margin: auto;
-    max-width: 1752px;
+    max-width: var(--bbl-layout-content-max-width-1920);
   }
 
   .footer .footer-bottom .footer-inner {
