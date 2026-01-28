@@ -23,6 +23,12 @@
           "label": "Keywords"
         },
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "short-title",
+          "label": "Short Page Title"
+        },
+        {
           "component": "richtext",
           "name": "breadcrumb",
           "value": "",
