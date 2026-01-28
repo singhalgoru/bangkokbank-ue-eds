@@ -306,6 +306,7 @@ function getMetadata(name, doc = document) {
   const meta = [...doc.head.querySelectorAll(`meta[${attr}="${name}"]`)]
     .map((m) => m.content)
     .join(', ');
+  console.warn(`Metadata [${name}]:`, meta);
   return meta || '';
 }
 

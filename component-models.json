@@ -27,13 +27,6 @@
         "value": "",
         "label": "Breadcrumb",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "pageTitle",
-        "label": "Page Title",
-        "value": "",
-        "valueType": "string"
       }
     ]
   },
