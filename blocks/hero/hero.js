@@ -67,7 +67,7 @@ export default function decorate(block) {
 
     const link = linkCell?.querySelector('a');
     if (link) {
-      link.classList = 'hero-banner__btn button button-primary';
+      link.classList = 'hero-banner__btn button button-primary button-m';
       contentInner.append(link);
     }
 

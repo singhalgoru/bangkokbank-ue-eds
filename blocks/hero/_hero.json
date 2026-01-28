@@ -35,6 +35,28 @@
   ],
   "models": [
     {
+      "id": "hero",
+      "fields": [
+          {
+          "component": "select",
+          "name": "Variant",
+          "value": "default",
+          "label": "Variant",
+          "valueType": "string",
+          "options": [
+            { 
+                "name": "Hero With Thumbnail Images ", 
+                "value": "hero_with_thumbnail_images" 
+            },
+            {
+                "name": "Simple", 
+                "value": "simple" 
+            }
+          ]
+        },
+      ]
+    },
+    {
       "id": "hero-item",
       "fields": [
         {
@@ -75,7 +97,7 @@
           "label": "Thumbnail Image",
           "multi": false
         },
-       {
+        {
           "component": "text",
           "valueType": "string",
           "name": "homeThumbImageAlt",
