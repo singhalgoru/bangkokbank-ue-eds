@@ -255,6 +255,8 @@
 
   .footer .footer-bottom {
     padding: var(--bbl-space-300) 0 var(--bbl-space-200);
+    margin: auto;
+    max-width: 1752px;
   }
 
   .footer .footer-bottom .footer-inner {
