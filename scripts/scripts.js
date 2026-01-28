@@ -55,8 +55,8 @@ export function moveInstrumentation(from, to) {
  * @returns {HTMLElement} The breadcrumb element
  */
 function buildBreadcrumb() {
-  const pageShortTitle = getMetadata('pageShortTitle');
-  console.warn('Page Short Title:', pageShortTitle);
+  const shortTitle = getMetadata('short-title');
+  console.warn('Short Title Metadata:', shortTitle);
   const breadcrumb = document.createElement('div');
   breadcrumb.className = 'breadcrumb';
   breadcrumb.setAttribute('aria-label', 'Breadcrumb');
@@ -96,7 +96,8 @@ function buildBreadcrumb() {
     const isLast = i === pathSegments.length - 1;
 
     if (isLast) {
-      li.textContent = label;
+      // Use shortTitle if available for the current page, otherwise use the segment-based label
+      li.textContent = shortTitle || label;
       li.setAttribute('aria-current', 'page');
     } else {
       const link = document.createElement('a');
