@@ -302,5 +302,60 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "megamenu",
+    "fields": [
+      {
+        "component": "select",
+        "name": "menuName",
+        "label": "Menu Name",
+        "description": "Select a menu label",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Personal Banking",
+            "value": "personal-banking"
+          },
+          {
+            "name": "Business Banking",
+            "value": "business-banking"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "menuTitle",
+        "label": "Menu Title",
+        "description": "Title text for the menu item",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the button"
+      }
+    ]
+  },
+  {
+    "id": "menu-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
   }
 ]
