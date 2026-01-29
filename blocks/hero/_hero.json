@@ -11,7 +11,8 @@
               "name": "Hero",
               "filter": "hero",
               "model": "hero",
-              "label": "Add up to 6 hero banner items"
+              "title": "Hero",
+              "titleType": "h2"
             }
           }
         }
@@ -26,8 +27,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Hero Item",
-              "model": "hero-item",
-              "label": "Maximum 6 items allowed"
+              "model": "hero-item"
             }
           }
         }
