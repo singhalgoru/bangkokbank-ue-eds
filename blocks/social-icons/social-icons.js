@@ -5,6 +5,7 @@
  */
 
 export default function decorate(block) {
+  return;
   const socialShare = document.createElement('div');
   socialShare.className = 'social-share';
 
