@@ -1,6 +1,7 @@
 import {
   loadHeader,
   loadFooter,
+  loadBreadcrumb,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -48,67 +49,6 @@ export function moveInstrumentation(from, to) {
       .map(({ nodeName }) => nodeName)
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
-}
-
-/**
- * Builds breadcrumb navigation from the current URL path
- * @returns {HTMLElement} The breadcrumb element
- */
-async function buildBreadcrumb() {
-  const shortTitle = getMetadata('short-title');
-  const breadcrumb = document.createElement('div');
-  breadcrumb.className = 'breadcrumb';
-  breadcrumb.setAttribute('aria-label', 'Breadcrumb');
-
-  const ol = document.createElement('ol');
-  breadcrumb.appendChild(ol);
-
-  const pathSegments = window.location.pathname
-    .split('/')
-    .filter(Boolean);
-
-  const langPattern = /^([a-z]{2}(-[A-Z]{2})?)$/;
-  const startIndex = pathSegments.length && langPattern.test(pathSegments[0]) ? 1 : 0;
-
-  // Homepage only
-  if (pathSegments.length === startIndex) {
-    breadcrumb.classList.add('is-homepage');
-
-    const li = document.createElement('li');
-    li.textContent = 'Homepage - Bangkok Bank';
-    li.setAttribute('aria-current', 'page');
-    ol.appendChild(li);
-
-    return breadcrumb;
-  }
-
-  let currentPath = '';
-
-  for (let i = startIndex; i < pathSegments.length; i += 1) {
-    const segment = pathSegments[i];
-    currentPath += `/${segment}`;
-
-    const li = document.createElement('li');
-    const label = segment
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-    const isLast = i === pathSegments.length - 1;
-
-    if (isLast) {
-      // Use shortTitle if available for the current page, otherwise use the segment-based label
-      li.textContent = shortTitle || label;
-      li.setAttribute('aria-current', 'page');
-    } else {
-      const link = document.createElement('a');
-      link.href = currentPath;
-      link.textContent = label;
-      li.appendChild(link);
-    }
-
-    ol.appendChild(li);
-  }
-
-  return breadcrumb;
 }
 
 /**
@@ -194,8 +134,12 @@ async function loadLazy(doc) {
   if (breadcrumbsMeta.toLowerCase() === 'true') {
     const footer = doc.querySelector('footer');
     if (footer) {
-      const breadcrumb = await buildBreadcrumb();
-      footer.parentNode.insertBefore(breadcrumb, footer);
+      const breadcrumbWrapper = document.createElement('div');
+      breadcrumbWrapper.className = 'breadcrumb-wrapper';
+      breadcrumbWrapper.setAttribute('aria-label', 'Breadcrumb');
+      footer.parentNode.insertBefore(breadcrumbWrapper, footer);
+
+      await loadBreadcrumb(breadcrumbWrapper);
 
       // Find and move existing social-icons block below breadcrumb
       const socialIconsBlock = doc.querySelector('.social-icons.block');
@@ -204,8 +148,8 @@ async function loadLazy(doc) {
         const socialWrapper = socialIconsBlock.parentElement;
         const socialSection = socialWrapper?.parentElement;
 
-        // Move social-icons block below breadcrumb
-        breadcrumb.parentNode.insertBefore(socialWrapper, breadcrumb.nextSibling);
+        // Move social-icons block below breadcrumb wrapper
+        breadcrumbWrapper.parentNode.insertBefore(socialWrapper, breadcrumbWrapper.nextSibling);
 
         // Clean up empty section if it exists
         if (socialSection && socialSection.children.length === 0) {

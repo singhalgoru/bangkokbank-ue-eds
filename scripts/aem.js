@@ -657,6 +657,18 @@ async function loadFooter(footer) {
 }
 
 /**
+ * Loads a block named 'breadcrumb' into breadcrumb
+ * @param {Element} breadcrumb breadcrumb element
+ * @returns {Promise}
+ */
+async function loadBreadcrumb(breadcrumb) {
+  const breadcrumbBlock = buildBlock('breadcrumb', '');
+  breadcrumb.append(breadcrumbBlock);
+  decorateBlock(breadcrumbBlock);
+  return loadBlock(breadcrumbBlock);
+}
+
+/**
  * Wait for Image.
  * @param {Element} section section element
  */
@@ -722,6 +734,7 @@ export {
   decorateTemplateAndTheme,
   getMetadata,
   loadBlock,
+  loadBreadcrumb,
   loadCSS,
   loadFooter,
   loadHeader,
