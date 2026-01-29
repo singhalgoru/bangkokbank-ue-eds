@@ -189,6 +189,27 @@
     ]
   },
   {
+    "id": "brand-logo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "brand-logo-alt-text",
+        "label": "Alternative Text for Accessibility 1",
+        "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -278,6 +299,71 @@
     ]
   },
   {
+    "id": "utility-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "description": "Text for the link"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL"
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "link-only",
+        "label": "link type",
+        "options": [
+          {
+            "name": "Link only",
+            "value": "link-only"
+          },
+          {
+            "name": "Link with Logo",
+            "value": "link-logo"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "classes"
+            },
+            "link-logo"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "header-section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "boolean",
+        "label": "Navigation Menu",
+        "name": "isNavigation",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
     "id": "hero",
     "fields": [
       {
@@ -300,6 +386,191 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "location",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "location-link",
+        "label": "Location Link",
+        "description": "Location Page URL"
+      }
+    ]
+  },
+  {
+    "id": "login",
+    "fields": [
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "login-link",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "main-nav-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "mainNavItem",
+        "label": "Main Nav Item Text",
+        "description": "Text for the main nav item"
+      },
+      {
+        "component": "aem-content",
+        "name": "mainNavItemLink",
+        "label": "Main Nav Item Link",
+        "description": "Main Nav Item URL"
+      }
+    ]
+  },
+  {
+    "id": "megamenu-link",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "nav-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "navName",
+        "label": "Nav Name",
+        "description": "Select a nav label",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Personal Banking",
+            "value": "personal-banking"
+          },
+          {
+            "name": "Business Banking",
+            "value": "business-banking"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "navTitle",
+        "label": "Nav Title",
+        "description": "Title text for the nav item",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for nav item"
+      }
+    ]
+  },
+  {
+    "id": "menu-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "search",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "search-link",
+        "label": "Search Link",
+        "description": "Search Page URL"
+      }
+    ]
+  },
+  {
+    "id": "top-nav-link",
+    "fields": [
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "description": "Text for the link"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL"
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "link-only",
+        "label": "link type",
+        "options": [
+          {
+            "name": "Link only",
+            "value": "link-only"
+          },
+          {
+            "name": "Link with Logo",
+            "value": "link-logo"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "classes"
+            },
+            "link-logo"
+          ]
+        }
       }
     ]
   }
