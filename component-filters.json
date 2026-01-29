@@ -6,6 +6,15 @@
     ]
   },
   {
+    "id": "page",
+    "components": [
+      "home-page",
+      "product-page",
+      "article-page",
+      "landing-page"
+    ]
+  },
+  {
     "id": "section",
     "components": [
       "text",

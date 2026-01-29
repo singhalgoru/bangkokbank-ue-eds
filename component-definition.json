@@ -1,6 +1,72 @@
 {
   "groups": [
     {
+      "title": "Page Templates",
+      "id": "templates",
+      "components": [
+        {
+          "title": "Home Page",
+          "id": "home-page",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/page/v1/page",
+                "template": {
+                  "model": "page-metadata",
+                  "name": "Home Page"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Page",
+          "id": "product-page",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/page/v1/page",
+                "template": {
+                  "model": "page-metadata",
+                  "name": "Product Page"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Article Page",
+          "id": "article-page",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/page/v1/page",
+                "template": {
+                  "model": "article-metadata",
+                  "name": "Article Page"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Landing Page",
+          "id": "landing-page",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/page/v1/page",
+                "template": {
+                  "model": "page-metadata",
+                  "name": "Landing Page"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "title": "Default Content",
       "id": "default",
       "components": [

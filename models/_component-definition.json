@@ -1,6 +1,15 @@
 {
   "groups": [
     {
+      "title": "Page Templates",
+      "id": "templates",
+      "components": [
+        {
+          "...": "./_page.json#/definitions"
+        }
+      ]
+    },
+    {
       "title": "Default Content",
       "id": "default",
       "components": [
