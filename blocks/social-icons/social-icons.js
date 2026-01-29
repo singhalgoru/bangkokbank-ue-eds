@@ -9,19 +9,19 @@ export default function decorate(block) {
   const isValid = [...block.children].every((row) => {
     const cells = [...row.children];
     if (cells.length < 3) return false;
-    
+
     const platform = cells[0].textContent.trim();
     const icon = cells[1].querySelector('picture, img');
     const link = cells[2].querySelector('a');
-    
+
     return platform && icon && link && link.href;
   });
-  
+
   // Return early if any tag is empty
   if (!isValid || block.children.length === 0) {
     return;
   }
-  
+
   const socialShare = document.createElement('div');
   socialShare.className = 'social-share';
 

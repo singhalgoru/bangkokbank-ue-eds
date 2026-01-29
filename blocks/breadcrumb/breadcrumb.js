@@ -6,8 +6,7 @@ import { getMetadata } from '../../scripts/aem.js';
  */
 export default async function decorate(block) {
   const shortTitle = getMetadata('short-title');
-  const pageTitle = getMetadata('title');
-  console.warn('shortTitle:', shortTitle, 'pageTitle:', pageTitle);
+  const pageTitle = document.title;
 
   const ol = document.createElement('ol');
   block.appendChild(ol);
@@ -39,16 +38,16 @@ export default async function decorate(block) {
 
     const li = document.createElement('li');
 
-    const label = segment
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase());
     const isLast = i === pathSegments.length - 1;
 
     if (isLast) {
-      // Use shortTitle if available for the current page, otherwise use the segment-based label
-      li.textContent = shortTitle || label;
+      // Use shortTitle if available, then document.title, otherwise use pageTitle
+      li.textContent = shortTitle || pageTitle;
       li.setAttribute('aria-current', 'page');
     } else {
+      const label = segment
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, (char) => char.toUpperCase());
       const link = document.createElement('a');
       link.href = currentPath;
       link.textContent = label;
