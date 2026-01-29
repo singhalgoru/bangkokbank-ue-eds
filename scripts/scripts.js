@@ -2,6 +2,7 @@ import {
   loadHeader,
   loadFooter,
   decorateIcons,
+  decorateButtons,
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
@@ -12,8 +13,8 @@ import {
 } from './aem.js';
 
 import {
-  decorateButtons,
-} from './bbl-utils.js';
+  decorateTerritoryButtons,
+} from './bbl-decorators.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -86,6 +87,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateTerritoryButtons(main);
 }
 
 /**
