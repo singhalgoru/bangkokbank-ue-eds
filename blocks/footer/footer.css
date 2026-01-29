@@ -5,7 +5,6 @@
 
 /* Base footer styles */
 .footer {
-  background-color: var(--bbl-color-truthful-blue);
   color: var(--bbl-color-white);
   font-size: var(--bbl-text-footer-size);
   line-height: var(--bbl-text-footer-line-height);
@@ -55,7 +54,6 @@
 
 .footer .footer-inner {
   width: 100%;
-  padding: 0 var(--bbl-space-container-xs);
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -146,7 +144,6 @@
 
 /* Bottom bar (copyright, legal links) */
 .footer .footer-bottom {
-  background-color: var(--bbl-color-truthful-blue);
   padding: var(--bbl-space-300) 0 var(--bbl-space-350);
 }
 
@@ -186,10 +183,6 @@
    ========================================================================== */
 
 @media (width >= 761px) {
-  .footer-inner {
-    padding: 0 var(--bbl-space-600);
-  }
-
   .footer .footer-links li {
     font-size: 15px;
   }
@@ -207,7 +200,6 @@
 @media (width >= 1025px) {
   .footer .footer-inner {
     max-width: var(--bbl-layout-content-max-width-1920);
-    padding: 0 var(--bbl-space-1050);
     margin: auto;
     border-bottom: 1px solid var(--bbl-color-white-alpha-10);
   }
