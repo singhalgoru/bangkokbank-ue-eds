@@ -110,28 +110,7 @@ export default function decorate(block) {
       e.preventDefault();
       e.stopPropagation();
 
-      const platform = a.className.replace('icon-', '');
-      const url = encodeURIComponent(window.location.href);
-      const title = encodeURIComponent(document.title);
-
-      let shareUrl = '';
-
-      switch (platform) {
-        case 'facebook':
-          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-          break;
-        case 'x':
-        case 'twitter':
-          shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
-          break;
-        case 'line':
-          shareUrl = `https://social-plugins.line.me/lineit/share?url=${url}`;
-          break;
-        default:
-          shareUrl = a.href;
-      }
-
-      window.open(shareUrl, 'share', 'width=600,height=400');
+      window.open(a.href, 'share', 'width=600,height=400');
     });
   });
 

@@ -158,5 +158,6 @@
 
   .social-share.desktop .icon-close {
     order: 3;
+    margin-right: 10px;
   }
 }
