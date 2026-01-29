@@ -11,13 +11,14 @@
               "name": "Hero",
               "filter": "hero",
               "model": "hero",
-              "label": "Add up to 6 hero banner items"
+              "title": "Hero",
+              "titleType": "h2"
             }
           }
         }
       }
     },
-    {
+     {
       "title": "Hero Item",
       "id": "hero-item",
       "plugins": {
@@ -26,8 +27,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Hero Item",
-              "model": "hero-item",
-              "label": "Maximum 6 items allowed"
+              "model": "hero-item"
             }
           }
         }
@@ -54,8 +54,8 @@
               "value": "simple" 
             }
           ]
-        },
-        {
+        },             
+         {
           "component": "blocks",
           "label": "Hero Item",
           "name": "hero-item",
@@ -65,9 +65,9 @@
         }
       ]
     },
-    {
+     {
       "id": "hero-item",
-      "fields": [
+      "fields": [       
         {
           "component": "reference",
           "valueType": "string",
@@ -88,7 +88,7 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
-        },
+        },       
         {
           "component": "text-input",
           "name": "subtitle",
@@ -114,7 +114,7 @@
           "value": ""
         }
       ]
-    }
+    }  
   ],
   "filters": [
     {
