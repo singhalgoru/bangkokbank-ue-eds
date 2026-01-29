@@ -8,14 +8,46 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Megamenu"
+              "name": "Megamenu",
+              "model": "megamenu"
             }
           }
         }
       }
     }
   ],
-  "models": [],
+  "models": [
+    {
+      "id": "megamenu",
+      "fields": [
+        {
+          "component": "text",
+          "name": "menuTitle",
+          "label": "Menu Title",
+          "description": "Title text for the menu item",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "menuStyle",
+          "label": "Menu Style",
+          "description": "Select the style variant for the menu",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Personal Banking",
+              "value": "personal-banking"
+            },
+            {
+              "name": "Business Banking",
+              "value": "business-banking"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "filters": []
 }
 
