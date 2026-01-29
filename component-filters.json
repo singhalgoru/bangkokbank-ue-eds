@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "header-section"
     ]
   },
   {
@@ -39,6 +40,47 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "header-section",
+    "components": [
+      "top-nav",
+      "brand-logo",
+      "main-nav-item",
+      "login",
+      "location",
+      "search"
+    ]
+  },
+  {
+    "id": "login",
+    "components": [
+      "login-panel-content"
+    ]
+  },
+  {
+    "id": "main-nav-item",
+    "components": [
+      "megamenu-column"
+    ]
+  },
+  {
+    "id": "megamenu",
+    "components": [
+      "nav-item"
+    ]
+  },
+  {
+    "id": "nav-item",
+    "components": [
+      "menu-item"
+    ]
+  },
+  {
+    "id": "top-nav",
+    "components": [
+      "top-nav-link"
     ]
   }
 ]
