@@ -7,9 +7,9 @@
   align-items: center;
   width: 43px;
   height: 43px;
-  border: 1px solid #0064ff;
-  border-radius: 50%;
-  background: #fff;
+  border: 1px solid var(--bbl-color-active-blue);
+  border-radius: var(--bbl-radius-full);
+  background: var(--bbl-bg-primary);
   overflow: hidden;
   cursor: pointer;
   transition:
@@ -20,8 +20,8 @@
 /* Expanded state */
 .social-share.active {
   width: fit-content;
-  padding: 0 5px;
-  border-radius: 10px;
+  padding: 0 var(--bbl-space-050);
+  border-radius: var(--bbl-radius-md);
 }
 
 /* =========================================
@@ -32,7 +32,7 @@
   width: 42px;
   height: 42px;
   background: url('../../icons/share.svg') no-repeat center;
-  background-size: 40px;
+  background-size: var(--bbl-space-500);
   flex-shrink: 0;
   transition:
     width 0.3s ease,
@@ -54,11 +54,11 @@
 
 .icon-close {
   width: 0;
-  height: 40px;
+  height: var(--bbl-space-500);
   opacity: 0;
   overflow: hidden;
   background: url('../../icons/close.svg') no-repeat center;
-  background-size: 24px;
+  background-size: var(--bbl-space-300);
   transition: all 0.3s ease;
 }
 
@@ -88,13 +88,13 @@
 .social-share.active .share-icons {
   max-width: 180px;
   opacity: 1;
-  margin: 0 5px;
+  margin: 0 var(--bbl-space-050);
 }
 
 .share-icons ul {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--bbl-space-050);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -110,7 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--bbl-radius-sm);
 }
 
 .share-icons a:hover {
@@ -119,8 +119,8 @@
 
 .share-icons img,
 .share-icons picture img {
-  width: 26px;
-  height: 26px;
+  width: var(--bbl-space-350);
+  height: var(--bbl-space-350);
   object-fit: contain;
   display: block;
 }
