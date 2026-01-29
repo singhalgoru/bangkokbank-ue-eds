@@ -3,28 +3,28 @@ import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 function changeBanner(block) {
   block.addEventListener('mouseenter', (e) => {
-    const thumbnail = e.target.closest('.hero-banner__thumbnail-item');
+    const thumbnail = e.target.closest('.hero-banner-thumbnail-item');
 
     const idx = thumbnail.dataset.index;
     block.querySelectorAll('[data-index]').forEach((el) => {
-      el.classList.toggle('hero-banner__item--active', el.classList.contains('hero-banner__item') && el.dataset.index === idx);
-      el.classList.toggle('hero-banner__thumbnail-item--active', el.classList.contains('hero-banner__thumbnail-item') && el.dataset.index === idx);
+      el.classList.toggle('hero-banner-item-active', el.classList.contains('hero-banner-item') && el.dataset.index === idx);
+      el.classList.toggle('hero-banner-thumbnail-item-active', el.classList.contains('hero-banner-thumbnail-item') && el.dataset.index === idx);
     });
   }, true);
 }
 
 export default function decorate(block) {
   const mainImgContainer = document.createElement('div');
-  mainImgContainer.className = 'hero-banner__main-img-container';
+  mainImgContainer.className = 'hero-banner-container';
 
   const bannerList = document.createElement('ul');
-  bannerList.className = 'hero-banner__list';
+  bannerList.className = 'hero-banner-list';
 
   const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.className = 'hero-banner__thumbnail-outer section full-bleed-special hero-banner__thumbnail-outer--active';
+  thumbnailOuter.className = 'hero-banner-thumbnail-outer hero-banner-thumbnail-outer-active';
 
   const thumbnailList = document.createElement('ul');
-  thumbnailList.className = 'hero-banner__thumbnail-list';
+  thumbnailList.className = 'hero-banner-thumbnail-list section full-bleed-special';
 
   let bannerIndex = 0;
 
@@ -36,9 +36,9 @@ export default function decorate(block) {
     ];
 
     const bannerItem = document.createElement('li');
-    bannerItem.className = 'hero-banner__item';
+    bannerItem.className = 'hero-banner-item';
     bannerItem.dataset.index = bannerIndex;
-    if (bannerIndex === 0) bannerItem.classList.add('hero-banner__item--active');
+    if (bannerIndex === 0) bannerItem.classList.add('hero-banner-item-active');
 
     moveInstrumentation(row, bannerItem);
 
@@ -46,17 +46,17 @@ export default function decorate(block) {
     const img = picture?.querySelector('img');
 
     if (img) {
-      img.className = 'hero-banner__desktop-img';
+      img.className = 'hero-banner-img';
       img.loading = 'lazy';
       bannerItem.append(img);
     }
 
     /* content */
     const content = document.createElement('div');
-    content.className = 'hero-banner__content section full-bleed-special';
+    content.className = 'hero-banner-content section full-bleed-special';
 
     const contentInner = document.createElement('div');
-    contentInner.className = 'hero-banner__content-inner col-md-8';
+    contentInner.className = 'hero-banner-content-inner';
 
     if (headingCell) {
       contentInner.innerHTML += headingCell.innerHTML;
@@ -72,21 +72,23 @@ export default function decorate(block) {
 
     decorateButtonsV1(contentInner);
 
+    contentInner.querySelector('a')?.classList.add('button-m');
+
     content.append(contentInner);
     bannerItem.append(content);
     bannerList.append(bannerItem);
 
     /* ---------------- thumbnail item ---------------- */
     const thumbnailItem = document.createElement('li');
-    thumbnailItem.className = 'hero-banner__thumbnail-item';
+    thumbnailItem.className = 'hero-banner-thumbnail-item';
     thumbnailItem.dataset.index = bannerIndex;
-    if (bannerIndex === 0) thumbnailItem.classList.add('hero-banner__thumbnail-item--active');
+    if (bannerIndex === 0) thumbnailItem.classList.add('hero-banner-thumbnail-item-active');
 
     const thumbPicture = thumbImgCell?.querySelector('picture');
     const thumbImg = thumbPicture?.querySelector('img');
 
     if (thumbImg) {
-      thumbImg.className = 'hero-banner__thumbnail-img';
+      thumbImg.className = 'hero-banner-thumbnail-img';
       thumbImg.loading = 'lazy';
       thumbnailItem.append(thumbImg);
     }
