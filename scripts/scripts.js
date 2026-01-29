@@ -140,22 +140,6 @@ async function loadLazy(doc) {
       footer.parentNode.insertBefore(breadcrumbWrapper, footer);
 
       await loadBreadcrumb(breadcrumbWrapper);
-
-      // Find and move existing social-icons block below breadcrumb
-      const socialIconsBlock = doc.querySelector('.social-icons.block');
-      if (socialIconsBlock) {
-        // Get the wrapper and section of the social-icons block
-        const socialWrapper = socialIconsBlock.parentElement;
-        const socialSection = socialWrapper?.parentElement;
-
-        // Move social-icons block below breadcrumb wrapper
-        breadcrumbWrapper.parentNode.insertBefore(socialWrapper, breadcrumbWrapper.nextSibling);
-
-        // Clean up empty section if it exists
-        if (socialSection && socialSection.children.length === 0) {
-          socialSection.remove();
-        }
-      }
     }
   }
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);

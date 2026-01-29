@@ -56,4 +56,23 @@ export default async function decorate(block) {
 
     ol.appendChild(li);
   }
+
+  // Find and move existing social-icons block below breadcrumb
+  const socialIconsBlock = document.querySelector('.social-icons.block');
+  if (socialIconsBlock) {
+    // Get the wrapper and section of the social-icons block
+    const socialWrapper = socialIconsBlock.parentElement;
+    const socialSection = socialWrapper?.parentElement;
+
+    // Move social-icons block below breadcrumb wrapper
+    const breadcrumbWrapper = block.closest('.breadcrumb-wrapper');
+    if (breadcrumbWrapper) {
+      breadcrumbWrapper.parentNode.insertBefore(socialWrapper, breadcrumbWrapper.nextSibling);
+
+      // Clean up empty section if it exists
+      if (socialSection && socialSection.children.length === 0) {
+        socialSection.remove();
+      }
+    }
+  }
 }
