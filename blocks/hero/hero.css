@@ -79,11 +79,15 @@
     width: 100%;
 }
 
-.hero-banner-content-inner p {
+.hero-banner-content-inner-text {
     font-size: 1.137rem;
     line-height: 1.308rem;
     font-weight: var(--bbl-font-weight-regular);
     margin-block: 0 33px;
+}
+
+.hero-banner-content-inner .button-container {
+  margin: 0;             
 }
 
 .hero-banner-thumbnail-outer {
@@ -196,7 +200,7 @@
         width: 66.6667%;
     }
 
-    .hero-banner-content-inner p {
+    .hero-banner-content-inner-text{
         font-size: 1.5rem;
         line-height: 1.725rem;
         margin-block: 0 36px;

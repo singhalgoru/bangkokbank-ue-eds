@@ -5,11 +5,11 @@ function changeBanner(block) {
   block.addEventListener('mouseenter', (e) => {
     const thumbnail = e.target.closest('.hero-banner-thumbnail-item');
 
-    const idx = thumbnail.dataset.index;
+      const idx = thumbnail.dataset.index;
     block.querySelectorAll('[data-index]').forEach((el) => {
       el.classList.toggle('hero-banner-item-active', el.classList.contains('hero-banner-item') && el.dataset.index === idx);
       el.classList.toggle('hero-banner-thumbnail-item-active', el.classList.contains('hero-banner-thumbnail-item') && el.dataset.index === idx);
-    });
+      });
   }, true);
 }
 
@@ -63,6 +63,8 @@ export default function decorate(block) {
     }
 
     if (textCell) {
+      const textElement = textCell.firstElementChild || textCell;
+      textElement.classList.add('hero-banner-content-inner-text');
       contentInner.innerHTML += textCell.innerHTML;
     }
 
