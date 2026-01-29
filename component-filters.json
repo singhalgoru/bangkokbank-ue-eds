@@ -14,10 +14,17 @@
       "title",
       "hero",
       "cards",
+      "cards-product",
       "columns",
       "fragment",
       "header",
       "megamenu"
+    ]
+  },
+  {
+    "id": "cards-product",
+    "components": [
+      "product-card"
     ]
   },
   {
