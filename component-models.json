@@ -342,16 +342,17 @@
       },
       {
         "component": "reference",
-        "valueType": "string",
         "name": "icon",
         "label": "Icon",
-        "multi": false
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
-        "valueType": "string",
         "name": "url",
-        "label": "URL"
+        "label": "URL",
+        "valueType": "string",
+        "required": true
       }
     ]
   }

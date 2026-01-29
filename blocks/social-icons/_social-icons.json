@@ -42,32 +42,24 @@
           "valueType": "string",
           "required": true,
           "options": [
-            {
-              "name": "Facebook",
-              "value": "facebook"
-            },
-            {
-              "name": "X",
-              "value": "x"
-            },
-            {
-              "name": "Line",
-              "value": "line"
-            }
+            { "name": "Facebook", "value": "facebook" },
+            { "name": "X", "value": "x" },
+            { "name": "Line", "value": "line" }
           ]
         },
         {
           "component": "reference",
-          "valueType": "string",
           "name": "icon",
           "label": "Icon",
-          "multi": false
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "text",
-          "valueType": "string",
           "name": "url",
-          "label": "URL"
+          "label": "URL",
+          "valueType": "string",
+          "required": true
         }
       ]
     }
@@ -75,9 +67,8 @@
   "filters": [
     {
       "id": "social-icons",
-      "components": [
-        "social-icon"
-      ]
+      "components": ["social-icon"],
+      "maxItems": 3
     }
   ]
 }

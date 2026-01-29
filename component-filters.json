@@ -46,6 +46,7 @@
     "id": "social-icons",
     "components": [
       "social-icon"
-    ]
+    ],
+    "maxItems": 3
   }
 ]
