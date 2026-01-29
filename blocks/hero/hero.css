@@ -123,6 +123,10 @@
     flex-wrap: nowrap;
 }
 
+.section.full-bleed-special.hero-banner-thumbnail-list {
+    padding: 14px 0 0;
+}
+
 .hero-banner-thumbnail-item {
     border-radius: 5px;
     overflow: hidden;
