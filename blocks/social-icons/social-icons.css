@@ -1,110 +1,98 @@
-.social-icons-container {
-  width: 100%;
-}
-
-.social-icons-wrapper {
-  width: 100%;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-}
-
-/* Social Share Container - Matches Bangkok Bank */
-.social-share,
-.social-share.active {
-  border: 1px solid #0064ff;
-  height: 43px;
-  overflow: hidden;
-  background: #fff;
-}
+/* =========================================
+   SOCIAL SHARE – BASE
+========================================= */
 
 .social-share {
-  float: left;
-  border-radius: 50%;
-  width: 43px;
-  transition: all 0.3s ease;
-  position: relative;
   display: flex;
   align-items: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid #0064ff;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
   cursor: pointer;
+  transition:
+    width 0.3s ease,
+    border-radius 0.3s ease;
 }
 
+/* Expanded state */
 .social-share.active {
-  border-radius: 10px;
-  width: auto;
+  width: fit-content;
   padding: 0 5px;
+  border-radius: 10px;
 }
 
-/* Share Button Icon - Matches Bangkok Bank */
-.social-share .icon-share {
-  background: url('../../icons/share.svg') no-repeat center;
-  background-size: 40px;
+/* =========================================
+   SHARE ICON
+========================================= */
+
+.icon-share {
   width: 42px;
   height: 42px;
+  background: url('../../icons/share.svg') no-repeat center;
+  background-size: 40px;
   flex-shrink: 0;
-  cursor: pointer;
-  pointer-events: all;
-  transition: opacity 0.3s ease;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.icon-share:hover,
+.share-icons a:hover {
+  opacity: 0.9;
 }
 
 .social-share.active .icon-share {
-  opacity: 0;
   width: 0;
+  opacity: 0;
 }
 
-/* Close Button Icon - Matches Bangkok Bank */
-.social-share .icon-close {
-  color: #039;
+/* =========================================
+   CLOSE ICON
+========================================= */
+
+.icon-close {
   width: 0;
   height: 40px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background-image: none;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 24px;
-  text-indent: -9999px;
-  transition: all 0.3s ease;
   opacity: 0;
   overflow: hidden;
-  order: 3;
+  background: url('../../icons/close.svg') no-repeat center;
+  background-size: 24px;
+  transition: all 0.3s ease;
+}
+
+
+.icon-close:hover {
+  opacity: 0.9;
 }
 
 .social-share.active .icon-close {
   width: 35px;
-  margin-left: 5px;
-  margin-right: 5px;
   opacity: 1;
-  background-image: url('../../icons/close.svg');
 }
 
-/* Share Icons Container - Matches Bangkok Bank */
-.social-share .share-icons {
-  white-space: nowrap;
-  max-width: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
-  overflow: hidden;
+/* =========================================
+   SHARE ICONS CONTAINER
+========================================= */
+
+.share-icons {
   display: flex;
   align-items: center;
-  order: 2;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .social-share.active .share-icons {
-  opacity: 1;
   max-width: 180px;
+  opacity: 1;
   margin: 0 5px;
 }
 
-.social-share .share-icons ul {
+.share-icons ul {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -113,46 +101,59 @@
   list-style: none;
 }
 
-.social-share .share-icons li {
+.share-icons li {
   display: flex;
-  margin: 0;
 }
 
-/* Social Icons Links - Matches Bangkok Bank */
-.social-share .share-icons li a {
+.share-icons li a {
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
   border-radius: 4px;
 }
 
-/* Style the actual images from editor */
-.social-share .share-icons li a picture {
-  display: flex;
-  width: 26px;
-  height: 26px;
-  align-items: center;
-  justify-content: center;
-}
-
-.social-share .share-icons li a > img,
-.social-share .share-icons li a picture img {
+.share-icons img,
+.share-icons picture img {
   width: 26px;
   height: 26px;
   object-fit: contain;
   display: block;
 }
 
-/* Hover Effects - Matches Bangkok Bank */
-  .social-share .icon-share:hover,
-  .social-share .icon-close:hover {
-    opacity: 0.9;
+.social-share.mobile {
+  flex-direction: row;
+}
+
+.social-share.mobile .icon-close {
+  order: 1;
+}
+
+.social-share.mobile .share-icons {
+  order: 2;
+}
+
+.social-share.mobile .icon-share {
+  order: 3;
+}
+
+
+@media (width >= 1025px) {
+  .social-share.desktop {
+    flex-direction: row;
+    margin-left: auto;
   }
 
-  .social-share .share-icons a:hover {
-    opacity: 0.9;
+  .social-share.desktop .icon-share {
+    order: 1;
   }
+
+  .social-share.desktop .share-icons {
+    order: 2;
+  }
+
+  .social-share.desktop .icon-close {
+    order: 3;
+  }
+}

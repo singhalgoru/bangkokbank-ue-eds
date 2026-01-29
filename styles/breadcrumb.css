@@ -53,6 +53,10 @@
   background: var(--bbl-text-link);
 }
 
+.breadcrumb.is-homepage li:last-child::after{
+background : none
+}
+
 .breadcrumb a {
   color: var(--bbl-text-link);
   text-decoration: none;

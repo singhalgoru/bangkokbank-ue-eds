@@ -1,166 +1,128 @@
 /**
- * Social Icons Block
- * Displays social media sharing icons with expandable animation
- * Styled like Bangkok Bank's website
+ * Social Share Block – Bangkok Bank style
+ * Mobile: opens right, close first
+ * Desktop: opens left, close last
  */
 
 export default function decorate(block) {
-  // Create social share container
   const socialShare = document.createElement('div');
   socialShare.className = 'social-share';
 
-  // Create share button icon
-  const shareIcon = document.createElement('div');
-  shareIcon.className = 'icon-share';
-  shareIcon.setAttribute('aria-label', 'Share');
-  shareIcon.setAttribute('role', 'button');
-  shareIcon.setAttribute('tabindex', '0');
-
-  // Create close button icon
   const closeIcon = document.createElement('a');
   closeIcon.className = 'icon-close';
   closeIcon.href = '#';
-  closeIcon.textContent = '';
   closeIcon.setAttribute('aria-label', 'Close');
 
-  // Create share icons container
-  const shareIconsDiv = document.createElement('div');
-  shareIconsDiv.className = 'share-icons';
+  const shareIcons = document.createElement('div');
+  shareIcons.className = 'share-icons';
 
-  // Create icons list
-  const iconsList = document.createElement('ul');
+  const ul = document.createElement('ul');
 
-  // Parse the block content to extract social icon data
-  const rows = Array.from(block.children);
+  [...block.children].forEach((row) => {
+    const cells = [...row.children];
+    if (cells.length < 3) return;
 
-  rows.forEach((row) => {
-    // Each row contains: platform name, icon image, and URL
-    const cells = Array.from(row.children);
+    const platform = cells[0].textContent.trim().toLowerCase();
+    const icon = cells[1].querySelector('picture, img');
+    const link = cells[2].querySelector('a');
 
-    if (cells.length >= 3) {
-      const platformCell = cells[0];
-      const iconCell = cells[1];
-      const urlCell = cells[2];
+    if (!icon || !link) return;
 
-      // Get platform name (facebook, x, line)
-      const platform = platformCell.textContent.trim().toLowerCase();
+    const li = document.createElement('li');
+    const a = document.createElement('a');
 
-      // Get URL
-      const link = urlCell.querySelector('a');
-      const url = link ? link.href : '#';
+    a.href = link.href;
+    a.className = `icon-${platform}`;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.setAttribute('aria-label', `Share on ${platform}`);
 
-      // Get the icon image (picture or img element) from editor
-      const picture = iconCell.querySelector('picture');
-      const img = iconCell.querySelector('img');
+    a.appendChild(icon.cloneNode(true));
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
 
-      // Create list item
-      const li = document.createElement('li');
+  shareIcons.appendChild(ul);
 
-      // Create anchor
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.className = `icon-${platform}`;
-      anchor.setAttribute('aria-label', `Share on ${platform}`);
-      anchor.setAttribute('target', '_blank');
-      anchor.setAttribute('rel', 'noopener noreferrer');
+  const shareIcon = document.createElement('div');
+  shareIcon.className = 'icon-share';
+  shareIcon.setAttribute('role', 'button');
+  shareIcon.setAttribute('tabindex', '0');
+  shareIcon.setAttribute('aria-label', 'Share');
 
-      // Clone and append the image from editor
-      if (picture) {
-        const clonedPicture = picture.cloneNode(true);
-        anchor.appendChild(clonedPicture);
-      } else if (img) {
-        const clonedImg = img.cloneNode(true);
-        clonedImg.setAttribute('alt', `${platform} icon`);
-        anchor.appendChild(clonedImg);
-      }
+  socialShare.append(closeIcon, shareIcons, shareIcon);
+  block.innerHTML = '';
+  block.appendChild(socialShare);
 
-      li.appendChild(anchor);
-      iconsList.appendChild(li);
+  /* -----------------------------
+     Viewport direction handling
+  ------------------------------ */
+  function setViewportMode() {
+    if (window.matchMedia('(min-width: 900px)').matches) {
+      socialShare.classList.add('desktop');
+      socialShare.classList.remove('mobile');
+    } else {
+      socialShare.classList.add('mobile');
+      socialShare.classList.remove('desktop');
+    }
+  }
+
+  setViewportMode();
+  window.addEventListener('resize', setViewportMode);
+
+  /* -----------------------------
+     Toggle logic
+  ------------------------------ */
+  socialShare.addEventListener('click', (e) => {
+    const active = socialShare.classList.contains('active');
+    const clickedShareLink = e.target.closest('.share-icons a');
+    const clickedClose = e.target.classList.contains('icon-close');
+
+    if (!active) {
+      socialShare.classList.add('active');
+    } else if (clickedClose || !clickedShareLink) {
+      socialShare.classList.remove('active');
     }
   });
 
-  // Assemble the structure
-  shareIconsDiv.appendChild(iconsList);
-  socialShare.appendChild(closeIcon);
-  socialShare.appendChild(shareIconsDiv);
-  socialShare.appendChild(shareIcon);
-
-  // Clear the block completely including any existing social-share elements
-  block.innerHTML = '';
-
-  // Remove any existing social-share from parent elements (in case of duplication)
-  const existingSocialShare = block.parentElement?.querySelector('.social-share');
-  if (existingSocialShare && existingSocialShare !== socialShare) {
-    existingSocialShare.remove();
-  }
-
-  block.appendChild(socialShare);
-
-  // IMPORTANT: Use setTimeout to ensure DOM is fully rendered
-  setTimeout(() => {
-    // Add click to the ENTIRE container (most reliable approach)
-    socialShare.addEventListener('click', (e) => {
-      const isActive = socialShare.classList.contains('active');
-
-      if (!isActive) {
-        // Expand
-        socialShare.classList.add('active');
-      } else {
-        // Check if clicking on close button or outside icons
-        const clickedIcon = e.target.closest('.share-icons a');
-        const clickedClose = e.target.classList.contains('icon-close');
-
-        if (clickedClose || !clickedIcon) {
-          socialShare.classList.remove('active');
-        }
-      }
-    });
-  }, 100);
-
-  // Add click handlers for social sharing
-  const socialLinks = iconsList.querySelectorAll('a');
-  socialLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const platform = link.className.replace('icon-', '');
-      const currentUrl = encodeURIComponent(window.location.href);
-      const pageTitle = encodeURIComponent(document.title);
-
-      // Prevent default and open share dialog
+  /* -----------------------------
+     Share popups
+  ------------------------------ */
+  ul.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation(); // Prevent triggering container click
+      e.stopPropagation();
+
+      const platform = a.className.replace('icon-', '');
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
 
       let shareUrl = '';
 
       switch (platform) {
         case 'facebook':
-          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
+          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
           break;
         case 'x':
         case 'twitter':
-          shareUrl = `https://twitter.com/intent/tweet?url=${currentUrl}&text=${pageTitle}`;
+          shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
           break;
         case 'line':
-          shareUrl = `https://social-plugins.line.me/lineit/share?url=${currentUrl}`;
+          shareUrl = `https://social-plugins.line.me/lineit/share?url=${url}`;
           break;
         default:
-          // Use the original URL if platform is not recognized
-          shareUrl = link.href;
+          shareUrl = a.href;
       }
 
-      if (shareUrl && shareUrl !== '#') {
-        // Open in new window with specific dimensions
-        window.open(
-          shareUrl,
-          'share-dialog',
-          'width=600,height=400,left=200,top=100',
-        );
-      }
+      window.open(shareUrl, 'share', 'width=600,height=400');
     });
   });
 
-  // Close on Escape key
+  /* -----------------------------
+     ESC closes
+  ------------------------------ */
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && socialShare.classList.contains('active')) {
+    if (e.key === 'Escape') {
       socialShare.classList.remove('active');
     }
   });
