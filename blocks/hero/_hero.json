@@ -17,7 +17,7 @@
         }
       }
     },
-    {
+     {
       "title": "Hero Item",
       "id": "hero-item",
       "plugins": {
@@ -37,7 +37,15 @@
   "models": [
     {
       "id": "hero",
-      "fields": [
+      "fields": [             
+         {
+          "component": "blocks",
+          "label": "Hero Item",
+          "name": "hero-item",
+          "valueType": "block",
+          "multi": true,
+          "allowedBlocks": ["hero-item"]
+        }, 
         {
           "component": "select",
           "name": "variant",
@@ -54,20 +62,12 @@
               "value": "simple" 
             }
           ]
-        },
-        {
-          "component": "blocks",
-          "label": "Hero Item",
-          "name": "hero-item",
-          "valueType": "block",
-          "multi": true,
-          "allowedBlocks": ["hero-item"]
-        }
+        }   
       ]
     },
-    {
+     {
       "id": "hero-item",
-      "fields": [
+      "fields": [       
         {
           "component": "reference",
           "valueType": "string",
@@ -88,7 +88,7 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
-        },
+        },       
         {
           "component": "text-input",
           "name": "subtitle",
@@ -114,7 +114,7 @@
           "value": ""
         }
       ]
-    }
+    }  
   ],
   "filters": [
     {

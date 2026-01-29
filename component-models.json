@@ -281,6 +281,16 @@
     "id": "hero",
     "fields": [
       {
+        "component": "blocks",
+        "label": "Hero Item",
+        "name": "hero-item",
+        "valueType": "block",
+        "multi": true,
+        "allowedBlocks": [
+          "hero-item"
+        ]
+      },
+      {
         "component": "select",
         "name": "variant",
         "value": "default",
@@ -295,16 +305,6 @@
             "name": "Simple",
             "value": "simple"
           }
-        ]
-      },
-      {
-        "component": "blocks",
-        "label": "Hero Item",
-        "name": "hero-item",
-        "valueType": "block",
-        "multi": true,
-        "allowedBlocks": [
-          "hero-item"
         ]
       }
     ]
