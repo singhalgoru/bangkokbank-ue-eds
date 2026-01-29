@@ -53,8 +53,19 @@
   background: var(--bbl-text-link);
 }
 
-.breadcrumb.is-homepage li:last-child::after{
-background : none
+.breadcrumb.is-homepage li:last-child::after {
+  background: none;
+}
+
+/* Social icons positioned below breadcrumb */
+.breadcrumb + .social-icons-wrapper {
+  padding: 15px 84px;
+  margin: 0 auto;
+  max-width: 1240px;
+  box-sizing: border-box;
+  background-color: var(--bbl-bg-primary);
+  display: flex;
+  justify-content: flex-end;
 }
 
 .breadcrumb a {
@@ -98,5 +109,10 @@ background : none
 
   .breadcrumb li::before {
     margin-right: 6px;
+  }
+
+  .breadcrumb + .social-icons-wrapper {
+    padding: 15px 16px;
+    justify-content: flex-start;
   }
 }

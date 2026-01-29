@@ -54,7 +54,7 @@ export function moveInstrumentation(from, to) {
  * Builds breadcrumb navigation from the current URL path
  * @returns {HTMLElement} The breadcrumb element
  */
-function buildBreadcrumb() {
+async function buildBreadcrumb() {
   const shortTitle = getMetadata('short-title');
   const breadcrumb = document.createElement('div');
   breadcrumb.className = 'breadcrumb';
@@ -194,8 +194,24 @@ async function loadLazy(doc) {
   if (breadcrumbsMeta.toLowerCase() === 'true') {
     const footer = doc.querySelector('footer');
     if (footer) {
-      const breadcrumb = buildBreadcrumb();
+      const breadcrumb = await buildBreadcrumb();
       footer.parentNode.insertBefore(breadcrumb, footer);
+
+      // Find and move existing social-icons block below breadcrumb
+      const socialIconsBlock = doc.querySelector('.social-icons.block');
+      if (socialIconsBlock) {
+        // Get the wrapper and section of the social-icons block
+        const socialWrapper = socialIconsBlock.parentElement;
+        const socialSection = socialWrapper?.parentElement;
+
+        // Move social-icons block below breadcrumb
+        breadcrumb.parentNode.insertBefore(socialWrapper, breadcrumb.nextSibling);
+
+        // Clean up empty section if it exists
+        if (socialSection && socialSection.children.length === 0) {
+          socialSection.remove();
+        }
+      }
     }
   }
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
