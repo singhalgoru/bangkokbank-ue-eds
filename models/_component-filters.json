@@ -6,15 +6,6 @@
     ]
   },
   {
-    "id": "page",
-    "components": [
-      "home-page",
-      "product-page",
-      "article-page",
-      "landing-page"
-    ]
-  },
-  {
     "...": "./_section.json#/filters"
   },
   {
