@@ -28,11 +28,22 @@
         "label": "Short Page Title"
       },
       {
-        "component": "richtext",
-        "name": "breadcrumb",
-        "value": "",
-        "label": "Breadcrumb",
-        "valueType": "string"
+        "component": "select",
+        "name": "breadcrumbs",
+        "label": "Breadcrumbs",
+        "description": "Show breadcrumbs above the footer (default: true)",
+        "valueType": "string",
+        "value": "true",
+        "options": [
+          {
+            "name": "True",
+            "value": "true"
+          },
+          {
+            "name": "False",
+            "value": "false"
+          }
+        ]
       }
     ]
   },

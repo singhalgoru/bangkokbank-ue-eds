@@ -6,8 +6,7 @@ import { getMetadata } from '../../scripts/aem.js';
  */
 export default async function decorate(block) {
   const shortTitle = getMetadata('short-title');
-  const pageTitle = getMetadata('title');
-  console.warn('shortTitle:', shortTitle, 'pageTitle:', pageTitle);
+  // Prefer short-title for the current page label; fall back to URL segment label below.
 
   const ol = document.createElement('ol');
   block.appendChild(ol);
