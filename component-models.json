@@ -296,16 +296,6 @@
             "value": "simple"
           }
         ]
-      },
-      {
-        "component": "blocks",
-        "label": "Hero Item",
-        "name": "hero-item",
-        "valueType": "block",
-        "multi": true,
-        "allowedBlocks": [
-          "hero-item"
-        ]
       }
     ]
   },
