@@ -28,11 +28,11 @@
         "label": "Short Page Title"
       },
       {
-        "component": "richtext",
+        "component": "boolean",
         "name": "breadcrumb",
         "value": "",
         "label": "Breadcrumb",
-        "valueType": "string"
+        "valueType": "boolean"
       }
     ]
   },
