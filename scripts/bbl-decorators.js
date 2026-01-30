@@ -46,15 +46,15 @@ function decorateTerritoryButtons(main) {
  */
 function decorateSvgWithAltText(element) {
   element.querySelectorAll('span.icon img[src$=".svg"]').forEach((img) => {
-    const iconName = img.dataset.iconName;
+    const { iconName } = img.dataset;
     if (iconName && iconName.includes('-alt_-')) {
       const [srcPart, altPart] = iconName.split('-alt_-');
-      
+
       // Update the src to use only the first part
       const currentSrc = img.getAttribute('src');
       const basePath = currentSrc.substring(0, currentSrc.lastIndexOf('/') + 1);
       img.setAttribute('src', `${basePath}${srcPart}.svg`);
-      
+
       // Update the alt text with the second part (replace underscores and hyphens with spaces)
       const altText = altPart.replace(/[_-]/g, ' ').trim();
       img.setAttribute('alt', altText);
