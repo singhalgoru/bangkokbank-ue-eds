@@ -76,9 +76,9 @@
         },
         {
           "component": "richtext",
-          "name": "text",
+          "name": "title",
           "value": "",
-          "label": "Text",
+          "label": "Title",
           "valueType": "string"
         },
         {
