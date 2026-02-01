@@ -28,7 +28,7 @@ export default function decorate(block) {
   closeIcon.setAttribute('aria-label', 'Close');
 
   const iconsContainer = document.createElement('div');
-  iconsContainer.className = 'share-icons';
+  iconsContainer.className = 'icons-container';
 
   const ul = document.createElement('ul');
 
@@ -88,7 +88,7 @@ export default function decorate(block) {
   ------------------------------ */
   block.addEventListener('click', (e) => {
     const active = block.classList.contains('active');
-    const clickedShareLink = e.target.closest('.share-icons a');
+    const clickedShareLink = e.target.closest('.icons-container a');
     const clickedClose = e.target.classList.contains('icon-close');
 
     if (!active) {
