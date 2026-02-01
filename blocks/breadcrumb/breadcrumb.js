@@ -42,7 +42,9 @@ export default async function decorate(block) {
 
     if (isLast) {
       // Use shortTitle if available, then document.title, otherwise use pageTitle
-      li.textContent = shortTitle || pageTitle;
+      li.textContent = (shortTitle || pageTitle)
+        .toLowerCase()
+        .replace(/\b\w/g, (char) => char.toUpperCase());
       li.setAttribute('aria-current', 'page');
     } else {
       const label = segment
