@@ -1,5 +1,5 @@
 /**
- * Social Share Block – Bangkok Bank style
+ * Social Icons Block – Bangkok Bank style
  * Mobile: opens right, close first
  * Desktop: opens left, close last
  */
@@ -22,16 +22,13 @@ export default function decorate(block) {
     return;
   }
 
-  const socialShare = document.createElement('div');
-  socialShare.className = 'social-share';
-
   const closeIcon = document.createElement('a');
   closeIcon.className = 'icon-close';
   closeIcon.href = '#';
   closeIcon.setAttribute('aria-label', 'Close');
 
-  const shareIcons = document.createElement('div');
-  shareIcons.className = 'share-icons';
+  const iconsContainer = document.createElement('div');
+  iconsContainer.className = 'share-icons';
 
   const ul = document.createElement('ul');
 
@@ -59,28 +56,27 @@ export default function decorate(block) {
     ul.appendChild(li);
   });
 
-  shareIcons.appendChild(ul);
+  iconsContainer.appendChild(ul);
 
-  const shareIcon = document.createElement('div');
-  shareIcon.className = 'icon-share';
-  shareIcon.setAttribute('role', 'button');
-  shareIcon.setAttribute('tabindex', '0');
-  shareIcon.setAttribute('aria-label', 'Share');
+  const shareBtn = document.createElement('div');
+  shareBtn.className = 'btn-share';
+  shareBtn.setAttribute('role', 'button');
+  shareBtn.setAttribute('tabindex', '0');
+  shareBtn.setAttribute('aria-label', 'Share');
 
-  socialShare.append(closeIcon, shareIcons, shareIcon);
   block.innerHTML = '';
-  block.appendChild(socialShare);
+  block.append(closeIcon, iconsContainer, shareBtn);
 
   /* -----------------------------
      Viewport direction handling
   ------------------------------ */
   function setViewportMode() {
     if (window.matchMedia('(min-width: 900px)').matches) {
-      socialShare.classList.add('desktop');
-      socialShare.classList.remove('mobile');
+      block.classList.add('desktop');
+      block.classList.remove('mobile');
     } else {
-      socialShare.classList.add('mobile');
-      socialShare.classList.remove('desktop');
+      block.classList.add('mobile');
+      block.classList.remove('desktop');
     }
   }
 
@@ -90,15 +86,15 @@ export default function decorate(block) {
   /* -----------------------------
      Toggle logic
   ------------------------------ */
-  socialShare.addEventListener('click', (e) => {
-    const active = socialShare.classList.contains('active');
+  block.addEventListener('click', (e) => {
+    const active = block.classList.contains('active');
     const clickedShareLink = e.target.closest('.share-icons a');
     const clickedClose = e.target.classList.contains('icon-close');
 
     if (!active) {
-      socialShare.classList.add('active');
+      block.classList.add('active');
     } else if (clickedClose || !clickedShareLink) {
-      socialShare.classList.remove('active');
+      block.classList.remove('active');
     }
   });
 
@@ -119,7 +115,7 @@ export default function decorate(block) {
   ------------------------------ */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      socialShare.classList.remove('active');
+      block.classList.remove('active');
     }
   });
 }

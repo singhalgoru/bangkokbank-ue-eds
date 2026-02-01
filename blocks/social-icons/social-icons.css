@@ -1,8 +1,8 @@
 /* =========================================
-   SOCIAL SHARE – BASE
+   SOCIAL ICONS – BASE
 ========================================= */
 
-.social-share {
+.social-icons {
   display: flex;
   align-items: center;
   width: 43px;
@@ -18,20 +18,20 @@
 }
 
 /* Expanded state */
-.social-share.active {
+.social-icons.active {
   width: fit-content;
   padding: 0 var(--bbl-space-050);
   border-radius: var(--bbl-radius-md);
 }
 
 /* =========================================
-   SHARE ICON
+   SHARE BUTTON
 ========================================= */
 
-.icon-share {
+.btn-share {
   width: 42px;
   height: 42px;
-  background: url('../../icons/share.svg') no-repeat center;
+  background: url('../../icons/btn-share.svg') no-repeat center;
   background-size: var(--bbl-space-500);
   flex-shrink: 0;
   transition:
@@ -39,11 +39,11 @@
     opacity 0.3s ease;
 }
 
-.icon-share:hover {
+.btn-share:hover {
   opacity: 0.9;
 }
 
-.social-share.active .icon-share {
+.social-icons.active .btn-share {
   width: 0;
   opacity: 0;
 }
@@ -67,7 +67,7 @@
   opacity: 0.9;
 }
 
-.social-share.active .icon-close {
+.social-icons.active .icon-close {
   width: 35px;
   opacity: 1;
 }
@@ -85,7 +85,7 @@
   transition: all 0.3s ease;
 }
 
-.social-share.active .share-icons {
+.social-icons.active .share-icons {
   max-width: 180px;
   opacity: 1;
   margin: 0 var(--bbl-space-050);
@@ -125,38 +125,38 @@
   display: block;
 }
 
-.social-share.mobile {
+.social-icons.mobile {
   flex-direction: row;
 }
 
-.social-share.mobile .icon-close {
+.social-icons.mobile .icon-close {
   order: 1;
 }
 
-.social-share.mobile .share-icons {
+.social-icons.mobile .share-icons {
   order: 2;
 }
 
-.social-share.mobile .icon-share {
+.social-icons.mobile .btn-share {
   order: 3;
 }
 
 
 @media (width >= 1025px) {
-  .social-share.desktop {
+  .social-icons.desktop {
     flex-direction: row;
     margin-left: auto;
   }
 
-  .social-share.desktop .icon-share {
+  .social-icons.desktop .btn-share {
     order: 1;
   }
 
-  .social-share.desktop .share-icons {
+  .social-icons.desktop .share-icons {
     order: 2;
   }
 
-  .social-share.desktop .icon-close {
+  .social-icons.desktop .icon-close {
     order: 3;
     margin-right: 10px;
   }
