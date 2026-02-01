@@ -202,6 +202,66 @@
     ]
   },
   {
+    "id": "product-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Product Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the product"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Button Text",
+        "description": "Button label text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Button Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {

@@ -1,4 +1,4 @@
-export function decorateButtons(element) {
+function decorateButtonsV1(element) {
   element.querySelectorAll('a').forEach((a) => {
     a.title = a.title || a.textContent;
     if (a.href !== a.textContent) {
@@ -24,7 +24,7 @@ export function decorateButtons(element) {
           twoup.classList.add('button-container');
         }
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
-          a.className = 'button tertiary';
+          a.className = 'button-tertiary';
           up.classList.add('button-container');
         }
       }
@@ -32,4 +32,15 @@ export function decorateButtons(element) {
   });
 }
 
-export default decorateButtons;
+function decorateTerritoryButtons(main) {
+  // Find anchors that are "button" only (no variants like primary/secondary)
+  // and convert them to "button territory".
+  main.querySelectorAll('a.button:not([class*=" "])').forEach((a) => {
+    a.className = 'button-tertiary';
+  });
+}
+
+export {
+  decorateTerritoryButtons,
+  decorateButtonsV1,
+};
