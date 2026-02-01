@@ -1,7 +1,6 @@
 import {
   loadHeader,
   loadFooter,
-  loadBreadcrumb,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -11,6 +10,9 @@ import {
   loadSections,
   loadCSS,
   getMetadata,
+  buildBlock,
+  decorateBlock,
+  loadBlock,
 } from './aem.js';
 
 import {
@@ -139,7 +141,10 @@ async function loadLazy(doc) {
       breadcrumbWrapper.setAttribute('aria-label', 'Breadcrumb');
       footer.parentNode.insertBefore(breadcrumbWrapper, footer);
 
-      await loadBreadcrumb(breadcrumbWrapper);
+      const breadcrumbBlock = buildBlock('breadcrumb', '');
+      breadcrumbWrapper.append(breadcrumbBlock);
+      decorateBlock(breadcrumbBlock);
+      await loadBlock(breadcrumbBlock);
     }
   }
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
