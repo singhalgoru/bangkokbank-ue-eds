@@ -84,6 +84,18 @@
                     "valueType": "string"
                 },
                 {
+                    "component": "reference",
+                    "name": "mobileImage",
+                    "label": "Mobile Image",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "mobileImageAlt",
+                    "label": "Mobile Image Alt Text",
+                    "valueType": "string"
+                },
+                {
                     "component": "text",
                     "name": "eyebrow",
                     "label": "Eyebrow",
