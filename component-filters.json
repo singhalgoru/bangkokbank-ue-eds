@@ -18,7 +18,8 @@
       "columns",
       "fragment",
       "header",
-      "megamenu"
+      "megamenu",
+      "social-icons"
     ]
   },
   {
@@ -47,5 +48,12 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "social-icons",
+    "components": [
+      "social-icon"
+    ],
+    "maxItems": 3
   }
 ]
