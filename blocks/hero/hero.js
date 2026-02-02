@@ -4,6 +4,7 @@ import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 function changeBanner(block) {
   block.addEventListener('mouseenter', (e) => {
     const thumbnail = e.target.closest('.hero-banner-thumbnail-item');
+    if (!thumbnail) return;
 
     const idx = thumbnail.dataset.index;
     block.querySelectorAll('[data-index]').forEach((el) => {
@@ -11,6 +12,14 @@ function changeBanner(block) {
       el.classList.toggle('hero-banner-thumbnail-item-active', el.classList.contains('hero-banner-thumbnail-item') && el.dataset.index === idx);
     });
   }, true);
+}
+
+function lazyLoadThumbnails(block) {
+  const load = () => {
+    block.querySelector('.hero-banner-thumbnail-outer')?.classList.add('hero-banner-thumbnail-outer-active');
+    window.removeEventListener('scroll', load);
+  };
+  window.addEventListener('scroll', load, { passive: true });
 }
 
 export default function decorate(block) {
@@ -24,7 +33,7 @@ export default function decorate(block) {
   bannerList.className = 'hero-banner-list';
 
   const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.className = 'hero-banner-thumbnail-outer hero-banner-thumbnail-outer-active';
+  thumbnailOuter.className = 'hero-banner-thumbnail-outer'; // Removed hero-banner-thumbnail-outer-active
 
   const thumbnailList = document.createElement('ul');
   thumbnailList.className = 'hero-banner-thumbnail-list content';
@@ -113,4 +122,5 @@ export default function decorate(block) {
   block.replaceChildren(wrapper);
 
   changeBanner(block);
+  lazyLoadThumbnails(block);
 }
