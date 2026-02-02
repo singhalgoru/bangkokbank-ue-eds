@@ -46,11 +46,12 @@
 
 .hero-banner-img {
     max-width: 100%;
-    height: 850px;
+    height: auto;
     width: 100%;
     display: block;
     object-fit: cover;
     object-position: center;
+    aspect-ratio: 5/4;
 }
 
 .section.full-bleed-bg .hero-banner-content.content {
@@ -72,6 +73,8 @@
     margin-block: 0 23px;
     font-weight: var(--bbl-font-weight-regular);
     font-size: 2.887rem;
+    max-width: 444px;
+    margin-inline: auto;
 }
 
 .hero-banner-content-inner {
@@ -179,6 +182,11 @@
         content: none;
     }
 
+    .hero-banner-img {
+        aspect-ratio: 192 / 85;
+        height: 850px;
+    }
+
     .section.full-bleed-bg .hero-banner-content.content {
         text-align: left;
         padding: 0 var(--bbl-space-1050);
@@ -194,6 +202,7 @@
         -webkit-box-orient: vertical;
         overflow-y: clip;
         max-width: 644px;
+        margin-inline: 0;
     }
 
     .hero-banner-content-inner {
@@ -244,6 +253,6 @@
 
 @media (width >= 1950px) {
     .section.full-bleed-bg .hero-banner-content.content {
-      padding: 0;
+        padding: 0;
     }
 }
