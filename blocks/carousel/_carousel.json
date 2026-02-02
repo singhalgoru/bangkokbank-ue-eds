@@ -49,7 +49,7 @@
                     "valueType": "string"
                 },
                 {
-                    "component": "text",
+                    "component": "aem-content",
                     "name": "redirectionLink",
                     "label": "Redirection Link",
                     "valueType": "string"
@@ -109,7 +109,7 @@
                     "valueType": "string"
                 },
                 {
-                    "component": "text",
+                    "component": "aem-content",
                     "name": "ctaLink",
                     "label": "CTA Link",
                     "valueType": "string",
