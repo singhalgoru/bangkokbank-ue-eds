@@ -309,6 +309,90 @@
     ]
   },
   {
+    "id": "carousel",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Carousel Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "redirectionText",
+        "label": "Redirection Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "redirectionLink",
+        "label": "Redirection Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "carousel-card",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "nonActiveImage",
+        "label": "Non-Active Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "nonActiveImageAlt",
+        "label": "Non-Active Image Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "activeImage",
+        "label": "Active Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "activeImageAlt",
+        "label": "Active Image Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cardTitle",
+        "label": "Card Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "cardDescription",
+        "label": "Card Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cta",
+        "label": "CTA Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "valueType": "string",
+        "description": "URL for the CTA button"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
