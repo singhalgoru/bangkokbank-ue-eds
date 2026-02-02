@@ -1,24 +1,25 @@
 /**
  * Social Icons Block – Bangkok Bank style
- * Mobile: opens right, close first
- * Desktop: opens left, close last
  */
 
 export default function decorate(block) {
-  // Validate that all required content is present
-  const isValid = [...block.children].every((row) => {
+  // Check if we have at least one valid row
+  const validRows = [...block.children].filter((row) => {
     const cells = [...row.children];
-    if (cells.length < 3) return false;
+    if (cells.length < 3) {
+      return false;
+    }
 
     const platform = cells[0].textContent.trim();
     const icon = cells[1].querySelector('picture, img');
     const link = cells[2].querySelector('a');
-
-    return platform && icon && link && link.href;
+    const urlText = cells[2].textContent.trim();
+    const isValid = platform && icon && (link?.href || urlText);
+    return isValid;
   });
 
-  // Return early if any tag is empty
-  if (!isValid || block.children.length === 0) {
+  // Return early if no valid rows
+  if (validRows.length === 0) {
     return;
   }
 
@@ -39,13 +40,22 @@ export default function decorate(block) {
     const platform = cells[0].textContent.trim().toLowerCase();
     const icon = cells[1].querySelector('picture, img');
     const link = cells[2].querySelector('a');
+    const urlText = cells[2].textContent.trim();
 
-    if (!icon || !link) return;
+    // Skip if no icon or no URL
+    if (!icon || (!link?.href && !urlText)) return;
 
     const li = document.createElement('li');
     const a = document.createElement('a');
 
-    a.href = link.href;
+    // Use link href if available, otherwise use URL text
+    let url = link?.href || urlText;
+    // Ensure URL has protocol
+    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+      url = `https://${url}`;
+    }
+
+    a.href = url;
     a.className = `icon-${platform}`;
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
