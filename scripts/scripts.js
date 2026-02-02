@@ -13,6 +13,7 @@ import {
 } from './aem.js';
 
 import {
+  decorateSvgWithAltText,
   decorateTerritoryButtons,
 } from './bbl-decorators.js';
 
@@ -88,6 +89,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateTerritoryButtons(main);
+  decorateSvgWithAltText(main);
 }
 
 /**
