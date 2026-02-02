@@ -326,8 +326,7 @@
       {
         "component": "aem-content",
         "name": "redirectionLink",
-        "label": "Redirection Link",
-        "valueType": "string"
+        "label": "Redirection Link"
       }
     ]
   },
@@ -387,7 +386,6 @@
         "component": "aem-content",
         "name": "ctaLink",
         "label": "CTA Link",
-        "valueType": "string",
         "description": "URL for the CTA button"
       }
     ]
