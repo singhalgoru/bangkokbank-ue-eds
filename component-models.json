@@ -249,6 +249,10 @@
     ]
   },
   {
+    "id": "cards-with-carousel",
+    "fields": []
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -309,40 +313,7 @@
     ]
   },
   {
-    "id": "carousel-dotted-config",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "showDots",
-        "label": "Show Dots",
-        "valueType": "boolean",
-        "value": true
-      },
-      {
-        "component": "select",
-        "name": "dotsAlignment",
-        "label": "Dots Alignment",
-        "valueType": "string",
-        "value": "center",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "carousel-dotted-slide",
+    "id": "carousel-slide",
     "fields": [
       {
         "component": "text",
@@ -366,25 +337,28 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link",
-        "description": "Destination URL for the button"
+        "description": "Destination URL for the button",
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "linkText",
         "label": "Button Text",
         "description": "Button label text",
+        "valueType": "string",
         "required": true
       },
       {
         "component": "text",
         "name": "linkTitle",
         "label": "Title",
-        "description": "Accessibility title attribute (optional)"
+        "description": "Accessibility title attribute (optional)",
+        "valueType": "string"
       },
       {
         "component": "select",
         "name": "linkType",
-        "label": "Button Type",
+        "label": "Type",
         "description": "Button style variant",
         "valueType": "string",
         "value": "",

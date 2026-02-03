@@ -1,6 +1,21 @@
 {
   "definitions": [
     {
+      "title": "Cards with Carousel",
+      "id": "cards-with-carousel",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "cards-with-carousel",
+              "model": "cards-with-carousel"
+            }
+          }
+        }
+      }
+    },
+    {
       "title": "Carousel (Dotted)",
       "id": "carousel-dotted",
       "plugins": {
@@ -8,9 +23,8 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Carousel (Dotted)",
-              "model": "carousel-dotted-config",
-              "filter": "carousel-dotted"
+              "name": "carousel-dotted",
+              "model": "carousel-dotted"
             }
           }
         }
@@ -18,14 +32,14 @@
     },
     {
       "title": "Carousel Slide",
-      "id": "carousel-dotted-slide",
+      "id": "carousel-slide",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Carousel Slide",
-              "model": "carousel-dotted-slide"
+              "name": "carousel-slide",
+              "model": "carousel-slide"
             }
           }
         }
@@ -34,40 +48,7 @@
   ],
   "models": [
     {
-      "id": "carousel-dotted-config",
-      "fields": [
-        {
-          "component": "boolean",
-          "name": "showDots",
-          "label": "Show Dots",
-          "valueType": "boolean",
-          "value": true
-        },
-        {
-          "component": "select",
-          "name": "dotsAlignment",
-          "label": "Dots Alignment",
-          "valueType": "string",
-          "value": "center",
-          "options": [
-            {
-              "name": "Left",
-              "value": "left"
-            },
-            {
-              "name": "Center",
-              "value": "center"
-            },
-            {
-              "name": "Right",
-              "value": "right"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "carousel-dotted-slide",
+      "id": "carousel-slide",
       "fields": [
         {
           "component": "text",
@@ -91,41 +72,35 @@
           "component": "aem-content",
           "name": "link",
           "label": "Link",
-          "description": "Destination URL for the button"
+          "description": "Destination URL for the button",
+          "valueType": "string"
         },
         {
           "component": "text",
           "name": "linkText",
           "label": "Button Text",
           "description": "Button label text",
+          "valueType": "string",
           "required": true
         },
         {
           "component": "text",
           "name": "linkTitle",
           "label": "Title",
-          "description": "Accessibility title attribute (optional)"
+          "description": "Accessibility title attribute (optional)",
+          "valueType": "string"
         },
         {
           "component": "select",
           "name": "linkType",
-          "label": "Button Type",
+          "label": "Type",
           "description": "Button style variant",
           "valueType": "string",
           "value": "",
           "options": [
-            {
-              "name": "Primary",
-              "value": "primary"
-            },
-            {
-              "name": "Secondary",
-              "value": "secondary"
-            },
-            {
-              "name": "Tertiary",
-              "value": "tertiary"
-            }
+            { "name": "Primary", "value": "primary" },
+            { "name": "Secondary", "value": "secondary" },
+            { "name": "Tertiary", "value": "tertiary" }
           ]
         }
       ]
@@ -134,9 +109,7 @@
   "filters": [
     {
       "id": "carousel-dotted",
-      "components": [
-        "carousel-dotted-slide"
-      ]
+      "components": ["carousel-slide"]
     }
   ]
 }

@@ -29,6 +29,13 @@
     ]
   },
   {
+    "id": "cards-with-carousel",
+    "components": [
+      "carousel-dotted",
+      "cards"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
@@ -37,7 +44,7 @@
   {
     "id": "carousel-dotted",
     "components": [
-      "carousel-dotted-slide"
+      "carousel-slide"
     ]
   },
   {

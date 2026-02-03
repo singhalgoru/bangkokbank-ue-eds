@@ -113,6 +113,21 @@
           }
         },
         {
+          "title": "Cards with Carousel",
+          "id": "cards-with-carousel",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "cards-with-carousel",
+                  "model": "cards-with-carousel"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "plugins": {
@@ -143,6 +158,21 @@
           }
         },
         {
+          "title": "Cards with Carousel",
+          "id": "cards-with-carousel",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "cards-with-carousel",
+                  "model": "cards-with-carousel"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Carousel (Dotted)",
           "id": "carousel-dotted",
           "plugins": {
@@ -150,9 +180,8 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Carousel (Dotted)",
-                  "model": "carousel-dotted-config",
-                  "filter": "carousel-dotted"
+                  "name": "carousel-dotted",
+                  "model": "carousel-dotted"
                 }
               }
             }
@@ -160,14 +189,14 @@
         },
         {
           "title": "Carousel Slide",
-          "id": "carousel-dotted-slide",
+          "id": "carousel-slide",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Carousel Slide",
-                  "model": "carousel-dotted-slide"
+                  "name": "carousel-slide",
+                  "model": "carousel-slide"
                 }
               }
             }
