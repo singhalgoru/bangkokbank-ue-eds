@@ -249,6 +249,17 @@
     ]
   },
   {
+    "id": "cards-with-carousel-section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -338,6 +349,26 @@
             "value": "right"
           }
         ]
+      },
+      {
+        "component": "aem-content",
+        "name": "seeMoreLink",
+        "label": "See More Link",
+        "description": "Destination URL for the See More button"
+      },
+      {
+        "component": "text",
+        "name": "seeMoreText",
+        "label": "See More Text",
+        "valueType": "string",
+        "value": "See More"
+      },
+      {
+        "component": "text",
+        "name": "seeMoreTitle",
+        "label": "See More Title",
+        "description": "Accessibility title attribute (optional)",
+        "valueType": "string"
       }
     ]
   },

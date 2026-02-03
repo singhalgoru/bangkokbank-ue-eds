@@ -29,6 +29,13 @@
     ]
   },
   {
+    "id": "cards-with-carousel-section",
+    "components": [
+      "carousel-dotted",
+      "cards"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"

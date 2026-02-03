@@ -1,0 +1,170 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
+function readBoolean(cell, fallback = true) {
+  if (!cell) return fallback;
+  const value = cell.textContent.trim().toLowerCase();
+  if (value === 'true') return true;
+  if (value === 'false') return false;
+  return fallback;
+}
+
+function readAlignment(cell, fallback = 'center') {
+  if (!cell) return fallback;
+  const value = cell.textContent.trim().toLowerCase();
+  if (['left', 'center', 'right'].includes(value)) return value;
+  return fallback;
+}
+
+function buildSlide(row, index) {
+  const cells = [...row.children];
+  const slide = document.createElement('div');
+  slide.className = 'carousel-item';
+  slide.dataset.index = index;
+  moveInstrumentation(row, slide);
+
+  const media = document.createElement('div');
+  media.className = 'carousel-bg';
+  const picture = cells[1]?.querySelector('picture');
+  if (picture) {
+    media.append(picture);
+  }
+
+  const content = document.createElement('div');
+  content.className = 'carousel-content';
+
+  const badgeText = cells[0]?.textContent.trim();
+  if (badgeText) {
+    const badge = document.createElement('div');
+    badge.className = 'carousel-badge';
+    badge.textContent = badgeText;
+    content.append(badge);
+  }
+
+  if (cells[2]) {
+    const title = document.createElement('div');
+    title.className = 'carousel-title';
+    while (cells[2].firstChild) title.append(cells[2].firstChild);
+    content.append(title);
+  }
+
+  const link = cells[3]?.querySelector('a');
+  if (link) {
+    link.classList.add('carousel-cta');
+    content.append(link);
+  }
+
+  slide.append(media, content);
+  return slide;
+}
+
+export default function decorate(block) {
+  const rows = [...block.children];
+  const showDots = readBoolean(rows[0]);
+  const dotsAlignment = readAlignment(rows[1]);
+  let nextIndex = 2;
+  let seeMoreLink = null;
+  let seeMoreText = '';
+  let seeMoreTitle = '';
+
+  const seeMoreLinkRow = rows[nextIndex];
+  if (seeMoreLinkRow && !seeMoreLinkRow.querySelector('picture')) {
+    const link = seeMoreLinkRow.querySelector('a');
+    if (link && seeMoreLinkRow.children.length === 1) {
+      seeMoreLink = link;
+      nextIndex += 1;
+      const textRow = rows[nextIndex];
+      if (textRow && !textRow.querySelector('picture') && !textRow.querySelector('a')) {
+        seeMoreText = textRow.textContent.trim();
+        nextIndex += 1;
+      }
+      const titleRow = rows[nextIndex];
+      if (titleRow && !titleRow.querySelector('picture') && !titleRow.querySelector('a')) {
+        seeMoreTitle = titleRow.textContent.trim();
+        nextIndex += 1;
+      }
+    }
+  }
+
+  const slides = rows.slice(nextIndex);
+
+  block.classList.add(`carousel-dotted--dots-${dotsAlignment}`);
+  if (!showDots) block.classList.add('carousel-dotted--no-dots');
+
+  const container = document.createElement('div');
+  container.className = 'carousel-container';
+
+  const carousel = document.createElement('div');
+  carousel.className = 'carousel';
+  carousel.setAttribute('role', 'region');
+  carousel.setAttribute('aria-roledescription', 'carousel');
+
+  const list = document.createElement('div');
+  list.className = 'slick-list';
+
+  const track = document.createElement('div');
+  track.className = 'slick-track';
+  list.append(track);
+  carousel.append(list);
+  container.append(carousel);
+
+  const slideEls = slides.map((row, index) => {
+    const slide = buildSlide(row, index);
+    track.append(slide);
+    return slide;
+  });
+
+  const dots = document.createElement('ul');
+  dots.className = 'slick-dots';
+  dots.setAttribute('role', 'tablist');
+
+  let dotButtons;
+
+  function setActive(index) {
+    slideEls.forEach((slide, i) => {
+      const active = i === index;
+      slide.classList.toggle('is-active', active);
+      slide.classList.toggle('slick-current', active);
+      slide.classList.toggle('slick-active', active);
+      slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+    });
+    dotButtons.forEach(({ li, button }, i) => {
+      const active = i === index;
+      li.classList.toggle('slick-active', active);
+      button.setAttribute('aria-selected', active ? 'true' : 'false');
+      button.tabIndex = active ? 0 : -1;
+    });
+  }
+
+  dotButtons = slideEls.map((slide, index) => {
+    const li = document.createElement('li');
+    li.setAttribute('role', 'presentation');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-label', `Slide ${index + 1}`);
+    button.addEventListener('click', () => setActive(index));
+    li.append(button);
+    dots.append(li);
+    return { li, button };
+  });
+
+  if (showDots) {
+    container.append(dots);
+  }
+
+  if (seeMoreLink) {
+    const moreWrap = document.createElement('div');
+    moreWrap.className = 'carousel-dotted__more';
+    seeMoreLink.classList.add('button', 'tertiary');
+    if (seeMoreText) seeMoreLink.textContent = seeMoreText;
+    if (seeMoreTitle) seeMoreLink.title = seeMoreTitle;
+    moreWrap.append(seeMoreLink);
+    container.append(moreWrap);
+  }
+
+  if (slideEls.length) {
+    setActive(0);
+  }
+
+  block.replaceChildren(container);
+}

@@ -113,6 +113,22 @@
           }
         },
         {
+          "title": "Cards with Carousel Section",
+          "id": "cards-with-carousel-section",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Cards with Carousel Section",
+                  "model": "cards-with-carousel-section",
+                  "filter": "cards-with-carousel-section"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "plugins": {
