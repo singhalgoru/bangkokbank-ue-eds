@@ -34,7 +34,7 @@
   ],
   "models": [
     {
-      "id": "carousel-dotted-config",
+      "id": "carousel-dotted",
       "fields": [
         {
           "component": "boolean",
