@@ -249,7 +249,7 @@
     ]
   },
   {
-    "id": "cards-with-carousel-section",
+    "id": "cards-with-carousel",
     "fields": [
       {
         "component": "text",

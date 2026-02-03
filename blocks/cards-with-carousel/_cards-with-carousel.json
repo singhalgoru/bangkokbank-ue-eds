@@ -1,16 +1,16 @@
 {
     "definitions": [
       {
-        "title": "Cards with Carousel Section",
-        "id": "cards-with-carousel-section",
+        "title": "Cards with Carousel",
+        "id": "cards-with-carousel",
         "plugins": {
           "xwalk": {
             "page": {
               "resourceType": "core/franklin/components/section/v1/section",
               "template": {
-                "name": "Cards with Carousel Section",
-                "model": "cards-with-carousel-section",
-                "filter": "cards-with-carousel-section"
+                "name": "Cards with Carousel",
+                "model": "cards-with-carousel",
+                "filter": "cards-with-carousel"
               }
             }
           }
@@ -19,7 +19,7 @@
     ],
     "models": [
       {
-        "id": "cards-with-carousel-section",
+        "id": "cards-with-carousel",
         "fields": [
           {
             "component": "text",
@@ -32,7 +32,7 @@
     ],
     "filters": [
       {
-        "id": "cards-with-carousel-section",
+        "id": "cards-with-carousel",
         "components": [
          "carousel-dotted",
          "cards"
