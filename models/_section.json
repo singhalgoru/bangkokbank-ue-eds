@@ -94,7 +94,8 @@
         "fragment",
         "header",
         "megamenu",
-        "carousel-dotted"
+        "carousel-dotted",
+        "cards-with-carousel"
       ]
     }
   ]
