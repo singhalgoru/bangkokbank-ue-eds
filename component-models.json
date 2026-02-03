@@ -309,6 +309,103 @@
     ]
   },
   {
+    "id": "carousel-dotted-config",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "showDots",
+        "label": "Show Dots",
+        "valueType": "boolean",
+        "value": true
+      },
+      {
+        "component": "select",
+        "name": "dotsAlignment",
+        "label": "Dots Alignment",
+        "valueType": "string",
+        "value": "center",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "carousel-dotted-slide",
+    "fields": [
+      {
+        "component": "text",
+        "name": "badgeText",
+        "label": "Badge Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the button"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Button Text",
+        "description": "Button label text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Button Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
