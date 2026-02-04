@@ -47,5 +47,12 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "hero",
+    "components": [
+      "hero-item"
+    ],
+    "maxItems": 8
   }
 ]
