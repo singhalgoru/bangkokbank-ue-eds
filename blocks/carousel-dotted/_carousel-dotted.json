@@ -63,6 +63,8 @@
               "value": "right"
             }
           ]
+        },{
+          "...": "../../models/elements/_button-fields.json"
         }
       ]
     },
