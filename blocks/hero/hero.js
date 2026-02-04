@@ -33,7 +33,7 @@ export default function decorate(block) {
   bannerList.className = 'hero-banner-list';
 
   const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.className = 'hero-banner-thumbnail-outer'; // Removed hero-banner-thumbnail-outer-active
+  thumbnailOuter.className = 'hero-banner-thumbnail-outer';
 
   const thumbnailList = document.createElement('ul');
   thumbnailList.className = 'hero-banner-thumbnail-list content';
@@ -115,7 +115,7 @@ export default function decorate(block) {
   thumbnailOuter.append(thumbnailList);
 
   const wrapper = document.createElement('div');
-  wrapper.className = `hero-banner hero-banner--${variant}`;
+  wrapper.className = `hero-banner hero-banner-${variant}`;
   wrapper.append(mainImgContainer);
   wrapper.append(thumbnailOuter);
 
