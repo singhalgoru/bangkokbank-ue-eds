@@ -349,11 +349,27 @@
         "options": [
           {
             "name": "Hero With Thumbnail Images",
-            "value": "hero_with_thumbnail_images"
+            "value": "hero-with-thumbnail-images"
           },
           {
             "name": "Simple",
             "value": "simple"
+          },
+          {
+            "name": "Hero Banner with Image Carousel",
+            "value": "hero-banner-image-carousel"
+          },
+          {
+            "name": "Hero Banner with Image Carousel and Text Animation",
+            "value": "hero-banner-carousel-text-animation"
+          },
+          {
+            "name": "Simple with Logo and Title",
+            "value": "simple-logo-title"
+          },
+          {
+            "name": "Simple with Logo Only",
+            "value": "simple-logo-only"
           }
         ]
       }
@@ -377,11 +393,27 @@
         "value": ""
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logoImage",
+        "label": "Logo Image",
+        "multi": false,
+        "description": "Optional logo image (for logo variants)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logoImageAlt",
+        "label": "Logo Alt",
+        "value": ""
+      },
+      {
         "component": "richtext",
         "name": "title",
         "value": "",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "description": "Optional for 'Simple with Logo Only' variant"
       },
       {
         "component": "text-input",

@@ -33,7 +33,7 @@ export default function decorate(block) {
   bannerList.className = 'hero-banner-list';
 
   const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.className = 'hero-banner-thumbnail-outer'; // Removed hero-banner-thumbnail-outer-active
+  thumbnailOuter.className = 'hero-banner-thumbnail-outer';
 
   const thumbnailList = document.createElement('ul');
   thumbnailList.className = 'hero-banner-thumbnail-list content';
@@ -43,7 +43,7 @@ export default function decorate(block) {
   const items = [...block.children].slice(1, 8);
 
   items.forEach((row) => {
-    const [imageCell, headingCell, textCell, linkCell, thumbImgCell] = [
+    const [imageCell, logoImageCell, headingCell, textCell, linkCell, thumbImgCell] = [
       ...row.children,
     ];
 
@@ -69,7 +69,14 @@ export default function decorate(block) {
     const contentInner = document.createElement('div');
     contentInner.className = 'hero-banner-content-inner';
 
-    if (headingCell) {
+    const logoPicture = logoImageCell.querySelector('picture');
+    const logoImg = logoPicture?.querySelector('img');
+    if (logoImg) {
+      logoImg.className = 'hero-banner-logo';
+      contentInner.append(logoImg);
+    }
+
+    if (headingCell && variant !== 'simple_logo_only') {
       contentInner.innerHTML += headingCell.innerHTML;
     }
 
@@ -115,7 +122,7 @@ export default function decorate(block) {
   thumbnailOuter.append(thumbnailList);
 
   const wrapper = document.createElement('div');
-  wrapper.className = `hero-banner hero-banner--${variant}`;
+  wrapper.className = `hero-banner hero-banner-${variant}`;
   wrapper.append(mainImgContainer);
   wrapper.append(thumbnailOuter);
 
