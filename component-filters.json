@@ -2,8 +2,7 @@
   {
     "id": "main",
     "components": [
-      "section",
-      "cards-with-carousel"
+      "section"
     ]
   },
   {
@@ -27,13 +26,6 @@
     "id": "cards-product",
     "components": [
       "product-card"
-    ]
-  },
-  {
-    "id": "cards-with-carousel",
-    "components": [
-      "carousel-dotted",
-      "cards"
     ]
   },
   {
