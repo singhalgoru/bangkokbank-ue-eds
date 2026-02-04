@@ -43,15 +43,7 @@
                     "valueType": "string"
                 },
                 {
-                    "component": "text",
-                    "name": "redirectionText",
-                    "label": "Redirection Text",
-                    "valueType": "string"
-                },
-                {
-                    "component": "aem-content",
-                    "name": "redirectionLink",
-                    "label": "Redirection Link"
+                    "...": "../../models/elements/_button-fields.json"
                 }
             ]
         },
@@ -102,16 +94,7 @@
                     "valueType": "string"
                 },
                 {
-                    "component": "text",
-                    "name": "cta",
-                    "label": "CTA Text",
-                    "valueType": "string"
-                },
-                {
-                    "component": "aem-content",
-                    "name": "ctaLink",
-                    "label": "CTA Link",
-                    "description": "URL for the CTA button"
+                    "...": "../../models/elements/_button-fields.json"
                 }
             ]
         }
