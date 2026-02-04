@@ -190,6 +190,12 @@ main img {
   margin: 0 auto;
 }
 
+.section.grid-40-60 {
+   display: grid;
+  grid-template-columns: 32% 78%;
+  gap: var(--gap);
+}
+
 @media (width >= 1920px) {
   .section.full-bleed-bg .content {
     max-width: var(--bbl-layout-content-max-width-1920);

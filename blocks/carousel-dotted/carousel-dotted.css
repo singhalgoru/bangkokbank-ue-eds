@@ -1,218 +1,246 @@
-.carousel-dotted .carousel-container {
+/* ======================================================
+   BANGKOK BANK STYLE CAROUSEL (CLEAN + FLAT)
+   ====================================================== */
+
+.carousel-dotted-container {
+  position: relative;
+  overflow: hidden;
   height: 100%;
-  border-radius: 7px;
-  background: #fff;
-  border: 1px solid rgb(0 0 0 / 10%);
   min-height: 445px;
-  position: relative;
-  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgb(0 0 0 / 8%);
 }
 
-.carousel-dotted .carousel,
-.carousel-dotted .slick-list,
-.carousel-dotted .slick-track {
-  height: 100%;
-}
 
-.carousel-dotted .carousel {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-}
+/* ======================================================
+   SLIDES
+   ====================================================== */
 
-.carousel-dotted .slick-list {
-  overflow: hidden;
-}
-
-.carousel-dotted .slick-track {
-  position: relative;
-}
-
-.carousel-dotted .carousel-item {
+.carousel-dotted-container .carousel-item {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 500ms;
+  transition: opacity 400ms ease;
 }
 
-.carousel-dotted .carousel-item.is-active {
+.carousel-dotted-container .carousel-item.is-active {
   opacity: 1;
   z-index: 1;
 }
 
-.carousel-dotted .carousel-bg {
+
+/* ======================================================
+   BACKGROUND IMAGE
+   ====================================================== */
+
+.carousel-dotted-container .carousel-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   background-position: center;
-  z-index: 0;
-  box-shadow: inset 0 -110px 40px -50px #fff;
+  background-size: cover;
+
+  /* subtle bottom fade like live site */
+  box-shadow: inset 0 -90px 50px -40px #fff;
 }
 
-.carousel-dotted .carousel-bg picture,
-.carousel-dotted .carousel-bg img {
+.carousel-dotted-container .carousel-bg picture,
+.carousel-dotted-container .carousel-bg img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
 
-.carousel-dotted .carousel-content {
+
+/* ======================================================
+   CONTENT
+   ====================================================== */
+
+.carousel-dotted-container .carousel-content {
   position: relative;
   z-index: 1;
   padding: 24px;
+  max-width: 65%;
 }
 
-.carousel-dotted .carousel-badge {
-  font-size: 0.9rem;
-  line-height: 1.125rem;
+
+/* badge */
+.carousel-dotted-container .carousel-badge {
+  display: inline-block;
+  font-size: 0.85rem;
   font-weight: 500;
   background: #4890ff;
-  display: inline-block;
-  padding: 4px 7px;
-  margin-bottom: 14px;
   color: #fff;
-  border-radius: 16px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  margin-bottom: 14px;
 }
 
-.carousel-dotted .carousel-title {
+
+/* title */
+.carousel-dotted-container .carousel-title {
   font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
   font-weight: 400;
-  color: #000;
   font-size: 2rem;
-  line-height: 2rem;
+  line-height: 2.2rem;
+  color: #000;
   margin-bottom: 24px;
 }
 
-[lang='th'] .carousel-dotted .carousel-title {
+[lang='th'] .carousel-dotted-container .carousel-title {
   line-height: 2.5rem;
 }
 
-.carousel-dotted .carousel-cta.button {
-  margin-top: 4px;
-}
 
-.carousel-dotted .slick-dots {
+/* ======================================================
+   DOTS (LIVE SITE STYLE)
+   ====================================================== */
+
+.carousel-dotted-container .slick-dots {
   position: absolute;
-  bottom: 24px;
+  bottom: 20px;
   left: 24px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   list-style: none;
   padding: 0;
   margin: 0;
   z-index: 2;
 }
 
-.carousel-dotted .slick-dots li {
+.carousel-dotted-container .slick-dots li {
   display: inline-flex;
 }
 
-.carousel-dotted .slick-dots button {
+
+/* default dot */
+.carousel-dotted-container .slick-dots button {
   appearance: none;
-  background: transparent;
-  border: 1px solid #c8c8cc;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
+  min-height: 9px;
   border-radius: 50%;
+  border: none;
   padding: 0;
-  box-sizing: border-box;
+  margin: 0;
   cursor: pointer;
+  background: rgb(0 0 0 / 25%);
+  transition: background 180ms ease;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
 }
 
-.carousel-dotted .slick-dots button:focus-visible {
+
+/* hover */
+.carousel-dotted-container .slick-dots button:hover {
+  background: rgb(0 0 0 / 45%);
+}
+
+
+/* focus */
+.carousel-dotted-container .slick-dots button:focus-visible {
   outline: 2px solid #0064ff;
   outline-offset: 2px;
 }
 
-.carousel-dotted .slick-dots li.slick-active button {
-  background: #039;
-  border: 6px solid #039;
-  position: relative;
-  top: 1px;
+/* active */
+.carousel-dotted-container .slick-dots li.is-active button {
+  background: #0064ff;
 }
 
-.carousel-dotted-dots-center .slick-dots {
+/* alignments */
+.carousel-dotted-container.dots-center .slick-dots {
   left: 50%;
   transform: translateX(-50%);
 }
 
-.carousel-dotted-dots-right .slick-dots {
+.carousel-dotted-container.dots-right .slick-dots {
   right: 24px;
   left: auto;
 }
 
-.carousel-dotted-no-dots .slick-dots {
+.carousel-dotted-container.no-dots .slick-dots {
   display: none;
 }
 
-.carousel-dotted .carousel-dotted-more {
+
+/* ======================================================
+   MORE BUTTON
+   ====================================================== */
+
+.carousel-dotted-container .carousel-dotted-more {
   position: absolute;
-  bottom: 24px;
+  bottom: 20px;
   right: 24px;
   z-index: 2;
 }
 
+
+/* ======================================================
+   TABLET
+   ====================================================== */
+
 @media (width <= 1024px) {
-  .carousel-dotted .carousel-item {
+  .carousel-dotted-container .carousel-item {
     min-height: 454px;
   }
 }
 
+
+/* ======================================================
+   MOBILE (matches live behavior)
+   ====================================================== */
+
 @media (width <= 760px) {
-  .carousel-dotted .carousel {
-    position: relative;
+  .carousel-dotted-container {
+    height: auto;
+    min-height: initial;
   }
 
-  .carousel-dotted .carousel-item {
+  .carousel-dotted-container .carousel-item {
     position: relative;
-    opacity: 1;
     display: none;
+    opacity: 1;
   }
 
-  .carousel-dotted .carousel-item.is-active {
+  .carousel-dotted-container .carousel-item.is-active {
     display: block;
   }
 
-  .carousel-dotted .carousel-title {
-    font-size: 2rem;
-    line-height: 2.5rem;
-    margin-bottom: 30px;
-    max-width: 65%;
+  .carousel-dotted-container .carousel-bg {
+    position: relative;
+    height: 197px;
+    box-shadow: none;
   }
 
-  .carousel-dotted .carousel-badge {
-    padding: 8px 10px;
-  }
-
-  .carousel-dotted .carousel-content {
+  .carousel-dotted-container .carousel-content {
     padding: 20px;
     min-height: 203px;
     max-height: 203px;
   }
 
-  .carousel-dotted .carousel-container {
-    min-height: initial;
-    height: auto;
+  .carousel-dotted-container .carousel-title {
+    font-size: 1.9rem;
+    line-height: 2.4rem;
+    margin-bottom: 30px;
   }
 
-  .carousel-dotted .carousel-bg {
-    position: relative;
-    box-shadow: none;
-    height: 197px;
-  }
-
-  .carousel-dotted .slick-dots {
+  .carousel-dotted-container .slick-dots {
     inset: 215px 24px auto auto;
   }
 
-  .carousel-dotted-dots-center .slick-dots {
-    left: 50%;
-    right: auto;
+  .carousel-dotted-container .slick-dots button {
+    width: 8px;
+    height: 8px;
   }
 
-  .carousel-dotted .carousel-dotted-more {
+  .carousel-dotted-container .carousel-dotted-more {
     bottom: 16px;
     right: 16px;
   }
