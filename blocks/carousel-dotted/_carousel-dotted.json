@@ -49,11 +49,6 @@
           "label": "Dots Alignment",
           "valueType": "string",
           "value": "center",
-          "condition": {
-            "key": "showDots",
-            "operator": "eq",
-            "value": true
-          },
           "options": [
             {
               "name": "Left",
@@ -70,6 +65,23 @@
           ]
         },
         {
+          "component": "select",
+          "name": "dotsPosition",
+          "label": "Dots Position",
+          "valueType": "string",
+          "value": "inside-container",
+          "options": [
+            {
+              "name": "Inside container",
+              "value": "inside-container"
+            },
+            {
+              "name": "Outside container",
+              "value": "outside-container"
+            }
+          ]
+        },
+        {
           "component": "boolean",
           "name": "showArrows",
           "label": "Show Arrows",
@@ -82,11 +94,6 @@
           "label": "Arrows Alignment",
           "valueType": "string",
           "value": "center",
-          "condition": {
-            "key": "showArrows",
-            "operator": "eq",
-            "value": true
-          },
           "options": [
             {
               "name": "Middle",
@@ -119,11 +126,6 @@
           "label": "Animation Type",
           "valueType": "string",
           "value": "center",
-          "condition": {
-            "key": "showAnimation",
-            "operator": "eq",
-            "value": true
-          },
           "options": [
             {
               "name": "Fade-In",
