@@ -1,15 +1,15 @@
 /* ======================================================
-   BANGKOK BANK STYLE CAROUSEL (CLEAN + FLAT)
+   MOBILE-FIRST APPROACH
    ====================================================== */
 
 .carousel-dotted-container {
   position: relative;
   overflow: hidden;
-  height: 100%;
-  min-height: 445px;
+  height: auto;
   border-radius: 8px;
   background: #fff;
   border: 1px solid rgb(0 0 0 / 8%);
+  padding: 0;
 }
 
 
@@ -18,14 +18,13 @@
    ====================================================== */
 
 .carousel-dotted-container .carousel-item {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 400ms ease;
+  position: relative;
+  display: none;
+  opacity: 1;
 }
 
 .carousel-dotted-container .carousel-item.is-active {
-  opacity: 1;
+  display: block;
   z-index: 1;
 }
 
@@ -35,15 +34,11 @@
    ====================================================== */
 
 .carousel-dotted-container .carousel-bg {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  height: 197px;
   width: 100%;
-  height: 100%;
   background-position: center;
   background-size: cover;
-
-  /* subtle bottom fade like live site */
-  box-shadow: inset 0 -90px 50px -40px #fff;
 }
 
 .carousel-dotted-container .carousel-bg picture,
@@ -62,8 +57,9 @@
 .carousel-dotted-container .carousel-content {
   position: relative;
   z-index: 1;
-  padding: 24px;
-  max-width: 65%;
+  padding: 20px;
+  min-height: 203px;
+  max-height: 203px;
 }
 
 
@@ -74,7 +70,7 @@
   font-weight: 500;
   background: #4890ff;
   color: #fff;
-  padding: 6px 10px;
+  padding: 4px 7px;
   border-radius: 20px;
   margin-bottom: 14px;
 }
@@ -84,10 +80,10 @@
 .carousel-dotted-container .carousel-title {
   font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
   font-weight: 400;
-  font-size: 2rem;
-  line-height: 2.2rem;
+  font-size: 1.9rem;
+  line-height: 2.4rem;
   color: #000;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 [lang='th'] .carousel-dotted-container .carousel-title {
@@ -101,8 +97,7 @@
 
 .carousel-dotted-container .slick-dots {
   position: absolute;
-  bottom: 20px;
-  left: 24px;
+  inset: 215px 24px auto auto;
   display: flex;
   gap: 8px;
   list-style: none;
@@ -119,10 +114,10 @@
 /* default dot */
 .carousel-dotted-container .slick-dots button {
   appearance: none;
-  width: 9px;
-  height: 9px;
-  min-width: 9px;
-  min-height: 9px;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  min-height: 8px;
   border-radius: 50%;
   border: none;
   padding: 0;
@@ -158,6 +153,7 @@
 .carousel-dotted-container.dots-center .slick-dots {
   left: 50%;
   transform: translateX(-50%);
+  right: auto;
 }
 
 .carousel-dotted-container.dots-right .slick-dots {
@@ -176,72 +172,77 @@
 
 .carousel-dotted-container .carousel-dotted-more {
   position: absolute;
-  bottom: 20px;
-  right: 24px;
+  bottom: 16px;
+  right: 16px;
   z-index: 2;
 }
 
 
 /* ======================================================
-   TABLET
+   TABLET AND ABOVE (min-width: 761px)
    ====================================================== */
 
-@media (width <= 1024px) {
+@media (width >= 760px) {
+  .carousel-dotted-container {
+    padding: unset;
+    height: 100%;
+    min-height: 445px;
+  }
+
   .carousel-dotted-container .carousel-item {
-    min-height: 454px;
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  .carousel-dotted-container .carousel-item.is-active {
+    opacity: 1;
+  }
+
+  .carousel-dotted-container .carousel-bg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+
+    /* subtle bottom fade like live site */
+    box-shadow: inset 0 -90px 50px -40px #fff;
+  }
+
+  .carousel-dotted-container .carousel-content {
+    padding: 24px;
+    min-height: initial;
+    max-height: initial;
+    max-width: 65%;
+  }
+
+  .carousel-dotted-container .carousel-title {
+      font-size: 1.5rem;
+    line-height: 1.625rem;
+    margin-bottom: 24px;
+  }
+
+  .carousel-dotted-container .slick-dots {
+    inset: auto auto 20px 24px;
+  }
+
+  .carousel-dotted-container .slick-dots button {
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    min-height: 9px;
+  }
+
+  .carousel-dotted-container .carousel-dotted-more {
+    bottom: 20px;
+    right: 24px;
   }
 }
 
 
-/* ======================================================
-   MOBILE (matches live behavior)
-   ====================================================== */
-
-@media (width <= 760px) {
-  .carousel-dotted-container {
-    height: auto;
-    min-height: initial;
-  }
-
+@media (width >= 1024px) {
   .carousel-dotted-container .carousel-item {
-    position: relative;
-    display: none;
-    opacity: 1;
-  }
-
-  .carousel-dotted-container .carousel-item.is-active {
-    display: block;
-  }
-
-  .carousel-dotted-container .carousel-bg {
-    position: relative;
-    height: 197px;
-    box-shadow: none;
-  }
-
-  .carousel-dotted-container .carousel-content {
-    padding: 20px;
-    min-height: 203px;
-    max-height: 203px;
-  }
-
-  .carousel-dotted-container .carousel-title {
-    font-size: 1.9rem;
-    line-height: 2.4rem;
-    margin-bottom: 30px;
-  }
-
-  .carousel-dotted-container .slick-dots {
-    inset: 215px 24px auto auto;
-  }
-
-  .carousel-dotted-container .slick-dots button {
-    width: 8px;
-    height: 8px;
-  }
-
-  .carousel-dotted-container .carousel-dotted-more {
-    bottom: 16px;
-    right: 16px;
+    min-height: 454px;
   }
 }
