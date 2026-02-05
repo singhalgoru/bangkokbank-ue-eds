@@ -188,7 +188,9 @@
     }
 }
 
-.section.full-bleed-bg .hero-banner-simple .hero-banner-content.content {
+.section.full-bleed-bg
+    :is(.hero-banner-simple, .hero-banner-private-wealth-banking)
+    .hero-banner-content.content {
     position: static;
     text-align: left;
     padding: var(--bbl-space-250) var(--bbl-space-200) 0;
@@ -200,8 +202,41 @@
     margin: 0;
 }
 
-.hero-banner-simple .hero-banner-thumbnail-outer {
-    display: none;
+.hero-banner-private-wealth-banking .hero-banner-content-inner-text {
+    color: var(--bbl-color-black);
+    line-height: 1.375rem;
+    padding: 0;
+    margin: var(--bbl-space-100) 0 0;
+}
+
+/* Mobile simple logo and title variant override */
+.section.full-bleed-bg
+    .hero-banner-private-wealth-banking
+    .hero-banner-content.content {
+    padding: 0 var(--bbl-space-200) 0;
+}
+
+.hero-banner-private-wealth-banking .hero-banner-logo {
+    margin: var(--bbl-space-600) 0 var(--bbl-space-300);
+}
+
+.hero-banner-private-wealth-banking
+    .hero-banner-content
+    :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--bbl-color-grey-60);
+    margin: 0;
+    padding: 0;
+    font-size: 22.4px;
+    line-height: 22px;
+    letter-spacing: -0.2px;
+}
+
+.hero-banner-private-wealth-banking .button-container {
+    margin-block: 30px 0;
+}
+
+.hero-banner-private-wealth-banking .hero-banner-content-group {
+    margin-block: 0 var(--bbl-space-500);
 }
 
 @media (width >= 760px) {
@@ -228,6 +263,13 @@
     /* Simple variant override */
     .section.full-bleed-bg .hero-banner-simple .hero-banner-content.content {
         padding: var(--bbl-space-250) var(--bbl-space-600) 0;
+    }
+
+    /* simple logo and title variant override */
+    .section.full-bleed-bg
+        .hero-banner-private-wealth-banking
+        .hero-banner-content.content {
+        padding: 0 var(--bbl-space-600) 0;
     }
 }
 
@@ -316,6 +358,12 @@
         bottom: 30px;
     }
 
+    .section.full-bleed-bg
+        .hero-banner-private-wealth-banking
+        .hero-banner-content.content {
+        padding: 0 var(--bbl-space-1050) 0;
+    }
+
     .hero-banner-simple .hero-banner-content :is(h1, h2, h3, h4, h5, h6) {
         font-size: var(--bbl-font-size-h3-desktop);
         line-height: 2.875rem;
@@ -329,6 +377,38 @@
 
     .hero-banner-simple .hero-banner-content-inner-text {
         color: var(--bbl-color-white);
+    }
+
+    /* Simple logo and title variant override */
+    .hero-banner-private-wealth-banking .hero-banner-content-inner {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--bbl-space-300);
+        width: 100%;
+        float: none;
+        justify-content: space-between;
+    }
+
+    .hero-banner-private-wealth-banking .hero-banner-logo {
+        margin: var(--bbl-space-600) 0 0;
+    }
+
+    .hero-banner-private-wealth-banking
+        .hero-banner-content
+        :is(h1, h2, h3, h4, h5, h6) {
+        font-size: var(--bbl-font-size-h3-desktop);
+        line-height: 2.875rem;
+        font-family: var(--bbl-font-family-primary);
+    }
+
+    .hero-banner-private-wealth-banking .hero-banner-content-inner-text {
+        line-height: 1.625rem;
+        margin: var(--bbl-space-200) 0 0;
+    }
+
+    .hero-banner-private-wealth-banking .hero-banner-content-group {
+        margin-block: var(--bbl-space-600) var(--bbl-space-800);
+        width: 60%;
     }
 }
 
