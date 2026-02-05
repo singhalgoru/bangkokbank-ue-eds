@@ -332,15 +332,13 @@
         "component": "boolean",
         "name": "showDots",
         "label": "Show Dots",
-        "valueType": "boolean",
-        "value": true
+        "valueType": "boolean"
       },
       {
         "component": "select",
         "name": "dotsAlignment",
         "label": "Dots Alignment",
         "valueType": "string",
-        "value": "center",
         "options": [
           {
             "name": "Left",
@@ -361,7 +359,6 @@
         "name": "dotsPosition",
         "label": "Dots Position",
         "valueType": "string",
-        "value": "inside-container",
         "options": [
           {
             "name": "Inside container",
@@ -385,7 +382,6 @@
         "name": "arrowsAlignment",
         "label": "Arrows Alignment",
         "valueType": "string",
-        "value": "center",
         "options": [
           {
             "name": "Middle",
@@ -417,7 +413,6 @@
         "name": "animationType",
         "label": "Animation Type",
         "valueType": "string",
-        "value": "center",
         "options": [
           {
             "name": "Fade-In",
