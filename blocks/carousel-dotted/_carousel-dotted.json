@@ -160,35 +160,74 @@
     {
       "id": "carousel-dotted-slide",
       "fields": [
+         {
+          "component": "boolean",
+          "name": "withImage",
+          "label": "With Image",
+          "valueType": "boolean",
+          "value": false
+        },
         {
           "component": "text",
           "name": "badgeText",
           "label": "Badge Text",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+              "and": [
+                { "!!": [{ "var": "withImage" }] }
+            ]
+          }
         },
         {
           "component": "reference",
           "name": "image",
           "label": "Image",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+              "and": [
+                { "!!": [{ "var": "withImage" }] }
+            ]
+          }
         },
         {
           "component": "richtext",
           "name": "description",
           "label": "Description",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+              "and": [
+                { "!!": [{ "var": "withImage" }] }
+            ]
+          }
+        },
+          {
+          "component": "boolean",
+          "name": "withoutImage",
+          "label": "Without Image",
+          "valueType": "boolean",
+          "value": false
         },
          {
           "component": "text",
           "name": "headerText",
           "label": "Header Text",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+              "and": [
+                { "!!": [{ "var": "withoutImage" }] }
+            ]
+          }
         },
         {
           "component": "richtext",
           "name": "default-text",
           "label": "Default Text",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+              "and": [
+                { "!!": [{ "var": "withoutImage" }] }
+            ]
+          }
         
         },
         {
