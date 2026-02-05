@@ -132,7 +132,7 @@ export default function decorate(block) {
   wrapper.className = `hero-banner hero-banner-${variant}`;
   wrapper.append(mainImgContainer);
 
-  if (variant === 'hero_with_thumbnail_images') {
+  if (variant === 'hero-with-thumbnail-images') {
     wrapper.append(thumbnailOuter);
   }
 

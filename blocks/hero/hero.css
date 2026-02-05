@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-.hero-banner::after {
+.hero-banner-hero-with-thumbnail-images::after {
     content: "";
     border-bottom: 1px solid var(--bbl-color-grey-20);
     position: absolute;
@@ -156,7 +156,8 @@
 }
 
 /* Mobile simple variant override */
-.hero-banner-simple {
+.hero-banner-simple,
+.hero-banner-simple-logo-banner {
     margin-bottom: 1.875rem;
 }
 
@@ -173,30 +174,39 @@
     font-size: var(--bbl-font-size-h3-mobile);
     line-height: var(--bbl-heading-h3-line-height);
     letter-spacing: -0.2px;
-    margin: 0 0 0.9375rem;
-    padding: 0 0 0.9375rem;
-    position: relative;
+}
 
-    &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        width: 21px;
-        bottom: 0;
-        height: 1px;
-        background: var(--bbl-color-black);
-    }
+:is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+    :is(.hero-banner-content
+        :is(h1, h2, h3, h4, h5, h6), .hero-banner-logo-wrapper) {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.9375rem;
+    margin-bottom: 0.9375rem;
+}
+
+:is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+    :is(.hero-banner-content
+        :is(h1, h2, h3, h4, h5, h6), .hero-banner-logo-wrapper)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 21px;
+    bottom: 0;
+    height: 1px;
+    background: var(--bbl-color-black);
 }
 
 .section.full-bleed-bg
-    :is(.hero-banner-simple, .hero-banner-private-wealth-banking)
+    :is(.hero-banner-simple, .hero-banner-private-wealth-banking, .hero-banner-simple-logo-banner)
     .hero-banner-content.content {
     position: static;
     text-align: left;
     padding: var(--bbl-space-250) var(--bbl-space-200) 0;
 }
 
-.hero-banner-simple .hero-banner-content-inner-text {
+:is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+    .hero-banner-content-inner-text {
     color: var(--bbl-color-black);
     line-height: 1.7875rem;
     margin: 0;
@@ -209,7 +219,7 @@
     margin: var(--bbl-space-100) 0 0;
 }
 
-/* Mobile simple logo and title variant override */
+/* Mobile private-wealth-banking variant override */
 .section.full-bleed-bg
     .hero-banner-private-wealth-banking
     .hero-banner-content.content {
@@ -226,13 +236,13 @@
     color: var(--bbl-color-grey-60);
     margin: 0;
     padding: 0;
-    font-size: 22.4px;
-    line-height: 22px;
+    font-size: 1.4rem;
+    line-height: 1.375rem;
     letter-spacing: -0.2px;
 }
 
 .hero-banner-private-wealth-banking .button-container {
-    margin-block: 30px 0;
+    margin-block: 1.875rem 0;
 }
 
 .hero-banner-private-wealth-banking .hero-banner-content-group {
@@ -261,15 +271,40 @@
     }
 
     /* Simple variant override */
-    .section.full-bleed-bg .hero-banner-simple .hero-banner-content.content {
-        padding: var(--bbl-space-250) var(--bbl-space-600) 0;
+    .hero-banner-simple .hero-banner-content :is(h1, h2, h3, h4, h5, h6) {
+        color: var(--bbl-color-white);
+
+        &::before {
+            background: var(--bbl-color-white);
+            width: 40px;
+        }
     }
 
-    /* simple logo and title variant override */
+    .section.full-bleed-bg
+        :is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+        .hero-banner-content.content {
+        position: absolute;
+        padding: 0 var(--bbl-space-600) 0;
+        bottom: 30px;
+    }
+
+    :is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+        .hero-banner-content-inner-text {
+        color: var(--bbl-color-white);
+    }
+
+    /* simple private wealth banking variant override */
     .section.full-bleed-bg
         .hero-banner-private-wealth-banking
         .hero-banner-content.content {
         padding: 0 var(--bbl-space-600) 0;
+    }
+
+    /* simple with logo banner variant override */
+    :is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+        :is(.hero-banner-content
+            :is(h1, h2, h3, h4, h5, h6), .hero-banner-logo-wrapper)::before {
+        background: var(--bbl-color-white);
     }
 }
 
@@ -352,10 +387,10 @@
         height: 450px;
     }
 
-    .section.full-bleed-bg .hero-banner-simple .hero-banner-content.content {
-        position: absolute;
+    .section.full-bleed-bg
+        :is(.hero-banner-simple, .hero-banner-simple-logo-banner)
+        .hero-banner-content.content {
         padding: 0 var(--bbl-space-1050);
-        bottom: 30px;
     }
 
     .section.full-bleed-bg
@@ -367,12 +402,6 @@
     .hero-banner-simple .hero-banner-content :is(h1, h2, h3, h4, h5, h6) {
         font-size: var(--bbl-font-size-h3-desktop);
         line-height: 2.875rem;
-        color: var(--bbl-color-white);
-
-        &::before {
-            background: var(--bbl-color-white);
-            width: 40px;
-        }
     }
 
     .hero-banner-simple .hero-banner-content-inner-text {
