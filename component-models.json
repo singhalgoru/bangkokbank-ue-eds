@@ -499,7 +499,7 @@
             {
               "!!": [
                 {
-                  "var": "itemsToScroll"
+                  "var": "aautoScroll"
                 }
               ]
             }

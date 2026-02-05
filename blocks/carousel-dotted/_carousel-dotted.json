@@ -180,7 +180,7 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "itemsToScroll" }] }
+              { "!!": [{ "var": "aautoScroll" }] }
             ]
           }
         },
