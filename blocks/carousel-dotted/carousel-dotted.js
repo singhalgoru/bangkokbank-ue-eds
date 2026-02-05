@@ -1,17 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-
-function readBoolean(cell, fallback = true) {
-  if (!cell) return fallback;
-  const value = cell.textContent.trim().toLowerCase();
-  return value;
-}
-
-function readAlignment(cell, fallback = 'center') {
-  if (!cell) return fallback;
-  const value = cell.textContent.trim().toLowerCase();
-  if (['left', 'center', 'right'].includes(value)) return value;
-  return fallback;
-}
+import { readBoolean, readDotsAlignment } from '../../scripts/helpers.js';
 
 function buildSlide(row, index) {
   const cells = [...row.children];
@@ -57,7 +45,7 @@ function buildSlide(row, index) {
 export default function decorate(block) {
   const rows = [...block.children];
   const showDots = readBoolean(rows[0]);
-  const dotsAlignment = readAlignment(rows[1]);
+  const dotsAlignment = readDotsAlignment(rows[1]);
   let nextIndex = 2;
   let seeMoreLink = null;
   let seeMoreText = '';
