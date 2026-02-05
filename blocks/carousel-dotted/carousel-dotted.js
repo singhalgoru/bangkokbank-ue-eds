@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { readBoolean, readDotsAlignment } from '../../scripts/helpers.js';
+import { readBoolean, readDotsAlignment } from '../../scripts/helper-files/carousel-helpers.js';
 
 function buildSlide(row, index) {
   const cells = [...row.children];
