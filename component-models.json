@@ -499,7 +499,7 @@
             {
               "!!": [
                 {
-                  "var": "showAnimation"
+                  "var": "itemsToScroll"
                 }
               ]
             }
