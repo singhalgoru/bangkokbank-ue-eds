@@ -125,19 +125,16 @@
           }
         },
         {
-          "component": "boolean",
-          "name": "showAnimation",
-          "label": "Show Animation",
-          "valueType": "boolean",
-          "value": false
-        },
-        {
           "component": "select",
           "name": "animationType",
           "label": "Animation Type",
           "valueType": "string",
           "options": [
             {
+              "name": "None",
+              "value": "none"
+            },
+            { 
               "name": "Fade-In",
               "value": "fade-in"
             },
@@ -145,19 +142,39 @@
               "name": "Fade-Out",
               "value": "fade-out"
             }
-          ],
-          "condition": {
-            "and": [
-              { "!!": [{ "var": "showAnimation" }] }
-            ]
-          }
+          ]
         },
          {
           "component": "boolean",
-          "name": "aautoScroll",
+          "name": "autoScroll",
           "label": "Auto-Scroll",
           "valueType": "boolean",
           "value": false
+        },
+        {
+          "component": "select",
+          "name": "scrollTimeDelay",
+          "label": "Scroll Time Delay",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "One minute",
+              "value": "1"
+            },
+            {
+              "name": "Two minute",
+              "value": "2"
+            },
+            {
+              "name": "Three minute",
+              "value": "3"
+            }
+          ],
+          "condition": {
+            "and": [
+              { "!!": [{ "var": "autoScroll" }] }
+            ]
+          }
         },
         {
           "component": "select",
@@ -180,7 +197,7 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "aautoScroll" }] }
+              { "!!": [{ "var": "autoScroll" }] }
             ]
           }
         },
