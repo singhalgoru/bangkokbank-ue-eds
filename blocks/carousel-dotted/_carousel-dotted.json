@@ -60,7 +60,8 @@
               "name": "Right",
               "value": "right"
             }
-          ]
+          ],
+          "condition": { "===": [{"var": "showDots"}, true] }
         },
         {
           "component": "select",
@@ -76,7 +77,8 @@
               "name": "Outside container",
               "value": "outside-container"
             }
-          ]
+          ],
+          "condition": { "===": [{"var": "showDots"}, true] }
         },
         {
           "component": "boolean",
@@ -107,7 +109,8 @@
               "name": "Top Left",
               "value": "Top Right"
             }
-          ]
+          ],
+          "condition": { "===": [{"var": "showArrows"}, true] }
         },
         {
           "component": "boolean",
@@ -130,7 +133,8 @@
               "name": "Fade-Out",
               "value": "fade-out"
             }
-          ]
+          ],
+          "condition": { "===": [{"var": "showAnimation"}, true] }
         },
         {
           "...": "../../models/elements/_button-fields.json"
