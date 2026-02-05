@@ -489,6 +489,18 @@
         "valueType": "string"
       },
       {
+        "component": "text",
+        "name": "headerText",
+        "label": "Header Text",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "default-text",
+        "label": "Default Text",
+        "valueType": "string"
+      },
+      {
         "component": "aem-content",
         "name": "link",
         "label": "Link",
