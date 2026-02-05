@@ -354,11 +354,14 @@
           }
         ],
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "showDots"
-            },
-            true
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            }
           ]
         }
       },
@@ -378,11 +381,14 @@
           }
         ],
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "showDots"
-            },
-            true
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            }
           ]
         }
       },
@@ -417,11 +423,14 @@
           }
         ],
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "showArrows"
-            },
-            true
+              "!!": [
+                {
+                  "var": "showArrows"
+                }
+              ]
+            }
           ]
         }
       },
@@ -448,11 +457,14 @@
           }
         ],
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "showAnimation"
-            },
-            true
+              "!!": [
+                {
+                  "var": "showAnimation"
+                }
+              ]
+            }
           ]
         }
       },

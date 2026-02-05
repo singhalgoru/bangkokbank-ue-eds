@@ -61,7 +61,11 @@
               "value": "right"
             }
           ],
-          "condition": { "===": [{"var": "showDots"}, true] }
+          "condition": {
+            "and": [
+              { "!!": [{ "var": "showDots" }] }
+            ]
+          }
         },
         {
           "component": "select",
@@ -78,7 +82,11 @@
               "value": "outside-container"
             }
           ],
-          "condition": { "===": [{"var": "showDots"}, true] }
+          "condition": {
+            "and": [
+              { "!!": [{ "var": "showDots" }] }
+            ]
+          }
         },
         {
           "component": "boolean",
@@ -110,7 +118,11 @@
               "value": "Top Right"
             }
           ],
-          "condition": { "===": [{"var": "showArrows"}, true] }
+          "condition": {
+            "and": [
+              { "!!": [{ "var": "showArrows" }] }
+            ]
+          }
         },
         {
           "component": "boolean",
@@ -134,7 +146,11 @@
               "value": "fade-out"
             }
           ],
-          "condition": { "===": [{"var": "showAnimation"}, true] }
+          "condition": {
+            "and": [
+              { "!!": [{ "var": "showAnimation" }] }
+            ]
+          }
         },
         {
           "...": "../../models/elements/_button-fields.json"
