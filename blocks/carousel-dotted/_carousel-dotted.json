@@ -63,7 +63,13 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "showDots" }] }
+              {
+                "!!": [
+                  {
+                    "var": "showDots"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -84,7 +90,13 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "showDots" }] }
+              {
+                "!!": [
+                  {
+                    "var": "showDots"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -120,7 +132,13 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "showArrows" }] }
+              {
+                "!!": [
+                  {
+                    "var": "showArrows"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -134,7 +152,7 @@
               "name": "None",
               "value": "none"
             },
-            { 
+            {
               "name": "Fade-In",
               "value": "fade-in"
             },
@@ -144,7 +162,7 @@
             }
           ]
         },
-         {
+        {
           "component": "boolean",
           "name": "autoScroll",
           "label": "Auto-Scroll",
@@ -172,7 +190,13 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "autoScroll" }] }
+              {
+                "!!": [
+                  {
+                    "var": "autoScroll"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -197,7 +221,13 @@
           ],
           "condition": {
             "and": [
-              { "!!": [{ "var": "autoScroll" }] }
+              {
+                "!!": [
+                  {
+                    "var": "autoScroll"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -209,7 +239,7 @@
     {
       "id": "carousel-dotted-slide",
       "fields": [
-         {
+        {
           "component": "boolean",
           "name": "withImage",
           "label": "With Image",
@@ -222,8 +252,14 @@
           "label": "Badge Text",
           "valueType": "string",
           "condition": {
-              "and": [
-                { "!!": [{ "var": "withImage" }] }
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -233,8 +269,14 @@
           "label": "Image",
           "valueType": "string",
           "condition": {
-              "and": [
-                { "!!": [{ "var": "withImage" }] }
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -244,34 +286,59 @@
           "label": "Description",
           "valueType": "string",
           "condition": {
-              "and": [
-                { "!!": [{ "var": "withImage" }] }
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
             ]
           }
         },
         {
-          "...": "../../models/elements/_button-fields.json",
-          "condition":{
-            "and":[
-              { "!!":[{"var":"withImage" }] }
-              ]
-          }
+          "component": "fieldset",
+          "name": "buttonGroup",
+          "label": "Button",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          },
+          "fields": [
+            {
+              "...": "../../models/elements/_button-fields.json"
+            }
+          ]
         },
-          {
+        {
           "component": "boolean",
           "name": "withoutImage",
           "label": "Without Image",
           "valueType": "boolean",
           "value": false
         },
-         {
+        {
           "component": "text",
           "name": "headerText",
           "label": "Header Text",
           "valueType": "string",
           "condition": {
-              "and": [
-                { "!!": [{ "var": "withoutImage" }] }
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -281,8 +348,14 @@
           "label": "Default Text",
           "valueType": "string",
           "condition": {
-              "and": [
-                { "!!": [{ "var": "withoutImage" }] }
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              }
             ]
           }
         }
