@@ -98,7 +98,7 @@ function createCarouselCard(cardElement, doc) {
     <div class="carousel-content">
       ${eyebrowText ? `<div class="carousel-eyebrow">${eyebrowText}</div>` : ''}
       ${titleText ? `<h3 class="carousel-title">${titleText}</h3>` : ''}
-      ${descriptionHTML ? `<p class="carousel-description">${descriptionHTML}</p>` : ''}
+      ${descriptionHTML ? `<div class="carousel-description">${descriptionHTML}</div>` : ''}
       ${buttonLink ? `<a href="${buttonLink.href}" class="${buttonLink.className} carousel-cta"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}>${buttonLink.textContent}</a>` : ''}
     </div>
   `;
@@ -204,8 +204,8 @@ function initCarousel(track) {
 
   // Touch start handler
   function touchStart(event) {
-    // Only allow dragging on mobile/tablet
-    if (!isMobileOrTablet()) return;
+    // Only allow dragging on desktop (mobile uses native scroll)
+    if (isMobileOrTablet()) return;
 
     isDragging = true;
     startPos = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
@@ -243,18 +243,20 @@ function initCarousel(track) {
     updateCarousel(true);
   }
 
-  // Add touch/drag event listeners
-  track.addEventListener('touchstart', touchStart);
-  track.addEventListener('touchmove', touchMove);
-  track.addEventListener('touchend', touchEnd);
-  track.addEventListener('mousedown', touchStart);
-  track.addEventListener('mousemove', touchMove);
-  track.addEventListener('mouseup', touchEnd);
-  track.addEventListener('mouseleave', () => {
-    if (isDragging) {
-      touchEnd();
-    }
-  });
+  // Add touch/drag event listeners (only for desktop)
+  if (!isMobileOrTablet()) {
+    track.addEventListener('touchstart', touchStart);
+    track.addEventListener('touchmove', touchMove);
+    track.addEventListener('touchend', touchEnd);
+    track.addEventListener('mousedown', touchStart);
+    track.addEventListener('mousemove', touchMove);
+    track.addEventListener('mouseup', touchEnd);
+    track.addEventListener('mouseleave', () => {
+      if (isDragging) {
+        touchEnd();
+      }
+    });
+  }
 
   // Prevent context menu on long press
   track.addEventListener('contextmenu', (e) => {
@@ -296,9 +298,11 @@ function initCarousel(track) {
     }, 250);
   });
 
-  // Initial setup
-  track.style.cursor = 'grab';
-  updateCarousel(false);
+  // Initial setup - only set cursor and transform on desktop
+  if (!isMobileOrTablet()) {
+    track.style.cursor = 'grab';
+    updateCarousel(false);
+  }
 }
 
 /**
