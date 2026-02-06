@@ -249,6 +249,14 @@
             ]
           }
         },
+        {
+          "...": "../../models/elements/_button-fields.json",
+          "condition":{
+            "and":[
+              { "!!":[{"var":"withImage" }] }
+              ]
+          }
+        },
           {
           "component": "boolean",
           "name": "withoutImage",
@@ -277,10 +285,6 @@
                 { "!!": [{ "var": "withoutImage" }] }
             ]
           }
-        
-        },
-        {
-          "...": "../../models/elements/_button-fields.json"
         }
       ]
     }
