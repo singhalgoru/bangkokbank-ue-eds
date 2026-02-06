@@ -63,13 +63,7 @@
           ],
           "condition": {
             "and": [
-              {
-                "!!": [
-                  {
-                    "var": "showDots"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "showDots" }] }
             ]
           }
         },
@@ -90,13 +84,7 @@
           ],
           "condition": {
             "and": [
-              {
-                "!!": [
-                  {
-                    "var": "showDots"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "showDots" }] }
             ]
           }
         },
@@ -132,13 +120,7 @@
           ],
           "condition": {
             "and": [
-              {
-                "!!": [
-                  {
-                    "var": "showArrows"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "showArrows" }] }
             ]
           }
         },
@@ -152,7 +134,7 @@
               "name": "None",
               "value": "none"
             },
-            {
+            { 
               "name": "Fade-In",
               "value": "fade-in"
             },
@@ -162,7 +144,7 @@
             }
           ]
         },
-        {
+         {
           "component": "boolean",
           "name": "autoScroll",
           "label": "Auto-Scroll",
@@ -190,13 +172,7 @@
           ],
           "condition": {
             "and": [
-              {
-                "!!": [
-                  {
-                    "var": "autoScroll"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "autoScroll" }] }
             ]
           }
         },
@@ -221,13 +197,7 @@
           ],
           "condition": {
             "and": [
-              {
-                "!!": [
-                  {
-                    "var": "autoScroll"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "autoScroll" }] }
             ]
           }
         },
@@ -239,7 +209,7 @@
     {
       "id": "carousel-dotted-slide",
       "fields": [
-        {
+         {
           "component": "boolean",
           "name": "withImage",
           "label": "With Image",
@@ -252,14 +222,8 @@
           "label": "Badge Text",
           "valueType": "string",
           "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+              "and": [
+                { "!!": [{ "var": "withImage" }] }
             ]
           }
         },
@@ -269,14 +233,8 @@
           "label": "Image",
           "valueType": "string",
           "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+              "and": [
+                { "!!": [{ "var": "withImage" }] }
             ]
           }
         },
@@ -286,6 +244,17 @@
           "label": "Description",
           "valueType": "string",
           "condition": {
+              "and": [
+                { "!!": [{ "var": "withImage" }] }
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "description": "Destination URL for the button",
+          "condition": {
             "and": [
               {
                 "!!": [
@@ -298,9 +267,11 @@
           }
         },
         {
-          "component": "fieldset",
-          "name": "buttonGroup",
-          "label": "Button",
+          "component": "text",
+          "name": "linkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true,
           "condition": {
             "and": [
               {
@@ -311,34 +282,73 @@
                 ]
               }
             ]
-          },
-          "fields": [
-            {
-              "...": "../../models/elements/_button-fields.json"
-            }
-          ]
+          }
         },
         {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            }
+          ],
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+          {
           "component": "boolean",
           "name": "withoutImage",
           "label": "Without Image",
           "valueType": "boolean",
           "value": false
         },
-        {
+         {
           "component": "text",
           "name": "headerText",
           "label": "Header Text",
           "valueType": "string",
           "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withoutImage"
-                  }
-                ]
-              }
+              "and": [
+                { "!!": [{ "var": "withoutImage" }] }
             ]
           }
         },
@@ -348,14 +358,8 @@
           "label": "Default Text",
           "valueType": "string",
           "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withoutImage"
-                  }
-                ]
-              }
+              "and": [
+                { "!!": [{ "var": "withoutImage" }] }
             ]
           }
         }
