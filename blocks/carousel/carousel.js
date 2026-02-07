@@ -86,8 +86,6 @@ function createCarouselCard(cardElement, doc) {
     imageContainer.appendChild(activeWrapper);
   }
 
-  card.appendChild(imageContainer);
-
   // Create content section
   const eyebrowText = eyebrowDiv?.textContent.trim();
   const titleText = cardTitleDiv?.textContent.trim();
@@ -104,7 +102,17 @@ function createCarouselCard(cardElement, doc) {
   `;
 
   const contentWrapper = createElementFromHTML(contentHTML, doc);
-  card.appendChild(contentWrapper);
+
+  // If button link exists, wrap the entire card in a link
+  if (buttonLink) {
+    const cardLink = createElementFromHTML(`<a href="${buttonLink.href}" class="carousel-item-link"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}></a>`, doc);
+    cardLink.appendChild(imageContainer);
+    cardLink.appendChild(contentWrapper);
+    card.appendChild(cardLink);
+  } else {
+    card.appendChild(imageContainer);
+    card.appendChild(contentWrapper);
+  }
 
   return card;
 }

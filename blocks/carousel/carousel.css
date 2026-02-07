@@ -28,6 +28,7 @@
     text-decoration: none;
     position: relative;
     padding-right: 15px;
+    font-family: var(--bbl-font-family-medium);
 }
 
 .carousel-header a::after {
@@ -39,6 +40,10 @@
     transform: translateY(-50%);
     right: 0;
     transition: all 0.3s;
+}
+
+.carousel-item > a {
+    text-decoration: none;
 }
 
 .carousel-header a:hover {
@@ -88,6 +93,19 @@
     background-color: var(--bbl-color-white);
 }
 
+.carousel-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.carousel-item-link .carousel-image-container,
+.carousel-track .carousel-item .carousel-image-container {
+    display: block;
+}
+
+.carousel-item-link .carousel-image-container .carousel-image-active,
 .carousel-track .carousel-item .carousel-image-container .carousel-image-active {
     display: block;
     max-width: 100%;
@@ -121,6 +139,11 @@
     color: var(--bbl-color-black);
     display: flex;
     flex-direction: column;
+    pointer-events: none;
+}
+
+.carousel-item-link .carousel-content {
+    pointer-events: auto;
 }
 
 .carousel-eyebrow {
@@ -134,6 +157,8 @@
     color: var(--bbl-color-white);
     border-radius: var(--bbl-rounded-200);
     width: fit-content;
+    font-family: var(--bbl-font-family-medium);
+    text-decoration: none;
 }
 
 .carousel-title {
@@ -147,6 +172,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+    text-decoration: none;
 }
 
 .carousel-description {
@@ -159,6 +185,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     line-clamp: 4;
+    text-decoration: none;
 }
 
 .carousel-description p {
@@ -172,4 +199,43 @@
 
 .carousel-cta {
    display: none;
+}
+
+@media (width >= 761px) {
+    .carousel-header h2 {
+        font-size: 42px;
+        line-height: 40.25px;
+    }
+
+    .carousel-track { 
+        gap: var(--bbl-space-200);
+    }
+
+    .carousel-item { 
+        width: calc((100vw - 128px) / 3);
+    }
+
+    .carousel-title { 
+        font-size: 21px;
+        line-height: 22.75px;
+    }
+
+    .carousel-description { 
+        font-size: 12.6px;
+        line-height: 19.25px;
+    }
+
+    .carousel-cta {
+        display: inline-block;
+        position: absolute;
+        bottom: 48px;
+        width: 94px;
+        max-width: 135px;
+        height: 44px;
+        line-height: 44px;
+        padding: 0 20px;
+        font-size: 11.2px;
+        border: 1px solid var(--bbl-color-active-blue);
+        border-radius: 7px;
+    }
 }
