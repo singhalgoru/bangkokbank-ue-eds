@@ -1,5 +1,11 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { readBoolean, readDotsAlignment } from '../../scripts/helper-files/carousel-helpers.js';
+import {
+  readBoolean,
+  readDotsAlignment,
+  readPosition,
+  readArrowsAlignment,
+  readAnimation,
+} from '../../scripts/helper-files/carousel-helpers.js';
 
 function buildSlide(row, index) {
   const cells = [...row.children];
@@ -10,7 +16,7 @@ function buildSlide(row, index) {
 
   const media = document.createElement('div');
   media.className = 'carousel-bg';
-  const picture = cells[1]?.querySelector('picture');
+  const picture = cells[2]?.querySelector('picture');
   if (picture) {
     media.append(picture);
   }
@@ -18,7 +24,7 @@ function buildSlide(row, index) {
   const content = document.createElement('div');
   content.className = 'carousel-content';
 
-  const badgeText = cells[0]?.textContent.trim();
+  const badgeText = cells[1]?.textContent.trim();
   if (badgeText) {
     const badge = document.createElement('div');
     badge.className = 'carousel-badge';
@@ -26,14 +32,14 @@ function buildSlide(row, index) {
     content.append(badge);
   }
 
-  if (cells[2]) {
+  if (cells[3]) {
     const title = document.createElement('div');
     title.className = 'carousel-title';
-    while (cells[2].firstChild) title.append(cells[2].firstChild);
+    while (cells[3].firstChild) title.append(cells[3].firstChild);
     content.append(title);
   }
 
-  const link = cells[3]?.querySelector('a');
+  const link = cells[4]?.querySelector('a') || cells[7]?.querySelector('a');
   if (link) {
     content.append(link);
   }
@@ -44,37 +50,52 @@ function buildSlide(row, index) {
 
 export default function decorate(block) {
   const rows = [...block.children];
+
+  // Read configuration values from block rows
   const showDots = readBoolean(rows[0]);
   const dotsAlignment = readDotsAlignment(rows[1]);
-  let nextIndex = 2;
+  const dotsPosition = readPosition(rows[2]);
+  const showArrows = readBoolean(rows[3]);
+  const arrowsAlignment = readArrowsAlignment(rows[4]);
+  const animationType = readAnimation(rows[5]);
+  const autoScroll = readBoolean(rows[6]);
+  const scrollTimeDelay = rows[7]?.textContent.trim() || '';
+  const itemsToScroll = rows[8]?.textContent.trim() || '';
+  let nextIndex = 9;
   let seeMoreLink = null;
-  let seeMoreText = '';
-  let seeMoreTitle = '';
 
   const seeMoreLinkRow = rows[nextIndex];
-  if (seeMoreLinkRow && !seeMoreLinkRow.querySelector('picture')) {
+  if (seeMoreLinkRow) {
     const link = seeMoreLinkRow.querySelector('a');
-    if (link && seeMoreLinkRow.children.length === 1) {
+    if (link) {
       seeMoreLink = link;
       nextIndex += 1;
-      const textRow = rows[nextIndex];
-      if (textRow && !textRow.querySelector('picture') && !textRow.querySelector('a')) {
-        seeMoreText = textRow.textContent.trim();
-        nextIndex += 1;
-      }
-      const titleRow = rows[nextIndex];
-      if (titleRow && !titleRow.querySelector('picture') && !titleRow.querySelector('a')) {
-        seeMoreTitle = titleRow.textContent.trim();
-        nextIndex += 1;
-      }
     }
   }
 
   const slides = rows.slice(nextIndex);
   // Use the block element itself as the container
   block.className = 'carousel-dotted-container';
-  block.classList.add(`dots-${dotsAlignment}`);
-  if (!showDots) block.classList.add('no-dots');
+
+  // Add dots-related classes
+  if (showDots) {
+    block.classList.add(`dots-${dotsAlignment}-${dotsPosition}`);
+  } else {
+    block.classList.add('no-dots');
+  }
+
+  // Add arrows-related classes
+  if (showArrows) {
+    block.classList.add('show-arrows');
+    block.classList.add(`arrows-${arrowsAlignment}`);
+  }
+
+  block.classList.add(`animation-${animationType}`);
+  if (autoScroll) {
+    block.classList.add('auto-scroll');
+    if (scrollTimeDelay) block.dataset.scrollDelay = scrollTimeDelay;
+  }
+  if (itemsToScroll) block.dataset.itemsToScroll = itemsToScroll;
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'carousel');
   const slideEls = slides.map((row, index) => {
@@ -84,6 +105,17 @@ export default function decorate(block) {
   const dots = document.createElement('ul');
   dots.className = 'slick-dots';
   dots.setAttribute('role', 'tablist');
+
+  // Create arrows
+  const prevArrow = document.createElement('button');
+  prevArrow.className = 'carousel-arrow carousel-arrow-prev';
+  prevArrow.setAttribute('aria-label', 'Previous slide');
+  prevArrow.type = 'button';
+
+  const nextArrow = document.createElement('button');
+  nextArrow.className = 'carousel-arrow carousel-arrow-next';
+  nextArrow.setAttribute('aria-label', 'Next slide');
+  nextArrow.type = 'button';
 
   let dotButtons;
 
@@ -100,7 +132,26 @@ export default function decorate(block) {
       button.setAttribute('aria-selected', active ? 'true' : 'false');
       button.tabIndex = active ? 0 : -1;
     });
+
+    // Update arrow states
+    prevArrow.disabled = index === 0;
+    nextArrow.disabled = index === slideEls.length - 1;
   }
+
+  // Arrow click handlers
+  prevArrow.addEventListener('click', () => {
+    const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
+    if (currentIndex > 0) {
+      setActive(currentIndex - 1);
+    }
+  });
+
+  nextArrow.addEventListener('click', () => {
+    const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
+    if (currentIndex < slideEls.length - 1) {
+      setActive(currentIndex + 1);
+    }
+  });
   dotButtons = slideEls.map((slide, index) => {
     const li = document.createElement('li');
     li.setAttribute('role', 'presentation');
@@ -118,14 +169,15 @@ export default function decorate(block) {
 
   if (showDots) {
     block.append(dots);
+  } else if (showArrows) {
+    // Only append arrows if dots are not shown
+    block.append(prevArrow, nextArrow);
   }
 
   if (seeMoreLink) {
     const moreWrap = document.createElement('div');
     moreWrap.className = 'carousel-dotted-more';
     seeMoreLink.classList.add('button-tertiary');
-    if (seeMoreText) seeMoreLink.textContent = seeMoreText;
-    if (seeMoreTitle) seeMoreLink.title = seeMoreTitle;
     moreWrap.append(seeMoreLink);
     block.append(moreWrap);
   }

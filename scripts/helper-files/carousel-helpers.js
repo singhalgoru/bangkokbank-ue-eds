@@ -4,7 +4,9 @@
 export function readBoolean(cell, fallback = false) {
   if (!cell) return fallback;
   const value = cell.textContent.trim().toLowerCase();
-  return value;
+  if (value === 'true') return true;
+  if (value === 'false') return false;
+  return fallback;
 }
 
 /**
@@ -23,7 +25,7 @@ export function readDotsAlignment(cell, fallback = 'center') {
 export function readArrowsAlignment(cell, fallback = 'center') {
   if (!cell) return fallback;
   const value = cell.textContent.trim().toLowerCase();
-  if (['middle', 'left', 'right'].includes(value)) return value;
+  if (['middle', 'bottom-left', 'bottom-right', 'top-left', 'top-right'].includes(value)) return value;
   return fallback;
 }
 
