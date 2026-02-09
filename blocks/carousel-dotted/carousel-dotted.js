@@ -7,23 +7,30 @@ import {
   readAnimation,
 } from '../../scripts/helper-files/carousel-helpers.js';
 
-function buildSlide(row, index) {
-  const cells = [...row.children];
+/**
+ * Build a slide WITH IMAGE variation
+ * Structure: Badge Text | Image | Description | Link
+ */
+function buildSlideWithImage(row, index, cells) {
   const slide = document.createElement('div');
-  slide.className = 'carousel-item';
+  slide.className = 'carousel-item with-image';
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  const media = document.createElement('div');
-  media.className = 'carousel-bg';
+  // Create and append background image if it exists
   const picture = cells[2]?.querySelector('picture');
   if (picture) {
+    const media = document.createElement('div');
+    media.className = 'carousel-bg';
     media.append(picture);
+    slide.append(media);
   }
 
+  // Create content container
   const content = document.createElement('div');
   content.className = 'carousel-content';
 
+  // Badge text (cell 1)
   const badgeText = cells[1]?.textContent.trim();
   if (badgeText) {
     const badge = document.createElement('div');
@@ -32,20 +39,78 @@ function buildSlide(row, index) {
     content.append(badge);
   }
 
+  // Description (cell 3)
   if (cells[3]) {
-    const title = document.createElement('div');
-    title.className = 'carousel-title';
-    while (cells[3].firstChild) title.append(cells[3].firstChild);
-    content.append(title);
+    const description = document.createElement('div');
+    description.className = 'carousel-description';
+    while (cells[3].firstChild) description.append(cells[3].firstChild);
+    content.append(description);
   }
 
-  const link = cells[4]?.querySelector('a') || cells[7]?.querySelector('a');
+  // Link/Button (cell 4)
+  const link = cells[4]?.querySelector('a');
   if (link) {
     content.append(link);
   }
 
-  slide.append(media, content);
+  slide.append(content);
   return slide;
+}
+
+/**
+ * Build a slide WITHOUT IMAGE variation
+ * Structure: Header Text | Default Text
+ */
+function buildSlideWithoutImage(row, index, cells) {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-item without-image';
+  slide.dataset.index = index;
+  moveInstrumentation(row, slide);
+
+  // Create content container
+  const content = document.createElement('div');
+  content.className = 'carousel-content';
+
+  // Header text (cell 1)
+  const headerText = cells[6]?.textContent.trim();
+  if (headerText) {
+    const header = document.createElement('div');
+    header.className = 'carousel-header';
+    header.textContent = headerText;
+    content.append(header);
+  }
+
+  // Default text (cell 2)
+  if (cells[7]) {
+    const defaultText = document.createElement('div');
+    defaultText.className = 'carousel-default-text';
+    while (cells[7].firstChild) defaultText.append(cells[7].firstChild);
+    content.append(defaultText);
+  }
+
+  slide.append(content);
+  return slide;
+}
+
+/**
+ * Build a slide - determines which variation to use and delegates
+ */
+function buildSlide(row, index) {
+  const cells = [...row.children];
+
+  // Check if this is a "with image" or "without image" slide
+  // Check both cell 0 for boolean indicator and cell 2 for picture
+  const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
+  const picture = cells[2]?.querySelector('picture');
+
+  // Determine if this is a with-image slide:
+  // Either has "true" in cell 0 OR has a picture in cell 2
+  const hasImage = (withImageIndicator === 'true' || !!picture);
+
+  if (hasImage) {
+    return buildSlideWithImage(row, index, cells);
+  }
+  return buildSlideWithoutImage(row, index, cells);
 }
 
 export default function decorate(block) {
@@ -102,6 +167,17 @@ export default function decorate(block) {
     const slide = buildSlide(row, index);
     return slide;
   });
+
+  // Determine if all slides have images, none have images, or it's mixed
+  const slidesWithImage = slideEls.filter((slide) => slide.classList.contains('with-image')).length;
+  const slidesWithoutImage = slideEls.filter((slide) => slide.classList.contains('without-image')).length;
+  if (slidesWithImage > 0 && slidesWithoutImage === 0) {
+    block.classList.add('all-with-image');
+  } else if (slidesWithoutImage > 0 && slidesWithImage === 0) {
+    block.classList.add('all-without-image');
+  } else if (slidesWithImage > 0 && slidesWithoutImage > 0) {
+    block.classList.add('mixed-image-slides');
+  }
   const dots = document.createElement('ul');
   dots.className = 'slick-dots';
   dots.setAttribute('role', 'tablist');
