@@ -1,4 +1,4 @@
-import { createOptimizedPicture, decorateIcons } from '../../scripts/aem.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
@@ -103,14 +103,15 @@ function createCarouselCard(cardElement, doc) {
 
   const contentWrapper = createElementFromHTML(contentHTML, doc);
 
-  // If button link exists, wrap the entire card in a link
+  // Add image container to card first
+  card.appendChild(imageContainer);
+
+  // If button link exists, wrap only the content in a link
   if (buttonLink) {
     const cardLink = createElementFromHTML(`<a href="${buttonLink.href}" class="carousel-item-link"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}></a>`, doc);
-    cardLink.appendChild(imageContainer);
     cardLink.appendChild(contentWrapper);
     card.appendChild(cardLink);
   } else {
-    card.appendChild(imageContainer);
     card.appendChild(contentWrapper);
   }
 
@@ -128,32 +129,10 @@ function initCarousel(track) {
   let currentIndex = 0;
   const totalItems = items.length;
 
-  // Touch/drag variables
-  let isDragging = false;
-  let startPos = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID = 0;
-
-  // Create navigation buttons
-  const prevButton = createElementFromHTML(`
-    <button class="carousel-nav carousel-prev" aria-label="Previous">
-      <span class="icon icon-chevron-left"></span>
-    </button>
-  `, track.ownerDocument);
-
-  const nextButton = createElementFromHTML(`
-    <button class="carousel-nav carousel-next" aria-label="Next">
-      <span class="icon icon-chevron-right"></span>
-    </button>
-  `, track.ownerDocument);
-
-  // Decorate the icons
-  decorateIcons(prevButton);
-  decorateIcons(nextButton);
-
-  track.parentElement.appendChild(prevButton);
-  track.parentElement.appendChild(nextButton);
+  // Get navigation buttons from DOM (they're in the carousel block, not wrapper)
+  const carousel = track.parentElement.parentElement;
+  const prevButton = carousel.querySelector('.carousel-prev');
+  const nextButton = carousel.querySelector('.carousel-next');
 
   // Get item dimensions
   function getItemDimensions() {
@@ -174,8 +153,6 @@ function initCarousel(track) {
     }
 
     track.style.transform = `translateX(${offset}px)`;
-    currentTranslate = offset;
-    prevTranslate = offset;
 
     // Update button states
     prevButton.disabled = currentIndex === 0;
@@ -200,70 +177,6 @@ function initCarousel(track) {
   // Check if device is mobile/tablet (disable drag on desktop)
   function isMobileOrTablet() {
     return window.innerWidth < 1025;
-  }
-
-  // Animation loop for smooth dragging
-  function animation() {
-    track.style.transform = `translateX(${currentTranslate}px)`;
-    if (isDragging) {
-      requestAnimationFrame(animation);
-    }
-  }
-
-  // Touch start handler
-  function touchStart(event) {
-    // Only allow dragging on desktop (mobile uses native scroll)
-    if (isMobileOrTablet()) return;
-
-    isDragging = true;
-    startPos = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-    animationID = requestAnimationFrame(animation);
-    track.style.cursor = 'grabbing';
-  }
-
-  // Touch move handler
-  function touchMove(event) {
-    if (isDragging) {
-      const currentPosition = event.type.includes('mouse')
-        ? event.pageX
-        : event.touches[0].clientX;
-      currentTranslate = prevTranslate + currentPosition - startPos;
-    }
-  }
-
-  // Touch end handler
-  function touchEnd() {
-    isDragging = false;
-    cancelAnimationFrame(animationID);
-    track.style.cursor = 'grab';
-
-    const movedBy = currentTranslate - prevTranslate;
-    const { itemWidth, gap } = getItemDimensions();
-    const threshold = (itemWidth + gap) * 0.2; // 20% threshold
-
-    // Determine if we should move to next/prev slide
-    if (movedBy < -threshold && currentIndex < totalItems - 1) {
-      currentIndex += 1;
-    } else if (movedBy > threshold && currentIndex > 0) {
-      currentIndex -= 1;
-    }
-
-    updateCarousel(true);
-  }
-
-  // Add touch/drag event listeners (only for desktop)
-  if (!isMobileOrTablet()) {
-    track.addEventListener('touchstart', touchStart);
-    track.addEventListener('touchmove', touchMove);
-    track.addEventListener('touchend', touchEnd);
-    track.addEventListener('mousedown', touchStart);
-    track.addEventListener('mousemove', touchMove);
-    track.addEventListener('mouseup', touchEnd);
-    track.addEventListener('mouseleave', () => {
-      if (isDragging) {
-        touchEnd();
-      }
-    });
   }
 
   // Prevent context menu on long press
@@ -306,9 +219,8 @@ function initCarousel(track) {
     }, 250);
   });
 
-  // Initial setup - only set cursor and transform on desktop
+  // Initial setup - only set transform on desktop
   if (!isMobileOrTablet()) {
-    track.style.cursor = 'grab';
     updateCarousel(false);
   }
 }
@@ -349,9 +261,22 @@ export default function decorate(block) {
 
   carouselWrapper.appendChild(carouselTrack);
 
+  // Add navigation buttons
+  const prevButton = createElementFromHTML(`
+    <button class="carousel-nav carousel-prev" aria-label="Previous"></button>
+  `, doc);
+
+  const nextButton = createElementFromHTML(`
+    <button class="carousel-nav carousel-next" aria-label="Next"></button>
+  `, doc);
+
   // Replace block content
   block.textContent = '';
   block.appendChild(carouselWrapper);
+
+  // Append buttons to block (outside wrapper) so they're not clipped by overflow
+  block.appendChild(prevButton);
+  block.appendChild(nextButton);
 
   // Initialize carousel functionality
   if (carouselCards.length > 0) {
