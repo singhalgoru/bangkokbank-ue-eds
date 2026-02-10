@@ -399,47 +399,33 @@
     "id": "hero-item",
     "fields": [
       {
-        "component": "container",
-        "name": "mainImage",
-        "label": "Main Image",
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Image",
-            "multi": false
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "imageAlt",
-            "label": "Alt",
-            "value": ""
-          }
-        ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
-        "component": "container",
-        "name": "logo",
-        "label": "Logo (Optional)",
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "logoImage",
-            "label": "Logo Image",
-            "multi": false,
-            "description": "Optional logo image (for logo variants)"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "logoImageAlt",
-            "label": "Logo Alt",
-            "value": ""
-          }
-        ]
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logoImage",
+        "label": "Logo Image",
+        "multi": false,
+        "description": "Optional logo image (for logo variants)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logoImageAlt",
+        "label": "Logo Alt",
+        "value": ""
       },
       {
         "component": "richtext",
@@ -498,25 +484,18 @@
         ]
       },
       {
-        "component": "container",
-        "name": "thumbnail",
-        "label": "Thumbnail",
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "homeThumbImage",
-            "label": "Thumbnail Image",
-            "multi": false
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "homeThumbImageAlt",
-            "label": "Thumbnail Alt",
-            "value": ""
-          }
-        ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "homeThumbImage",
+        "label": "Thumbnail Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "homeThumbImageAlt",
+        "label": "Thumbnail Alt",
+        "value": ""
       }
     ]
   }
