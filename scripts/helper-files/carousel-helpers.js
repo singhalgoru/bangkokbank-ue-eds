@@ -38,13 +38,3 @@ export function readPosition(cell, fallback = 'inside-container') {
   if (['inside-container', 'outside-container'].includes(value)) return value;
   return fallback;
 }
-
-/**
- * Reads a position value from a table cell.
- */
-export function readAnimation(cell, fallback = 'no-animation') {
-  if (!cell) return fallback;
-  const value = cell.textContent.trim().toLowerCase();
-  if (['fade-in', 'fade-out'].includes(value)) return value;
-  return fallback;
-}
