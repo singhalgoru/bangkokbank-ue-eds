@@ -265,7 +265,7 @@ main img {
    ========================================================================= */
 
 body.private :is(h1, h2, h3, h4, h5, h6, p) {
-    color: var(--bbl-text-primary);
+    color: var(--bbl-color-white);
 }
 
 body.private :is(.button-container .button, .button) {
