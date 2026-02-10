@@ -72,7 +72,6 @@ function buildSlideWithoutImage(row, index, cells) {
 
   // Header text (cell 1)
   const headerText = cells[6]?.textContent.trim();
-  console.warn('Header text:', headerText);
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-header';
@@ -87,7 +86,7 @@ function buildSlideWithoutImage(row, index, cells) {
     while (cells[7].firstChild) defaultText.append(cells[7].firstChild);
     content.append(defaultText);
   }
-console.warn('Content:', content);
+
   slide.append(content);
   return slide;
 }
@@ -116,24 +115,15 @@ function buildSlide(row, index) {
 export default function decorate(block) {
   const rows = [...block.children];
 
-  console.warn('Carousel Dotted - rows:', rows);
-
-  rows.forEach(row => {
-  console.log(row.outerHTML);
-});
-
   // Read configuration values from block rows
   const showDots = readBoolean(rows[0]);
-  const dotsAlignment = readDotsAlignment(rows[1]); 
+  const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
   const showArrows = readBoolean(rows[3]);
   const arrowsAlignment = readArrowsAlignment(rows[4]);
   const autoScroll = readBoolean(rows[5]);
-  console.warn('Auto-scroll:', autoScroll);
   const scrollTimeDelay = rows[6]?.textContent.trim() || '';
-  console.warn('Scroll time delay:', scrollTimeDelay);
   const itemsToScroll = rows[7]?.textContent.trim() || '';
-  console.warn('Items to scroll:', itemsToScroll);
   let nextIndex = 8;
   let seeMoreLink = null;
 
@@ -142,7 +132,7 @@ export default function decorate(block) {
     const row = rows[nextIndex];
     const link = row?.querySelector('a');
     const hasContent = row?.textContent.trim();
-    
+
     if (link) {
       // Found "See more" link
       seeMoreLink = link;
