@@ -47,6 +47,8 @@
   height: 100%;
   display: block;
   object-fit: cover;
+  background-size: cover !important;
+  background-position: center;
 }
 
 /* Without-image slides don't need background */
@@ -135,7 +137,7 @@
 .carousel-dotted-container .slick-dots {
   position: absolute;
   bottom: 20px;
-  left: 24px;
+  right: 24px;
   display: flex;
   gap: 8px;
   list-style: none;
@@ -156,12 +158,12 @@
   min-width: 8px;
   min-height: 8px;
   border-radius: 50%;
-  border: none;
+  border: 1px solid rgb(0 0 0 / 25%);
   padding: 0;
   margin: 0;
   cursor: pointer;
-  background: rgb(0 0 0 / 25%);
-  transition: background 180ms ease;
+  background: transparent;
+  transition: all 180ms ease;
   flex-shrink: 0;
   overflow: hidden;
   font-size: 0;
@@ -169,8 +171,20 @@
 }
 
 
+/* Dot positioning variants */
+.carousel-dotted-container .all-with-image .slick-dots {
+  justify-content: flex-end;
+  top: 220px;
+}
+
+.carousel-dotted-container .all-without-image .slick-dots {
+  justify-content: flex-start;
+  left: 24px;
+  right: auto;
+}
+
 .carousel-dotted-container .slick-dots button:hover {
-  background: rgb(0 0 0 / 45%);
+  border-color: rgb(0 0 0 / 45%);
 }
 
 
@@ -181,13 +195,10 @@
 
 .carousel-dotted-container .slick-dots li.is-active button {
   background: #0064ff;
+  border-color: #0064ff;
 }
 
-/* Dot positioning variants */
-.carousel-dotted-container.dots-left-inside-container .slick-dots {
-  left: 24px;
-  right: auto;
-}
+
 
 .carousel-dotted-container.dots-center-inside-container .slick-dots {
   left: 50%;
@@ -230,7 +241,7 @@
 
 
 /* Tablet and desktop */
-@media (width >= 760px) {
+@media (width >=760px) {
   .carousel-dotted-container {
     padding: unset;
     height: 100%;
@@ -304,8 +315,17 @@
     line-height: 1.75rem;
   }
 
-  .carousel-dotted-container .slick-dots {
-    inset: auto auto 20px 24px;
+    /* Dot positioning variants */
+  .carousel-dotted-container .all-with-image .slick-dots,
+  .carousel-dotted-container .all-without-image .slick-dots {
+    left: 24px;
+    right: auto;
+    justify-content: flex-end;
+    top: unset;
+  }
+
+  .carousel-dotted-container .carousel-item.with-image .slick-dots {
+    inset: auto 24px 20px auto;
   }
 
   .carousel-dotted-container .slick-dots button {
@@ -313,17 +333,45 @@
     height: 9px;
     min-width: 9px;
     min-height: 9px;
+    border-width: 1px;
   }
 
   .carousel-dotted-container .carousel-dotted-more {
     bottom: 20px;
     right: 24px;
   }
+
+  .carousel-dotted-container .carousel-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 -110px 40px -50px #fff;
+  pointer-events: none;
+  z-index: 2;
+}
+
 }
 
 
-@media (width >= 1024px) {
+@media (width >=1024px) {
   .carousel-dotted-container .carousel-item {
     min-height: 454px;
   }
+
+  /* Dot positioning variants */
+  .carousel-dotted-container .all-with-image .slick-dots,
+  .carousel-dotted-container .all-without-image .slick-dots {
+    left: 24px;
+    right: auto;
+    justify-content: flex-end;
+  }
+
+  .carousel-dotted-container .carousel-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 -110px 40px -50px #fff;
+  pointer-events: none;
+  z-index: 2;
+}
 }

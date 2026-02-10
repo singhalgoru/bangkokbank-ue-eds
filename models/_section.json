@@ -73,23 +73,6 @@
                   "value": "bg-grey-100 "
                 }
               ]
-            },
-            {
-              "name": "Grid styling",
-              "children": [
-                {
-                  "name": "40-60 Grid",
-                  "value": "grid-40-60"
-                },
-                {
-                  "name": "60-40 Grid",
-                  "value": "grid-60-40"
-                },
-                {
-                  "name":"Full Grid",
-                  "value":"grid-full"
-                }
-              ]
             }
           ]
         }
