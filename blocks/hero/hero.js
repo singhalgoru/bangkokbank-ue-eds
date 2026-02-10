@@ -14,6 +14,14 @@ function changeBanner(block) {
   }, true);
 }
 
+function lazyLoadThumbnails(block) {
+  const load = () => {
+    block.querySelector('.hero-banner-thumbnail-outer')?.classList.add('hero-banner-thumbnail-outer-active');
+    window.removeEventListener('scroll', load);
+  };
+  window.addEventListener('scroll', load, { passive: true });
+}
+
 export default function decorate(block) {
   const [variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
@@ -24,12 +32,17 @@ export default function decorate(block) {
   const bannerList = document.createElement('ul');
   bannerList.classList = 'hero-banner-list';
 
+  const thumbnailOuter = document.createElement('div');
+  thumbnailOuter.classList = 'hero-banner-thumbnail-outer';
+
+  const thumbnailList = document.createElement('ul');
+  thumbnailList.classList = 'hero-banner-thumbnail-list content';
+
   let bannerIndex = 0;
 
   const items = [...block.children].slice(1, 8);
 
   items.forEach((row) => {
-    // eslint-disable-next-line no-unused-vars
     const [imageCell, logoImageCell, headingCell, textCell, linkCell, thumbImgCell] = [
       ...row.children,
     ];
@@ -92,16 +105,36 @@ export default function decorate(block) {
     bannerItem.append(content);
     bannerList.append(bannerItem);
 
+    /* ---------------- thumbnail item ---------------- */
+    const thumbnailItem = document.createElement('li');
+    thumbnailItem.className = 'hero-banner-thumbnail-item';
+    thumbnailItem.dataset.index = bannerIndex;
+    if (bannerIndex === 0) thumbnailItem.classList.add('hero-banner-thumbnail-item-active');
+
+    const thumbPicture = thumbImgCell?.querySelector('picture');
+    const thumbImg = thumbPicture?.querySelector('img');
+
+    if (thumbImg) {
+      thumbImg.className = 'hero-banner-thumbnail-img';
+      thumbImg.loading = 'lazy';
+      thumbnailItem.append(thumbImg);
+    }
+
+    thumbnailList.append(thumbnailItem);
+
     bannerIndex += 1;
   });
 
   mainImgContainer.append(bannerList);
+  thumbnailOuter.append(thumbnailList);
 
   const wrapper = document.createElement('div');
   wrapper.className = `hero-banner hero-banner-${variant}`;
   wrapper.append(mainImgContainer);
+  // wrapper.append(thumbnailOuter);  // Commented out - keeping on hold
 
   block.replaceChildren(wrapper);
 
   changeBanner(block);
+  lazyLoadThumbnails(block);
 }
