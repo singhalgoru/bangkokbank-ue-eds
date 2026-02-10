@@ -1,17 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
-
-/**
- * Create HTML element from template string
- * @param {string} html - HTML template string
- * @param {Document} doc - Document reference
- * @returns {Element} The created element
- */
-function createElementFromHTML(html, doc) {
-  const template = doc.createElement('template');
-  template.innerHTML = html.trim();
-  return template.content.firstElementChild;
-}
+import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
 
 /**
  * Create the carousel header section
@@ -97,7 +85,7 @@ function createCarouselCard(cardElement, doc) {
       ${eyebrowText ? `<div class="carousel-eyebrow">${eyebrowText}</div>` : ''}
       ${titleText ? `<h3 class="carousel-title">${titleText}</h3>` : ''}
       ${descriptionHTML ? `<div class="carousel-description">${descriptionHTML}</div>` : ''}
-      ${buttonLink ? `<a href="${buttonLink.href}" class="${buttonLink.className} carousel-cta"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}>${buttonLink.textContent}</a>` : ''}
+      ${buttonLink ? `<span class="${buttonLink.className} carousel-cta">${buttonLink.textContent}</span>` : ''}
     </div>
   `;
 
@@ -106,7 +94,7 @@ function createCarouselCard(cardElement, doc) {
   // Add image container to card first
   card.appendChild(imageContainer);
 
-  // If button link exists, wrap only the content in a link
+  // If button link exists, wrap the entire content in a single link (no nested anchors)
   if (buttonLink) {
     const cardLink = createElementFromHTML(`<a href="${buttonLink.href}" class="carousel-item-link"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}></a>`, doc);
     cardLink.appendChild(contentWrapper);
@@ -246,8 +234,8 @@ export default function decorate(block) {
   // Create carousel wrapper
   const carouselWrapper = createElementFromHTML('<div class="carousel-wrapper"></div>', doc);
 
-  // Add header
-  if (title) {
+  // Add header if title or link exists
+  if (title || linkElement) {
     const header = createCarouselHeader(title, linkElement, doc);
     carouselWrapper.appendChild(header);
   }
