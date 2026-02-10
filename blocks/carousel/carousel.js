@@ -134,31 +134,20 @@ function initCarousel(track) {
   const prevButton = carousel.querySelector('.carousel-prev');
   const nextButton = carousel.querySelector('.carousel-next');
 
-  // Get item dimensions
-  function getItemDimensions() {
-    const itemWidth = items[0].offsetWidth;
-    const gap = window.innerWidth >= 1025 ? 24 : 16;
-    return { itemWidth, gap };
-  }
-
   // Update carousel position and active states
   function updateCarousel(animate = true) {
-    const { itemWidth, gap } = getItemDimensions();
-    const offset = -(currentIndex * (itemWidth + gap));
-
     if (animate) {
       track.style.transition = 'transform 0.4s ease-in-out';
     } else {
       track.style.transition = 'none';
     }
 
-    track.style.transform = `translateX(${offset}px)`;
+    // Calculate offset based on cumulative widths of previous cards
+    // This handles variable width cards (active vs inactive)
+    let offset = 0;
+    const gap = window.innerWidth >= 1025 ? 24 : 16;
 
-    // Update button states
-    prevButton.disabled = currentIndex === 0;
-    nextButton.disabled = currentIndex >= totalItems - 1;
-
-    // Update active states - only the center/current card is active on desktop
+    // First, update active states so we get correct widths
     items.forEach((item, index) => {
       if (window.innerWidth >= 1025) {
         // Desktop: Only the current slide is active
@@ -172,6 +161,21 @@ function initCarousel(track) {
         item.classList.add('active');
       }
     });
+
+    // Force a layout recalculation to get updated widths
+    // eslint-disable-next-line no-unused-expressions
+    track.offsetHeight;
+
+    // Calculate cumulative offset for all cards before current index
+    for (let i = 0; i < currentIndex; i += 1) {
+      offset -= (items[i].offsetWidth + gap);
+    }
+
+    track.style.transform = `translateX(${offset}px)`;
+
+    // Update button states
+    prevButton.disabled = currentIndex === 0;
+    nextButton.disabled = currentIndex >= totalItems - 1;
   }
 
   // Check if device is mobile/tablet (disable drag on desktop)

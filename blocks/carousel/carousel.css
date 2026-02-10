@@ -228,12 +228,12 @@
     .carousel-cta {
         display: inline-block;
         position: absolute;
-        bottom: 48px;
+        bottom: var(--bbl-space-600);
         width: 94px;
         max-width: 135px;
         height: 44px;
         line-height: 44px;
-        padding: 0 20px;
+        padding: 0 var(--bbl-space-250);
         font-size: 11.2px;
         border: 1px solid var(--bbl-color-active-blue);
         border-radius: 7px;
@@ -262,6 +262,7 @@
     .carousel-header a {
         font-size: 12.8px;
         line-height: 17.92px;
+        margin-right: 15px;
     }
 
     /* Disable native scrolling on desktop */
@@ -347,12 +348,22 @@
         height: 100%;
     }
 
+    .carousel-track .carousel-item .carousel-image-container {
+        height: 100%
+    }
+
     .carousel-track .carousel-item .carousel-image-container .carousel-image-active {
-       display: none
+       display: none;
     }
 
     .carousel-track .carousel-item .carousel-image-container .carousel-image-inactive { 
         display: block;
+        height: 100%;
+    }
+
+    .carousel-track .carousel-item .carousel-image-container .carousel-image-inactive img{
+        height: 490px;
+        object-fit: cover;
     }
 
     .carousel-track .carousel-item.active .carousel-image-container .carousel-image-active {
@@ -375,7 +386,7 @@
         font-weight: 500;
         background: #4890ff;
         display: inline-block;
-        padding: 4px 7px;
+        padding: var(--bbl-space-050) 7px;
         margin-bottom: 14px;
         color: var(--bbl-color-white);
         border-radius: var(--bbl-rounded-200);
@@ -385,6 +396,12 @@
         font-size: 32px;
         line-height: 32px;
         margin-bottom: var(--bbl-space-200);
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        max-width: 320px;
     }
 
     .carousel-description {
@@ -393,11 +410,15 @@
 
     .carousel-item.active .carousel-description,
     .carousel-item.active .carousel-description p {
-        display: block;
         font-size: 16px;
         line-height: 22px;
         margin-bottom: var(--bbl-space-300);
         color: #606060;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 7;
+        line-clamp: 7;
     }
 
     .carousel-cta {
@@ -407,28 +428,29 @@
         width: 120px;
         height: var(--bbl-space-600);
         line-height: var(--bbl-space-600);
-        padding: 0 20px;
+        padding: 0 var(--bbl-space-250);
         font-size: 16px;
         border: 1px solid #4890ff;
         border-radius: 7px;
         color: #4890ff;
     }
 
-    .carousel-track:has(:not(.active)) .carousel-item {
-        width: calc(50% - 10px);
-        max-width: calc(50% - 10px);
+    .carousel-item:not(.active) {
+        width: 360px;
+        height: 490px;
     }
 
-    .carousel-track:has(:not(.active)) .carousel-item .carousel-content {
+    .carousel-item:not(.active) .carousel-content {
         position: absolute;
         z-index: 1;
         top: 0;
         width: 100%;
         padding: var(--bbl-space-400);
         color: var(--bbl-color-white);
+        max-width: 360px;
     }
 
     .carousel-item:not(.active) .carousel-content .carousel-cta {
-        top: 50%;
+        top: 55%;
     }
 }
