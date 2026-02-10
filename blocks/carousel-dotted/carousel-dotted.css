@@ -98,10 +98,6 @@
   margin-bottom: 30px;
 }
 
-[lang='th'] .carousel-dotted-container .carousel-description {
-  line-height: 2.5rem;
-}
-
 
 .carousel-dotted-container .carousel-header {
   font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif;
@@ -110,10 +106,6 @@
   line-height: 1.5rem;
   color: #6c6c6c;
   margin-bottom: 16px;
-}
-
-[lang='th'] .carousel-dotted-container .carousel-header {
-  line-height: 1.625rem;
 }
 
 
@@ -125,14 +117,13 @@
   color: #6c6c6c;
 }
 
-[lang='th'] .carousel-dotted-container .carousel-default-text {
-  line-height: 1.625rem;
-}
-
 .carousel-dotted-container .carousel-default-text p {
   margin: 0;
 }
 
+.carousel-dotted-container a.button.primary {
+    border-radius: 7px;
+}
 
 .carousel-dotted-container .slick-dots {
   position: absolute;
@@ -174,7 +165,7 @@
 /* Dot positioning variants */
 .carousel-dotted-container .all-with-image .slick-dots {
   justify-content: flex-end;
-  top: 220px;
+  top: 225px;
 }
 
 .carousel-dotted-container .all-without-image .slick-dots {
@@ -302,17 +293,9 @@
     margin-bottom: 20px;
   }
 
-  [lang='th'] .carousel-dotted-container .carousel-header {
-    line-height: 1.75rem;
-  }
-
   .carousel-dotted-container .carousel-default-text {
     font-size: 1.125rem;
     line-height: 1.625rem;
-  }
-
-  [lang='th'] .carousel-dotted-container .carousel-default-text {
-    line-height: 1.75rem;
   }
 
     /* Dot positioning variants */
