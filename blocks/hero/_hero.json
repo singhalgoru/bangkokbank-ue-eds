@@ -128,7 +128,8 @@
           "valueType": "string",
           "name": "homeThumbImage",
           "label": "Thumbnail Image",
-          "multi": false
+          "multi": false,
+          "hidden": true
         },
         {
           "component": "text",
