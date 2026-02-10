@@ -128,26 +128,6 @@
             ]
           }
         },
-        {
-          "component": "select",
-          "name": "animationType",
-          "label": "Animation Type",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "None",
-              "value": "none"
-            },
-            { 
-              "name": "Fade-In",
-              "value": "fade-in"
-            },
-            {
-              "name": "Fade-Out",
-              "value": "fade-out"
-            }
-          ]
-        },
          {
           "component": "boolean",
           "name": "autoScroll",

@@ -4,7 +4,6 @@ import {
   readDotsAlignment,
   readPosition,
   readArrowsAlignment,
-  readAnimation,
 } from '../../scripts/helper-files/carousel-helpers.js';
 
 /**
@@ -122,11 +121,10 @@ export default function decorate(block) {
   const dotsPosition = readPosition(rows[2]);
   const showArrows = readBoolean(rows[3]);
   const arrowsAlignment = readArrowsAlignment(rows[4]);
-  const animationType = readAnimation(rows[5]);
-  const autoScroll = readBoolean(rows[6]);
-  const scrollTimeDelay = rows[7]?.textContent.trim() || '';
-  const itemsToScroll = rows[8]?.textContent.trim() || '';
-  let nextIndex = 9;
+  const autoScroll = readBoolean(rows[5]);
+  const scrollTimeDelay = rows[6]?.textContent.trim() || '';
+  const itemsToScroll = rows[7]?.textContent.trim() || '';
+  let nextIndex = 8;
   let seeMoreLink = null;
 
   const seeMoreLinkRow = rows[nextIndex];
@@ -155,7 +153,6 @@ export default function decorate(block) {
     block.classList.add(`arrows-${arrowsAlignment}`);
   }
 
-  block.classList.add(`animation-${animationType}`);
   if (autoScroll) {
     block.classList.add('auto-scroll');
     if (scrollTimeDelay) block.dataset.scrollDelay = scrollTimeDelay;
