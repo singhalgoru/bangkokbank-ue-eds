@@ -206,8 +206,7 @@ export default function decorate(block) {
   const arrowsAlignment = readArrowsAlignment(rows[4]);
   const autoScroll = readBoolean(rows[5]);
   const scrollTimeDelay = rows[6]?.textContent.trim() || '';
-  const itemsToScroll = rows[7]?.textContent.trim() || '';
-  let nextIndex = 8;
+  let nextIndex = 7;
   let seeMoreLink = null;
 
   // Skip empty rows and check for "See more" link
@@ -251,7 +250,6 @@ export default function decorate(block) {
     block.classList.add('auto-scroll');
     if (scrollTimeDelay) block.dataset.scrollDelay = scrollTimeDelay;
   }
-  if (itemsToScroll) block.dataset.itemsToScroll = itemsToScroll;
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'carousel');
   const slideEls = slides.map((row, index) => {
@@ -356,7 +354,6 @@ export default function decorate(block) {
   // Initialize auto-scroll functionality if enabled
   if (autoScroll && scrollTimeDelay) {
     const delay = parseInt(scrollTimeDelay, 10);
-    const itemsPerScroll = parseInt(itemsToScroll, 10) || 1;
     initializeAutoScroll(
       block,
       slideEls,
@@ -365,7 +362,7 @@ export default function decorate(block) {
       nextArrow,
       dotButtons,
       delay,
-      itemsPerScroll,
+      1,
     );
   }
 }

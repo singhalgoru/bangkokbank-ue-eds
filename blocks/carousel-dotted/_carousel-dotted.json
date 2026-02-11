@@ -161,31 +161,6 @@
           }
         },
         {
-          "component": "select",
-          "name": "itemsToScroll",
-          "label": "Items to Scroll",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "1",
-              "value": "1"
-            },
-            {
-              "name": "2",
-              "value": "2"
-            },
-            {
-              "name": "3",
-              "value": "3"
-            }
-          ],
-          "condition": {
-            "and": [
-              { "!!": [{ "var": "autoScroll" }] }
-            ]
-          }
-        },
-        {
           "...": "../../models/elements/_button-fields.json"
         }
       ]
