@@ -138,20 +138,20 @@
         {
           "component": "select",
           "name": "scrollTimeDelay",
-          "label": "Scroll Time Delay",
+          "label": "Scroll Time Delay (milliseconds)",
           "valueType": "string",
           "options": [
             {
-              "name": "One minute",
-              "value": "1"
+              "name": "3 seconds",
+              "value": "3000"
             },
             {
-              "name": "Two minute",
-              "value": "2"
+              "name": "5 seconds",
+              "value": "5000"
             },
             {
-              "name": "Three minute",
-              "value": "3"
+              "name": "10 seconds",
+              "value": "10000"
             }
           ],
           "condition": {

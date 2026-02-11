@@ -112,6 +112,89 @@ function buildSlide(row, index) {
   return buildSlideWithoutImage(row, index, cells);
 }
 
+/**
+ * Initialize auto-scroll functionality for the carousel
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Array} slideEls - Array of slide elements
+ * @param {Function} setActive - Function to set active slide
+ * @param {HTMLElement} prevArrow - Previous arrow button
+ * @param {HTMLElement} nextArrow - Next arrow button
+ * @param {Array} dotButtons - Array of dot button objects
+ * @param {number} delay - Scroll delay in milliseconds
+ * @param {number} itemsPerScroll - Number of items to scroll at once
+ */
+function initializeAutoScroll(
+  block,
+  slideEls,
+  setActive,
+  prevArrow,
+  nextArrow,
+  dotButtons,
+  delay,
+  itemsPerScroll,
+) {
+  let autoScrollInterval;
+
+  const startAutoScroll = () => {
+    if (autoScrollInterval) return; // Already running
+
+    autoScrollInterval = setInterval(() => {
+      const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
+      let nextIdx = currentIndex + itemsPerScroll;
+
+      // Loop back to start if we've reached the end
+      if (nextIdx >= slideEls.length) {
+        nextIdx = 0;
+      }
+
+      setActive(nextIdx);
+    }, delay);
+  };
+
+  const stopAutoScroll = () => {
+    if (autoScrollInterval) {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = null;
+    }
+  };
+
+  // Start auto-scroll immediately
+  startAutoScroll();
+
+  // Pause auto-scroll on hover
+  block.addEventListener('mouseenter', stopAutoScroll);
+  block.addEventListener('mouseleave', startAutoScroll);
+
+  // Pause auto-scroll when user interacts with navigation
+  const pauseAutoScrollOnInteraction = () => {
+    stopAutoScroll();
+    // Resume after a delay (2x the scroll delay)
+    setTimeout(startAutoScroll, delay * 2);
+  };
+
+  prevArrow.addEventListener('click', pauseAutoScrollOnInteraction);
+  nextArrow.addEventListener('click', pauseAutoScrollOnInteraction);
+  dotButtons.forEach(({ button }) => {
+    button.addEventListener('click', pauseAutoScrollOnInteraction);
+  });
+
+  // Clean up interval when block is removed from DOM
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.removedNodes.forEach((node) => {
+        if (node === block || node.contains(block)) {
+          stopAutoScroll();
+          observer.disconnect();
+        }
+      });
+    });
+  });
+
+  if (block.parentNode) {
+    observer.observe(block.parentNode, { childList: true });
+  }
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -268,5 +351,21 @@ export default function decorate(block) {
 
   if (slideEls.length) {
     setActive(0);
+  }
+
+  // Initialize auto-scroll functionality if enabled
+  if (autoScroll && scrollTimeDelay) {
+    const delay = parseInt(scrollTimeDelay, 10);
+    const itemsPerScroll = parseInt(itemsToScroll, 10) || 1;
+    initializeAutoScroll(
+      block,
+      slideEls,
+      setActive,
+      prevArrow,
+      nextArrow,
+      dotButtons,
+      delay,
+      itemsPerScroll,
+    );
   }
 }
