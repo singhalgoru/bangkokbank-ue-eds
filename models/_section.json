@@ -94,6 +94,7 @@
         "fragment",
         "header",
         "megamenu",
+        "carousel",
         "carousel-dotted"
       ]
     }

@@ -19,6 +19,7 @@
       "fragment",
       "header",
       "megamenu",
+      "carousel",
       "carousel-dotted"
     ]
   },
@@ -38,6 +39,12 @@
     "id": "carousel-dotted",
     "components": [
       "carousel-dotted-slide"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-card"
     ]
   },
   {
