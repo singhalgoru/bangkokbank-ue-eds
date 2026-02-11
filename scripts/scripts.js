@@ -77,6 +77,15 @@ export function setExternalLinksTarget(container) {
       link.setAttribute('rel', 'noopener noreferrer');
     }
   });
+ * Create HTML element from template string
+ * @param {string} html - HTML template string
+ * @param {Document} doc - Document reference
+ * @returns {Element} The created element
+ */
+export function createElementFromHTML(html, doc) {
+  const template = doc.createElement('template');
+  template.innerHTML = html.trim();
+  return template.content.firstElementChild;
 }
 
 /**
