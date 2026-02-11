@@ -121,9 +121,6 @@
           "valueType": "string"        
         },
         {
-          "...": "../../models/elements/_button-fields.json"
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "homeThumbImage",
@@ -136,6 +133,9 @@
           "name": "homeThumbImageAlt",
           "label": "Thumbnail Alt",
           "value": ""
+        },
+        {
+          "...": "../../models/elements/_button-fields.json"
         }
       ]
     }
