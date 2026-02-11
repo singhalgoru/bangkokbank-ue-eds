@@ -1,3 +1,9 @@
+function pathnameSegmentMatches(pathOrUrl, normalizedLang) {
+  const path = pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`;
+  const segments = path.split('/').filter(Boolean);
+  return segments.some((seg) => seg.toLowerCase() === normalizedLang || seg.toLowerCase().startsWith(`${normalizedLang}-`));
+}
+
 /**
  * Returns whether the given URL is considered to match the document's lang.
  * Used to hide "current language" link-icons when multiple link-icons exist.
@@ -16,12 +22,6 @@ function urlMatchesLang(url, lang) {
   } catch {
     return pathnameSegmentMatches(url, normalizedLang);
   }
-}
-
-function pathnameSegmentMatches(pathOrUrl, normalizedLang) {
-  const path = pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`;
-  const segments = path.split('/').filter(Boolean);
-  return segments.some((seg) => seg.toLowerCase() === normalizedLang || seg.toLowerCase().startsWith(`${normalizedLang}-`));
 }
 
 /**
@@ -46,10 +46,7 @@ export default function decorate(block) {
 
     li.classList.add(isLinkLogo ? 'link-icon' : 'link-only');
 
-    // Get the cells from the row
-    const cells = [...row.children];
-
-    // Find the anchor link in the cells
+    // Find the anchor link in the row
     const anchor = row.querySelector('a');
     const picture = row.querySelector('picture');
 
