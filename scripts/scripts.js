@@ -53,6 +53,18 @@ export function moveInstrumentation(from, to) {
 }
 
 /**
+ * Create HTML element from template string
+ * @param {string} html - HTML template string
+ * @param {Document} doc - Document reference
+ * @returns {Element} The created element
+ */
+export function createElementFromHTML(html, doc) {
+  const template = doc.createElement('template');
+  template.innerHTML = html.trim();
+  return template.content.firstElementChild;
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
