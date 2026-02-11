@@ -114,7 +114,7 @@
           "condition": {
           "===": [
             {
-              "var": "variant"
+              "var": "models.variant"
             },
             "hero-with-thumbnail-images"
           ]
@@ -129,7 +129,7 @@
           "condition": {
           "===": [
             {
-              "var": "variant"
+              "var": "models.variant"
             },
             "hero-with-thumbnail-images"
           ]
