@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 function pathnameSegmentMatches(pathOrUrl, normalizedLang) {
   const path = pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`;
   const segments = path.split('/').filter(Boolean);
@@ -41,6 +43,7 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
     li.className = 'top-nav-item';
+    moveInstrumentation(row, li);
 
     const isLinkLogo = row.innerHTML.includes('link-logo');
 
@@ -53,7 +56,7 @@ export default function decorate(block) {
     if (anchor) {
       const link = document.createElement('a');
       link.href = anchor.href;
-      // link.className = 'top-nav-link';
+      link.className = 'top-nav-link';
 
       // If there's an image/icon, add it before the text
       if (picture && isLinkLogo) {
