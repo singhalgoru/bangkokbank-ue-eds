@@ -128,30 +128,14 @@
           "valueType": "string",
           "name": "homeThumbImage",
           "label": "Thumbnail Image",
-          "multi": false,
-          "condition": {
-            "===": [
-              {
-                "var": "variant"
-              },
-              "hero-with-thumbnail-images"
-            ]
-          }
+          "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "homeThumbImageAlt",
           "label": "Thumbnail Alt",
-          "value": "",
-          "condition": {
-            "===": [
-              {
-                "var": "variant"
-              },
-              "hero-with-thumbnail-images"
-            ]
-          }
+          "value": ""
         }
       ]
     }
