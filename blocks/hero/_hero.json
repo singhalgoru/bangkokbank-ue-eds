@@ -111,29 +111,15 @@
           "name": "homeThumbImage",
           "label": "Thumbnail Image",
           "multi": false,
-          "condition": {
-          "===": [
-            {
-              "var": "models.variant"
-            },
-            "hero-with-thumbnail-images"
-          ]
-         }
-       },
-       {
+          "description": "Only used for 'Hero With Thumbnail Images' variant"
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "homeThumbImageAlt",
           "label": "Thumbnail Alt",
           "value": "",
-          "condition": {
-          "===": [
-            {
-              "var": "models.variant"
-            },
-            "hero-with-thumbnail-images"
-          ]
-         }
+          "description": "Only used for 'Hero With Thumbnail Images' variant"
         },
         {
           "component": "richtext",
