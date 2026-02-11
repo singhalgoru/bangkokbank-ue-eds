@@ -231,7 +231,7 @@ export default function decorate(block) {
 
   const slides = rows.slice(nextIndex);
   // Use the block element itself as the container
-  block.className = 'carousel-dotted-container';
+  block.className = 'carousel-dotted';
 
   // Add dots-related classes
   if (showDots) {
@@ -329,6 +329,7 @@ export default function decorate(block) {
     dots.append(li);
     return { li, button };
   });
+
   // Clear block and append slides directly
   block.replaceChildren(...slideEls);
 
@@ -341,8 +342,7 @@ export default function decorate(block) {
 
   if (seeMoreLink) {
     const moreWrap = document.createElement('div');
-    moreWrap.className = 'carousel-dotted-more';
-    seeMoreLink.classList.add('button-tertiary');
+    moreWrap.className = 'carousel-dotted-more icon-right';
     moreWrap.append(seeMoreLink);
     block.append(moreWrap);
   }
