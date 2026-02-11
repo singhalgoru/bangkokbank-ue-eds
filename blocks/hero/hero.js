@@ -32,12 +32,6 @@ export default function decorate(block) {
   const bannerList = document.createElement('ul');
   bannerList.classList = 'hero-banner-list';
 
-  const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.classList = 'hero-banner-thumbnail-outer';
-
-  const thumbnailList = document.createElement('ul');
-  thumbnailList.classList = 'hero-banner-thumbnail-list content';
-
   let bannerIndex = 0;
 
   const items = [...block.children].slice(1, 8);
@@ -120,18 +114,14 @@ export default function decorate(block) {
       thumbnailItem.append(thumbImg);
     }
 
-    thumbnailList.append(thumbnailItem);
-
     bannerIndex += 1;
   });
 
   mainImgContainer.append(bannerList);
-  thumbnailOuter.append(thumbnailList);
 
   const wrapper = document.createElement('div');
   wrapper.className = `hero-banner hero-banner-${variant}`;
   wrapper.append(mainImgContainer);
-  // wrapper.append(thumbnailOuter);  // Commented out - keeping on hold
 
   block.replaceChildren(wrapper);
 
