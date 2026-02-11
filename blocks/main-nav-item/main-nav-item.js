@@ -91,8 +91,9 @@ export default function decorate(block) {
     column.className = 'megamenu-column';
     column.setAttribute('data-column-index', index);
 
-    // Get cells from the row
+    // Get cells from the row (schema order: image, image-alt-text, links)
     const cells = [...row.children];
+    const altText = cells[1]?.textContent?.trim() || '';
 
     // Process each cell in the column row
     cells.forEach((cell) => {
@@ -101,7 +102,10 @@ export default function decorate(block) {
       if (picture) {
         const imageWrapper = document.createElement('div');
         imageWrapper.className = 'megamenu-column-image';
-        imageWrapper.appendChild(picture.cloneNode(true));
+        const clonedPicture = picture.cloneNode(true);
+        const img = clonedPicture.querySelector('img');
+        if (img) img.setAttribute('alt', altText);
+        imageWrapper.appendChild(clonedPicture);
         column.appendChild(imageWrapper);
       }
 
