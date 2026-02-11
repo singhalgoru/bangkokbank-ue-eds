@@ -37,7 +37,7 @@ export default function decorate(block) {
   const items = [...block.children].slice(1, 8);
 
   items.forEach((row) => {
-    const [imageCell, logoImageCell, headingCell, textCell, thumbImgCell, linkCell] = [
+    const [imageCell, logoImageCell, headingCell, textCell, linkCell, thumbImgCell] = [
       ...row.children,
     ];
 
