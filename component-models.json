@@ -428,6 +428,20 @@
         "value": ""
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "homeThumbImage",
+        "label": "Thumbnail Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "homeThumbImageAlt",
+        "label": "Thumbnail Alt",
+        "value": ""
+      },
+      {
         "component": "richtext",
         "name": "title",
         "value": "",
@@ -441,20 +455,6 @@
         "value": "",
         "label": "Sub Title",
         "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "homeThumbImage",
-        "label": "Thumbnail Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "homeThumbImageAlt",
-        "label": "Thumbnail Alt",
-        "value": ""
       },
       {
         "component": "aem-content",
