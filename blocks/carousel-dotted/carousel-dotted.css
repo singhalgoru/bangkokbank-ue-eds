@@ -1,4 +1,4 @@
-.carousel-dotted-container{
+.carousel-dotted-container {
   padding-left: 16px;
   padding-right: 16px;
 }
@@ -87,9 +87,9 @@
   font-weight: var(--bbl-font-weight-medium);
   background: #4890ff;
   color: var(--bbl-color-white);
-  padding: var(--bbl-space-050) 7px; 
+  padding: var(--bbl-space-050) 7px;
   border-radius: 20px;
-  margin-bottom: 14px; 
+  margin-bottom: 14px;
 }
 
 
@@ -125,7 +125,7 @@
 }
 
 .carousel-dotted a.button.primary {
-    border-radius: 7px;
+  border-radius: 7px;
 }
 
 .carousel-dotted .slick-dots {
@@ -238,8 +238,19 @@
   z-index: 2;
 }
 
-.carousel-dotted .icon-right a::after{
-content: "\e901";
+.carousel-dotted .icon-arrow-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Override button-tertiary's SVG arrow with icomoon icon font */
+.carousel-dotted .button-tertiary.icon-arrow-right::after {
+  background-color: transparent;
+  mask: none;
+  font-size: 0.70em;
+  position: relative;
+  top: 1px;
 }
 
 
@@ -312,7 +323,7 @@ content: "\e901";
     flex-direction: column;
     justify-content: flex-start;
     min-height: 100%;
-    padding: var(--bbl-space-500); 
+    padding: var(--bbl-space-500);
   }
 
   .carousel-dotted .carousel-description {
@@ -349,13 +360,13 @@ content: "\e901";
   }
 
   .carousel-dotted .carousel-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 -110px 40px -50px var(--bbl-color-white);
-  pointer-events: none;
-  z-index: 2;
-}
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 -110px 40px -50px var(--bbl-color-white);
+    pointer-events: none;
+    z-index: 2;
+  }
 }
 
 
@@ -382,36 +393,36 @@ content: "\e901";
   }
 
   .carousel-dotted .carousel-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 -110px 40px -50px var(--bbl-color-white);
-  pointer-events: none;
-  z-index: 2;
-}
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 -110px 40px -50px var(--bbl-color-white);
+    pointer-events: none;
+    z-index: 2;
+  }
 
-.carousel-dotted .carousel-badge {
-  font-weight: var(--bbl-font-weight-medium);
-  font-size: 14.4px;
-  line-height: 18px;
-}
+  .carousel-dotted .carousel-badge {
+    font-weight: var(--bbl-font-weight-medium);
+    font-size: 14.4px;
+    line-height: 18px;
+  }
 
-.carousel-dotted .carousel-description {
-  font-weight: var(--bbl-font-weight-regular);
-  font-size: 32px;
-  line-height: 32px;
-  margin-bottom: 24px;
-}
+  .carousel-dotted .carousel-description {
+    font-weight: var(--bbl-font-weight-regular);
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 24px;
+  }
 
-.carousel-dotted .carousel-header {
-   font-weight: var(--bbl-font-weight-regular);
-  font-size: var(--bbl-font-size-b2);
-  line-height: 16px;
-}
+  .carousel-dotted .carousel-header {
+    font-weight: var(--bbl-font-weight-regular);
+    font-size: var(--bbl-font-size-b2);
+    line-height: 16px;
+  }
 
-.carousel-dotted .carousel-default-text {
-  font-weight: var(--bbl-font-weight-regular);
-  font-size: var(--bbl-font-size-b2);
-  line-height: 22px;
-}
+  .carousel-dotted .carousel-default-text {
+    font-weight: var(--bbl-font-weight-regular);
+    font-size: var(--bbl-font-size-b2);
+    line-height: 22px;
+  }
 }
