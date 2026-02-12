@@ -600,6 +600,12 @@
       },
       {
         "component": "text",
+        "name": "backgroundImageAlt",
+        "label": "Background Image Alt",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "eyebrow",
         "label": "Eyebrow Text",
         "valueType": "string"
