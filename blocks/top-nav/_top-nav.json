@@ -82,6 +82,22 @@
               "link-logo"
             ]
           }
+        },
+				{
+          "component": "text",
+          "name": "icon-alt-text",
+          "label": "Alternative Text for Accessibility 1",
+          "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
+          "valueType": "string",
+          "required": true,
+          "condition": {
+            "===": [
+              {
+                "var": "classes"
+              },
+              "link-logo"
+            ]
+          }
         }
       ]
     }
