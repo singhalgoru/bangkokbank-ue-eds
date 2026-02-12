@@ -301,6 +301,17 @@ export default function decorate(block) {
     // Update arrow states
     prevArrow.disabled = index === 0;
     nextArrow.disabled = index === slideEls.length - 1;
+
+    // Apply translate3d for horizontal sliding track (without-image slides)
+    const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
+    if (allWithoutImage) {
+      const trackWrapper = block.querySelector('.carousel-track-wrapper');
+      if (trackWrapper) {
+        const slideWidth = block.offsetWidth;
+        const translateX = -index * slideWidth;
+        trackWrapper.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+      }
+    }
   }
 
   // Arrow click handlers
@@ -330,8 +341,19 @@ export default function decorate(block) {
     return { li, button };
   });
 
-  // Clear block and append slides directly
-  block.replaceChildren(...slideEls);
+  // Check if all slides are without-image for horizontal sliding track
+  const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
+
+  if (allWithoutImage) {
+    // Create a track wrapper for horizontal sliding
+    const trackWrapper = document.createElement('div');
+    trackWrapper.className = 'carousel-track-wrapper';
+    trackWrapper.replaceChildren(...slideEls);
+    block.replaceChildren(trackWrapper);
+  } else {
+    // Clear block and append slides directly (existing behavior)
+    block.replaceChildren(...slideEls);
+  }
 
   if (showDots) {
     block.append(dots);
