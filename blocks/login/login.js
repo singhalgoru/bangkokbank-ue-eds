@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 // Desktop media query
 const isDesktop = window.matchMedia('(min-width: 1025px)');
 
@@ -111,6 +113,7 @@ function buildSectionFromHeading(heading) {
 
 /**
  * Builds panel DOM from content rows (sections and standalone lists).
+ * Preserves authoring instrumentation by moving data-aue-* from each row to a wrapper.
  * @param {Element[]} contentRows
  * @returns {HTMLDivElement}
  */
@@ -123,8 +126,11 @@ function createLoginPanel(contentRows) {
   panelInner.className = 'login-panel-inner';
 
   contentRows.forEach((row) => {
-    const cells = [...row.children];
+    const wrapper = document.createElement('div');
+    wrapper.className = 'login-panel-content';
+    moveInstrumentation(row, wrapper);
 
+    const cells = [...row.children];
     cells.forEach((cell) => {
       const headings = cell.querySelectorAll('h3');
       const lists = cell.querySelectorAll('ul');
@@ -133,15 +139,17 @@ function createLoginPanel(contentRows) {
 
       headings.forEach((heading) => {
         const section = buildSectionFromHeading(heading);
-        if (section) panelInner.appendChild(section);
+        if (section) wrapper.appendChild(section);
       });
 
       lists.forEach((list) => {
         if (list.previousElementSibling?.tagName === 'H3') return;
         const linkList = buildLinkList(list, 'login-link-list-standalone');
-        panelInner.appendChild(linkList);
+        wrapper.appendChild(linkList);
       });
     });
+
+    panelInner.appendChild(wrapper);
   });
 
   loginPanel.appendChild(panelInner);
