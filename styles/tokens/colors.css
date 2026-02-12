@@ -201,5 +201,11 @@
   --bbl-state-error-bg: var(--bbl-color-system-red-light);
   --bbl-state-warning: var(--bbl-color-system-yellow);
   --bbl-state-warning-bg: var(--bbl-color-system-yellow-light);
+
+  /* Private gradient colors */
+  --bbl-private-gold-50: #B8A588;
+  --bbl-private-gold-29: #F2E0C6;
+  --bbl-private-gold-68: #A39073;
+  --bbl-private-gold-86: #EBDCC6;
 }
 

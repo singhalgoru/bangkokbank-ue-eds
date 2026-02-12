@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 import {
@@ -102,6 +103,11 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateTerritoryButtons(main);
   decorateSvgWithAltText(main);
+
+  const pageVariant = getMetadata('pagevariant');
+  if (pageVariant) {
+    document.body.classList.add(`${pageVariant}`);
+  }
 }
 
 /**
