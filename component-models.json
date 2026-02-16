@@ -669,16 +669,37 @@
       {
         "component": "richtext",
         "name": "description",
-        "value": "",
         "label": "Description",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "date-time",
-        "name": "startDate",
-        "label": "Start Date (Bangkok Time)",
+        "name": "startDateTime",
+        "label": "Start Date & Time",
+        "description": "Select the start date and time",
         "valueType": "date-time",
-        "required": true
+        "placeholder": "YYYY-MM-DD HH:mm",
+        "displayFormat": "YYYY-MM-DD HH:mm",
+        "valueFormat": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+        "required": true,
+        "validation": {
+          "customErrorMsg": "Please enter a valid start date and time"
+        }
+      },
+      {
+        "component": "date-time",
+        "name": "endDateTime",
+        "label": "End Date & Time",
+        "description": "Select the end date and time",
+        "valueType": "date-time",
+        "placeholder": "YYYY-MM-DD HH:mm",
+        "displayFormat": "YYYY-MM-DD HH:mm",
+        "valueFormat": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+        "required": true,
+        "validation": {
+          "customErrorMsg": "Please enter a valid end date and time"
+        }
       }
     ]
   }
