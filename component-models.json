@@ -672,6 +672,13 @@
         "value": "",
         "label": "Description",
         "valueType": "string"
+      },
+      {
+        "component": "date-time",
+        "name": "startDate",
+        "label": "Start Date (Bangkok Time)",
+        "valueType": "date-time",
+        "required": true
       }
     ]
   }
