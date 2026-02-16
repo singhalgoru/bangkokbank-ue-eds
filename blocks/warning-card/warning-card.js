@@ -43,25 +43,21 @@ function isWithinDateRange(startDate, endDate) {
  * @param {HTMLElement} block - The block element
  */
 export default function decorate(block) {
-  // Get the first row which contains all the data
-  const row = block.querySelector('div');
-  if (!row) {
-    block.style.display = 'none';
-    return;
-  }
+  // Get all rows from the block
+  const rows = [...block.children];
 
-  const cells = [...row.children];
+  // Parse each row to get the content
+  // Row 0: Icon
+  const iconRow = rows[0];
+  const iconCell = iconRow?.querySelector('div');
+  const iconImg = iconCell?.querySelector('img');
+  const icon = iconImg?.src || '';
+  const iconAlt = 'warning icon';
 
-  // Extract data from cells based on the model structure
-  // Expected order: icon, iconAlt, title, description, startDate, endDate
-  const [iconCell, iconAltCell, titleCell, descriptionCell, startDateCell, endDateCell] = cells;
-
-  const icon = iconCell?.querySelector('picture') || iconCell?.querySelector('img');
-  const iconAlt = iconAltCell?.textContent?.trim() || '';
-  const title = titleCell?.textContent?.trim() || '';
-  const description = descriptionCell?.innerHTML || '';
-  const startDate = startDateCell?.textContent?.trim() || '';
-  const endDate = endDateCell?.textContent?.trim() || '';
+  const title = rows[1]?.textContent.trim() || '';
+  const description = rows[2]?.innerHTML.trim() || '';
+  const startDate = rows[3]?.textContent.trim() || '';
+  const endDate = rows[4]?.textContent.trim() || '';
 
   // Check if current time is within the date range (Bangkok timezone)
   if (!isWithinDateRange(startDate, endDate)) {
@@ -69,48 +65,21 @@ export default function decorate(block) {
     return;
   }
 
-  // Create structured data for the card
-  const cardData = {
-    icon: icon?.querySelector('img')?.src || '',
-    iconAlt,
-    title,
-    description,
-    startDate,
-    endDate,
-    timezone: 'Asia/Bangkok',
-  };
-
   // Clear the block
   block.innerHTML = '';
-
-  // Create card wrapper
-  const wrapper = document.createElement('div');
-  wrapper.className = 'warning-card-wrapper';
-  wrapper.setAttribute('data-warning-card', JSON.stringify(cardData));
-
-  // Create card item
-  const cardItem = document.createElement('div');
-  cardItem.className = 'warning-card-item';
-
-  // Create card inner container
-  const cardInner = document.createElement('div');
-  cardInner.className = 'warning-card-inner';
 
   // Add icon if present
   if (icon) {
     const iconWrapper = document.createElement('div');
     iconWrapper.className = 'warning-card-icon';
 
-    const iconImg = icon.querySelector('img');
-    if (iconImg) {
-      const newIconImg = iconImg.cloneNode(true);
-      newIconImg.className = 'warning-card-icon-img';
-      newIconImg.alt = iconAlt;
-      newIconImg.loading = 'lazy';
-      iconWrapper.appendChild(newIconImg);
-    }
+    const iconElement = document.createElement('img');
+    iconElement.src = icon;
+    iconElement.alt = iconAlt;
+    iconElement.loading = 'lazy';
+    iconWrapper.appendChild(iconElement);
 
-    cardInner.appendChild(iconWrapper);
+    block.appendChild(iconWrapper);
   }
 
   // Create content container
@@ -133,10 +102,6 @@ export default function decorate(block) {
     contentWrapper.appendChild(descriptionElement);
   }
 
-  cardInner.appendChild(contentWrapper);
-  cardItem.appendChild(cardInner);
-  wrapper.appendChild(cardItem);
-
-  block.appendChild(wrapper);
+  block.appendChild(contentWrapper);
   block.classList.add('warning-card-loaded');
 }
