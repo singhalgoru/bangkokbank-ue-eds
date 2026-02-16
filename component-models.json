@@ -200,7 +200,11 @@
               },
               {
                 "name": "Grey 100",
-                "value": "bg-grey-100 "
+                "value": "bg-grey-100"
+              },
+              {
+                "name": "Dark Background",
+                "value": "dark-background"
               }
             ]
           }
@@ -639,6 +643,271 @@
             "value": "tertiary"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "menu-category",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Category Title",
+        "description": "Main menu category name (e.g., Personal Banking)",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Category Link",
+        "description": "Optional link for the category header"
+      },
+      {
+        "component": "select",
+        "name": "columns",
+        "label": "Number of Columns",
+        "description": "How many columns to display in the dropdown",
+        "valueType": "string",
+        "value": "3",
+        "options": [
+          {
+            "name": "2 Columns",
+            "value": "2"
+          },
+          {
+            "name": "3 Columns",
+            "value": "3"
+          },
+          {
+            "name": "4 Columns",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "name": "showPromo",
+        "label": "Show Promo Section",
+        "description": "Display promotional content in the dropdown"
+      }
+    ]
+  },
+  {
+    "id": "menu-column",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "columnTitle",
+        "label": "Column Title",
+        "description": "Optional heading for this column of links"
+      },
+      {
+        "component": "richtext",
+        "name": "links",
+        "label": "Navigation Links",
+        "description": "Add links as a bulleted list",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "menu-link",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link URL",
+        "description": "Target page or URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "description": "Optional description text below the link"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "description": "Optional icon for the link"
+      }
+    ]
+  },
+  {
+    "id": "menu-promo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Promo Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "promoTitle",
+        "label": "Promo Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "promoDescription",
+        "label": "Promo Description"
+      },
+      {
+        "component": "aem-content",
+        "name": "promoLink",
+        "label": "Promo Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "promoLinkText",
+        "label": "Promo Link Text",
+        "value": "Learn more"
+      },
+      {
+        "component": "select",
+        "name": "promoStyle",
+        "label": "Promo Style",
+        "valueType": "string",
+        "value": "default",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hero-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Banner Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "columns-benefits",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "3",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "1",
+        "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "columns-promo",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "2",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "1",
+        "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "accordion-info-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "description": "Accordion item heading",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "value": "",
+        "label": "Body",
+        "description": "Accordion item content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-tool",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "description": "Display text for the link",
+        "required": true
       }
     ]
   }

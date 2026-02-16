@@ -1,0 +1,68 @@
+{
+  "templates": [
+    {
+      "name": "mutual-funds-page",
+      "urls": ["https://www.bangkokbank.com/en/Personal/Save-And-Invest/Mutual-Funds"],
+      "description": "Bangkok Bank Mutual Funds landing page template with hero, fund cards grid, promotional banners, accordion, and tools section",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": ["section.main-banner", ".main-banner .caption"]
+        },
+        {
+          "name": "cards-product",
+          "instances": [".wrapper .scrolling-x .row", ".thumb-default.full"]
+        },
+        {
+          "name": "columns-promo",
+          "instances": [".thumb-full", ".wrapper .thumb-full"]
+        },
+        {
+          "name": "accordion-info",
+          "instances": [".collapse-item", ".row-default .collapse-item"]
+        },
+        {
+          "name": "cards-tools",
+          "instances": [".list-thumb-square", ".desktop-tools .list-thumb-square"]
+        },
+        {
+          "name": "section-dark",
+          "section": "dark",
+          "instances": [".wrapper.no-print .thumb-full.large"]
+        }
+      ]
+    },
+    {
+      "name": "merchant-services-product-page",
+      "urls": ["https://www.bangkokbank.com/en/business-banking/manage-my-business/merchant-services/be-express-pay"],
+      "description": "Bangkok Bank Merchant Services product page with hero banner, key benefits columns, accordion info, cross-sell promo, and tools contact section",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": ["section.banner", "section.banner .desktop-banner"]
+        },
+        {
+          "name": "columns-benefits",
+          "instances": [".new-margin.wrapper.pad-top", ".new-margin .col-md-4 .thumb-info"]
+        },
+        {
+          "name": "accordion-info",
+          "instances": [".collapse-item", "section.row-default .collapse-item"]
+        },
+        {
+          "name": "columns-promo",
+          "instances": [".thumb-full:not(.large)", ".wrapper.pad-top .thumb-full:not(.large)"]
+        },
+        {
+          "name": "cards-tools",
+          "instances": [".desktop-tools .list-thumb-square", ".list-thumb-square"]
+        },
+        {
+          "name": "section-dark",
+          "section": "dark",
+          "instances": [".wrapper.no-print .thumb-full.large"]
+        }
+      ]
+    }
+  ]
+}

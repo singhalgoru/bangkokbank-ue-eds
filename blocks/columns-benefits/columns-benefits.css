@@ -1,0 +1,33 @@
+.columns-benefits > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-benefits img {
+  width: 100%;
+}
+
+.columns-benefits > div > div {
+  order: 1;
+}
+
+.columns-benefits > div > .columns-benefits-img-col {
+  order: 0;
+}
+
+.columns-benefits > div > .columns-benefits-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-benefits > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-benefits > div > div {
+    flex: 1;
+    order: unset;
+  }
+}

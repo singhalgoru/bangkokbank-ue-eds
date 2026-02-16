@@ -1,0 +1,39 @@
+{
+  "variantName": "columns-promo",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-01-29T07:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.bangkokbank.com/en/Personal/Save-And-Invest/Mutual-Funds",
+    "originPage": "Mutual Funds landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "wide",
+    "purpose": "promotional-banner",
+    "imagePattern": "large-promotional"
+  },
+  "contentPattern": {
+    "structure": "image | heading + description + button",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "promotional banners",
+      "feature highlights with images",
+      "call-to-action sections",
+      "side-by-side content blocks"
+    ],
+    "notSuitableFor": [
+      "multi-column text layouts",
+      "comparison tables"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en/personal/save-and-invest/mutual-funds", "/en/business-banking/manage-my-business/merchant-services/be-express-pay"],
+    "reuseCount": 2,
+    "lastUsed": "2026-02-16T07:38:00.000Z"
+  }
+}
