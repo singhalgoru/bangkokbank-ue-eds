@@ -13,14 +13,9 @@
       "button",
       "title",
       "hero",
-      "hero-banner",
       "cards",
       "cards-product",
-      "cards-tools",
       "columns",
-      "columns-benefits",
-      "columns-promo",
-      "accordion-info",
       "fragment",
       "header",
       "megamenu",
@@ -40,12 +35,6 @@
     ]
   },
   {
-    "id": "cards-tools",
-    "components": [
-      "cards-tool"
-    ]
-  },
-  {
     "id": "carousel",
     "components": [
       "carousel-card"
@@ -53,18 +42,6 @@
   },
   {
     "id": "columns",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "columns-benefits",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "columns-promo",
     "components": [
       "column"
     ]
@@ -79,30 +56,10 @@
     ]
   },
   {
-    "id": "accordion-info",
-    "components": [
-      "accordion-info-item"
-    ]
-  },
-  {
     "id": "hero",
     "components": [
       "hero-item"
     ],
     "maxItems": 8
-  },
-  {
-    "id": "megamenu",
-    "components": [
-      "menu-category"
-    ]
-  },
-  {
-    "id": "menu-category-content",
-    "components": [
-      "menu-column",
-      "menu-link",
-      "menu-promo"
-    ]
   }
 ]

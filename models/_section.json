@@ -70,11 +70,7 @@
                 },
                 {
                   "name": "Grey 100",
-                  "value": "bg-grey-100"
-                },
-                {
-                  "name": "Dark Background",
-                  "value": "dark-background"
+                  "value": "bg-grey-100 "
                 }
               ]
             }
@@ -92,14 +88,9 @@
         "button",
         "title",
         "hero",
-        "hero-banner",
         "cards",
         "cards-product",
-        "cards-tools",
         "columns",
-        "columns-benefits",
-        "columns-promo",
-        "accordion-info",
         "fragment",
         "header",
         "megamenu",
