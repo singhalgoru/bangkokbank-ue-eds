@@ -71,29 +71,6 @@
           "validation": {
             "customErrorMsg": "Please enter a valid end date and time"
           }
-        },
-        {
-          "component": "select",
-          "name": "backgroundColor",
-          "label": "Background Color",
-          "valueType": "string",
-          "options": [
-            { "name": "Truthful Blue", "value": "bg-truthful-blue" },
-            { "name": "Ice Blue", "value": "bg-ice-blue" },
-            { "name": "Grey 10", "value": "bg-grey-10" },
-            { "name": "Grey 05", "value": "bg-grey-05" },
-            { "name": "Grey 100", "value": "bg-grey-100" }
-          ]
-        },
-        {
-          "component": "multiselect",
-          "name": "padding",
-          "label": "Padding",
-          "valueType": "string",
-          "options": [
-            { "name": "Padding Top", "value": "pad-top" },
-            { "name": "Padding Bottom", "value": "pad-bottom" }
-          ]
         }
       ]
     }

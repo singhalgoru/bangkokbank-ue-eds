@@ -73,6 +73,19 @@
                   "value": "bg-grey-100 "
                 }
               ]
+            },
+            {
+              "name": "Background Color",
+              "children": [
+                {
+                  "name": "Padding Top",
+                  "value": "pad-top"
+                },
+                {
+                   "name": "Padding Bottom",
+                  "value": "pad-bottom"
+                }
+              ]
             }
           ]
         }
