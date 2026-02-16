@@ -70,12 +70,12 @@
                 },
                 {
                   "name": "Grey 100",
-                  "value": "bg-grey-100 "
+                  "value": "bg-grey-100"
                 }
               ]
             },
             {
-              "name": "Background Color",
+              "name": "Padding",
               "children": [
                 {
                   "name": "Padding Top",
