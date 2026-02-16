@@ -665,6 +665,12 @@
         "label": "Title",
         "valueType": "string",
         "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
       }
     ]
   }
