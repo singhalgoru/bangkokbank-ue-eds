@@ -94,7 +94,8 @@
         "fragment",
         "header",
         "megamenu",
-        "carousel"
+        "carousel",
+        "warning-card"
       ]
     }
   ]
