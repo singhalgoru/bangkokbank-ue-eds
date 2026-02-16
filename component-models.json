@@ -655,6 +655,12 @@
       },
       {
         "component": "text",
+        "name": "iconAlt",
+        "label": "Icon Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "title",
         "label": "Title",
         "valueType": "string",
