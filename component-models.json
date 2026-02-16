@@ -647,10 +647,10 @@
     "fields": [
       {
         "component": "reference",
-        "valueType": "string",
         "name": "icon",
         "label": "Icon",
         "description": "Icon for the announcement header",
+        "valueType": "string",
         "multi": false
       },
       {

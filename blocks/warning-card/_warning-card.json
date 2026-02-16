@@ -23,10 +23,10 @@
       "fields": [
         {
           "component": "reference",
-          "valueType": "string",
           "name": "icon",
           "label": "Icon",
           "description": "Icon for the announcement header",
+          "valueType": "string",
           "multi": false
         },
         {
@@ -68,26 +68,11 @@
           "label": "Background Color",
           "valueType": "string",
           "options": [
-            {
-              "name": "Truthful Blue",
-              "value": "bg-truthful-blue"
-            },
-            {
-              "name": "Ice Blue",
-              "value": "bg-ice-blue"
-            },
-            {
-              "name": "Grey 10",
-              "value": "bg-grey-10"
-            },
-            {
-              "name": "Grey 05",
-              "value": "bg-grey-05"
-            },
-            {
-              "name": "Grey 100",
-              "value": "bg-grey-100"
-            }
+            { "name": "Truthful Blue", "value": "bg-truthful-blue" },
+            { "name": "Ice Blue", "value": "bg-ice-blue" },
+            { "name": "Grey 10", "value": "bg-grey-10" },
+            { "name": "Grey 05", "value": "bg-grey-05" },
+            { "name": "Grey 100", "value": "bg-grey-100" }
           ]
         },
         {
@@ -96,14 +81,8 @@
           "label": "Padding",
           "valueType": "string",
           "options": [
-            {
-              "name": "Padding Top",
-              "value": "pad-top"
-            },
-            {
-              "name": "Padding Bottom",
-              "value": "pad-bottom"
-            }
+            { "name": "Padding Top", "value": "pad-top" },
+            { "name": "Padding Bottom", "value": "pad-bottom" }
           ]
         },
         {
@@ -115,5 +94,10 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "warning-card",
+      "components": ["warning-card"]
+    }
+  ]
 }
