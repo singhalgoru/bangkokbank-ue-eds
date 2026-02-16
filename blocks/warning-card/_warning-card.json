@@ -22,74 +22,11 @@
       "id": "warning-card",
       "fields": [
         {
-          "component": "reference",
-          "name": "icon",
-          "label": "Icon",
-          "description": "Icon for the announcement header",
-          "valueType": "string",
-          "multi": false
-        },
-        {
-          "component": "text",
-          "name": "iconAlt",
-          "label": "Icon Alt Text",
-          "valueType": "string"
-        },
-        {
           "component": "text",
           "name": "title",
           "label": "Title",
           "valueType": "string",
           "required": true
-        },
-        {
-          "component": "richtext",
-          "name": "description",
-          "label": "Description",
-          "valueType": "string"
-        },
-        {
-          "component": "date-time",
-          "name": "startDate",
-          "label": "Start Date (Bangkok Time)",
-          "valueType": "date-time",
-          "required": true
-        },
-        {
-          "component": "date-time",
-          "name": "endDate",
-          "label": "End Date (Bangkok Time)",
-          "valueType": "date-time",
-          "required": true
-        },
-        {
-          "component": "select",
-          "name": "backgroundColor",
-          "label": "Background Color",
-          "valueType": "string",
-          "options": [
-            { "name": "Truthful Blue", "value": "bg-truthful-blue" },
-            { "name": "Ice Blue", "value": "bg-ice-blue" },
-            { "name": "Grey 10", "value": "bg-grey-10" },
-            { "name": "Grey 05", "value": "bg-grey-05" },
-            { "name": "Grey 100", "value": "bg-grey-100" }
-          ]
-        },
-        {
-          "component": "multiselect",
-          "name": "padding",
-          "label": "Padding",
-          "valueType": "string",
-          "options": [
-            { "name": "Padding Top", "value": "pad-top" },
-            { "name": "Padding Bottom", "value": "pad-bottom" }
-          ]
-        },
-        {
-          "component": "hidden",
-          "name": "timezone",
-          "valueType": "string",
-          "value": "Asia/Bangkok"
         }
       ]
     }
