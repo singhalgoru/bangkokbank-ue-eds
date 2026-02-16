@@ -339,8 +339,8 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "image",
-          "label": "Image",
+          "name": "heroImage",
+          "label": "Hero Image",
           "multi": false,
           "condition": {
             "or": [
