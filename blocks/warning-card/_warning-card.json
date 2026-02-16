@@ -21,13 +21,6 @@
     {
       "id": "warning-card",
       "fields": [
-        {
-          "component": "text",
-          "name": "title",
-          "label": "Title",
-          "valueType": "string",
-          "required": true
-        },
          {
           "component": "reference",
           "name": "icon",
@@ -35,6 +28,13 @@
           "description": "Icon for the announcement header",
           "valueType": "string",
           "multi": false
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string",
+          "required": true
         }
       ]
     }
