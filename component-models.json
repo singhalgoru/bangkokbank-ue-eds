@@ -651,6 +651,14 @@
         "label": "Title",
         "valueType": "string",
         "required": true
+      },
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon",
+        "description": "Icon for the announcement header",
+        "valueType": "string",
+        "multi": false
       }
     ]
   }
