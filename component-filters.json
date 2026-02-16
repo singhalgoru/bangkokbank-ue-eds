@@ -64,7 +64,7 @@
     "maxItems": 8
   },
   {
-    "id": "warning-cards",
+    "id": "warning-card",
     "components": [
       "warning-card"
     ]

@@ -1,30 +1,16 @@
 {
   "definitions": [
     {
-      "title": "Warning Cards",
-      "id": "warning-cards",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Warning Cards",
-              "filter": "warning-cards"
-            }
-          }
-        }
-      }
-    },
-    {
       "title": "Warning Card",
       "id": "warning-card",
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
+            "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Warning Card",
-              "model": "warning-card"
+              "model": "warning-card",
+              "filter": "warning-card"
             }
           }
         }
@@ -110,10 +96,8 @@
   ],
   "filters": [
     {
-      "id": "warning-cards",
-      "components": [
-        "warning-card"
-      ]
+      "id": "warning-card",
+      "components": ["warning-card"]
     }
   ]
 }
