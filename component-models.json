@@ -20,6 +20,26 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "pageVariant",
+        "label": "Page Variant",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Private",
+            "value": "private"
+          },
+          {
+            "name": "Wealth",
+            "value": "wealth"
+          }
+        ]
       }
     ]
   },
@@ -490,11 +510,27 @@
         "options": [
           {
             "name": "Hero With Thumbnail Images",
-            "value": "hero_with_thumbnail_images"
+            "value": "hero-with-thumbnail-images"
           },
           {
             "name": "Simple",
             "value": "simple"
+          },
+          {
+            "name": "Hero Banner with Image Carousel",
+            "value": "hero-banner-image-carousel"
+          },
+          {
+            "name": "Hero Banner with Image Carousel and Text Animation",
+            "value": "hero-banner-carousel-text-animation"
+          },
+          {
+            "name": "Private or Wealth banking",
+            "value": "private-wealth-banking"
+          },
+          {
+            "name": "Simple with Logo Banner",
+            "value": "simple-logo-banner"
           }
         ]
       }
@@ -518,14 +554,46 @@
         "value": ""
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logoImage",
+        "label": "Logo Image",
+        "multi": false,
+        "description": "Optional logo image (for logo variants)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logoImageAlt",
+        "label": "Logo Alt",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "homeThumbImage",
+        "label": "Thumbnail Image",
+        "multi": false,
+        "description": "Only used for 'Hero With Thumbnail Images' variant"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "homeThumbImageAlt",
+        "label": "Thumbnail Alt",
+        "value": "",
+        "description": "Only used for 'Hero With Thumbnail Images' variant"
+      },
+      {
         "component": "richtext",
         "name": "title",
         "value": "",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "description": "Optional for 'Simple with Logo Only' variant"
       },
       {
-        "component": "text-input",
+        "component": "richtext",
         "name": "subtitle",
         "value": "",
         "label": "Sub Title",
@@ -571,20 +639,6 @@
             "value": "tertiary"
           }
         ]
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "homeThumbImage",
-        "label": "Thumbnail Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "homeThumbImageAlt",
-        "label": "Thumbnail Alt",
-        "value": ""
       }
     ]
   }
