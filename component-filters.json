@@ -63,10 +63,4 @@
     ],
     "maxItems": 8
   },
-  {
-    "id": "warning-card",
-    "components": [
-      "warning-card"
-    ]
-  }
 ]

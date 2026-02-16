@@ -1,127 +1,142 @@
-import { createElementFromHTML } from '../../scripts/scripts.js';
+/**
+ * Converts a date to Bangkok timezone
+ * @param {Date} date - The date to convert
+ * @returns {Date} - Date in Bangkok timezone
+ */
+function toBangkokTime(date) {
+  // Create a date string in Bangkok timezone
+  const bangkokString = date.toLocaleString('en-US', {
+    timeZone: 'Asia/Bangkok',
+  });
+  return new Date(bangkokString);
+}
 
 /**
- * Check if the current date in Bangkok timezone falls within the specified date range
- * @param {string} startDate - Start date in ISO format or parseable date string
- * @param {string} endDate - End date in ISO format or parseable date string
- * @returns {boolean} True if current Bangkok time is within the range
+ * Checks if current Bangkok time is within the date range
+ * @param {string} startDate - ISO date string for start
+ * @param {string} endDate - ISO date string for end
+ * @returns {boolean} - True if current time is within range
  */
 function isWithinDateRange(startDate, endDate) {
   if (!startDate || !endDate) {
-    return true; // If dates are not specified, show the warning card
+    return false;
   }
 
   try {
-    // Get current time in Bangkok timezone (Asia/Bangkok)
-    const bangkokTime = new Date().toLocaleString('en-US', {
-      timeZone: 'Asia/Bangkok',
-    });
-    const currentBangkokDate = new Date(bangkokTime);
+    const now = new Date();
+    const bangkokNow = toBangkokTime(now);
 
-    // Parse start and end dates
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    // Set end date to end of day (23:59:59)
-    end.setHours(23, 59, 59, 999);
+    const bangkokStart = toBangkokTime(start);
+    const bangkokEnd = toBangkokTime(end);
 
-    // Check if current Bangkok time is within range
-    return currentBangkokDate >= start && currentBangkokDate <= end;
+    return bangkokNow >= bangkokStart && bangkokNow <= bangkokEnd;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error parsing dates for warning-card:', error);
-    return true; // Show warning card if there's an error parsing dates
+    return false;
   }
 }
 
 /**
- * Create structured JSON data from block fields
- * @param {object} fields - The extracted fields from the block
- * @returns {object} Structured JSON data
- */
-function createStructuredJSON(fields) {
-  return {
-    icon: fields.icon || '',
-    iconAlt: fields.iconAlt || '',
-    title: fields.title || '',
-    description: fields.description || '',
-    startDate: fields.startDate || '',
-    endDate: fields.endDate || '',
-    visible: fields.visible || false,
-  };
-}
-
-/**
- * Decorate the warning-card block
- * @param {Element} block - The warning-card block element
+ * Decorates the warning-card block
+ * @param {HTMLElement} block - The block element
  */
 export default function decorate(block) {
-  const doc = block.ownerDocument;
-  const children = [...block.children];
+  // Get the first row which contains all the data
+  const row = block.querySelector('div');
+  if (!row) {
+    block.style.display = 'none';
+    return;
+  }
 
-  // Extract fields from block children based on component model
-  // Expected structure (matches component-models.json):
-  // Row 0: Icon (reference - image)
-  // Row 1: Icon Alt Text (text)
-  // Row 2: Title (text, required)
-  // Row 3: Description (richtext)
-  // Row 4: Start Date (date-time, required)
-  // Row 5: End Date (date-time, required)
+  const cells = [...row.children];
 
-  const iconCell = children[0];
-  const iconAltCell = children[1];
-  const titleCell = children[2];
-  const descriptionCell = children[3];
-  const startDateCell = children[4];
-  const endDateCell = children[5];
+  // Extract data from cells based on the model structure
+  // Expected order: icon, iconAlt, title, description, startDate, endDate
+  const [iconCell, iconAltCell, titleCell, descriptionCell, startDateCell, endDateCell] = cells;
 
-  // Extract icon
-  const iconPicture = iconCell?.querySelector('picture');
-  const iconImg = iconPicture?.querySelector('img');
-  const iconSrc = iconImg?.src || '';
-  const iconAlt = iconAltCell?.textContent?.trim() || iconImg?.alt || '';
+  const icon = iconCell?.querySelector('picture') || iconCell?.querySelector('img');
+  const iconAlt = iconAltCell?.textContent?.trim() || '';
   const title = titleCell?.textContent?.trim() || '';
   const description = descriptionCell?.innerHTML || '';
   const startDate = startDateCell?.textContent?.trim() || '';
   const endDate = endDateCell?.textContent?.trim() || '';
 
-  // Check if warning card should be visible based on Bangkok timezone
-  const isVisible = isWithinDateRange(startDate, endDate);
+  // Check if current time is within the date range (Bangkok timezone)
+  if (!isWithinDateRange(startDate, endDate)) {
+    block.style.display = 'none';
+    return;
+  }
 
-  // Create structured data
-  const structuredData = createStructuredJSON({
-    icon: iconSrc,
+  // Create structured data for the card
+  const cardData = {
+    icon: icon?.querySelector('img')?.src || '',
     iconAlt,
     title,
     description,
     startDate,
     endDate,
-    visible: isVisible,
-  });
+    timezone: 'Asia/Bangkok',
+  };
 
-  // Store structured JSON as data attribute for potential frontend use
-  block.dataset.warningCard = JSON.stringify(structuredData);
+  // Clear the block
+  block.innerHTML = '';
 
-  // If not visible, hide the block and return
-  if (!isVisible) {
-    block.style.display = 'none';
-    return;
+  // Create card wrapper
+  const wrapper = document.createElement('div');
+  wrapper.className = 'warning-card-wrapper';
+  wrapper.setAttribute('data-warning-card', JSON.stringify(cardData));
+
+  // Create card item
+  const cardItem = document.createElement('div');
+  cardItem.className = 'warning-card-item';
+
+  // Create card inner container
+  const cardInner = document.createElement('div');
+  cardInner.className = 'warning-card-inner';
+
+  // Add icon if present
+  if (icon) {
+    const iconWrapper = document.createElement('div');
+    iconWrapper.className = 'warning-card-icon';
+
+    const iconImg = icon.querySelector('img');
+    if (iconImg) {
+      const newIconImg = iconImg.cloneNode(true);
+      newIconImg.className = 'warning-card-icon-img';
+      newIconImg.alt = iconAlt;
+      newIconImg.loading = 'lazy';
+      iconWrapper.appendChild(newIconImg);
+    }
+
+    cardInner.appendChild(iconWrapper);
   }
 
-  // Create warning card HTML structure
-  const warningCardHTML = `
-    <div class="warning-card-container">
-      <div class="warning-card-header">
-        ${iconImg ? `<div class="warning-card-icon"><img src="${iconSrc}" alt="${iconAlt}" loading="lazy"></div>` : ''}
-        ${title ? `<h2 class="warning-card-title">${title}</h2>` : ''}
-      </div>
-      ${description ? `<div class="warning-card-description">${description}</div>` : ''}
-    </div>
-  `;
+  // Create content container
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'warning-card-content';
 
-  const warningCard = createElementFromHTML(warningCardHTML, doc);
+  // Add title
+  if (title) {
+    const titleElement = document.createElement('h2');
+    titleElement.className = 'warning-card-title';
+    titleElement.textContent = title;
+    contentWrapper.appendChild(titleElement);
+  }
 
-  // Replace block content with the decorated warning card
-  block.textContent = '';
-  block.appendChild(warningCard);
+  // Add description
+  if (description) {
+    const descriptionElement = document.createElement('div');
+    descriptionElement.className = 'warning-card-description';
+    descriptionElement.innerHTML = description;
+    contentWrapper.appendChild(descriptionElement);
+  }
+
+  cardInner.appendChild(contentWrapper);
+  cardItem.appendChild(cardInner);
+  wrapper.appendChild(cardItem);
+
+  block.appendChild(wrapper);
+  block.classList.add('warning-card-loaded');
 }
