@@ -132,7 +132,7 @@ function initializeDragSwipe(
   let currentX = 0;
   let hasMoved = false;
 
-  const handleMouseDown = (e) => {
+  const handleStart = (e) => {
     // Don't start drag on buttons, links, or interactive elements
     if (e.target.closest('a, button')) {
       return;
@@ -140,15 +140,27 @@ function initializeDragSwipe(
 
     isDragging = true;
     hasMoved = false;
-    startX = e.pageX || e.clientX;
+
+    // Support both mouse and touch events
+    if (e.type === 'touchstart') {
+      startX = e.touches[0].pageX;
+    } else {
+      startX = e.pageX || e.clientX;
+    }
     currentX = startX;
     block.classList.add('is-dragging');
   };
 
-  const handleMouseMove = (e) => {
+  const handleMove = (e) => {
     if (!isDragging) return;
 
-    currentX = e.pageX || e.clientX;
+    // Support both mouse and touch events
+    if (e.type === 'touchmove') {
+      currentX = e.touches[0].pageX;
+    } else {
+      currentX = e.pageX || e.clientX;
+    }
+
     const deltaX = currentX - startX;
 
     // Mark that we've moved if drag distance exceeds a small threshold
@@ -157,7 +169,7 @@ function initializeDragSwipe(
     }
   };
 
-  const handleMouseUp = () => {
+  const handleEnd = () => {
     if (!isDragging) return;
 
     isDragging = false;
@@ -206,7 +218,7 @@ function initializeDragSwipe(
     hasMoved = false;
   };
 
-  const handleMouseLeave = () => {
+  const handleCancel = () => {
     if (isDragging) {
       isDragging = false;
       block.classList.remove('is-dragging');
@@ -216,11 +228,17 @@ function initializeDragSwipe(
     }
   };
 
-  // Add drag event listeners
-  block.addEventListener('mousedown', handleMouseDown);
-  block.addEventListener('mousemove', handleMouseMove);
-  block.addEventListener('mouseup', handleMouseUp);
-  block.addEventListener('mouseleave', handleMouseLeave);
+  // Add mouse event listeners for desktop
+  block.addEventListener('mousedown', handleStart);
+  block.addEventListener('mousemove', handleMove);
+  block.addEventListener('mouseup', handleEnd);
+  block.addEventListener('mouseleave', handleCancel);
+
+  // Add touch event listeners for mobile/tablet
+  block.addEventListener('touchstart', handleStart, { passive: true });
+  block.addEventListener('touchmove', handleMove, { passive: true });
+  block.addEventListener('touchend', handleEnd);
+  block.addEventListener('touchcancel', handleCancel);
 }
 
 /**
