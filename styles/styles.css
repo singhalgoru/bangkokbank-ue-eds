@@ -215,14 +215,6 @@ main img {
     .section.full-bleed-special {
         padding: 0 var(--bbl-space-section-xl);
     }
-
-        .pad-top {
-            padding-top: 32px;
-        }
-    
-        .pad-bottom {
-            padding-bottom: 40px;
-        }
         }
 
 @media (width >= 1920px) {
@@ -266,14 +258,6 @@ main img {
 .pad-container-xl {
     padding-inline: var(--bbl-space-container-xl);
     box-sizing: border-box;
-}
-
-.pad-top {
-    padding-top: 24px;
-}
-
-.pad-bottom {
-    padding-bottom: 32px;
 }
 
 /* =========================================================================
