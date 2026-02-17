@@ -548,9 +548,9 @@ export default function decorate(block) {
       const active = i === index;
       const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel');
       const wasActive = slide.classList.contains('is-active');
-      if (isHeroVariant && wasActive && !active) {
-        slide.classList.add('is-leaving');
-        setTimeout(() => slide.classList.remove('is-leaving'), 700);
+      if (isHeroVariant && !wasActive && active) {
+        slide.classList.add('is-entering');
+        setTimeout(() => slide.classList.remove('is-entering'), 600);
       }
 
       slide.classList.toggle('is-active', active);
