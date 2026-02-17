@@ -377,23 +377,23 @@ export default function decorate(block) {
     block.classList.add('all-with-image');
   } else if (
     slidesWithoutImage > 0
-  && slidesWithImage === 0
-  && slidesHeroBanner === 0
-  && slidesTextAnimation === 0
+    && slidesWithImage === 0
+    && slidesHeroBanner === 0
+    && slidesTextAnimation === 0
   ) {
     block.classList.add('all-without-image');
   } else if (
     slidesHeroBanner > 0
-  && slidesWithImage === 0
-  && slidesWithoutImage === 0
-  && slidesTextAnimation === 0
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0
+    && slidesTextAnimation === 0
   ) {
     block.classList.add('all-hero-banner-image-carousel');
   } else if (
     slidesTextAnimation > 0
-  && slidesWithImage === 0
-  && slidesWithoutImage === 0
-  && slidesHeroBanner === 0
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0
+    && slidesHeroBanner === 0
   ) {
     block.classList.add('all-text-animation-variant');
   } else {
@@ -419,6 +419,13 @@ export default function decorate(block) {
   function setActive(index) {
     slideEls.forEach((slide, i) => {
       const active = i === index;
+      const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel');
+      const wasActive = slide.classList.contains('is-active');
+      if (isHeroVariant && wasActive && !active) {
+        slide.classList.add('is-leaving');
+        setTimeout(() => slide.classList.remove('is-leaving'), 700);
+      }
+
       slide.classList.toggle('is-active', active);
       slide.classList.toggle('is-current', active);
       slide.setAttribute('aria-hidden', active ? 'false' : 'true');
@@ -434,9 +441,11 @@ export default function decorate(block) {
     prevArrow.disabled = index === 0;
     nextArrow.disabled = index === slideEls.length - 1;
 
-    // Apply translate3d for horizontal sliding track (without-image slides)
-    const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
-    if (allWithoutImage) {
+    // Apply translate3d for horizontal sliding track (hero banner)
+    const allHeroBanner = slidesHeroBanner > 0 && slidesWithImage === 0 && slidesWithoutImage === 0
+    && slidesTextAnimation === 0;
+
+    if (allHeroBanner) {
       const trackWrapper = block.querySelector('.carousel-track-wrapper');
       if (trackWrapper) {
         const slideWidth = block.offsetWidth;
@@ -479,7 +488,12 @@ export default function decorate(block) {
   && slidesHeroBanner === 0
   && slidesTextAnimation === 0;
 
-  if (allWithoutImage) {
+  const allHeroBanner = slidesHeroBanner > 0
+  && slidesWithImage === 0
+  && slidesWithoutImage === 0
+  && slidesTextAnimation === 0;
+
+  if (allHeroBanner || allWithoutImage) {
     // Create a track wrapper for horizontal sliding
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';

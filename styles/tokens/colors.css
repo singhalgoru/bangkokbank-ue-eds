@@ -209,5 +209,7 @@
   --bbl-private-gold-29: #F2E0C6;
   --bbl-private-gold-68: #A39073;
   --bbl-private-gold-86: #EBDCC6;
+  --bbl-red-overlay-strong: rgb(70.6% 2% 2% / 45%);
+  --bbl-red-overlay-light: rgb(100% 0% 0% / 15%);
 }
 
