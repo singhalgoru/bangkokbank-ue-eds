@@ -218,6 +218,133 @@ function buildSlide(row, index) {
 }
 
 /**
+ * Initialize drag/swipe functionality for the carousel
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Array} slideEls - Array of slide elements
+ * @param {Function} setActive - Function to set active slide
+ * @param {number} dragThreshold - Minimum drag distance to trigger slide change
+ * @param {boolean} enableLooping - Whether to enable infinite looping
+ */
+
+function initializeDragSwipe(
+  block,
+  slideEls,
+  setActive,
+  dragThreshold = 50,
+  enableLooping = false,
+) {
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let hasMoved = false;
+
+  const handleStart = (e) => {
+    // Don't start drag on buttons, links, or interactive elements
+    if (e.target.closest('a, button')) {
+      return;
+    }
+
+    isDragging = true;
+    hasMoved = false;
+    if (e.type === 'touchstart') {
+      startX = e.touches[0].pageX;
+    } else {
+      startX = e.pageX || e.clientX;
+    }
+    currentX = startX;
+    block.classList.add('is-dragging');
+  };
+
+  const handleMove = (e) => {
+    if (!isDragging) return;
+
+    // Support both mouse and touch events
+    if (e.type === 'touchmove') {
+      currentX = e.touches[0].pageX;
+    } else {
+      currentX = e.pageX || e.clientX;
+    }
+    const deltaX = currentX - startX;
+
+    // Mark that we've moved if drag distance exceeds a small threshold
+    if (Math.abs(deltaX) > 5) {
+      hasMoved = true;
+    }
+  };
+
+  const handleEnd = () => {
+    if (!isDragging) return;
+
+    isDragging = false;
+    block.classList.remove('is-dragging');
+
+    const deltaX = currentX - startX;
+
+    // Only trigger slide change if user actually dragged (not just clicked)
+    if (hasMoved && Math.abs(deltaX) > dragThreshold) {
+      const currentIndex = slideEls.findIndex(
+        (slide) => slide.classList.contains('is-active'),
+      );
+
+      // Swipe left (drag to the left) = next slide
+      if (deltaX < -dragThreshold) {
+        let nextIndex;
+        if (enableLooping) {
+          // With looping: go to first if at last
+          nextIndex = currentIndex < slideEls.length - 1 ? currentIndex + 1 : 0;
+        } else {
+          // Without looping: stop at last slide
+          nextIndex = currentIndex < slideEls.length - 1 ? currentIndex + 1 : currentIndex;
+        }
+        if (nextIndex !== currentIndex) {
+          setActive(nextIndex);
+        }
+      } else if (deltaX > dragThreshold) {
+        // Swipe right (drag to the right) = previous slide
+        let prevIndex;
+        if (enableLooping) {
+          // With looping: go to last if at first
+          prevIndex = currentIndex > 0 ? currentIndex - 1 : slideEls.length - 1;
+        } else {
+          // Without looping: stop at first slide
+          prevIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
+        }
+        if (prevIndex !== currentIndex) {
+          setActive(prevIndex);
+        }
+      }
+    }
+
+    // Reset drag state
+    startX = 0;
+    currentX = 0;
+    hasMoved = false;
+  };
+
+  const handleCancel = () => {
+    if (isDragging) {
+      isDragging = false;
+      block.classList.remove('is-dragging');
+      startX = 0;
+      currentX = 0;
+      hasMoved = false;
+    }
+  };
+
+  // Add mouse event listeners for desktop
+  block.addEventListener('mousedown', handleStart);
+  block.addEventListener('mousemove', handleMove);
+  block.addEventListener('mouseup', handleEnd);
+  block.addEventListener('mouseleave', handleCancel);
+
+  // Add touch event listeners for mobile/tablet
+  block.addEventListener('touchstart', handleStart, { passive: true });
+  block.addEventListener('touchmove', handleMove, { passive: true });
+  block.addEventListener('touchend', handleEnd);
+  block.addEventListener('touchcancel', handleCancel);
+}
+
+/**
  * Initialize auto-scroll functionality for the carousel
  * @param {HTMLElement} block - The carousel block element
  * @param {Array} slideEls - Array of slide elements
@@ -537,4 +664,10 @@ export default function decorate(block) {
       1,
     );
   }
+
+  // Initialize drag/swipe functionality
+  // Enable looping only if slides have images (like Grow Club section)
+  // Disable looping for text-only slides (like News and Activities section)
+  const enableLooping = slidesWithImage > 0;
+  initializeDragSwipe(block, slideEls, setActive, 50, enableLooping);
 }

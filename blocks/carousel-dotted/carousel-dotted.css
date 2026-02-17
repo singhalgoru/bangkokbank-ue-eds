@@ -362,6 +362,11 @@
   }
 }
 
+.carousel-dotted.is-dragging * {
+  pointer-events: none;
+  user-select: none;
+}
+
 
 /* Tablet */
 @media (width >=760px) {
