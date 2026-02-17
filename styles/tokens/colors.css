@@ -31,6 +31,7 @@
   --bbl-color-grey-100: #323238;
   --bbl-color-grey-110: #28282D;
   --bbl-color-grey-120: #17171A;
+  --bbl-color-grey-125: #CCC;
 
   /* =========================================================================
      BLUE SCALE
@@ -193,6 +194,7 @@
   --bbl-border-default: var(--bbl-color-grey-40);
   --bbl-border-light: var(--bbl-color-grey-20);
   --bbl-border-focus: var(--bbl-color-active-blue);
+  --bbl-border-dots: var(--bbl-color-grey-125);
 
   /* States */
   --bbl-state-success: var(--bbl-color-system-green);

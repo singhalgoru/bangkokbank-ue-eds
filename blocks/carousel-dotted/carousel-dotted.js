@@ -92,15 +92,120 @@ function buildSlideWithoutImage(row, index, cells) {
 }
 
 /**
+ * Build a slide HERO BANNER IMAGE CAROUSEL variation
+ * Structure: Image | Image Alt | Title | Subtitle | Button
+ */
+function buildSlideHeroBannerImageCarousel(row, index, cells) {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-item hero-banner-image-carousel';
+  slide.dataset.index = index;
+  moveInstrumentation(row, slide);
+
+  // Create and append background image if it exists (cell 10)
+  const picture = cells[10]?.querySelector('picture');
+  if (picture) {
+    const media = document.createElement('div');
+    media.className = 'carousel-bg';
+    const img = picture.querySelector('img');
+    // Set alt text from cell 11
+    if (img && cells[11]) {
+      img.alt = cells[11].textContent.trim();
+    }
+    media.append(picture);
+    slide.append(media);
+  }
+
+  // Create content container
+  const content = document.createElement('div');
+  content.className = 'carousel-content';
+
+  // Title (cell 12)
+  if (cells[12]) {
+    const title = document.createElement('div');
+    title.className = 'carousel-title';
+    while (cells[12].firstChild) title.append(cells[12].firstChild);
+    content.append(title);
+  }
+
+  // Subtitle (cell 13)
+  if (cells[13]) {
+    const subtitle = document.createElement('div');
+    subtitle.className = 'carousel-subtitle';
+    while (cells[13].firstChild) subtitle.append(cells[13].firstChild);
+    content.append(subtitle);
+  }
+
+  slide.append(content);
+  return slide;
+}
+
+/**
+ * Build a slide TEXT ANIMATION VARIANT
+ * Structure: Image | Image Alt | Title | Subtitle | Button
+ */
+function buildSlideTextAnimationVariant(row, index, cells) {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-item text-animation-variant';
+  slide.dataset.index = index;
+  moveInstrumentation(row, slide);
+
+  // Create and append background image if it exists (cell 10)
+  const picture = cells[10]?.querySelector('picture');
+  if (picture) {
+    const media = document.createElement('div');
+    media.className = 'carousel-bg';
+    const img = picture.querySelector('img');
+    // Set alt text from cell 11
+    if (img && cells[11]) {
+      img.alt = cells[11].textContent.trim();
+    }
+    media.append(picture);
+    slide.append(media);
+  }
+
+  // Create content container
+  const content = document.createElement('div');
+  content.className = 'carousel-content';
+
+  // Title (cell 12) - with animation class
+  if (cells[12]) {
+    const title = document.createElement('div');
+    title.className = 'carousel-title animated-text';
+    while (cells[12].firstChild) title.append(cells[12].firstChild);
+    content.append(title);
+  }
+
+  // Subtitle (cell 13) - with animation class
+  if (cells[13]) {
+    const subtitle = document.createElement('div');
+    subtitle.className = 'carousel-subtitle animated-text';
+    while (cells[13].firstChild) subtitle.append(cells[13].firstChild);
+    content.append(subtitle);
+  }
+
+  slide.append(content);
+  return slide;
+}
+
+/**
  * Build a slide - determines which variation to use and delegates
  */
 function buildSlide(row, index) {
   const cells = [...row.children];
 
-  // Check if this is a "with image" or "without image" slide
-  // Check both cell 0 for boolean indicator and cell 2 for picture
+  const heroBannerImageCarousel = cells[8]?.textContent.trim().toLowerCase() === 'true';
+  const textAnimationVariant = cells[9]?.textContent.trim().toLowerCase() === 'true';
   const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
   const picture = cells[2]?.querySelector('picture');
+
+  // Determine slide type priority
+  if (heroBannerImageCarousel) {
+    return buildSlideHeroBannerImageCarousel(row, index, cells);
+  }
+
+  if (textAnimationVariant) {
+    return buildSlideTextAnimationVariant(row, index, cells);
+  }
 
   // Determine if this is a with-image slide:
   // Either has "true" in cell 0 OR has a picture in cell 2
@@ -260,11 +365,38 @@ export default function decorate(block) {
   // Determine if all slides have images, none have images, or it's mixed
   const slidesWithImage = slideEls.filter((slide) => slide.classList.contains('with-image')).length;
   const slidesWithoutImage = slideEls.filter((slide) => slide.classList.contains('without-image')).length;
-  if (slidesWithImage > 0 && slidesWithoutImage === 0) {
+  const slidesHeroBanner = slideEls.filter((slide) => slide.classList.contains('hero-banner-image-carousel')).length;
+  const slidesTextAnimation = slideEls.filter((slide) => slide.classList.contains('text-animation-variant')).length;
+
+  if (
+    slidesWithImage > 0
+  && slidesWithoutImage === 0
+  && slidesHeroBanner === 0
+  && slidesTextAnimation === 0
+  ) {
     block.classList.add('all-with-image');
-  } else if (slidesWithoutImage > 0 && slidesWithImage === 0) {
+  } else if (
+    slidesWithoutImage > 0
+  && slidesWithImage === 0
+  && slidesHeroBanner === 0
+  && slidesTextAnimation === 0
+  ) {
     block.classList.add('all-without-image');
-  } else if (slidesWithImage > 0 && slidesWithoutImage > 0) {
+  } else if (
+    slidesHeroBanner > 0
+  && slidesWithImage === 0
+  && slidesWithoutImage === 0
+  && slidesTextAnimation === 0
+  ) {
+    block.classList.add('all-hero-banner-image-carousel');
+  } else if (
+    slidesTextAnimation > 0
+  && slidesWithImage === 0
+  && slidesWithoutImage === 0
+  && slidesHeroBanner === 0
+  ) {
+    block.classList.add('all-text-animation-variant');
+  } else {
     block.classList.add('mixed-image-slides');
   }
   const dots = document.createElement('ul');
@@ -342,7 +474,10 @@ export default function decorate(block) {
   });
 
   // Check if all slides are without-image for horizontal sliding track
-  const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
+  const allWithoutImage = slidesWithoutImage > 0
+  && slidesWithImage === 0
+  && slidesHeroBanner === 0
+  && slidesTextAnimation === 0;
 
   if (allWithoutImage) {
     // Create a track wrapper for horizontal sliding
