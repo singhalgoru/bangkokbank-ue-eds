@@ -13,6 +13,11 @@
   padding: var(--bbl-space-000);
 }
 
+.carousel-dotted.is-dragging * {
+  pointer-events: none;
+  user-select: none;
+}
+
 .carousel-dotted .carousel-item {
   position: relative;
   display: none;
