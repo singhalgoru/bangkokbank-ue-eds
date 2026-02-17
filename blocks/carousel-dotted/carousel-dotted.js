@@ -568,11 +568,14 @@ export default function decorate(block) {
     prevArrow.disabled = index === 0;
     nextArrow.disabled = index === slideEls.length - 1;
 
-    // Apply translate3d for horizontal sliding track (hero banner)
+    // Apply translate3d for horizontal sliding track (hero banner AND without-image)
     const allHeroBanner = slidesHeroBanner > 0 && slidesWithImage === 0 && slidesWithoutImage === 0
     && slidesTextAnimation === 0;
 
-    if (allHeroBanner) {
+    const allWithoutImageTrack = slidesWithoutImage > 0 && slidesWithImage === 0
+    && slidesHeroBanner === 0 && slidesTextAnimation === 0;
+
+    if (allHeroBanner || allWithoutImageTrack) {
       const trackWrapper = block.querySelector('.carousel-track-wrapper');
       if (trackWrapper) {
         const slideWidth = block.offsetWidth;
