@@ -359,8 +359,6 @@ export default function decorate(block) {
   }
 
   const slides = rows.slice(nextIndex);
-  // Use the block element itself as the container
-  block.className = 'carousel-dotted';
 
   // Add dots-related classes
   if (showDots) {
