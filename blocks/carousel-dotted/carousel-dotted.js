@@ -584,12 +584,12 @@ export default function decorate(block) {
 
         if (isLoopingForward) {
           trackWrapper.style.transform = `translate3d(${-slideEls.length * slideWidth}px, 0px, 0px)`;
-          trackWrapper.addEventListener('transitionend', () => {
+          setTimeout(() => {
             trackWrapper.style.transition = 'none';
             trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
             trackWrapper.getBoundingClientRect();
             trackWrapper.style.transition = '';
-          }, { once: true });
+          }, 700);
         } else {
           trackWrapper.style.transform = `translate3d(${-index * slideWidth}px, 0px, 0px)`;
         }
