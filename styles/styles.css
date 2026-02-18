@@ -215,7 +215,7 @@ main img {
     .section.full-bleed-special {
         padding: 0 var(--bbl-space-section-xl);
     }
-        }
+}
 
 @media (width >= 1920px) {
     .section.full-bleed-special {
