@@ -40,11 +40,12 @@
 }
 
 .warning-card-title {
-  color: var(--bbl-color-blue-100); 
+  color: var(--bbl-color-blue-130); 
   font-size: var(--bbl-heading-h4-size);
   font-weight: var(--bbl-font-weight-regular);
   line-height: 1.4;
   margin: 0 0 var(--bbl-space-200);
+  font-family: var(--bbl-font-family-medium);
 }
 
 .warning-card-description {
@@ -52,11 +53,13 @@
   font-size: var(--bbl-body-b1-size);
   line-height: var(--bbl-body-b1-line-height);
   margin: 0;
+  font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif !important;;
 }
 
 
 .warning-card-description p {
   margin: 0 0 var(--bbl-space-150);
+  font-size: var(--bbl-font-size-b2);
 }
 
 .warning-card-description p:last-child {
