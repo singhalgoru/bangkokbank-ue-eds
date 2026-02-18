@@ -389,13 +389,7 @@
           }
         },
         {
-          "...": "../../models/elements/_button-fields.json",
-          "condition": {
-            "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
-            ]
-          }
+          "...": "../../models/elements/_button-fields.json"
         }
       ]
     }
