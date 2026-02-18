@@ -827,20 +827,74 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link",
-        "description": "Destination URL for the button"
+        "description": "Destination URL for the button",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",
         "name": "linkText",
         "label": "Text",
         "description": "Button label text",
-        "required": true
+        "required": true,
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",
         "name": "linkTitle",
         "label": "Title",
-        "description": "Accessibility title attribute (optional)"
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "select",
@@ -862,7 +916,25 @@
             "name": "Tertiary",
             "value": "tertiary"
           }
-        ]
+        ],
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },
