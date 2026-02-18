@@ -822,6 +822,67 @@
             }
           ]
         }
+      },
+      {
+        "0": {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "description": "Destination URL for the button"
+        },
+        "1": {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true
+        },
+        "2": {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)"
+        },
+        "3": {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            }
+          ]
+        },
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },
