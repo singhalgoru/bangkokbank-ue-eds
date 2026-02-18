@@ -42,18 +42,17 @@
           "label": "Background Image",
           "multi": false
         },
-         {
-          "component": "richtext",
+        {
+          "component": "text",
           "name": "title",
-          "value": "",
-          "label": "Ttile",
-          "valueType": "string"
+          "label": "Title",
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
+          "name": "description",
+          "label": "Description",
           "valueType": "string"
         },
         {
