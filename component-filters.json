@@ -20,7 +20,8 @@
       "header",
       "megamenu",
       "carousel",
-      "story-card"
+      "story-card",
+      "content-insert-cards"
     ]
   },
   {
@@ -54,6 +55,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "content-insert-cards",
+    "components": [
+      "content-insert-card"
     ]
   },
   {

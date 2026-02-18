@@ -95,7 +95,8 @@
         "header",
         "megamenu",
         "carousel",
-        "story-card"
+        "story-card",
+        "content-insert-cards"
       ]
     }
   ]
