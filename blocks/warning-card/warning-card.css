@@ -36,7 +36,7 @@
 
 .warning-card-content {
   flex: 1;
-  padding-right: var(--bbl-space-350);
+  padding-right: 0.875rem;
 }
 
 .warning-card-title {
@@ -72,10 +72,6 @@
   transition: all .3s;
 }
 
-.warning-card-description ul,
-.warning-card-description ol {
-  margin-left: var(--bbl-space-300);
-}
 
 .warning-card-description li {
   margin-bottom: var(--bbl-space-100);
