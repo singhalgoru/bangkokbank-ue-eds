@@ -57,6 +57,7 @@ async function buildAccordionStructure(block) {
 
     const item = document.createElement('div');
     item.className = 'accordion-item';
+    moveInstrumentation(row, item);
 
     const header = document.createElement('button');
     header.type = 'button';
