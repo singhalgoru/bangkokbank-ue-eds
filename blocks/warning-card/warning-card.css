@@ -1,13 +1,13 @@
 /* Mobile-first base styles */
 .warning-card {
   width: 100%;
-  background: #fff;
-  box-shadow: 0 2px 8px 0 rgb(221 221 221 / 50%);
+  background: var(--bbl-color-white);
+  box-shadow: 0 0.125rem 0.5rem 0 rgb(221 221 221 / 50%);
   margin: auto;
 }
 
 .section.warning-card-container {
-  padding: 0 16px;
+  padding: 0 var(--bbl-space-200);
 }
 
 .warning-card-inner-container {
@@ -20,13 +20,13 @@
 }
 
 .warning-card-icon {
-  width: 53px;
-  height: 53px;
+  width: 3.3125rem; /* 53px */
+  height: 3.3125rem; /* 53px */
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  left: 5px;
+  left: 0.3125rem; /* 5px */
 }
 
 
@@ -40,7 +40,7 @@
 }
 
 .warning-card-title {
-  color: #003d82;
+  color: var(--bbl-color-blue-100); 
   font-size: var(--bbl-heading-h4-size);
   font-weight: var(--bbl-font-weight-regular);
   line-height: 1.4;
@@ -48,7 +48,7 @@
 }
 
 .warning-card-description {
-  color: #666;
+  color: var(--bbl-text-secondary); 
   font-size: var(--bbl-body-b1-size);
   line-height: var(--bbl-body-b1-line-height);
   margin: 0;
@@ -79,25 +79,25 @@
 }
 
 
-/* Tablet styles - min-width 768px */
-@media (width >=761px) {
+/* Tablet styles - min-width 761px */
+@media (width >= 761px) { 
   .section.warning-card-container {
     padding: 0 var(--bbl-space-600);
   }
 
   .warning-card-inner-container {
     padding: var(--bbl-space-400) 0 var(--bbl-space-500) 0;
-    max-width: 768px;
+    max-width: 48rem; /* 768px */
   }
 
   .warning-card-title {
-    font-size: 21px;
+    font-size: 1.3125rem; /* 21px */
     margin-bottom: var(--bbl-space-250);
-    line-height: 22.75px;
+    line-height: 1.4219rem; /* 22.75px */
   }
 
   .warning-card-description {
-    font-size: 15px;
+    font-size: 0.9375rem; /* 15px */
   }
 
   .warning-card-content {
@@ -106,25 +106,25 @@
 }
 
 /* Desktop styles - min-width 1024px */
-@media (width >=1024px) {
+@media (width >= 1024px) { 
   .warning-card {
-    width: 900px;
+    width: 56.25rem; /* 900px */
   }
 
   .warning-card-inner-container {
-    max-width: 1240px;
+    max-width: 77.5rem; /* 1240px */
     padding: var(--bbl-space-400) var(--bbl-space-1000) var(--bbl-space-500);
     gap: var(--bbl-space-300);
   }
 
   .warning-card-title {
-    font-size: 26px;
+    font-size: 1.625rem; /* 26px */
     margin-bottom: var(--bbl-space-250);
   }
 
   .warning-card-description {
     font-size: var(--bbl-body-b1-size);
-    line-height: 22px;
+    line-height: 1.375rem; /* 22px */
   }
 
   .warning-card-content {
@@ -134,18 +134,18 @@
 
   .warning-card-icon {
     position: relative;
-    left: 15px;
+    left: 0.9375rem; /* 15px */
   }
 }
 
 /* Large desktop styles - min-width 1280px */
-@media (width >=1280px) {
+@media (width >= 1280px) { 
   .warning-card-inner-container {
     padding: var(--bbl-space-400) 0 var(--bbl-space-500) 0;
   }
 
   .warning-card-title {
     font-size: var(--bbl-heading-h5-size);
-    line-height: 26px;
+    line-height: 1.625rem; /* 26px */
   }
 }
