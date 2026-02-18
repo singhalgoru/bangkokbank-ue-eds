@@ -27,23 +27,23 @@ export default function decorate(block) {
   const variant = variantcell?.textContent?.trim() || 'default';
 
   const mainImgContainer = document.createElement('div');
-  mainImgContainer.className = 'hero-banner-container';
+  mainImgContainer.classList = 'hero-banner-container';
 
   const bannerList = document.createElement('ul');
-  bannerList.className = 'hero-banner-list';
+  bannerList.classList = 'hero-banner-list';
 
   const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.className = 'hero-banner-thumbnail-outer';
+  thumbnailOuter.classList = 'hero-banner-thumbnail-outer';
 
   const thumbnailList = document.createElement('ul');
-  thumbnailList.className = 'hero-banner-thumbnail-list content';
+  thumbnailList.classList = 'hero-banner-thumbnail-list content';
 
   let bannerIndex = 0;
 
   const items = [...block.children].slice(1, 8);
 
   items.forEach((row) => {
-    const [imageCell, headingCell, textCell, linkCell, thumbImgCell] = [
+    const [imageCell, logoImageCell, thumbImgCell, headingCell, textCell, linkCell] = [
       ...row.children,
     ];
 
@@ -69,24 +69,38 @@ export default function decorate(block) {
     const contentInner = document.createElement('div');
     contentInner.className = 'hero-banner-content-inner';
 
+    const contentGroup = document.createElement('div');
+    contentGroup.classList = 'hero-banner-content-group';
+
+    const logoPicture = logoImageCell?.querySelector('picture');
+    const logoImg = logoPicture?.querySelector('img');
+    if (logoImg) {
+      logoImg.className = 'hero-banner-logo';
+      const logoWrapper = document.createElement('div');
+      logoWrapper.className = 'hero-banner-logo-wrapper';
+      logoWrapper.append(logoImg);
+
+      contentInner.append(logoWrapper);
+    }
+
     if (headingCell) {
-      contentInner.innerHTML += headingCell.innerHTML;
+      contentGroup.innerHTML += headingCell.innerHTML;
     }
 
     if (textCell) {
       const textElement = textCell.firstElementChild || textCell;
       textElement.classList.add('hero-banner-content-inner-text');
-      contentInner.innerHTML += textCell.innerHTML;
+      contentGroup.innerHTML += textCell.innerHTML;
     }
 
     if (linkCell) {
-      contentInner.innerHTML += linkCell.innerHTML;
+      contentGroup.innerHTML += linkCell.innerHTML;
     }
 
-    decorateButtonsV1(contentInner);
+    decorateButtonsV1(contentGroup);
+    contentGroup.querySelector('a')?.classList.add('button-m');
 
-    contentInner.querySelector('a')?.classList.add('button-m');
-
+    contentInner.append(contentGroup);
     content.append(contentInner);
     bannerItem.append(content);
     bannerList.append(bannerItem);
@@ -117,7 +131,10 @@ export default function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.className = `hero-banner hero-banner-${variant}`;
   wrapper.append(mainImgContainer);
-  wrapper.append(thumbnailOuter);
+
+  if (variant === 'hero-with-thumbnail-images') {
+    wrapper.append(thumbnailOuter);
+  }
 
   block.replaceChildren(wrapper);
 

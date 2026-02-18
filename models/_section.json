@@ -93,7 +93,9 @@
         "columns",
         "fragment",
         "header",
-        "megamenu"
+        "megamenu",
+        "carousel",
+        "story-card"
       ]
     }
   ]

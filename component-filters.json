@@ -18,7 +18,9 @@
       "columns",
       "fragment",
       "header",
-      "megamenu"
+      "megamenu",
+      "carousel",
+      "story-card"
     ]
   },
   {
@@ -31,6 +33,12 @@
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-card"
     ]
   },
   {

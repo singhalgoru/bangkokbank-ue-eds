@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 import {
@@ -49,6 +50,18 @@ export function moveInstrumentation(from, to) {
       .map(({ nodeName }) => nodeName)
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
+}
+
+/**
+ * Create HTML element from template string
+ * @param {string} html - HTML template string
+ * @param {Document} doc - Document reference
+ * @returns {Element} The created element
+ */
+export function createElementFromHTML(html, doc) {
+  const template = doc.createElement('template');
+  template.innerHTML = html.trim();
+  return template.content.firstElementChild;
 }
 
 /**
@@ -119,6 +132,11 @@ export function decorateMain(main) {
   decorateTerritoryButtons(main);
   decorateSvgWithAltText(main);
   setExternalLinksTarget(main);
+
+  const pageVariant = getMetadata('pagevariant');
+  if (pageVariant) {
+    document.body.classList.add(`${pageVariant}`);
+  }
 }
 
 /**
