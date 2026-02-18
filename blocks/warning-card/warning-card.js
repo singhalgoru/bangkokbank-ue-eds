@@ -68,6 +68,10 @@ export default function decorate(block) {
   // Clear the block
   block.innerHTML = '';
 
+  // Create inner container wrapper for layout consistency
+  const innerContainer = document.createElement('div');
+  innerContainer.className = 'warning-card-inner-container';
+
   // Add icon if present
   if (icon) {
     const iconWrapper = document.createElement('div');
@@ -79,7 +83,7 @@ export default function decorate(block) {
     iconElement.loading = 'lazy';
     iconWrapper.appendChild(iconElement);
 
-    block.appendChild(iconWrapper);
+    innerContainer.appendChild(iconWrapper);
   }
 
   // Create content container
@@ -102,6 +106,12 @@ export default function decorate(block) {
     contentWrapper.appendChild(descriptionElement);
   }
 
-  block.appendChild(contentWrapper);
-  block.classList.add('warning-card-loaded');
+  innerContainer.appendChild(contentWrapper);
+  block.appendChild(innerContainer);
+
+  // Add bg-ice-blue class to parent section
+  const section = block.closest('.section');
+  if (section) {
+    section.classList.add('bg-ice-blue');
+  }
 }
