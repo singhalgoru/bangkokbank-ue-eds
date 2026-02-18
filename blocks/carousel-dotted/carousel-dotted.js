@@ -544,6 +544,7 @@ export default function decorate(block) {
   let dotButtons;
 
   function setActive(index) {
+    const prevIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
     slideEls.forEach((slide, i) => {
       const active = i === index;
       const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel');
@@ -579,13 +580,23 @@ export default function decorate(block) {
       const trackWrapper = block.querySelector('.carousel-track-wrapper');
       if (trackWrapper) {
         const slideWidth = block.offsetWidth;
-        const translateX = -index * slideWidth;
-        trackWrapper.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+        const isLoopingForward = index === 0 && prevIndex === slideEls.length - 1;
+
+        if (isLoopingForward) {
+          trackWrapper.style.transform = `translate3d(${-slideEls.length * slideWidth}px, 0px, 0px)`;
+          trackWrapper.addEventListener('transitionend', () => {
+            trackWrapper.style.transition = 'none';
+            trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
+            trackWrapper.getBoundingClientRect();
+            trackWrapper.style.transition = '';
+          }, { once: true });
+        } else {
+          trackWrapper.style.transform = `translate3d(${-index * slideWidth}px, 0px, 0px)`;
+        }
       }
     }
   }
 
-  // Arrow click handlers
   prevArrow.addEventListener('click', () => {
     const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
     if (currentIndex > 0) {
@@ -627,7 +638,9 @@ export default function decorate(block) {
     // Create a track wrapper for horizontal sliding
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
-    trackWrapper.replaceChildren(...slideEls);
+    const cloneFirst = slideEls[0].cloneNode(true);
+    cloneFirst.setAttribute('aria-hidden', 'true');
+    trackWrapper.replaceChildren(...slideEls, cloneFirst);
     block.replaceChildren(trackWrapper);
   } else {
     // Clear block and append slides directly (existing behavior)
@@ -671,6 +684,6 @@ export default function decorate(block) {
   // Initialize drag/swipe functionality
   // Enable looping only if slides have images (like Grow Club section)
   // Disable looping for text-only slides (like News and Activities section)
-  const enableLooping = slidesWithImage > 0;
+  const enableLooping = slidesWithImage > 0 || slidesHeroBanner > 0;
   initializeDragSwipe(block, slideEls, setActive, 50, enableLooping);
 }
