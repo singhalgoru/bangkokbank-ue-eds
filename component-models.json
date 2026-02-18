@@ -209,6 +209,40 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "select",
+        "name": "expand",
+        "label": "Expand behavior",
+        "valueType": "string",
+        "value": "single",
+        "options": [
+          {
+            "name": "Single (one open at a time)",
+            "value": "single"
+          },
+          {
+            "name": "Multiple (many open)",
+            "value": "multiple"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Accordion title",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "product-card",
     "fields": [
       {
