@@ -18,10 +18,10 @@ async function tryLoadFragmentContent(body) {
   }
 
   const allLinks = body.querySelectorAll('a[href^="/"]');
-  const isOnlyFragmentLink =
-    allLinks.length === 1
+  const isOnlyFragmentLink = (allLinks.length === 1
     && body.textContent.trim() === link.textContent.trim()
-    && (body.children.length === 1 && (body.firstElementChild === link || body.firstElementChild?.querySelector?.('a[href^="/"]') === link));
+    && (body.children.length === 1 && (body.firstElementChild === link
+      || body.firstElementChild?.querySelector?.('a[href^="/"]') === link)));
   if (!isOnlyFragmentLink) return null;
 
   const path = new URL(link.href, window.location.href).pathname.replace(/(\.plain)?\.html$/i, '');
@@ -37,7 +37,7 @@ async function tryLoadFragmentContent(body) {
 /**
  * Builds accordion structure from block table content.
  * Each row = one accordion item. First cell = title, remaining cells = body content.
- * If body is a single link to an internal path, loads that fragment and uses its content (full blocks/sections).
+ * If body is a single link to an internal path, loads that fragment and uses its content.
  * @param {Element} block The accordion block element
  */
 async function buildAccordionStructure(block) {
@@ -47,9 +47,10 @@ async function buildAccordionStructure(block) {
   const accordion = document.createElement('div');
   accordion.className = 'accordion-list';
 
-  for (const row of rows) {
+  await rows.reduce(async (prev, row) => {
+    await prev;
     const cells = [...row.children];
-    if (cells.length === 0) continue;
+    if (cells.length === 0) return;
 
     const titleCell = cells[0];
     const title = titleCell?.textContent?.trim() || '';
@@ -77,11 +78,10 @@ async function buildAccordionStructure(block) {
 
     const body = document.createElement('div');
     body.className = 'accordion-body';
-    for (let i = 1; i < cells.length; i += 1) {
-      const cell = cells[i];
+    cells.slice(1).forEach((cell) => {
       moveInstrumentation(cell, body);
       while (cell.firstElementChild) body.append(cell.firstElementChild);
-    }
+    });
 
     const fragmentContent = await tryLoadFragmentContent(body);
     if (fragmentContent && fragmentContent.length > 0) {
@@ -95,7 +95,7 @@ async function buildAccordionStructure(block) {
     item.appendChild(header);
     item.appendChild(panel);
     accordion.appendChild(item);
-  }
+  }, Promise.resolve());
 
   block.textContent = '';
   block.appendChild(accordion);

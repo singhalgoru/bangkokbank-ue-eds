@@ -9,11 +9,11 @@
 }
 
 .accordion .accordion-item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgb(0 0 0 / 12%);
 }
 
 .accordion .accordion-item:first-child {
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgb(0 0 0 / 12%);
 }
 
 .accordion .accordion-header {
@@ -37,11 +37,11 @@
 }
 
 .accordion .accordion-header:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgb(0 0 0 / 4%);
 }
 
 .accordion .accordion-header:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid currentcolor;
   outline-offset: 2px;
 }
 
@@ -54,7 +54,7 @@
   width: 1.25rem;
   height: 1.25rem;
   position: relative;
-  color: currentColor;
+  color: currentcolor;
   opacity: 0.7;
 }
 
