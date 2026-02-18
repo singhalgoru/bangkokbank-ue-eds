@@ -238,7 +238,9 @@
         "name": "title",
         "label": "Accordion title",
         "valueType": "string",
-        "required": true
+        "value": "",
+        "required": true,
+        "description": "Header text for this accordion item"
       }
     ]
   },
