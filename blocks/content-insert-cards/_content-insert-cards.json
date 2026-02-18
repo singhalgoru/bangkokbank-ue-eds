@@ -42,6 +42,13 @@
           "label": "Background Image",
           "multi": false
         },
+         {
+          "component": "richtext",
+          "name": "title",
+          "value": "",
+          "label": "Ttile",
+          "valueType": "string"
+        },
         {
           "component": "richtext",
           "name": "text",
