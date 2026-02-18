@@ -825,7 +825,7 @@
       },
       {
         "component": "aem-content",
-        "name": "link",
+        "name": "heroLink",
         "label": "Link",
         "description": "Destination URL for the button",
         "condition": {
@@ -849,7 +849,7 @@
       },
       {
         "component": "text",
-        "name": "linkText",
+        "name": "heroLinkText",
         "label": "Text",
         "description": "Button label text",
         "required": true,
@@ -874,7 +874,7 @@
       },
       {
         "component": "text",
-        "name": "linkTitle",
+        "name": "heroLinkTitle",
         "label": "Title",
         "description": "Accessibility title attribute (optional)",
         "condition": {
@@ -898,7 +898,7 @@
       },
       {
         "component": "select",
-        "name": "linkType",
+        "name": "heroLinkType",
         "label": "Type",
         "description": "Button style variant",
         "valueType": "string",
