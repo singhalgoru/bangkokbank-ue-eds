@@ -44,7 +44,7 @@
 }
 
 .story-card .inner {
-  padding: 40px 0;
+  padding: 2.5rem 0;
 }
 
 .story-card .content {
@@ -53,8 +53,8 @@
 }
 
 .story-card .sub-title-medium {
-  margin: 0 0 10px;
-  font-size: 14px;
+  margin: 0 0 0.625rem;
+  font-size: 0.875rem;
   line-height: normal;
   font-family: var(--bbl-font-family-medium);
   color: var(--bbl-color-black);
@@ -63,8 +63,8 @@
 
 .story-card .sub-title-medium.line {
   position: relative;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+  padding-bottom: 0.9375rem;
+  margin-bottom: 0.9375rem;
 }
 
 .story-card .sub-title-medium.line::before {
@@ -72,23 +72,23 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 21px;
-  height: 1px;
+  width: 1.3125rem;
+  height: 0.0625rem;
   background: #9e9e9e;
 }
 
 .story-card .title-1 {
-  margin: 10px 0 20px;
-  font-size: 22.4px;
-  line-height: 21.994px;
+  margin: 0.625rem 0 1.25rem;
+  font-size: 1.4rem;
+  line-height: 1.375rem;
   font-weight: var(--bbl-font-weight-regular);
   color: var(--bbl-color-black);
 }
 
 .story-card .text-default {
-  margin-bottom: 30px;
-  font-size: 14px;
-  line-height: 17.99px;
+  margin-bottom: 1.875rem;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
   color: #4e4e4e;
   overflow: hidden;
   display: -webkit-box;
@@ -106,7 +106,7 @@
    ======================================================================== */
 
 /* Tablet and above */
-@media (width >= 768px) {
+@media (width >= 48rem) {
   .story-card .thumb-full {
     flex-direction: row;
   }
@@ -117,7 +117,7 @@
 
   .story-card .thumb,
   .story-card .outer {
-    height: 450px;
+    height: 28.125rem;
   }
 
   .story-card .thumb {
@@ -127,15 +127,15 @@
 
   .story-card .thumb picture,
   .story-card .thumb img {
-    height: 450px;
+    height: 28.125rem;
   }
 
   .story-card .outer {
-    padding: 0 48px 0 20px;
+    padding: 0 3rem 0 1.25rem;
   }
 
   .story-card.image-right .outer {
-    padding: 0 20px 0 48px;
+    padding: 0 1.25rem 0 3rem;
   }
 
   .story-card .inner {
@@ -147,22 +147,22 @@
 }
 
 /* Desktop */
-@media (width >= 1025px) {
+@media (width >= 64.0625rem) {
   .story-card .outer {
     max-width: 100%;
   }
 
   .story-card .sub-title-medium.line {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .story-card .title-1 {
-    font-size: 48px;
-    line-height: 46px;
+    font-size: 3rem;
+    line-height: 2.875rem;
   }
 
   .story-card .text-default {
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 1rem;
+    line-height: 1.375rem;
   }
 }
