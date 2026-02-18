@@ -1,6 +1,6 @@
 .carousel-dotted-container {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--bbl-space-200); /* 16px */
+  padding-right: var(--bbl-space-200); /* 16px */
 }
 
 .carousel-dotted {
@@ -44,7 +44,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: 6.25rem; /* 100px */
   background: linear-gradient(to top, rgb(255 255 255 / 25%) 0%, rgb(255 255 255 / 0%) 100%);
   pointer-events: none;
   z-index: 1;
@@ -71,14 +71,14 @@
   position: relative;
   z-index: 1;
   padding: var(--bbl-space-250);
-  min-height: 203px;
-  max-height: 203px;
+  min-height: 12.6875rem; /* 203px */
+  max-height: 12.6875rem; /* 203px */
 }
 
 /* Without-image variation: text-only layout */
 .carousel-dotted .carousel-item.without-image .carousel-content {
-  min-height: 203px;
-  max-height: 203px;
+  min-height: 12.6875rem; /* 203px */
+  max-height: 12.6875rem; /* 203px */
   padding: var(--bbl-space-300);
   display: flex;
   flex-direction: column;
@@ -88,30 +88,30 @@
 
 .carousel-dotted .carousel-badge {
   display: inline-block;
-  font-size: 12.6px;
+  font-size: 0.7875rem; /* 12.6px */
   font-weight: var(--bbl-font-weight-medium);
   background: #4890ff;
   color: var(--bbl-color-white);
-  padding: var(--bbl-space-050) 7px;
-  border-radius: 20px;
-  margin-bottom: 14px;
+  padding: var(--bbl-space-050) 0.4375rem; /* 7px */
+  border-radius: 1.25rem; /* 20px */
+  margin-bottom: 0.875rem; /* 14px */
 }
 
 
 .carousel-dotted .carousel-description {
   font-weight: var(--bbl-font-weight-medium);
-  font-size: 18.2px;
-  line-height: 19.9px;
+  font-size: 1.1375rem; /* 18.2px */
+  line-height: 1.2437rem; /* 19.9px */
   color: var(--bbl-color-black);
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem; /* 30px */
 }
 
 
 .carousel-dotted .carousel-header {
   font-weight: var(--bbl-font-weight-regular);
   font-size: var(--bbl-body-b2-size);
-  line-height: 14px;
-  padding: 0 0 20px;
+  line-height: 0.875rem; /* 14px */
+  padding: 0 0 var(--bbl-space-250); /* 20px */
   border-bottom: 1px solid rgb(255 255 255 / 20%);
   color: #939399;
 }
@@ -120,9 +120,9 @@
 .carousel-dotted .carousel-default-text {
   font-weight: var(--bbl-font-weight-regular);
   font-size: var(--bbl-body-b2-size);
-  line-height: 17.99px;
+  line-height: 1.1244rem; /* 17.99px */
   color: #78787d;
-  padding: 20px 0;
+  padding: var(--bbl-space-250) 0; /* 20px */
 }
 
 .carousel-dotted .carousel-default-text p {
@@ -130,7 +130,7 @@
 }
 
 .carousel-dotted a.button.primary {
-  border-radius: 7px;
+  border-radius: 0.4375rem; /* 7px */
 }
 
 .carousel-dotted .slick-dots {
@@ -143,23 +143,23 @@
   padding: var(--bbl-space-000);
   margin: var(--bbl-space-000);
   z-index: 2;
-  width: 11px;
-  height: 11px;
+  width: 0.6875rem; /* 11px */
+  height: 0.6875rem; /* 11px */
   align-items: center;
 }
 
 .carousel-dotted .slick-dots li {
   display: inline-flex;
-  margin-right: 5px;
+  margin-right: 0.3125rem; /* 5px */
 }
 
 
 .carousel-dotted .slick-dots button {
   appearance: none;
-  width: 8px;
-  height: 8px;
-  min-width: 8px;
-  min-height: 8px;
+  width: var(--bbl-space-100); /* 8px */
+  height: var(--bbl-space-100); /* 8px */
+  min-width: var(--bbl-space-100); /* 8px */
+  min-height: var(--bbl-space-100); /* 8px */
   border-radius: 50%;
   border: 1px solid rgb(0 0 0 / 25%);
   padding: var(--bbl-space-000);
@@ -178,13 +178,13 @@
 }
 
 .carousel-dotted .slick-dots button:focus-visible {
-  outline: 2px solid #0064ff;
-  outline-offset: 2px;
+  outline: var(--bbl-space-025) solid #0064ff; /* 2px */
+  outline-offset: var(--bbl-space-025); /* 2px */
 }
 
 .carousel-dotted .slick-dots li.is-active button {
-  width: 11px;
-  height: 11px;
+  width: 0.6875rem; /* 11px */
+  height: 0.6875rem; /* 11px */
   background: #0064ff;
   border-color: #0064ff;
 }
@@ -193,7 +193,7 @@
 /* Dot positioning variants */
 .carousel-dotted.all-with-image .slick-dots {
   justify-content: flex-end;
-  top: 210px;
+  top: 13.125rem; /* 210px */
 }
 
 .carousel-dotted.all-without-image .slick-dots {
@@ -246,7 +246,7 @@
 .carousel-dotted .icon-arrow-right {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--bbl-space-075); /* 6px */
 }
 
 /* Override button-tertiary's SVG arrow with icomoon icon font */
@@ -255,7 +255,7 @@
   mask: none;
   font-size: 0.70em;
   position: relative;
-  top: 1px;
+  top: 0.0625rem; /* 1px */
 }
 
 
@@ -263,7 +263,7 @@
 @media (width >=760px) {
   .carousel-dotted {
     padding: unset;
-    min-height: 445px;
+    min-height: 27.8125rem; /* 445px */
   }
 
   .carousel-dotted .carousel-item {
@@ -298,7 +298,7 @@
     opacity: 1;
     flex: 0 0 100%;
     width: 100%;
-    min-height: 445px;
+    min-height: 27.8125rem; /* 445px */
     transition: none;
   }
 
@@ -311,7 +311,7 @@
   }
 
   .carousel-dotted .carousel-bg::after {
-    height: 140px;
+    height: 8.75rem; /* 140px */
     background: linear-gradient(to top, rgb(255 255 255 / 35%) 0%, rgb(255 255 255 / 0%) 100%);
   }
 
@@ -332,15 +332,15 @@
   }
 
   .carousel-dotted .carousel-description {
-    font-size: 21px;
-    line-height: 22.75px;
+    font-size: 1.3125rem; /* 21px */
+    line-height: 1.4219rem; /* 22.75px */
     margin-bottom: var(--bbl-space-300);
   }
 
   /* Dot positioning variants */
   .carousel-dotted.all-with-image .slick-dots,
   .carousel-dotted.all-without-image .slick-dots {
-    left: 120px;
+    left: 7.5rem; /* 120px */
     right: auto;
     justify-content: flex-end;
     top: unset;
@@ -348,10 +348,10 @@
   }
 
   .carousel-dotted .slick-dots button {
-    width: 9px;
-    height: 9px;
-    min-width: 9px;
-    min-height: 9px;
+    width: 0.5625rem; /* 9px */
+    height: 0.5625rem; /* 9px */
+    min-width: 0.5625rem; /* 9px */
+    min-height: 0.5625rem; /* 9px */
     border-width: 1px;
   }
 
@@ -368,7 +368,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 -110px 40px -50px var(--bbl-color-white);
+    box-shadow: inset 0 -6.875rem 2.5rem -3.125rem var(--bbl-color-white); /* -110px 40px -50px */
     pointer-events: none;
     z-index: 2;
   }
@@ -377,21 +377,21 @@
 
 @media (width >=1024px) {
   .carousel-dotted {
-    min-height: 454px;
+    min-height: 28.375rem; /* 454px */
   }
 
   .carousel-dotted .carousel-item {
-    min-height: 454px;
+    min-height: 28.375rem; /* 454px */
   }
 
   .carousel-dotted.all-without-image .carousel-item.without-image {
-    min-height: 454px;
+    min-height: 28.375rem; /* 454px */
   }
 
   /* Dot positioning variants */
   .carousel-dotted.all-with-image .slick-dots,
   .carousel-dotted.all-without-image .slick-dots {
-    left: 120px;
+    left: 7.5rem; /* 120px */
     right: auto;
     justify-content: flex-end;
     bottom: var(--bbl-space-250);
@@ -401,33 +401,33 @@
     content: '';
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 -110px 40px -50px var(--bbl-color-white);
+    box-shadow: inset 0 -6.875rem 2.5rem -3.125rem var(--bbl-color-white); /* -110px 40px -50px */
     pointer-events: none;
     z-index: 2;
   }
 
   .carousel-dotted .carousel-badge {
     font-weight: var(--bbl-font-weight-medium);
-    font-size: 14.4px;
-    line-height: 18px;
+    font-size: 0.9rem; /* 14.4px */
+    line-height: 1.125rem; /* 18px */
   }
 
   .carousel-dotted .carousel-description {
     font-weight: var(--bbl-font-weight-regular);
-    font-size: 32px;
-    line-height: 32px;
-    margin-bottom: 24px;
+    font-size: var(--bbl-space-400); /* 32px */
+    line-height: var(--bbl-space-400); /* 32px */
+    margin-bottom: var(--bbl-space-300); /* 24px */
   }
 
   .carousel-dotted .carousel-header {
     font-weight: var(--bbl-font-weight-regular);
     font-size: var(--bbl-font-size-b2);
-    line-height: 16px;
+    line-height: var(--bbl-space-200); /* 16px */
   }
 
   .carousel-dotted .carousel-default-text {
     font-weight: var(--bbl-font-weight-regular);
     font-size: var(--bbl-font-size-b2);
-    line-height: 22px;
+    line-height: 1.375rem; /* 22px */
   }
 }
