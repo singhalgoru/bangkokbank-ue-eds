@@ -55,9 +55,9 @@
                     "required": true
                 },
                 {
-                    "component": "aem-content",
-                    "name": "svg",
-                    "label": "SVG Icon",
+                    "component": "reference",
+                    "name": "icon",
+                    "label": "Icon Image",
                     "valueType": "string",
                     "required": true
                 },
