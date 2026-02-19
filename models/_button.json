@@ -61,9 +61,17 @@
           ]
         },
         {
-          "component": "select",
-          "name": "linkTarget",
+          "component": "text",
+          "name": "linkTarget_Label",
           "label": "Link Target",
+          "description": "Section for link target settings",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "linkTarget_Type",
+          "label": "Target Type",
           "description": "Where the link should open",
           "valueType": "string",
           "value": "_self",
