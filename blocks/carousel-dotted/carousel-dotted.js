@@ -499,7 +499,8 @@ export default function decorate(block) {
     const prevIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
     slideEls.forEach((slide, i) => {
       const active = i === index;
-      const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel', 'all-text-animation-variant');
+      const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel')
+      || block.classList.contains('all-text-animation-variant');
       const wasActive = slide.classList.contains('is-active');
       if (isHeroVariant && !wasActive && active) {
         slide.classList.add('is-entering');
