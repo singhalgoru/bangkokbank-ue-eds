@@ -213,20 +213,36 @@
     "fields": [
       {
         "component": "select",
-        "name": "expand",
-        "label": "Expand behavior",
         "valueType": "string",
-        "value": "single",
+        "description": "The accordion item heading HTML element.",
+        "name": "headingType",
+        "value": "h3",
+        "label": "Heading Type",
         "options": [
           {
-            "name": "Single (one open at a time)",
-            "value": "single"
+            "name": "H3",
+            "value": "h3"
           },
           {
-            "name": "Multiple (many open)",
-            "value": "multiple"
+            "name": "H4",
+            "value": "h4"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "isExpandFirstAccordion",
+        "valueType": "boolean",
+        "label": "Expand First Accordion",
+        "description": "When enabled the first accordion is expanded by default.",
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "label": "FAQ",
+        "name": "faq",
+        "valueType": "boolean",
+        "description": "Enable this toggle if the accordion block is intended to be used as an FAQ."
       }
     ]
   },
@@ -235,12 +251,32 @@
     "fields": [
       {
         "component": "text",
-        "name": "title",
-        "label": "Accordion title",
         "valueType": "string",
+        "name": "title",
         "value": "",
-        "required": true,
-        "description": "Header text for this accordion item"
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "description": "This will appear in your URL following a #. Use lowercase English letters and hyphens as word separators.",
+        "name": "id",
+        "value": "",
+        "label": "ID",
+        "valueFormat": "regexp",
+        "validation": {
+          "regExp": "^[a-z]+(-[a-z]+)*$",
+          "customErrorMsg": "Use lowercase English letters and hyphens as word separators."
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string",
+        "required": true
       }
     ]
   },
