@@ -143,6 +143,24 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Link Target",
+        "description": "Where the link should open",
+        "valueType": "string",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Open in Current Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open in New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -325,6 +343,24 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Link Target",
+        "description": "Where the link should open",
+        "valueType": "string",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Open in Current Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open in New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -375,6 +411,24 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Link Target",
+        "description": "Where the link should open",
+        "valueType": "string",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Open in Current Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open in New Tab",
+            "value": "_blank"
           }
         ]
       }
@@ -464,6 +518,24 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Link Target",
+        "description": "Where the link should open",
+        "valueType": "string",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Open in Current Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open in New Tab",
+            "value": "_blank"
           }
         ]
       }
@@ -639,6 +711,24 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Link Target",
+        "description": "Where the link should open",
+        "valueType": "string",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Open in Current Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open in New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -731,6 +821,24 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "linkTarget",
+        "label": "Link Target",
+        "description": "Where the link should open",
+        "valueType": "string",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Open in Current Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open in New Tab",
+            "value": "_blank"
           }
         ]
       }
