@@ -1,18 +1,31 @@
+/* ==========================================================================
+   Content Insert Cards — Mobile-first
+   Matches live site: https://www.bangkokbank.com/en/About-Us
+   ========================================================================== */
+
 .content-insert-cards {
     margin-bottom: var(--bbl-space-300);
 }
 
+@media (width < 761px) {
+    .section.content-insert-cards-container {
+        padding: 0 16px;
+    }
+}
+
+/* --- Card Container --- */
 .content-insert-cards .content-insert-card {
     width: 100%;
     max-width: 100%;
     display: block;
-    border-radius: 7px;
+    border-radius: 15px;
     overflow: hidden;
-    border: 1px solid rgb(0 0 0 / 10%);
+    border: 1px solid rgb(0 0 0 / 8%);
     background-color: var(--bbl-color-white);
-    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
 }
 
+/* --- Image Wrapper --- */
 .content-insert-cards .thumb-large {
     position: relative;
     display: block;
@@ -42,19 +55,22 @@
     display: block;
 }
 
+/* --- Content Info Box --- */
 .content-insert-cards .intro-info {
-    padding: var(--bbl-space-200);
+    padding: 20px;
     background-color: var(--bbl-color-white);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 200px;
+    min-height: unset;
 }
 
+/* --- Title --- */
 .content-insert-cards .title-2 {
-    font-size: 18.2px;
-    line-height: 19.992px;
+    font-size: 21px;
+    line-height: 22.75px;
     font-weight: var(--bbl-font-weight-regular);
+    font-family: var(--bbl-font-family-medium);
     color: var(--bbl-color-black);
     margin: 0 0 var(--bbl-space-100);
     overflow: hidden;
@@ -76,13 +92,17 @@
     background-color: var(--bbl-color-grey-70);
 }
 
+/* --- Description --- */
 .content-insert-cards .desc {
-    margin-bottom: var(--bbl-space-200);
+    margin-bottom: var(--bbl-space-150);
 }
 
 .content-insert-cards .text-default {
     font-size: 14px;
-    line-height: 19.25px;
+    line-height: 17.99px;
+    font-weight: 400;
+
+   /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
     color: var(--bbl-color-grey-70);
     margin: 0;
     overflow: hidden;
@@ -92,6 +112,7 @@
     line-clamp: 4;
 }
 
+/* --- Button --- */
 .content-insert-cards .button-group {
     margin-top: auto;
     padding-top: var(--bbl-space-200);
@@ -99,7 +120,7 @@
 
 .content-insert-cards .btn-primary {
     display: inline-block;
-    padding: 11px var(--bbl-space-250);
+    padding: 10px var(--bbl-space-250);
     font-size: 11.2px;
     line-height: 15.68px;
     font-weight: var(--bbl-font-weight-medium);
@@ -107,13 +128,14 @@
     color: var(--bbl-color-white);
     background-color: var(--bbl-color-active-blue);
     border: 1px solid var(--bbl-color-active-blue);
-    border-radius: 7px;
+    border-radius: 5px;
     text-decoration: none;
     transition: all 0.3s ease;
     cursor: pointer;
     text-align: center;
     width: 100%;
     min-width: auto;
+    box-sizing: border-box;
 }
 
 .content-insert-cards .btn-primary:hover {
@@ -133,29 +155,14 @@
     outline-offset: 2px;
 }
 
+/* ==========================================================================
+   Tablet + Desktop (≥ 761px)
+   Image fills card, white info box overlays right side
+   ========================================================================== */
+
 @media (width >=761px) {
-    .content-insert-cards .thumb {
-        height: 280px;
-    }
-
-    .content-insert-cards .title-2 {
-        font-size: 21px;
-        line-height: 22.75px;
-    }
-
-    .content-insert-cards .text-default {
-        font-size: 12.6px;
-        line-height: 19.25px;
-    }
-
-    .content-insert-cards .intro-info {
-        padding: var(--bbl-space-300);
-    }
-}
-
-@media (width >=1025px) {
     .content-insert-cards .content-insert-card {
-        max-width: 1200px;
+        max-width: 1170px;
         margin: 0 auto;
         position: relative;
         border: none;
@@ -171,7 +178,7 @@
     }
 
     .content-insert-cards .thumb {
-        height: 380px;
+        height: 320px;
         border-radius: 7px;
     }
 
@@ -180,30 +187,36 @@
         bottom: 30px;
         right: 30px;
         top: 30px;
-        max-width: 245px;
-        width: calc(50% - var(--bbl-space-400));
+        max-width: 220px;
+        width: 220px;
+        box-sizing: border-box;
         background-color: var(--bbl-color-white);
         border-radius: 7px;
-        padding: var(--bbl-space-250);
+        padding: 20px;
         box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
-        border: 1px solid rgb(0 0 0 / 10%);
+        border: none;
+        min-height: auto;
     }
 
     .content-insert-cards .title-2 {
-        font-size: 22px;
-        line-height: 24px;
+        font-size:21px;
+        line-height: 22.75px;
+        font-weight: 400;
+        font-family: var(--bbl-font-weight-medium);
         margin-bottom: var(--bbl-space-100);
     }
 
     .content-insert-cards .text-default {
         font-size: 14px;
-        line-height: 20px;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
+        line-height: 14px;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+
+        /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
     }
 
     .content-insert-cards .desc {
-        margin-bottom: var(--bbl-space-200);
+        margin-bottom: var(--bbl-space-150);
     }
 
     .content-insert-cards .btn-primary {
@@ -212,10 +225,43 @@
         padding: 10px var(--bbl-space-200);
         min-width: auto;
         width: 100%;
+        border-radius: 7px;
     }
 
     .content-insert-cards .button-group {
         margin-top: auto;
-        padding-top: var(--bbl-space-200);
+        padding-top: var(--bbl-space-150);
+    }
+}
+
+/* ==========================================================================
+   Large Desktop (≥ 1025px)
+   Scale up sizes for larger screens
+   ========================================================================== */
+
+@media (width >=1025px) {
+    .content-insert-cards .thumb {
+        height: 380px;
+    }
+
+    .content-insert-cards .intro-info {
+        max-width: 245px;
+        width: 245px;
+    }
+
+    .content-insert-cards .title-2 {
+        font-size: 24px;
+        line-height: 26px;
+        margin-bottom: 10px ;
+        padding-bottom: 15px;
+        font-weight: var(--bbl-font-weight-regular);
+        font-family: var(--bbl-font-family-medium);
+    }
+
+    .content-insert-cards .text-default {
+        font-size: 16px;
+        line-height: 16px;
+
+        /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
     }
 }
