@@ -61,12 +61,22 @@
           ]
         },
         {
-          "component": "boolean",
-          "name": "openInNewTab",
-          "label": "Open in New Tab",
-          "description": "When enabled, link opens in a new tab",
-          "valueType": "boolean",
-          "value": false
+          "component": "select",
+          "name": "linkTarget",
+          "label": "Link Target",
+          "description": "Where the link should open",
+          "valueType": "string",
+          "value": "_self",
+          "options": [
+            {
+              "name": "Open in Current Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open in New Tab",
+              "value": "_blank"
+            }
+          ]
         }
       ]
     }
