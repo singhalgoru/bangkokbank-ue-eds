@@ -23,10 +23,9 @@ function lazyLoadThumbnails(block) {
 }
 
 export default function decorate(block) {
-  const [variantcell] = block.children;
-  const variant = variantcell?.children[0]?.textContent?.trim() || 'default';
-
-  const subNavTitle = variantcell?.children[1]?.textContent?.trim();
+  const [subNavTitleCell, variantcell] = block.children;
+  const variant = variantcell?.textContent?.trim() || 'default';
+  const subNavTitle = subNavTitleCell?.textContent?.trim();
   if (subNavTitle) {
     block.dataset.subnavTitle = subNavTitle;
   }
@@ -45,7 +44,7 @@ export default function decorate(block) {
 
   let bannerIndex = 0;
 
-  const items = [...block.children].slice(1, 8);
+  const items = [...block.children].slice(1, 9);
 
   items.forEach((row) => {
     const [imageCell, logoImageCell, thumbImgCell, headingCell, textCell, linkCell] = [
