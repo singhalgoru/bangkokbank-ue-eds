@@ -41,12 +41,8 @@
       ]
     },
     {
-      "component": "text",
       "name": "linkTarget_Label",
-      "label": "Link Target",
-      "description": "Section for link target settings",
-      "valueType": "string",
-      "value": ""
+      "label": "Link Target"
     },
     {
       "component": "select",
