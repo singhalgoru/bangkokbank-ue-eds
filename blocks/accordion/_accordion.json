@@ -35,38 +35,6 @@
   ],
   "models": [
     {
-      "id": "accordion",
-      "fields": [
-        {
-          "component": "select",
-          "valueType": "string",
-          "description": "The accordion item heading HTML element.",
-          "name": "headingType",
-          "value": "h3",
-          "label": "Heading Type",
-          "options": [
-            { "name": "H3", "value": "h3" },
-            { "name": "H4", "value": "h4" }
-          ]
-        },
-        {
-          "component": "boolean",
-          "name": "isExpandFirstAccordion",
-          "valueType": "boolean",
-          "label": "Expand First Accordion",
-          "description": "When enabled the first accordion is expanded by default.",
-          "value": ""
-        },
-        {
-          "component": "boolean",
-          "label": "FAQ",
-          "name": "faq",
-          "valueType": "boolean",
-          "description": "Enable this toggle if the accordion block is intended to be used as an FAQ."
-        }
-      ]
-    },
-    {
       "id": "accordion-item",
       "fields": [
         {
@@ -76,19 +44,6 @@
           "value": "",
           "label": "Title",
           "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "description": "This will appear in your URL following a #. Use lowercase English letters and hyphens as word separators.",
-          "name": "id",
-          "value": "",
-          "label": "ID",
-          "valueFormat": "regexp",
-          "validation": {
-            "regExp": "^[a-z]+(-[a-z]+)*$",
-            "customErrorMsg": "Use lowercase English letters and hyphens as word separators."
-          }
         },
         {
           "component": "richtext",
