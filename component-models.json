@@ -551,6 +551,12 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "promo-tag",
+        "label": "Promo Tag",
+        "valueType": "string"
       }
     ]
   },

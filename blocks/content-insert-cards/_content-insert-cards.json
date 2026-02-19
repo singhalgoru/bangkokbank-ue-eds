@@ -57,6 +57,12 @@
         },
         {
           "...": "../../models/elements/_button-fields.json"
+        },
+        {
+          "component":"text",
+          "name":"promo-tag",
+          "label": "Promo Tag",
+          "valueType":"string"
         }
       ]
     }
