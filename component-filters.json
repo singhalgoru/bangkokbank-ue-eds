@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "accordion"
     ]
   },
   {
@@ -27,17 +28,8 @@
   {
     "id": "accordion",
     "components": [
-      "accordion-item"
-    ]
-  },
-  {
-    "id": "accordion-item",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title",
-      "cards"
+      "card",
+      "cards-product"
     ]
   },
   {

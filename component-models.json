@@ -210,17 +210,12 @@
   },
   {
     "id": "accordion",
-    "fields": []
-  },
-  {
-    "id": "accordion-item",
     "fields": [
       {
         "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string",
-        "required": true
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
       }
     ]
   },
