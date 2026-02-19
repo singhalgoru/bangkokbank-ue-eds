@@ -27,6 +27,7 @@
   --bbl-color-grey-60: #939399;
   --bbl-color-grey-70: #78787D;
   --bbl-color-grey-80: #5E5E66;
+  --bbl-color-grey-85: #4E4E4E;
   --bbl-color-grey-90: #46464D;
   --bbl-color-grey-100: #323238;
   --bbl-color-grey-110: #28282D;
@@ -48,6 +49,7 @@
   --bbl-color-blue-100: #003382;
   /* Truthful Blue is at position ~110 */
   --bbl-color-blue-120: #031D37;
+  --bbl-color-blue-130: #002087;
   --bbl-color-blue-140: #4890ff;
 
   /* =========================================================================
@@ -202,5 +204,11 @@
   --bbl-state-error-bg: var(--bbl-color-system-red-light);
   --bbl-state-warning: var(--bbl-color-system-yellow);
   --bbl-state-warning-bg: var(--bbl-color-system-yellow-light);
+
+  /* Private gradient colors */
+  --bbl-private-gold-50: #B8A588;
+  --bbl-private-gold-29: #F2E0C6;
+  --bbl-private-gold-68: #A39073;
+  --bbl-private-gold-86: #EBDCC6;
 }
 
