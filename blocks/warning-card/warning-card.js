@@ -32,7 +32,9 @@ function isWithinDateRange(startDate, endDate) {
     const bangkokStart = toBangkokTime(start);
     const bangkokEnd = toBangkokTime(end);
 
-    return bangkokNow >= bangkokStart && bangkokNow <= bangkokEnd;
+    const isWithin = bangkokNow >= bangkokStart && bangkokNow <= bangkokEnd;
+
+    return isWithin;
   } catch (error) {
     return false;
   }
