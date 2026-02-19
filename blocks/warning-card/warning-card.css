@@ -52,7 +52,7 @@
   font-size: var(--bbl-body-b1-size);
   line-height: var(--bbl-body-b1-line-height);
   margin: 0;
-  font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif !important;
+  font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif;
 }
 
 .warning-card-description p {
