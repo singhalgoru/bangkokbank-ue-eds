@@ -430,13 +430,20 @@ export default function decorate(block) {
     nextArrow.disabled = index === slideEls.length - 1;
 
     // Apply translate3d for horizontal sliding track (without-image slides)
+    // Only on tablet/desktop where the flex track layout is active
     const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
     if (allWithoutImage) {
       const trackWrapper = block.querySelector('.carousel-track-wrapper');
       if (trackWrapper) {
-        const slideWidth = block.offsetWidth;
-        const translateX = -index * slideWidth;
-        trackWrapper.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+        const isDesktopTrack = window.matchMedia('(min-width: 47.5rem)').matches;
+        if (isDesktopTrack) {
+          const slideWidth = block.offsetWidth;
+          const translateX = -index * slideWidth;
+          trackWrapper.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+        } else {
+          // On mobile the flex track is inactive; clear any stale transform
+          trackWrapper.style.transform = '';
+        }
       }
     }
   }
