@@ -70,7 +70,7 @@
                 },
                 {
                   "name": "Grey 100",
-                  "value": "bg-grey-100 "
+                  "value": "bg-grey-100"
                 }
               ]
             }
@@ -96,6 +96,7 @@
         "megamenu",
         "carousel",
         "story-card",
+        "warning-card",
         "content-insert-cards"
       ]
     }

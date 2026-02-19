@@ -65,6 +65,34 @@ export function createElementFromHTML(html, doc) {
 }
 
 /**
+ * Check if a URL is external (different domain from current site)
+ * @param {string} url - The URL to check
+ * @returns {boolean} True if URL is external
+ */
+export function isExternalUrl(url) {
+  try {
+    const urlObj = new URL(url, window.location.href);
+    return urlObj.hostname !== window.location.hostname;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Set target="_blank" on external links in a container
+ * @param {Element} container - The container element to process
+ */
+export function setExternalLinksTarget(container) {
+  const links = container.querySelectorAll('a[href]');
+  links.forEach((link) => {
+    if (isExternalUrl(link.href)) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -103,6 +131,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateTerritoryButtons(main);
   decorateSvgWithAltText(main);
+  setExternalLinksTarget(main);
 
   const pageVariant = getMetadata('pagevariant');
   if (pageVariant) {
