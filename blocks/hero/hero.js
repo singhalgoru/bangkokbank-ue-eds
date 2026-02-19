@@ -24,7 +24,12 @@ function lazyLoadThumbnails(block) {
 
 export default function decorate(block) {
   const [variantcell] = block.children;
-  const variant = variantcell?.textContent?.trim() || 'default';
+  const variant = variantcell?.children[0]?.textContent?.trim() || 'default';
+
+  const subNavTitle = variantcell?.children[1]?.textContent?.trim();
+  if (subNavTitle) {
+    block.dataset.subnavTitle = subNavTitle;
+  }
 
   const mainImgContainer = document.createElement('div');
   mainImgContainer.classList = 'hero-banner-container';

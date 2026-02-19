@@ -502,6 +502,14 @@
     "id": "hero",
     "fields": [
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "subNavTitle",
+        "label": "Sub Nav Title",
+        "value": "",
+        "description": "Title used for the sub nav dropdown anchor"
+      },
+      {
         "component": "select",
         "name": "variant",
         "value": "default",
@@ -515,14 +523,6 @@
           {
             "name": "Simple",
             "value": "simple"
-          },
-          {
-            "name": "Hero Banner with Image Carousel",
-            "value": "hero-banner-image-carousel"
-          },
-          {
-            "name": "Hero Banner with Image Carousel and Text Animation",
-            "value": "hero-banner-carousel-text-animation"
           },
           {
             "name": "Private or Wealth banking",
