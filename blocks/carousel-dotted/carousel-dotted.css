@@ -111,6 +111,7 @@
   display: inline-block;
   font-size: 0.7875rem;
   font-weight: var(--bbl-font-weight-medium);
+  line-height: 0.9844rem;
   background: var(--bbl-color-blue-140);
   color: var(--bbl-color-white);
   padding: var(--bbl-space-050) 0.4375rem;
@@ -119,16 +120,18 @@
 }
 
 .carousel-dotted .carousel-description {
-  font-weight: var(--bbl-font-weight-medium);
+  font-family: var(--bbl-font-family-medium);
+  font-weight: var(--bbl-font-weight-regular);
   font-size: 1.1375rem;
-  line-height: 1.2437rem;
+  line-height: 1.2495rem;
   color: var(--bbl-color-black);
   margin-bottom: 1.875rem;
 }
 
 .carousel-dotted .carousel-header {
+  font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-regular);
-  font-size: var(--bbl-body-b2-size);
+  font-size: 0.875rem;
   line-height: 0.875rem;
   padding: 0 0 var(--bbl-space-250);
   border-bottom: 1px solid rgb(255 255 255 / 20%);
@@ -136,9 +139,10 @@
 }
 
 .carousel-dotted .carousel-default-text {
+  font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-regular);
-  font-size: var(--bbl-body-b2-size);
-  line-height: 1.1244rem;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
   color: var(--bbl-color-grey-70);
   padding: var(--bbl-space-250) 0;
 }
@@ -431,13 +435,13 @@
 
   .carousel-dotted .carousel-header {
     font-weight: var(--bbl-font-weight-regular);
-    font-size: var(--bbl-font-size-b2);
-    line-height: var(--bbl-space-200);
+    font-size: 1rem;
+    line-height: 1rem;
   }
 
   .carousel-dotted .carousel-default-text {
     font-weight: var(--bbl-font-weight-regular);
-    font-size: var(--bbl-font-size-b2);
-    line-height: 1.375rem;
+    font-size: 1rem;
+    line-height: 1rem;
   }
 }
