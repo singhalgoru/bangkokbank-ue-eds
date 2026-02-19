@@ -60,7 +60,7 @@
         },
         {
           "component":"text",
-          "name":"promo-tag",
+          "name":"promoTag",
           "label": "Promo Tag",
           "valueType":"string"
         }
