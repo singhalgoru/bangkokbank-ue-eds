@@ -218,14 +218,6 @@
         "value": "",
         "label": "Title",
         "required": true
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "value": "",
-        "label": "Description",
-        "valueType": "string",
-        "required": true
       }
     ]
   },

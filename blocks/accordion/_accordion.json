@@ -43,14 +43,6 @@
           "value": "",
           "label": "Title",
           "required": true
-        },
-        {
-          "component": "richtext",
-          "name": "description",
-          "value": "",
-          "label": "Description",
-          "valueType": "string",
-          "required": true
         }
       ]
     }
@@ -58,17 +50,11 @@
   "filters": [
     {
       "id": "accordion",
-      "components": [
-        "accordion-item"
-      ]
+      "components": ["accordion-item"]
     },
     {
       "id": "accordion-item",
-      "components": [
-        "text",
-        "image",
-        "button"
-      ]
+      "components": ["text", "image", "button", "richtext"]
     }
   ]
 }
