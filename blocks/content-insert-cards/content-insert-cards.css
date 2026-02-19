@@ -69,17 +69,17 @@
 .content-insert-cards .title-2 {
     font-size: 21px;
     line-height: 22.75px;
-    font-weight: var(--bbl-font-weight-regular);
+    font-weight: 400;
     font-family: var(--bbl-font-family-medium);
-    color: var(--bbl-color-black);
-    margin: 0 0 var(--bbl-space-100);
+    color: rgb(0 0 0);
+    margin: 0 0 10px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     position: relative;
-    padding-bottom: var(--bbl-space-100);
+    padding-bottom: 15px;
 }
 
 .content-insert-cards .title-2::before {
@@ -102,7 +102,7 @@
     line-height: 17.99px;
     font-weight: 400;
 
-   /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
+    /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
     color: var(--bbl-color-grey-70);
     margin: 0;
     overflow: hidden;
@@ -120,15 +120,15 @@
 
 .content-insert-cards .btn-primary {
     display: inline-block;
-    padding: 10px var(--bbl-space-250);
-    font-size: 11.2px;
-    line-height: 15.68px;
-    font-weight: var(--bbl-font-weight-medium);
-    font-family: var(--bbl-font-family-medium);
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 44px;
+    font-weight: 400;
+    font-family: var(--bbl-font-family-primary);
     color: var(--bbl-color-white);
-    background-color: var(--bbl-color-active-blue);
-    border: 1px solid var(--bbl-color-active-blue);
-    border-radius: 5px;
+    background-color: rgb(0 100 255);
+    border: 1px solid rgb(0 100 255);
+    border-radius: 7px;
     text-decoration: none;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -199,20 +199,19 @@
     }
 
     .content-insert-cards .title-2 {
-        font-size:21px;
+        font-size: 21px;
         line-height: 22.75px;
         font-weight: 400;
-        font-family: var(--bbl-font-weight-medium);
-        margin-bottom: var(--bbl-space-100);
+        font-family: var(--bbl-font-family-medium);
+        margin-bottom: 10px;
+        padding-bottom: 15px;
     }
 
     .content-insert-cards .text-default {
         font-size: 14px;
-        line-height: 14px;
+        line-height: 17.99px;
         -webkit-line-clamp: 4;
         line-clamp: 4;
-
-        /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
     }
 
     .content-insert-cards .desc {
@@ -220,9 +219,9 @@
     }
 
     .content-insert-cards .btn-primary {
-        font-size: 12px;
-        line-height: 16px;
-        padding: 10px var(--bbl-space-200);
+        font-size: 14px;
+        line-height: 44px;
+        padding: 0 20px;
         min-width: auto;
         width: 100%;
         border-radius: 7px;
@@ -252,16 +251,18 @@
     .content-insert-cards .title-2 {
         font-size: 24px;
         line-height: 26px;
-        margin-bottom: 10px ;
+        margin-bottom: 10px;
         padding-bottom: 15px;
-        font-weight: var(--bbl-font-weight-regular);
+        font-weight: 400;
         font-family: var(--bbl-font-family-medium);
     }
 
     .content-insert-cards .text-default {
         font-size: 16px;
-        line-height: 16px;
+        line-height: 22px;
+    }
 
-        /* font-family: 'BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif'; */
+    .content-insert-cards .btn-primary {
+        font-size: 16px;
     }
 }
