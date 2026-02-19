@@ -6,7 +6,7 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
+            "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "name": "Accordion",
               "filter": "accordion"
@@ -14,47 +14,26 @@
           }
         }
       }
-    },
-    {
-      "title": "Accordion Item",
-      "id": "accordion-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Accordion Item",
-              "model": "accordion-item",
-              "filter": "accordion-item"
-            }
-          }
-        }
-      }
     }
   ],
   "models": [
-    {
-      "id": "accordion-item",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "value": "",
-          "label": "Title",
-          "required": true
-        }
-      ]
-    }
   ],
   "filters": [
     {
       "id": "accordion",
-      "components": ["accordion-item"]
-    },
-    {
-      "id": "accordion-item",
-      "components": ["text", "image", "button", "richtext"]
+      "components": [
+        "accordion-item",
+        "text",
+        "image",
+        "button",
+        "richtext",
+        "hero",
+        "carousel",
+        "cards",
+        "cards-product",
+        "megamenu",
+        "story-card"
+      ]
     }
   ]
 }

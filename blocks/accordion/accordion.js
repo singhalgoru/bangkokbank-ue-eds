@@ -77,6 +77,8 @@ function initAccordion(block) {
 
 /**
  * Decorate the accordion block into EDS-style accordion structure.
+ * Per _accordion.json: section template "Accordion" with filter "accordion"
+ * (components: accordion-item, text, image, button, richtext, hero, carousel, cards, etc.).
  * Each block row becomes one accordion item (title + description).
  * Preserves all DOM nodes and AEM editor instrumentation.
  * @param {Element} block - The accordion block element

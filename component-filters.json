@@ -27,6 +27,22 @@
   {
     "id": "accordion",
     "components": [
+      "accordion-item",
+      "text",
+      "image",
+      "button",
+      "richtext",
+      "hero",
+      "carousel",
+      "cards",
+      "cards-product",
+      "megamenu",
+      "story-card"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
       "accordion-item"
     ]
   },
