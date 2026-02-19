@@ -209,14 +209,17 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": []
+  },
+  {
     "id": "accordion-item",
     "fields": [
       {
         "component": "text",
-        "valueType": "string",
         "name": "title",
-        "value": "",
         "label": "Title",
+        "valueType": "string",
         "required": true
       }
     ]
