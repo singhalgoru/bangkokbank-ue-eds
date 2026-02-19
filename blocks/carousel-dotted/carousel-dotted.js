@@ -5,6 +5,7 @@ import {
   readPosition,
   readArrowsAlignment,
 } from '../../scripts/helper-files/carousel-helpers.js';
+import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
  * Build a slide WITH IMAGE variation
@@ -92,96 +93,47 @@ function buildSlideWithoutImage(row, index, cells) {
 }
 
 /**
- * Build a slide HERO BANNER IMAGE CAROUSEL variation
+ * Build a slide HERO BANNER IMAGE CAROUSEL or TEXT ANIMATION VARIANT
  * Structure: Image | Image Alt | Title | Subtitle | Button
  */
-function buildSlideHeroBannerImageCarousel(row, index, cells) {
+function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
-  slide.className = 'carousel-item hero-banner-image-carousel';
+  slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
-  moveInstrumentation(row, slide);
 
-  // Create and append background image if it exists (cell 10)
-  const picture = cells[10]?.querySelector('picture');
+  const [,,,,,,,,,, heroImageCell, titleCell, subtitleCell, linkCell] = cells;
+
+  const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
     media.className = 'carousel-bg';
-    const img = picture.querySelector('img');
-    // Set alt text from cell 11
-    if (img && cells[11]) {
-      img.alt = cells[11].textContent.trim();
-    }
     media.append(picture);
     slide.append(media);
   }
 
-  // Create content container
   const content = document.createElement('div');
-  content.className = 'carousel-content';
+  content.className = 'carousel-content content';
 
-  // Title (cell 12)
-  if (cells[12]) {
+  if (titleCell) {
     const title = document.createElement('div');
-    title.className = 'carousel-title';
-    while (cells[12].firstChild) title.append(cells[12].firstChild);
+    title.classList.add('carousel-title', 'animated-text');
+    title.innerHTML = titleCell.innerHTML;
     content.append(title);
   }
 
-  // Subtitle (cell 13)
-  if (cells[13]) {
+  if (subtitleCell) {
     const subtitle = document.createElement('div');
-    subtitle.className = 'carousel-subtitle';
-    while (cells[13].firstChild) subtitle.append(cells[13].firstChild);
+    subtitle.classList.add('carousel-subtitle', 'text-animation-variant', 'animated-text');
+    subtitle.innerHTML = subtitleCell.innerHTML;
     content.append(subtitle);
   }
 
-  slide.append(content);
-  return slide;
-}
-
-/**
- * Build a slide TEXT ANIMATION VARIANT
- * Structure: Image | Image Alt | Title | Subtitle | Button
- */
-function buildSlideTextAnimationVariant(row, index, cells) {
-  const slide = document.createElement('div');
-  slide.className = 'carousel-item text-animation-variant';
-  slide.dataset.index = index;
-  moveInstrumentation(row, slide);
-
-  // Create and append background image if it exists (cell 10)
-  const picture = cells[10]?.querySelector('picture');
-  if (picture) {
-    const media = document.createElement('div');
-    media.className = 'carousel-bg';
-    const img = picture.querySelector('img');
-    // Set alt text from cell 11
-    if (img && cells[11]) {
-      img.alt = cells[11].textContent.trim();
-    }
-    media.append(picture);
-    slide.append(media);
+  if (linkCell) {
+    content.innerHTML += linkCell.innerHTML;
   }
 
-  // Create content container
-  const content = document.createElement('div');
-  content.className = 'carousel-content';
-
-  // Title (cell 12) - with animation class
-  if (cells[12]) {
-    const title = document.createElement('div');
-    title.className = 'carousel-title animated-text';
-    while (cells[12].firstChild) title.append(cells[12].firstChild);
-    content.append(title);
-  }
-
-  // Subtitle (cell 13) - with animation class
-  if (cells[13]) {
-    const subtitle = document.createElement('div');
-    subtitle.className = 'carousel-subtitle animated-text';
-    while (cells[13].firstChild) subtitle.append(cells[13].firstChild);
-    content.append(subtitle);
-  }
+  decorateButtonsV1(content);
+  content.querySelector('a')?.classList.add('button-m', 'animated-text');
 
   slide.append(content);
   return slide;
@@ -200,11 +152,11 @@ function buildSlide(row, index) {
 
   // Determine slide type priority
   if (heroBannerImageCarousel) {
-    return buildSlideHeroBannerImageCarousel(row, index, cells);
+    return buildSlideHeroVariant(row, index, cells, 'hero-banner-image-carousel');
   }
 
   if (textAnimationVariant) {
-    return buildSlideTextAnimationVariant(row, index, cells);
+    return buildSlideHeroVariant(row, index, cells, 'text-animation-variant');
   }
 
   // Determine if this is a with-image slide:
@@ -547,7 +499,7 @@ export default function decorate(block) {
     const prevIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
     slideEls.forEach((slide, i) => {
       const active = i === index;
-      const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel');
+      const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel', 'all-text-animation-variant');
       const wasActive = slide.classList.contains('is-active');
       if (isHeroVariant && !wasActive && active) {
         slide.classList.add('is-entering');
@@ -570,8 +522,9 @@ export default function decorate(block) {
     nextArrow.disabled = index === slideEls.length - 1;
 
     // Apply translate3d for horizontal sliding track (hero banner AND without-image)
-    const allHeroBanner = slidesHeroBanner > 0 && slidesWithImage === 0 && slidesWithoutImage === 0
-    && slidesTextAnimation === 0;
+    const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0;
 
     const allWithoutImageTrack = slidesWithoutImage > 0 && slidesWithImage === 0
     && slidesHeroBanner === 0 && slidesTextAnimation === 0;
@@ -629,10 +582,9 @@ export default function decorate(block) {
   && slidesHeroBanner === 0
   && slidesTextAnimation === 0;
 
-  const allHeroBanner = slidesHeroBanner > 0
+  const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
   && slidesWithImage === 0
-  && slidesWithoutImage === 0
-  && slidesTextAnimation === 0;
+  && slidesWithoutImage === 0;
 
   if (allHeroBanner || allWithoutImage) {
     // Create a track wrapper for horizontal sliding
@@ -684,6 +636,6 @@ export default function decorate(block) {
   // Initialize drag/swipe functionality
   // Enable looping only if slides have images (like Grow Club section)
   // Disable looping for text-only slides (like News and Activities section)
-  const enableLooping = slidesWithImage > 0 || slidesHeroBanner > 0;
+  const enableLooping = slidesWithImage > 0 || slidesHeroBanner > 0 || slidesTextAnimation > 0;
   initializeDragSwipe(block, slideEls, setActive, 50, enableLooping);
 }
