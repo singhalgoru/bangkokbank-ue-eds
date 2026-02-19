@@ -83,6 +83,30 @@
   justify-content: flex-start;
 }
 
+/* Mobile horizontal sliding track for without-image (text-default) slides */
+.carousel-dotted.all-without-image {
+  overflow: hidden;
+}
+
+.carousel-dotted.all-without-image .carousel-track-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.carousel-dotted.all-without-image .carousel-item.without-image {
+  position: relative;
+  display: block;
+  opacity: 1;
+  flex: 0 0 100%;
+  width: 100%;
+  min-height: 12.6875rem;
+  transition: none;
+}
+
 .carousel-dotted .carousel-badge {
   display: inline-block;
   font-size: 0.7875rem;
