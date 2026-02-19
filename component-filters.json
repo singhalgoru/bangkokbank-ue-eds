@@ -28,6 +28,7 @@
   {
     "id": "accordion",
     "components": [
+      "text",
       "card",
       "cards-product"
     ]
