@@ -8,10 +8,6 @@ export default function decorate(block) {
   // Get all rows from the main div
   const rows = [...mainDiv.children];
 
-  if (rows.length < 4) {
-    return;
-  }
-
   // Create the main card container
   const card = document.createElement('div');
   card.className = 'content-insert-card';

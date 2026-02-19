@@ -492,6 +492,12 @@
     "id": "content-insert-card",
     "fields": [
       {
+        "component": "text",
+        "name": "promoTag",
+        "label": "Promo Tag",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -551,12 +557,6 @@
             "value": "tertiary"
           }
         ]
-      },
-      {
-        "component": "text",
-        "name": "promoTag",
-        "label": "Promo Tag",
-        "valueType": "string"
       }
     ]
   },
