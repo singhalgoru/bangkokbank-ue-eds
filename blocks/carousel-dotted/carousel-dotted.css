@@ -296,26 +296,30 @@
 }
 
 .carousel-dotted:is(.all-hero-banner-image-carousel, .all-text-animation-variant)
+.carousel-bg {
+  overflow: hidden;
+}
+
+.carousel-dotted:is(.all-hero-banner-image-carousel, .all-text-animation-variant)
 .carousel-item:is(.hero-banner-image-carousel, .text-animation-variant)
 .carousel-bg img {
   will-change: transform;
 }
 
 .carousel-dotted:is(.all-hero-banner-image-carousel, .all-text-animation-variant)
-.carousel-item:is(.hero-banner-image-carousel, .text-animation-variant).is-entering {
-  animation: hero-ken-burns 1000ms ease-in-out forwards infinite;
+.carousel-bg.bg-zoom-enter :is(picture, img) {
+  animation: bg-zoom-in-out 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-@keyframes hero-ken-burns {
-  0%   { transform: scale(1.5); }
+.carousel-dotted:is(.all-hero-banner-image-carousel, .all-text-animation-variant)
+.carousel-track-wrapper > *:last-child
+.carousel-bg.bg-zoom-enter :is(picture, img) {
+  animation: bg-zoom-in-out 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes bg-zoom-in-out {
+  0%   { transform: scale(1.12); }
   100% { transform: scale(1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .carousel-dotted:is(.all-hero-banner-image-carousel,.all-text-animation-variant) 
-  .carousel-item:is(.hero-banner-image-carousel, .text-animation-variant).is-entering {
-    animation: none;
-  }
 }
 
 .carousel-dotted.all-hero-banner-image-carousel .carousel-item.hero-banner-image-carousel .carousel-bg::before {
