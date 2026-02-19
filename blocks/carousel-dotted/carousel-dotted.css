@@ -34,7 +34,7 @@
   display: block;
   width: 100%;
   background-position: center;
-  background-size: cover !important;
+  background-size: cover;
 }
 
 .carousel-dotted .carousel-bg::after {
@@ -55,7 +55,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  background-size: cover !important;
+  background-size: cover;
   background-position: center;
 }
 
