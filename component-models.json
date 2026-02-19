@@ -671,7 +671,7 @@
         "required": true
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "link",
         "label": "Redirection Link",
         "valueType": "string"
