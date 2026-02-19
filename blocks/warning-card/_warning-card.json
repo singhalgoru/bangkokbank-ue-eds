@@ -9,8 +9,7 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Warning Card",
-              "model": "warning-card",
-              "filter": "warning-card"
+              "model": "warning-card"
             }
           }
         }
@@ -21,7 +20,6 @@
     {
       "id": "warning-card",
       "fields": [
-
         {
           "component": "reference",
           "name": "icon",
@@ -48,37 +46,32 @@
           "component": "date-time",
           "name": "startDateTime",
           "label": "Start Date & Time",
-          "description": "Select the start date and time",
+          "description": "Select the start date and time for publishing the content",
           "valueType": "date-time",
           "placeholder": "YYYY-MM-DD HH:mm",
           "displayFormat": "YYYY-MM-DD HH:mm",
           "valueFormat": "YYYY-MM-DDTHH:mm:ss.SSSZ",
           "required": true,
           "validation": {
-            "customErrorMsg": "Please enter a valid start date and time"
+            "customErrorMsg": "Please enter a valid start date and time for publishing the content"
           }
         },
         {
           "component": "date-time",
           "name": "endDateTime",
           "label": "End Date & Time",
-          "description": "Select the end date and time",
+          "description": "Select the end date and time for unpublishing the content",
           "valueType": "date-time",
           "placeholder": "YYYY-MM-DD HH:mm",
           "displayFormat": "YYYY-MM-DD HH:mm",
           "valueFormat": "YYYY-MM-DDTHH:mm:ss.SSSZ",
           "required": true,
           "validation": {
-            "customErrorMsg": "Please enter a valid end date and time"
+            "customErrorMsg": "Please enter a valid end date and time for unpublishing the content"
           }
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "warning-card",
-      "components": ["warning-card"]
-    }
-  ]
+  "filters":[]
 }
