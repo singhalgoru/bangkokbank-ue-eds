@@ -33,27 +33,10 @@
       "image",
       "button",
       "richtext",
-      "hero",
       "carousel",
       "cards",
       "cards-product",
-      "megamenu",
       "story-card"
-    ]
-  },
-  {
-    "id": "accordion",
-    "components": [
-      "accordion-item"
-    ]
-  },
-  {
-    "id": "accordion-item",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "richtext"
     ]
   },
   {

@@ -222,19 +222,6 @@
     ]
   },
   {
-    "id": "accordion-item",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "required": true
-      }
-    ]
-  },
-  {
     "id": "product-card",
     "fields": [
       {
