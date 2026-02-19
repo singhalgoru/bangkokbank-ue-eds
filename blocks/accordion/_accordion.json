@@ -10,8 +10,7 @@
             "template": {
               "name": "Accordion",
               "filter": "accordion",
-              "model": "accordion",
-              "headingType": "h3"
+              "model": "accordion"
             }
           }
         }
@@ -60,6 +59,9 @@
     {
       "id": "accordion",
       "components": ["accordion-item"]
-    }
+    },
+    { "id": "accordion-item", "components": ["text", "image", "button", "title"] }
   ]
 }
+
+
