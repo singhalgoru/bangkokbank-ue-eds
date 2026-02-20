@@ -102,7 +102,8 @@
         "megamenu",
         "carousel",
         "story-card",
-        "warning-card"
+        "warning-card",
+        "carousel-dotted"
       ]
     }
   ]
