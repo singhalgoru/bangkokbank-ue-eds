@@ -8,24 +8,21 @@ export default function decorate(block) {
   // Get all rows from the main div
   const rows = [...mainDiv.children];
 
-  // Check if content is empty - if all rows are empty, just return
-  const hasContent = rows.some((row) => {
-    const text = row.textContent.trim();
-    const hasImage = row.querySelector('picture');
-    return text || hasImage;
-  });
+  // Check if required title field (row 2) has content
+  const titleRow = rows[2];
+  const titleText = titleRow?.textContent.trim();
 
-  if (!hasContent) {
-    return;
+  if (!titleText) {
+    return; // Title is required, cannot render without it
   }
 
   // Create the main card container
   const card = document.createElement('div');
   card.className = 'content-insert-card';
 
-  // Process the promo tag (first row)
+  // Process the promo tag (first row) - optional
   const promoRow = rows[0];
-  const promoText = promoRow.textContent.trim();
+  const promoText = promoRow?.textContent.trim();
   if (promoText) {
     const promoTag = document.createElement('div');
     promoTag.className = 'promo-tag';
@@ -33,9 +30,9 @@ export default function decorate(block) {
     card.appendChild(promoTag);
   }
 
-  // Process the image (second row)
+  // Process the image (second row) - optional
   const imageRow = rows[1];
-  const picture = imageRow.querySelector('picture');
+  const picture = imageRow?.querySelector('picture');
 
   if (picture) {
     const figure = document.createElement('figure');
@@ -51,19 +48,15 @@ export default function decorate(block) {
     const figcaption = document.createElement('figcaption');
     figcaption.className = 'intro-info';
 
-    // Process title (third row)
-    const titleRow = rows[2];
-    const titleText = titleRow.textContent.trim();
-    if (titleText) {
-      const title = document.createElement('h3');
-      title.className = 'title-2 line';
-      title.textContent = titleText;
-      figcaption.appendChild(title);
-    }
+    // Process title (third row) - required
+    const title = document.createElement('h3');
+    title.className = 'title-2 line';
+    title.textContent = titleText;
+    figcaption.appendChild(title);
 
-    // Process description (fourth row)
+    // Process description (fourth row) - optional
     const descRow = rows[3];
-    const descText = descRow.textContent.trim();
+    const descText = descRow?.textContent.trim();
     if (descText) {
       const desc = document.createElement('div');
       desc.className = 'desc';
@@ -74,12 +67,12 @@ export default function decorate(block) {
       figcaption.appendChild(desc);
     }
 
-    // Process button (fifth row)
+    // Process button (fifth row) - optional, but linkText is required if present
     const buttonRow = rows[4];
-    const buttonContainer = buttonRow.querySelector('.button-container');
-    const link = buttonContainer?.querySelector('a') || buttonRow.querySelector('a');
+    const buttonContainer = buttonRow?.querySelector('.button-container');
+    const link = buttonContainer?.querySelector('a') || buttonRow?.querySelector('a');
 
-    if (link) {
+    if (link && link.textContent.trim()) {
       const buttonGroup = document.createElement('div');
       buttonGroup.className = 'button-group';
 
@@ -87,7 +80,7 @@ export default function decorate(block) {
       const button = document.createElement('a');
       button.className = 'btn-primary';
       button.href = link.href;
-      button.textContent = link.textContent || 'Read More';
+      button.textContent = link.textContent.trim();
       button.title = link.title || 'read-more';
 
       buttonGroup.appendChild(button);
