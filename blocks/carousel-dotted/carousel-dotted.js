@@ -5,6 +5,7 @@ import {
   readPosition,
   readArrowsAlignment,
 } from '../../scripts/helper-files/carousel-helpers.js';
+import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
  * Build a slide WITH IMAGE variation
@@ -92,15 +93,71 @@ function buildSlideWithoutImage(row, index, cells) {
 }
 
 /**
+ * Build a slide HERO BANNER IMAGE CAROUSEL or TEXT ANIMATION VARIANT
+ * Structure: Image | Image Alt | Title | Subtitle | Button
+ */
+function buildSlideHeroVariant(row, index, cells, variant) {
+  const slide = document.createElement('div');
+  slide.className = `carousel-item ${variant}`;
+  slide.dataset.index = index;
+
+  const [,,,,,,,,,, heroImageCell, titleCell, subtitleCell, linkCell] = cells;
+
+  const picture = heroImageCell?.querySelector('picture');
+  if (picture) {
+    const media = document.createElement('div');
+    media.className = 'carousel-bg';
+    media.append(picture);
+    slide.append(media);
+  }
+
+  const content = document.createElement('div');
+  content.className = 'carousel-content content';
+
+  if (titleCell) {
+    const title = document.createElement('div');
+    title.classList.add('carousel-title', 'animated-text');
+    title.innerHTML = titleCell.innerHTML;
+    content.append(title);
+  }
+
+  if (subtitleCell) {
+    const subtitle = document.createElement('div');
+    subtitle.classList.add('carousel-subtitle', 'text-animation-variant', 'animated-text');
+    subtitle.innerHTML = subtitleCell.innerHTML;
+    content.append(subtitle);
+  }
+
+  if (linkCell) {
+    content.innerHTML += linkCell.innerHTML;
+  }
+
+  decorateButtonsV1(content);
+  content.querySelector('a')?.classList.add('button-m', 'animated-text');
+
+  slide.append(content);
+  return slide;
+}
+
+/**
  * Build a slide - determines which variation to use and delegates
  */
 function buildSlide(row, index) {
   const cells = [...row.children];
 
-  // Check if this is a "with image" or "without image" slide
-  // Check both cell 0 for boolean indicator and cell 2 for picture
+  const heroBannerImageCarousel = cells[8]?.textContent.trim().toLowerCase() === 'true';
+  const textAnimationVariant = cells[9]?.textContent.trim().toLowerCase() === 'true';
   const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
   const picture = cells[2]?.querySelector('picture');
+
+  // Determine slide type priority
+  if (heroBannerImageCarousel) {
+    return buildSlideHeroVariant(row, index, cells, 'hero-banner-image-carousel');
+  }
+
+  if (textAnimationVariant) {
+    return buildSlideHeroVariant(row, index, cells, 'text-animation-variant');
+  }
 
   // Determine if this is a with-image slide:
   // Either has "true" in cell 0 OR has a picture in cell 2
@@ -120,6 +177,7 @@ function buildSlide(row, index) {
  * @param {number} dragThreshold - Minimum drag distance to trigger slide change
  * @param {boolean} enableLooping - Whether to enable infinite looping
  */
+
 function initializeDragSwipe(
   block,
   slideEls,
@@ -133,40 +191,18 @@ function initializeDragSwipe(
   let hasMoved = false;
 
   const handleStart = (e) => {
-    // Don't start drag on buttons, links, or interactive elements
-    if (e.target.closest('a, button')) {
-      return;
-    }
-
+    if (e.target.closest('a, button')) return;
     isDragging = true;
     hasMoved = false;
-
-    // Support both mouse and touch events
-    if (e.type === 'touchstart') {
-      startX = e.touches[0].pageX;
-    } else {
-      startX = e.pageX || e.clientX;
-    }
+    startX = e.type === 'touchstart' ? e.touches[0].pageX : (e.pageX || e.clientX);
     currentX = startX;
     block.classList.add('is-dragging');
   };
 
   const handleMove = (e) => {
     if (!isDragging) return;
-
-    // Support both mouse and touch events
-    if (e.type === 'touchmove') {
-      currentX = e.touches[0].pageX;
-    } else {
-      currentX = e.pageX || e.clientX;
-    }
-
-    const deltaX = currentX - startX;
-
-    // Mark that we've moved if drag distance exceeds a small threshold
-    if (Math.abs(deltaX) > 5) {
-      hasMoved = true;
-    }
+    currentX = e.type === 'touchmove' ? e.touches[0].pageX : (e.pageX || e.clientX);
+    if (Math.abs(currentX - startX) > 5) hasMoved = true;
   };
 
   const handleEnd = () => {
@@ -177,38 +213,25 @@ function initializeDragSwipe(
 
     const deltaX = currentX - startX;
 
-    // Only trigger slide change if user actually dragged (not just clicked)
     if (hasMoved && Math.abs(deltaX) > dragThreshold) {
-      const currentIndex = slideEls.findIndex(
-        (slide) => slide.classList.contains('is-active'),
-      );
+      const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
 
-      // Swipe left (drag to the left) = next slide
       if (deltaX < -dragThreshold) {
         let nextIndex;
         if (enableLooping) {
-          // With looping: go to first if at last
           nextIndex = currentIndex < slideEls.length - 1 ? currentIndex + 1 : 0;
         } else {
-          // Without looping: stop at last slide
           nextIndex = currentIndex < slideEls.length - 1 ? currentIndex + 1 : currentIndex;
         }
-        if (nextIndex !== currentIndex) {
-          setActive(nextIndex);
-        }
+        if (nextIndex !== currentIndex) setActive(nextIndex);
       } else if (deltaX > dragThreshold) {
-        // Swipe right (drag to the right) = previous slide
         let prevIndex;
         if (enableLooping) {
-          // With looping: go to last if at first
           prevIndex = currentIndex > 0 ? currentIndex - 1 : slideEls.length - 1;
         } else {
-          // Without looping: stop at first slide
           prevIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
         }
-        if (prevIndex !== currentIndex) {
-          setActive(prevIndex);
-        }
+        if (prevIndex !== currentIndex) setActive(prevIndex);
       }
     }
 
@@ -265,17 +288,11 @@ function initializeAutoScroll(
   let autoScrollInterval;
 
   const startAutoScroll = () => {
-    if (autoScrollInterval) return; // Already running
-
+    if (autoScrollInterval) return;
     autoScrollInterval = setInterval(() => {
       const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
       let nextIdx = currentIndex + itemsPerScroll;
-
-      // Loop back to start if we've reached the end
-      if (nextIdx >= slideEls.length) {
-        nextIdx = 0;
-      }
-
+      if (nextIdx >= slideEls.length) nextIdx = 0;
       setActive(nextIdx);
     }, delay);
   };
@@ -338,36 +355,31 @@ export default function decorate(block) {
   let nextIndex = 7;
   let seeMoreLink = null;
 
-  // Skip empty rows and check for "See more" link
   while (nextIndex < rows.length) {
     const row = rows[nextIndex];
     const link = row?.querySelector('a');
     const hasContent = row?.textContent.trim();
 
     if (link) {
-      // Found "See more" link
       seeMoreLink = link;
       nextIndex += 1;
       break;
     } else if (!hasContent) {
-      // Empty row, skip it
       nextIndex += 1;
     } else {
-      // Has content but no link, this is the start of slides
       break;
     }
   }
 
   const slides = rows.slice(nextIndex);
+  block.className = 'carousel-dotted';
 
-  // Add dots-related classes
   if (showDots) {
     block.classList.add(`dots-${dotsAlignment}-${dotsPosition}`);
   } else {
     block.classList.add('no-dots');
   }
 
-  // Add arrows-related classes
   if (showArrows) {
     block.classList.add('show-arrows');
     block.classList.add(`arrows-${arrowsAlignment}`);
@@ -377,21 +389,46 @@ export default function decorate(block) {
     block.classList.add('auto-scroll');
     if (scrollTimeDelay) block.dataset.scrollDelay = scrollTimeDelay;
   }
+
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'carousel');
-  const slideEls = slides.map((row, index) => {
-    const slide = buildSlide(row, index);
-    return slide;
-  });
 
-  // Determine if all slides have images, none have images, or it's mixed
-  const slidesWithImage = slideEls.filter((slide) => slide.classList.contains('with-image')).length;
-  const slidesWithoutImage = slideEls.filter((slide) => slide.classList.contains('without-image')).length;
-  if (slidesWithImage > 0 && slidesWithoutImage === 0) {
+  const slideEls = slides.map((row, index) => buildSlide(row, index));
+
+  const slidesWithImage = slideEls.filter((s) => s.classList.contains('with-image')).length;
+  const slidesWithoutImage = slideEls.filter((s) => s.classList.contains('without-image')).length;
+  const slidesHeroBanner = slideEls.filter((s) => s.classList.contains('hero-banner-image-carousel')).length;
+  const slidesTextAnimation = slideEls.filter((s) => s.classList.contains('text-animation-variant')).length;
+
+  if (
+    slidesWithImage > 0
+  && slidesWithoutImage === 0
+  && slidesHeroBanner === 0
+  && slidesTextAnimation === 0
+  ) {
     block.classList.add('all-with-image');
-  } else if (slidesWithoutImage > 0 && slidesWithImage === 0) {
+  } else if (
+    slidesWithoutImage > 0
+    && slidesWithImage === 0
+    && slidesHeroBanner === 0
+    && slidesTextAnimation === 0
+  ) {
     block.classList.add('all-without-image');
-  } else if (slidesWithImage > 0 && slidesWithoutImage > 0) {
+  } else if (
+    slidesHeroBanner > 0
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0
+    && slidesTextAnimation === 0
+  ) {
+    block.classList.add('all-hero-banner-image-carousel');
+  } else if (
+    slidesTextAnimation > 0
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0
+    && slidesHeroBanner === 0
+  ) {
+    block.classList.add('all-text-animation-variant');
+  } else {
     block.classList.add('mixed-image-slides');
   }
   const dots = document.createElement('ul');
@@ -411,9 +448,58 @@ export default function decorate(block) {
 
   let dotButtons;
 
+  const zoomTimers = new Map();
+
+  function triggerBgZoom(slideEl) {
+    const bg = slideEl.querySelector('.carousel-bg');
+    if (!bg) return;
+
+    if (zoomTimers.has(slideEl)) {
+      clearTimeout(zoomTimers.get(slideEl));
+    }
+
+    bg.classList.remove('bg-zoom-enter');
+    // eslint-disable-next-line no-unused-expressions
+    bg.offsetWidth;
+    bg.classList.add('bg-zoom-enter');
+
+    const timer = setTimeout(() => {
+      bg.classList.remove('bg-zoom-enter');
+      zoomTimers.delete(slideEl);
+    }, 800);
+    zoomTimers.set(slideEl, timer);
+  }
+
+  let isFirstLoad = true;
+
   function setActive(index) {
+    const prevIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
+
+    const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel')
+      || block.classList.contains('all-text-animation-variant');
+
+    const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
+      && slidesWithImage === 0
+      && slidesWithoutImage === 0;
+
+    const allWithoutImageTrack = slidesWithoutImage > 0
+      && slidesWithImage === 0
+      && slidesHeroBanner === 0
+      && slidesTextAnimation === 0;
+
+    const isLoopingForward = index === 0 && prevIndex === slideEls.length - 1;
+
     slideEls.forEach((slide, i) => {
       const active = i === index;
+      const wasActive = slide.classList.contains('is-active');
+      if (isHeroVariant && !wasActive && active && !isFirstLoad) {
+        if (!isLoopingForward) {
+          triggerBgZoom(slide);
+          slide.classList.add('is-entering');
+          setTimeout(() => slide.classList.remove('is-entering'), 600);
+        }
+      }
+
       slide.classList.toggle('is-active', active);
       slide.classList.toggle('is-current', active);
       slide.setAttribute('aria-hidden', active ? 'false' : 'true');
@@ -425,42 +511,44 @@ export default function decorate(block) {
       button.tabIndex = active ? 0 : -1;
     });
 
-    // Update arrow states
     prevArrow.disabled = index === 0;
     nextArrow.disabled = index === slideEls.length - 1;
 
-    // Apply translate3d for horizontal sliding track (without-image slides)
-    // Only on tablet/desktop where the flex track layout is active
-    const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
-    if (allWithoutImage) {
+    if (allHeroBanner || allWithoutImageTrack) {
       const trackWrapper = block.querySelector('.carousel-track-wrapper');
       if (trackWrapper) {
-        const isDesktopTrack = window.matchMedia('(min-width: 47.5rem)').matches;
-        if (isDesktopTrack) {
-          const slideWidth = block.offsetWidth;
-          const translateX = -index * slideWidth;
-          trackWrapper.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+        const slideWidth = block.offsetWidth;
+
+        if (isLoopingForward) {
+          if (isHeroVariant && !isFirstLoad) {
+            const cloneSlide = trackWrapper.lastElementChild;
+            triggerBgZoom(cloneSlide);
+            cloneSlide.classList.add('is-entering');
+            setTimeout(() => cloneSlide.classList.remove('is-entering'), 600);
+          }
+
+          trackWrapper.style.transform = `translate3d(${-slideEls.length * slideWidth}px, 0px, 0px)`;
+          setTimeout(() => {
+            trackWrapper.style.transition = 'none';
+            trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
+            trackWrapper.getBoundingClientRect();
+            trackWrapper.style.transition = '';
+          }, 700);
         } else {
-          // On mobile the flex track is inactive; clear any stale transform
-          trackWrapper.style.transform = '';
+          trackWrapper.style.transform = `translate3d(${-index * slideWidth}px, 0px, 0px)`;
         }
       }
     }
   }
 
-  // Arrow click handlers
   prevArrow.addEventListener('click', () => {
     const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
-    if (currentIndex > 0) {
-      setActive(currentIndex - 1);
-    }
+    if (currentIndex > 0) setActive(currentIndex - 1);
   });
 
   nextArrow.addEventListener('click', () => {
     const currentIndex = slideEls.findIndex((slide) => slide.classList.contains('is-active'));
-    if (currentIndex < slideEls.length - 1) {
-      setActive(currentIndex + 1);
-    }
+    if (currentIndex < slideEls.length - 1) setActive(currentIndex + 1);
   });
   dotButtons = slideEls.map((slide, index) => {
     const li = document.createElement('li');
@@ -475,24 +563,29 @@ export default function decorate(block) {
     return { li, button };
   });
 
-  // Check if all slides are without-image for horizontal sliding track
-  const allWithoutImage = slidesWithoutImage > 0 && slidesWithImage === 0;
+  const allWithoutImage = slidesWithoutImage > 0
+    && slidesWithImage === 0
+    && slidesHeroBanner === 0
+    && slidesTextAnimation === 0;
 
-  if (allWithoutImage) {
-    // Create a track wrapper for horizontal sliding
+  const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0;
+
+  if (allHeroBanner || allWithoutImage) {
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
-    trackWrapper.replaceChildren(...slideEls);
+    const cloneFirst = slideEls[0].cloneNode(true);
+    cloneFirst.setAttribute('aria-hidden', 'true');
+    trackWrapper.replaceChildren(...slideEls, cloneFirst);
     block.replaceChildren(trackWrapper);
   } else {
-    // Clear block and append slides directly (existing behavior)
     block.replaceChildren(...slideEls);
   }
 
   if (showDots) {
     block.append(dots);
   } else if (showArrows) {
-    // Only append arrows if dots are not shown
     block.append(prevArrow, nextArrow);
   }
 
@@ -508,24 +601,18 @@ export default function decorate(block) {
     setActive(0);
   }
 
-  // Initialize auto-scroll functionality if enabled
+  requestAnimationFrame(() => {
+    isFirstLoad = false;
+  });
+
   if (autoScroll && scrollTimeDelay) {
     const delay = parseInt(scrollTimeDelay, 10);
-    initializeAutoScroll(
-      block,
-      slideEls,
-      setActive,
-      prevArrow,
-      nextArrow,
-      dotButtons,
-      delay,
-      1,
-    );
+    initializeAutoScroll(block, slideEls, setActive, prevArrow, nextArrow, dotButtons, delay, 1);
   }
 
   // Initialize drag/swipe functionality
   // Enable looping only if slides have images (like Grow Club section)
   // Disable looping for text-only slides (like News and Activities section)
-  const enableLooping = slidesWithImage > 0;
+  const enableLooping = slidesWithImage > 0 || slidesHeroBanner > 0 || slidesTextAnimation > 0;
   initializeDragSwipe(block, slideEls, setActive, 50, enableLooping);
 }
