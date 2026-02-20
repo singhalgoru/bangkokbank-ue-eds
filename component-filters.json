@@ -19,7 +19,8 @@
       "fragment",
       "header",
       "megamenu",
-      "carousel"
+      "carousel",
+      "content-insert-cards"
     ]
   },
   {
@@ -53,6 +54,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "content-insert-cards",
+    "components": [
+      "content-insert-card"
     ]
   },
   {
