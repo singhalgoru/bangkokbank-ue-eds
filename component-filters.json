@@ -22,6 +22,7 @@
       "carousel",
       "story-card",
       "warning-card",
+      "menu-cards",
       "carousel-dotted"
     ]
   },
@@ -70,5 +71,12 @@
       "hero-item"
     ],
     "maxItems": 8
+  },
+  {
+    "id": "menu-cards",
+    "components": [
+      "menu-card"
+    ],
+    "maxItems": 6
   }
 ]

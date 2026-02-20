@@ -1024,6 +1024,42 @@
     ]
   },
   {
+    "id": "menu-cards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Menu Cards Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "menu-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Card Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Redirection Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "story-card",
     "fields": [
       {
