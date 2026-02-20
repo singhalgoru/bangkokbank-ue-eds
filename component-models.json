@@ -501,8 +501,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Background Image",
-        "multi": false
+        "label": "Background Image"
       },
       {
         "component": "text",
