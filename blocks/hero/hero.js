@@ -1,13 +1,6 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
-document.querySelectorAll('[role="treeitem"]').forEach((el) => {
-  const label = el.querySelector('.node-content, [title]');
-  if (label && label.textContent.trim().includes('Thumbnail Image')) {
-    el.style.display = 'none';
-  }
-});
-
 function changeBanner(block) {
   block.addEventListener('mouseenter', (e) => {
     const thumbnail = e.target.closest('.hero-banner-thumbnail-item');
@@ -51,7 +44,7 @@ export default function decorate(block) {
 
   let bannerIndex = 0;
 
-  const items = [...block.children].slice(2, 9);
+  const items = [...block.children].slice(1, 8);
 
   items.forEach((row) => {
     const [imageCell, logoImageCell, thumbImgCell, headingCell, textCell, linkCell] = [

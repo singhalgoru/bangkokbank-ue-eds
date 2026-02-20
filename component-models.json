@@ -508,14 +508,6 @@
     "id": "hero",
     "fields": [
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "subNavTitle",
-        "label": "Sub Nav Title",
-        "value": "",
-        "description": "Title used for the sub nav dropdown anchor"
-      },
-      {
         "component": "select",
         "name": "variant",
         "value": "default",
