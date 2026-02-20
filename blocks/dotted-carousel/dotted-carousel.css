@@ -1,9 +1,9 @@
-.carousel-dotted-container {
+.dotted-carousel-container {
   padding-left: var(--bbl-space-200);
   padding-right: var(--bbl-space-200);
 }
 
-.carousel-dotted {
+.dotted-carousel {
   position: relative;
   overflow: hidden;
   height: auto;
@@ -13,23 +13,23 @@
   padding: var(--bbl-space-000);
 }
 
-.carousel-dotted.is-dragging * {
+.dotted-carousel.is-dragging * {
   pointer-events: none;
   user-select: none;
 }
 
-.carousel-dotted .carousel-item {
+.dotted-carousel .carousel-item {
   position: relative;
   display: none;
   opacity: 1;
 }
 
-.carousel-dotted .carousel-item.is-active {
+.dotted-carousel .carousel-item.is-active {
   display: block;
   z-index: 1;
 }
 
-.carousel-dotted .carousel-bg {
+.dotted-carousel .carousel-bg {
   position: relative;
   display: block;
   width: 100%;
@@ -37,7 +37,7 @@
   background-size: cover;
 }
 
-.carousel-dotted .carousel-bg::after {
+.dotted-carousel .carousel-bg::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -49,8 +49,8 @@
   z-index: 1;
 }
 
-.carousel-dotted .carousel-bg picture,
-.carousel-dotted .carousel-bg img {
+.dotted-carousel .carousel-bg picture,
+.dotted-carousel .carousel-bg img {
   width: 100%;
   height: 100%;
   display: block;
@@ -60,12 +60,12 @@
 }
 
 /* Without-image slides don't need background */
-.carousel-dotted .carousel-item.without-image .carousel-bg::after,
-.carousel-dotted .carousel-item.without-image .carousel-bg {
+.dotted-carousel .carousel-item.without-image .carousel-bg::after,
+.dotted-carousel .carousel-item.without-image .carousel-bg {
   display: none;
 }
 
-.carousel-dotted .carousel-content {
+.dotted-carousel .carousel-content {
   position: relative;
   z-index: 1;
   padding: var(--bbl-space-250);
@@ -74,7 +74,7 @@
 }
 
 /* Without-image variation: text-only layout */
-.carousel-dotted .carousel-item.without-image .carousel-content {
+.dotted-carousel .carousel-item.without-image .carousel-content {
   min-height: 12.6875rem;
   max-height: 12.6875rem;
   padding: var(--bbl-space-300);
@@ -83,7 +83,7 @@
   justify-content: flex-start;
 }
 
-.carousel-dotted .carousel-badge {
+.dotted-carousel .carousel-badge {
   display: inline-block;
   font-size: 0.7875rem;
   font-weight: var(--bbl-font-weight-medium);
@@ -95,7 +95,7 @@
   margin-bottom: 0.875rem;
 }
 
-.carousel-dotted .carousel-description {
+.dotted-carousel .carousel-description {
   font-family: var(--bbl-font-family-medium);
   font-weight: var(--bbl-font-weight-regular);
   font-size: 1.1375rem;
@@ -104,7 +104,7 @@
   margin-bottom: 1.875rem;
 }
 
-.carousel-dotted .carousel-header {
+.dotted-carousel .carousel-header {
   font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-regular);
   font-size: 0.875rem;
@@ -114,7 +114,7 @@
   color: var(--bbl-color-grey-60);
 }
 
-.carousel-dotted .carousel-default-text {
+.dotted-carousel .carousel-default-text {
   font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-regular);
   font-size: 0.875rem;
@@ -123,15 +123,15 @@
   padding: var(--bbl-space-250) 0;
 }
 
-.carousel-dotted .carousel-default-text p {
+.dotted-carousel .carousel-default-text p {
   margin: var(--bbl-space-000);
 }
 
-.carousel-dotted a.button.primary {
+.dotted-carousel a.button.primary {
   border-radius: 0.4375rem;
 }
 
-.carousel-dotted .slick-dots {
+.dotted-carousel .slick-dots {
   position: absolute;
   bottom: var(--bbl-space-250);
   right: var(--bbl-space-300);
@@ -146,12 +146,12 @@
   align-items: center;
 }
 
-.carousel-dotted .slick-dots li {
+.dotted-carousel .slick-dots li {
   display: inline-flex;
   margin-right: 0.3125rem;
 }
 
-.carousel-dotted .slick-dots button {
+.dotted-carousel .slick-dots button {
   appearance: none;
   width: var(--bbl-space-100);
   height: var(--bbl-space-100);
@@ -170,16 +170,16 @@
   line-height: 0;
 }
 
-.carousel-dotted .slick-dots button:hover {
+.dotted-carousel .slick-dots button:hover {
   border-color: rgb(0 0 0 / 45%);
 }
 
-.carousel-dotted .slick-dots button:focus-visible {
+.dotted-carousel .slick-dots button:focus-visible {
   outline: var(--bbl-space-025) solid #0064ff;
   outline-offset: var(--bbl-space-025);
 }
 
-.carousel-dotted .slick-dots li.is-active button {
+.dotted-carousel .slick-dots li.is-active button {
   width: 0.6875rem;
   height: 0.6875rem;
   background: var(--bbl-color-active-blue);
@@ -187,63 +187,63 @@
 }
 
 /* Dot positioning variants */
-.carousel-dotted.all-with-image .slick-dots {
+.dotted-carousel.all-with-image .slick-dots {
   justify-content: flex-end;
   top: 13.125rem;
 }
 
-.carousel-dotted.all-without-image .slick-dots {
+.dotted-carousel.all-without-image .slick-dots {
   justify-content: flex-start;
   left: var(--bbl-space-300);
   right: auto;
 }
 
-.carousel-dotted.dots-center-inside-container .slick-dots {
+.dotted-carousel.dots-center-inside-container .slick-dots {
   left: 50%;
   transform: translateX(-50%);
   right: auto;
 }
 
-.carousel-dotted.dots-right-inside-container .slick-dots {
+.dotted-carousel.dots-right-inside-container .slick-dots {
   right: var(--bbl-space-300);
   left: auto;
 }
 
-.carousel-dotted.dots-left-outside-container .slick-dots {
+.dotted-carousel.dots-left-outside-container .slick-dots {
   left: var(--bbl-space-300);
   right: auto;
 }
 
-.carousel-dotted.dots-center-outside-container .slick-dots {
+.dotted-carousel.dots-center-outside-container .slick-dots {
   left: 50%;
   transform: translateX(-50%);
   right: auto;
 }
 
-.carousel-dotted.dots-right-outside-container .slick-dots {
+.dotted-carousel.dots-right-outside-container .slick-dots {
   right: var(--bbl-space-300);
   left: auto;
 }
 
-.carousel-dotted.no-dots .slick-dots {
+.dotted-carousel.no-dots .slick-dots {
   display: none;
 }
 
-.carousel-dotted .carousel-dotted-more {
+.dotted-carousel .dotted-carousel-more {
   position: absolute;
   bottom: var(--bbl-space-200);
   right: var(--bbl-space-200);
   z-index: 2;
 }
 
-.carousel-dotted .icon-arrow-right {
+.dotted-carousel .icon-arrow-right {
   display: inline-flex;
   align-items: center;
   gap: var(--bbl-space-075);
 }
 
 /* Override button-tertiary's SVG arrow with icomoon icon font */
-.carousel-dotted .button-tertiary.icon-arrow-right::after {
+.dotted-carousel .button-tertiary.icon-arrow-right::after {
   background-color: transparent;
   mask: none;
   font-size: 0.70em;
@@ -252,12 +252,12 @@
 }
 
 @media (width >=47.5rem) {
-.carousel-dotted {
+.dotted-carousel {
   padding: unset;
   min-height: 27.8125rem;
 }
 
-.carousel-dotted .carousel-item {
+.dotted-carousel .carousel-item {
   position: absolute;
   inset: 0;
   display: block;
@@ -265,16 +265,16 @@
   transition: opacity 400ms ease;
 }
 
-.carousel-dotted .carousel-item.is-active {
+.dotted-carousel .carousel-item.is-active {
   opacity: 1;
 }
 
 /* Horizontal sliding track for without-image (text-default) slides */
-.carousel-dotted.all-without-image {
+.dotted-carousel.all-without-image {
   overflow: hidden;
 }
 
-.carousel-dotted.all-without-image .carousel-track-wrapper {
+.dotted-carousel.all-without-image .carousel-track-wrapper {
   position: relative;
   display: flex;
   width: 100%;
@@ -283,7 +283,7 @@
   will-change: transform;
 }
 
-.carousel-dotted.all-without-image .carousel-item.without-image {
+.dotted-carousel.all-without-image .carousel-item.without-image {
   position: relative;
   display: block;
   opacity: 1;
@@ -293,7 +293,7 @@
   transition: none;
 }
 
-.carousel-dotted .carousel-bg {
+.dotted-carousel .carousel-bg {
   position: absolute;
   inset: 0;
   height: 100%;
@@ -301,19 +301,19 @@
   max-height: none;
 }
 
-.carousel-dotted .carousel-bg::after {
+.dotted-carousel .carousel-bg::after {
   height: 8.75rem;
   background: linear-gradient(to top, rgb(255 255 255 / 35%) 0%, rgb(255 255 255 / 0%) 100%);
 }
 
-.carousel-dotted .carousel-content {
+.dotted-carousel .carousel-content {
   padding: var(--bbl-space-300);
   min-height: initial;
   max-height: initial;
 }
 
 /* Without-image: full width on desktop */
-.carousel-dotted .carousel-item.without-image .carousel-content {
+.dotted-carousel .carousel-item.without-image .carousel-content {
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -322,15 +322,15 @@
   padding: var(--bbl-space-500);
 }
 
-.carousel-dotted .carousel-description {
+.dotted-carousel .carousel-description {
   font-size: 1.3125rem;
   line-height: 1.4219rem;
   margin-bottom: var(--bbl-space-300);
 }
 
 /* Dot positioning variants */
-.carousel-dotted.all-with-image .slick-dots,
-.carousel-dotted.all-without-image .slick-dots {
+.dotted-carousel.all-with-image .slick-dots,
+.dotted-carousel.all-without-image .slick-dots {
   left: 7.5rem;
   right: auto;
   justify-content: flex-end;
@@ -338,7 +338,7 @@
   bottom: var(--bbl-space-250);
 }
 
-.carousel-dotted .slick-dots button {
+.dotted-carousel .slick-dots button {
   width: 0.5625rem;
   height: 0.5625rem;
   min-width: 0.5625rem;
@@ -346,16 +346,16 @@
   border-width: 1px;
 }
 
-.carousel-dotted .carousel-dotted-more {
+.dotted-carousel .dotted-carousel-more {
   bottom: var(--bbl-space-250);
   right: var(--bbl-space-300);
 }
 
-.carousel-dotted .carousel-description p {
+.dotted-carousel .carousel-description p {
   margin: 0;
 }
 
-.carousel-dotted .carousel-bg::before {
+.dotted-carousel .carousel-bg::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -366,28 +366,28 @@
 }
 
 @media (width >=64rem) {
-.carousel-dotted {
+.dotted-carousel {
   min-height: 28.375rem;
 }
 
-.carousel-dotted .carousel-item {
+.dotted-carousel .carousel-item {
   min-height: 28.375rem;
 }
 
-.carousel-dotted.all-without-image .carousel-item.without-image {
+.dotted-carousel.all-without-image .carousel-item.without-image {
   min-height: 28.375rem;
 }
 
 /* Dot positioning variants */
-.carousel-dotted.all-with-image .slick-dots,
-.carousel-dotted.all-without-image .slick-dots {
+.dotted-carousel.all-with-image .slick-dots,
+.dotted-carousel.all-without-image .slick-dots {
   left: 7.5rem;
   right: auto;
   justify-content: flex-end;
   bottom: var(--bbl-space-250);
 }
 
-.carousel-dotted .carousel-bg::before {
+.dotted-carousel .carousel-bg::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -396,26 +396,26 @@
   z-index: 2;
 }
 
-.carousel-dotted .carousel-badge {
+.dotted-carousel .carousel-badge {
   font-weight: var(--bbl-font-weight-medium);
   font-size: 0.9rem;
   line-height: 1.125rem;
 }
 
-.carousel-dotted .carousel-description {
+.dotted-carousel .carousel-description {
   font-weight: var(--bbl-font-weight-regular);
   font-size: var(--bbl-space-400);
   line-height: var(--bbl-space-400);
   margin-bottom: var(--bbl-space-300);
 }
 
-.carousel-dotted .carousel-header {
+.dotted-carousel .carousel-header {
   font-weight: var(--bbl-font-weight-regular);
   font-size: 1rem;
   line-height: 1rem;
 }
 
-.carousel-dotted .carousel-default-text {
+.dotted-carousel .carousel-default-text {
   font-weight: var(--bbl-font-weight-regular);
   font-size: 1rem;
   line-height: 1rem;

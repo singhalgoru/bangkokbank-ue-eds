@@ -23,7 +23,7 @@
       "story-card",
       "warning-card",
       "menu-cards",
-      "carousel-dotted"
+      "dotted-carousel"
     ]
   },
   {
@@ -36,12 +36,6 @@
     "id": "cards",
     "components": [
       "card"
-    ]
-  },
-  {
-    "id": "carousel-dotted",
-    "components": [
-      "carousel-dotted-slide"
     ]
   },
   {
@@ -63,6 +57,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "dotted-carousel",
+    "components": [
+      "dotted-carousel-slide"
     ]
   },
   {
