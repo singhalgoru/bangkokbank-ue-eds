@@ -8,6 +8,17 @@ export default function decorate(block) {
   // Get all rows from the main div
   const rows = [...mainDiv.children];
 
+  // Check if content is empty - if all rows are empty, just return
+  const hasContent = rows.some((row) => {
+    const text = row.textContent.trim();
+    const hasImage = row.querySelector('picture');
+    return text || hasImage;
+  });
+
+  if (!hasContent) {
+    return;
+  }
+
   // Create the main card container
   const card = document.createElement('div');
   card.className = 'content-insert-card';
