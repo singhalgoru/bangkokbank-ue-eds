@@ -498,7 +498,7 @@ export default function decorate(block) {
 
   if (seeMoreLink) {
     const moreWrap = document.createElement('div');
-    moreWrap.className = 'carousel-dotted-more';
+    moreWrap.className = 'dotted-carousel-more';
     seeMoreLink.classList.add('icon-arrow-right');
     moreWrap.append(seeMoreLink);
     block.append(moreWrap);
