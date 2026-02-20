@@ -23,8 +23,18 @@ export default function decorate(block) {
   const card = document.createElement('div');
   card.className = 'content-insert-card';
 
-  // Process the image (first row)
-  const imageRow = rows[0];
+  // Process the promo tag (first row)
+  const promoRow = rows[0];
+  const promoText = promoRow.textContent.trim();
+  if (promoText) {
+    const promoTag = document.createElement('div');
+    promoTag.className = 'promo-tag';
+    promoTag.textContent = promoText;
+    card.appendChild(promoTag);
+  }
+
+  // Process the image (second row)
+  const imageRow = rows[1];
   const picture = imageRow.querySelector('picture');
 
   if (picture) {
@@ -41,8 +51,8 @@ export default function decorate(block) {
     const figcaption = document.createElement('figcaption');
     figcaption.className = 'intro-info';
 
-    // Process title (second row)
-    const titleRow = rows[1];
+    // Process title (third row)
+    const titleRow = rows[2];
     const titleText = titleRow.textContent.trim();
     if (titleText) {
       const title = document.createElement('h3');
@@ -51,8 +61,8 @@ export default function decorate(block) {
       figcaption.appendChild(title);
     }
 
-    // Process description (third row)
-    const descRow = rows[2];
+    // Process description (fourth row)
+    const descRow = rows[3];
     const descText = descRow.textContent.trim();
     if (descText) {
       const desc = document.createElement('div');
@@ -64,8 +74,8 @@ export default function decorate(block) {
       figcaption.appendChild(desc);
     }
 
-    // Process button (fourth row)
-    const buttonRow = rows[3];
+    // Process button (fifth row)
+    const buttonRow = rows[4];
     const buttonContainer = buttonRow.querySelector('.button-container');
     const link = buttonContainer?.querySelector('a') || buttonRow.querySelector('a');
 
