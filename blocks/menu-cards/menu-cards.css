@@ -62,8 +62,8 @@
 }
 
 
-/* Tablet: 761px - 1024px */
-@media (width >= 47.5625rem) {
+/* Tablet: width > 760px */
+@media (width > 47.5rem) {
   .menu-cards {
     padding: var(--bbl-space-600);
   }
@@ -91,8 +91,8 @@
   }
 }
 
-/* Desktop: 1025px - 1920px */
-@media (width >= 64.0625rem) {
+/* Desktop: width > 1024px */
+@media (width > 64rem) {
   .menu-cards .tips-insight-quick-access {
     gap: var(--bbl-space-300);
     justify-content: flex-end;
