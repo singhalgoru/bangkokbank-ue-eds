@@ -23,7 +23,8 @@ function lazyLoadThumbnails(block) {
 }
 
 export default function decorate(block) {
-  const [variantcell] = block.children;
+  // eslint-disable-next-line no-unused-vars
+  const [dataidCell, variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
 
   const mainImgContainer = document.createElement('div');
@@ -40,7 +41,7 @@ export default function decorate(block) {
 
   let bannerIndex = 0;
 
-  const items = [...block.children].slice(1, 8);
+  const items = [...block.children].slice(2, 9);
 
   items.forEach((row) => {
     const [imageCell, logoImageCell, thumbImgCell, headingCell, textCell, linkCell] = [
