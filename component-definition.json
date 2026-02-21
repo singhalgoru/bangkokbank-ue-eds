@@ -143,14 +143,14 @@
           }
         },
         {
-          "title": "Dotted Carousel",
+          "title": "Carousel Dotted",
           "id": "carousel-dotted",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Dotted Carousel",
+                  "name": "Carousel Dotted",
                   "model": "carousel-dotted",
                   "filter": "carousel-dotted"
                 }
