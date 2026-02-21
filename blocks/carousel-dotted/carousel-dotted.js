@@ -70,8 +70,8 @@ function buildSlideWithoutImage(row, index, cells) {
   const content = document.createElement('div');
   content.className = 'carousel-content';
 
-  // Header text (cell 1)
-  const headerText = cells[6]?.textContent.trim();
+  // Header text (cell 9)
+  const headerText = cells[9]?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-header';
@@ -79,11 +79,11 @@ function buildSlideWithoutImage(row, index, cells) {
     content.append(header);
   }
 
-  // Default text (cell 2)
-  if (cells[7]) {
+  // Default text (cell 10)
+  if (cells[10]) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (cells[7].firstChild) defaultText.append(cells[7].firstChild);
+    while (cells[10].firstChild) defaultText.append(cells[10].firstChild);
     content.append(defaultText);
   }
 
@@ -100,10 +100,10 @@ function buildSlide(row, index) {
   // Check if this is a "with image" or "without image" slide
   // Check both cell 0 for boolean indicator and cell 2 for picture
   const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
-  const picture = cells[2]?.querySelector('picture');
+  const picture = cells[2]?.querySelector('picture') || row.querySelector('picture');
 
   // Determine if this is a with-image slide:
-  // Either has "true" in cell 0 OR has a picture in cell 2
+  // Either has "true" in cell 0 OR has a picture in cell 2 (or anywhere in the row)
   const hasImage = (withImageIndicator === 'true' || !!picture);
 
   if (hasImage) {
@@ -335,30 +335,12 @@ export default function decorate(block) {
   const arrowsAlignment = readArrowsAlignment(rows[4]);
   const autoScroll = readBoolean(rows[5]);
   const scrollTimeDelay = rows[6]?.textContent.trim() || '';
-  let nextIndex = 7;
-  let seeMoreLink = null;
+  // Row 7 is the "See more" link, Row 8 is link text, Row 9 is title, Row 10 is type
+  const seeMoreLink = rows[7]?.querySelector('a');
+  const nextIndex = 11;
 
-  // Skip empty rows and check for "See more" link
-  while (nextIndex < rows.length) {
-    const row = rows[nextIndex];
-    const link = row?.querySelector('a');
-    const hasContent = row?.textContent.trim();
-
-    if (link) {
-      // Found "See more" link
-      seeMoreLink = link;
-      nextIndex += 1;
-      break;
-    } else if (!hasContent) {
-      // Empty row, skip it
-      nextIndex += 1;
-    } else {
-      // Has content but no link, this is the start of slides
-      break;
-    }
-  }
-
-  const slides = rows.slice(nextIndex);
+  // Additional check: filter out empty rows that might be injected between metadata and slides
+  const slides = rows.slice(nextIndex).filter((row) => row.textContent.trim() || row.querySelector('picture'));
 
   // Add dots-related classes
   if (showDots) {
