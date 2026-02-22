@@ -191,6 +191,14 @@ main img {
     margin: 0 auto;
 }
 
+.pad-top-30 {
+    padding-top: 30px;
+}
+
+.pad-bot-30 {
+    padding-bottom: 30px;
+}
+
 @media (width >= 1920px) {
     .section.full-bleed-bg .content {
         max-width: var(--bbl-layout-content-max-width-1920);
