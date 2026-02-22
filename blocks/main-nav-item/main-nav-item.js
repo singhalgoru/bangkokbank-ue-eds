@@ -1,6 +1,3 @@
-// Desktop media query
-const isDesktop = window.matchMedia('(min-width: 1025px)');
-
 /**
  * Decorates the Main Nav Item block.
  * Creates a megamenu navigation item with:
@@ -20,7 +17,8 @@ export default function decorate(block) {
   const mainNavText = mainNavRow.querySelector('p')?.textContent?.trim()
     || mainNavRow.textContent?.trim()
     || 'Navigation';
-  const mainNavLink = mainNavRow.querySelector('a')?.href || '#';
+  const mainNavRowLink = rows[1];
+  const mainNavLink = mainNavRowLink.querySelector('a')?.href || '#';
 
   // Create the main nav item structure (do not clear block; move nodes instead)
   const navItem = document.createElement('div');
@@ -29,11 +27,7 @@ export default function decorate(block) {
   // Create the nav trigger button and preserve the first row inside it for authoring
   const navTrigger = document.createElement('button');
 
-  if (isDesktop.matches) {
-    navTrigger.className = 'main-nav-trigger icon-dropdown';
-  } else {
-    navTrigger.className = 'main-nav-trigger icon-arrow-left';
-  }
+  navTrigger.className = 'main-nav-trigger icon-dropdown';
 
   navTrigger.setAttribute('aria-expanded', 'false');
   navTrigger.setAttribute('aria-haspopup', 'true');
@@ -54,77 +48,54 @@ export default function decorate(block) {
 
   // Add the home link for this section at the top (derived from first row data)
   if (mainNavLink && mainNavLink !== '#') {
-    const homeLink = document.createElement('a');
-    homeLink.href = mainNavLink;
-    homeLink.className = 'megamenu-home-link';
-    homeLink.textContent = `${mainNavText} Home`;
-    megamenuInner.appendChild(homeLink);
+    mainNavRowLink.classList.add('megamenu-home-link');
+    mainNavRowLink.querySelector('a').textContent = `${mainNavText} Home`;
+    mainNavRowLink.querySelector('a').classList.add('icon-arrow-left');
+    megamenuInner.appendChild(mainNavRowLink);
   }
-
-  // Add main nav item title before the columns
-  const mainNavItemTitle = document.createElement('h2');
-  mainNavItemTitle.className = 'main-nav-item-title';
-  mainNavItemTitle.textContent = mainNavText;
-  megamenuInner.appendChild(mainNavItemTitle);
 
   // Create columns container
   const columnsContainer = document.createElement('div');
   columnsContainer.className = 'megamenu-columns';
 
   // Process megamenu columns: add classes to existing rows/cells to preserve authoring
-  const columnRows = rows.slice(1);
+  const columnRows = rows.slice(2);
   columnRows.forEach((row, index) => {
     row.classList.add('megamenu-column');
     row.setAttribute('data-column-index', index);
 
     const cells = [...row.children];
 
-    cells.forEach((cell) => {
+    cells.forEach((cell, cellIndex) => {
       const picture = cell.querySelector('picture');
       if (picture) {
         cell.classList.add('megamenu-column-image');
+        const imageAltTextElem = cells[cellIndex + 1].querySelector('p');
+        if (imageAltTextElem) {
+          const imageAltText = imageAltTextElem.textContent.trim();
+          cell.querySelector('img').alt = imageAltText;
+          imageAltTextElem.remove();
+        }
       }
 
-      const headings = cell.querySelectorAll('h3');
       const lists = cell.querySelectorAll('ul');
 
-      if (headings.length > 0 || lists.length > 0) {
+      if (lists.length > 0) {
         cell.classList.add('megamenu-column-links');
-
-        // Wrap each H3 and its next UL in a category div (preserves original nodes)
-        headings.forEach((heading) => {
-          const categoryGroup = document.createElement('div');
-          categoryGroup.className = 'megamenu-category';
-
-          heading.classList.add('megamenu-category-title');
-
-          let nextSibling = heading.nextElementSibling;
-          while (nextSibling && nextSibling.tagName !== 'UL' && nextSibling.tagName !== 'H3') {
-            nextSibling = nextSibling.nextElementSibling;
-          }
-
-          if (nextSibling && nextSibling.tagName === 'UL') {
-            nextSibling.classList.add('megamenu-link-list');
-            categoryGroup.appendChild(heading);
-            categoryGroup.appendChild(nextSibling);
-          } else {
-            categoryGroup.appendChild(heading);
-          }
-
-          cell.appendChild(categoryGroup);
-        });
-
-        // Standalone lists (no preceding H3): add class and keep in place
         lists.forEach((list) => {
-          if (list.previousElementSibling?.tagName === 'H3') return;
-          list.classList.add('megamenu-link-list', 'megamenu-link-list-standalone');
-        });
-
-        // Add link item classes to existing li/a for styling (no new nodes)
-        cell.querySelectorAll('.megamenu-link-list li').forEach((li) => {
-          li.classList.add('megamenu-link-item');
-          const anchor = li.querySelector('a');
-          if (anchor) anchor.classList.add('megamenu-link');
+          list.classList.add('megamenu-link-list');
+          list.querySelectorAll('li').forEach((li) => {
+            li.classList.add('megamenu-link-item');
+            const h3 = li.querySelector('h3');
+            if (h3) {
+              h3.classList.add('megamenu-category-title');
+              li.classList.add('megamenu-category');
+            }
+            const anchor = li.querySelector('a');
+            if (anchor) {
+              anchor.classList.add('megamenu-link');
+            }
+          });
         });
       }
     });
@@ -137,39 +108,6 @@ export default function decorate(block) {
   megamenuInner.appendChild(columnsContainer);
   megamenu.appendChild(megamenuInner);
   navItem.appendChild(megamenu);
-
-  // Add event listeners for megamenu interaction
-  navTrigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    const isExpanded = navTrigger.getAttribute('aria-expanded') === 'true';
-
-    document.querySelectorAll('.main-nav-trigger[aria-expanded="true"]').forEach((trigger) => {
-      if (trigger !== navTrigger) {
-        trigger.setAttribute('aria-expanded', 'false');
-        trigger.closest('.main-nav-item-wrapper')
-          ?.querySelector('.megamenu-panel')
-          ?.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    navTrigger.setAttribute('aria-expanded', !isExpanded);
-    megamenu.setAttribute('aria-hidden', isExpanded);
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!navItem.contains(e.target)) {
-      navTrigger.setAttribute('aria-expanded', 'false');
-      megamenu.setAttribute('aria-hidden', 'true');
-    }
-  });
-
-  navTrigger.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      navTrigger.setAttribute('aria-expanded', 'false');
-      megamenu.setAttribute('aria-hidden', 'true');
-      navTrigger.focus();
-    }
-  });
 
   block.appendChild(navItem);
 }

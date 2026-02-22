@@ -922,12 +922,6 @@
         "name": "name",
         "label": "Section Name",
         "description": "The label shown for this section in the Content Tree"
-      },
-      {
-        "component": "boolean",
-        "label": "Navigation Menu",
-        "name": "isNavigation",
-        "valueType": "boolean"
       }
     ]
   },
@@ -1103,11 +1097,33 @@
     "id": "login-panel-content",
     "fields": [
       {
+        "component": "text",
+        "name": "loginPanelTitle",
+        "label": "Title",
+        "description": "Title for the login panel (e.g., Online Banking)",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "loginPanelSubTitle",
+        "label": "Sub Title",
+        "description": "Sub Title (e.g., Personal, Business)",
+        "required": true
+      },
+      {
         "component": "richtext",
-        "name": "panelLinks",
+        "name": "desktopPanelLinks",
         "value": "",
-        "label": "Panel Links",
-        "description": "Structured links using H3 for section titles (Personal, Business) and list items for login links",
+        "label": "Desktop Panel Links",
+        "description": "List of links for login panel on Desktop",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "mobilePanelLinks",
+        "value": "",
+        "label": "Mobile Panel Links",
+        "description": "List of links for login panel on Mobile",
         "valueType": "string"
       }
     ]

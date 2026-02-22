@@ -44,7 +44,7 @@
           "description": "Text for the main nav item (e.g., Personal Banking, Business Banking)",
           "required": true
         },
-				{
+        {
           "component": "text",
           "name": "mainNavItemTitle",
           "label": "Main Nav Item Title",

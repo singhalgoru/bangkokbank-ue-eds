@@ -26,15 +26,15 @@
           "name": "image",
           "label": "Image",
           "multi": false,
-					"required": true
+          "required": true
         },
-				{
+        {
           "component": "aem-content",
           "name": "logo-link",
           "label": "Brand Logo Link",
           "description": "Home page URL"
         },
-				{
+        {
           "component": "text",
           "name": "brand-logo-alt-text",
           "label": "Alternative Text for Accessibility 1",

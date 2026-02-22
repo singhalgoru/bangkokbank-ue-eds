@@ -1,5 +1,3 @@
-// Desktop media query
-const isDesktop = window.matchMedia('(min-width: 1025px)');
 /**
  * Decorates the Search block.
  * Creates a search link with an icon for the header navigation.
@@ -34,14 +32,11 @@ export default function decorate(block) {
   searchLink.setAttribute('aria-label', ariaLabel);
   searchLink.setAttribute('title', ariaLabel);
 
-  // Create the search placeholder for mobile
-  if (!isDesktop.matches) {
-    const searchPlaceholder = document.createElement('span');
-    searchPlaceholder.className = 'search-placeholder';
-    searchPlaceholder.setAttribute('aria-hidden', 'true');
-    searchPlaceholder.textContent = 'Search';
-    searchLink.appendChild(searchPlaceholder);
-  }
+  const searchPlaceholder = document.createElement('span');
+  searchPlaceholder.className = 'search-placeholder';
+  searchPlaceholder.setAttribute('aria-hidden', 'true');
+  searchPlaceholder.textContent = 'Search';
+  searchLink.appendChild(searchPlaceholder);
 
   searchWrapper.appendChild(searchLink);
   block.appendChild(searchWrapper);

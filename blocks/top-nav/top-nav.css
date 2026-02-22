@@ -3,7 +3,7 @@
 	background: var(--bbl-bg-primary);
 }
 
-.top-nav ul{
+.top-nav ul {
 	display: flex;
 	list-style: none;
 	flex-direction: column;
@@ -40,7 +40,7 @@
 	width: 100%;
 }
 
-@media (width > 1024px) {
+@media (width > 64rem) {
 	.top-nav {
 		padding: 0.625rem 5.25rem;
 	}

@@ -1,8 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-// Desktop media query
-const isDesktop = window.matchMedia('(min-width: 1025px)');
-
 const DEFAULT_BUTTON_TEXT = 'Log on';
 
 /**
@@ -30,24 +27,21 @@ function parseBlockContent(block) {
  */
 function createLoginButton(buttonText) {
   const loginButton = document.createElement('button');
-  loginButton.className = isDesktop.matches ? 'login-button primary' : 'login-button icon-login';
+
+  loginButton.className = 'login-button primary icon-login';
   loginButton.setAttribute('aria-expanded', 'false');
   loginButton.setAttribute('aria-haspopup', 'true');
   loginButton.setAttribute('type', 'button');
 
-  if (isDesktop.matches) {
-    const buttonTextSpan = document.createElement('span');
-    buttonTextSpan.className = 'login-button-text';
-    buttonTextSpan.textContent = buttonText;
-    loginButton.appendChild(buttonTextSpan);
-  }
+  const buttonTextSpan = document.createElement('span');
+  buttonTextSpan.className = 'login-button-text';
+  buttonTextSpan.textContent = buttonText;
+  loginButton.appendChild(buttonTextSpan);
 
-  if (!isDesktop.matches) {
-    const dropdownIcon = document.createElement('span');
-    dropdownIcon.className = 'icon-dropdown';
-    dropdownIcon.setAttribute('aria-hidden', 'true');
-    loginButton.appendChild(dropdownIcon);
-  }
+  const dropdownIcon = document.createElement('span');
+  dropdownIcon.className = 'icon-dropdown';
+  dropdownIcon.setAttribute('aria-hidden', 'true');
+  loginButton.appendChild(dropdownIcon);
 
   return loginButton;
 }
@@ -156,113 +150,32 @@ function createLoginPanel(contentRows) {
   return loginPanel;
 }
 
-/**
- * Creates the overlay element and appends it to body.
- * @returns {HTMLDivElement}
- */
-function createOverlay() {
-  const overlay = document.createElement('div');
-  overlay.className = 'login-overlay';
-  document.body.appendChild(overlay);
-  return overlay;
-}
+function applyLayout(block) {
+  // Use a less "private" property name; remove the dangling underscore.
+  let loginContent = block.loginContent || parseBlockContent(block);
+  if (!loginContent) return;
 
-/**
- * Opens the login panel and applies desktop nav state if needed.
- * @param {{ button: HTMLButtonElement, panel: HTMLElement, overlay: HTMLElement }} state
- */
-function openPanel(state) {
-  const { button, panel, overlay } = state;
-  button.setAttribute('aria-expanded', 'true');
-  panel.setAttribute('aria-hidden', 'false');
-  overlay.classList.add('is-active');
-  document.body.classList.add('login-panel-open');
-
-  if (isDesktop.matches) {
-    const mainNavDesktop = document.querySelector('.main-nav-desktop');
-    const topNav = document.querySelector('.header-nav > .top-nav');
-    if (mainNavDesktop) mainNavDesktop.classList.add('is-scrolled');
-    if (topNav) topNav.classList.add('is-hidden');
+  const { buttonText, contentRows } = loginContent;
+  if (!block.loginContent) {
+    block.loginContent = {
+      buttonText,
+      contentRows: contentRows.map((el) => el.cloneNode(true)),
+    };
+    loginContent = block.loginContent;
   }
-}
+  const rowsToUse = loginContent.contentRows;
 
-/**
- * Closes the login panel and restores desktop nav state when appropriate.
- * @param {{ button: HTMLButtonElement, panel: HTMLElement, overlay: HTMLElement }} state
- */
-function closePanel(state) {
-  const { button, panel, overlay } = state;
-  button.setAttribute('aria-expanded', 'false');
-  panel.setAttribute('aria-hidden', 'true');
-  overlay.classList.remove('is-active');
-  document.body.classList.remove('login-panel-open');
+  block.innerHTML = '';
 
-  if (isDesktop.matches) {
-    const mainNavDesktop = document.querySelector('.main-nav-desktop');
-    const topNav = document.querySelector('.header-nav > .top-nav');
-    const topNavHeight = topNav ? topNav.getBoundingClientRect().height : 0;
-    const hasMegamenuActive = document.querySelector('.main-nav-item.is-active');
+  const loginWrapper = document.createElement('div');
+  loginWrapper.className = 'login-wrapper';
 
-    if (!hasMegamenuActive && window.scrollY <= topNavHeight) {
-      if (mainNavDesktop) mainNavDesktop.classList.remove('is-scrolled');
-      if (topNav) topNav.classList.remove('is-hidden');
-    }
-  }
-}
+  const loginButton = createLoginButton(loginContent.buttonText);
+  const loginPanel = createLoginPanel(rowsToUse);
+  loginWrapper.appendChild(loginButton);
+  loginWrapper.appendChild(loginPanel);
 
-/**
- * Closes any other open login panels (single-open behavior).
- * @param {HTMLButtonElement} currentButton
- */
-function closeOtherLoginPanels(currentButton) {
-  document.querySelectorAll('.login-button[aria-expanded="true"]').forEach((btn) => {
-    if (btn === currentButton) return;
-    btn.setAttribute('aria-expanded', 'false');
-    btn.closest('.login-wrapper')
-      ?.querySelector('.login-panel')
-      ?.setAttribute('aria-hidden', 'true');
-  });
-  document.querySelectorAll('.login-overlay.is-active').forEach((el) => {
-    el.classList.remove('is-active');
-  });
-}
-
-/**
- * Binds click and keyboard events for the login panel.
- * @param {HTMLElement} wrapper
- * @param {{ button: HTMLButtonElement, panel: HTMLElement, overlay: HTMLElement }} state
- */
-function bindPanelEvents(wrapper, state) {
-  const { button, overlay } = state;
-
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    closeOtherLoginPanels(button);
-
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-    if (isExpanded) {
-      closePanel(state);
-    } else {
-      openPanel(state);
-    }
-  });
-
-  overlay.addEventListener('click', () => closePanel(state));
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
-      closePanel(state);
-      button.focus();
-    }
-  });
-
-  button.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      button.click();
-    }
-  });
+  block.appendChild(loginWrapper);
 }
 
 /**
@@ -273,24 +186,5 @@ function bindPanelEvents(wrapper, state) {
  * @param {Element} block The login block element
  */
 export default function decorate(block) {
-  const parsed = parseBlockContent(block);
-  if (!parsed) return;
-
-  const { buttonText, contentRows } = parsed;
-  block.textContent = '';
-
-  const loginWrapper = document.createElement('div');
-  loginWrapper.className = 'login-wrapper';
-
-  const loginButton = createLoginButton(buttonText);
-  const loginPanel = createLoginPanel(contentRows);
-  const overlay = createOverlay();
-
-  loginWrapper.appendChild(loginButton);
-  loginWrapper.appendChild(loginPanel);
-
-  const state = { button: loginButton, panel: loginPanel, overlay };
-  bindPanelEvents(loginWrapper, state);
-
-  block.appendChild(loginWrapper);
+  applyLayout(block);
 }

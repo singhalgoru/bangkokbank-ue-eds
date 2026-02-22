@@ -1,5 +1,12 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import {
+  getLoginState,
+  openPanel,
+  closePanel,
+  closeOtherLoginPanels,
+} from '../login/login-panel.js';
+import { slideUp, slideDown } from '../../scripts/animation.js';
 
 // media query match that indicates desktop width
 const isDesktop = window.matchMedia('(min-width: 1025px)');
@@ -25,6 +32,50 @@ function getNavBlocks(fragment) {
     locationBlock: fragment.querySelector('.location'),
     searchBlock: fragment.querySelector('.search'),
   };
+}
+
+/**
+ * Binds login panel events (button click, overlay click, Escape, Enter/Space).
+ * Call after appending the login block to the header.
+ * @param {Element|null} loginBlock The login block element
+ */
+function setupLoginPanelEvents(loginBlock) {
+  if (!loginBlock) return;
+  const wrapper = loginBlock.querySelector('.login-wrapper');
+  const state = getLoginState(wrapper);
+  if (!state) return;
+  const { button, overlay } = state;
+
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeOtherLoginPanels(button);
+
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    if (isExpanded) {
+      closePanel(state);
+    } else {
+      openPanel(state);
+    }
+  });
+
+  overlay.addEventListener('click', () => closePanel(state));
+
+  const keydownHandler = (e) => {
+    if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+      closePanel(state);
+      button.focus();
+    }
+  };
+  document.addEventListener('keydown', keydownHandler);
+  wrapper.loginKeydownHandler = keydownHandler;
+
+  button.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      button.click();
+    }
+  });
 }
 
 /**
@@ -105,8 +156,45 @@ function setupDesktopMegamenuBehavior(mainNavDesktop, mainNavBlocks, topNavBlock
         navBlock.classList.add('is-active');
         desktopState.isNavItemActive = true;
         mainNavDesktop.classList.add('is-scrolled');
+        slideDown(megamenuPanel, { duration: 1000 });
       } else {
-        closeMegamenu();
+        slideUp(megamenuPanel, { duration: 200, onComplete: () => closeMegamenu() });
+      }
+    });
+
+    const navTrigger = navBlock.querySelector('.main-nav-trigger');
+    const megamenu = navBlock.querySelector('.megamenu-panel');
+    const navItem = navBlock.querySelector('.main-nav-item-wrapper');
+    // Add event listeners for megamenu interaction
+    navTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isExpanded = navTrigger.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('.main-nav-trigger[aria-expanded="true"]').forEach((trigger) => {
+        if (trigger !== navTrigger) {
+          trigger.setAttribute('aria-expanded', 'false');
+          trigger.closest('.main-nav-item-wrapper')
+            ?.querySelector('.megamenu-panel')
+            ?.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      navTrigger.setAttribute('aria-expanded', !isExpanded);
+      megamenu.setAttribute('aria-hidden', isExpanded);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navItem.contains(e.target)) {
+        navTrigger.setAttribute('aria-expanded', 'false');
+        megamenu.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    navTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        navTrigger.setAttribute('aria-expanded', 'false');
+        megamenu.setAttribute('aria-hidden', 'true');
+        navTrigger.focus();
       }
     });
   });
@@ -120,6 +208,67 @@ function setupDesktopMegamenuBehavior(mainNavDesktop, mainNavBlocks, topNavBlock
 
   document.addEventListener('click', () => {
     if (desktopState.isNavItemActive) closeMegamenu();
+  });
+}
+
+/**
+ * Wraps each .megamenu-columns with more than 6 columns in a carousel with prev/next arrows.
+ * Arrows are enabled only when there is content to scroll on that side.
+ * @param {HTMLElement} header
+ */
+function setupMegamenuColumnsCarousel(header) {
+  const columnsContainers = header.querySelectorAll('.megamenu-columns');
+  const CAROUSEL_MIN_COLUMNS = 6;
+
+  columnsContainers.forEach((columnsContainer) => {
+    const columns = columnsContainer.querySelectorAll(':scope > .megamenu-column');
+    if (columns.length <= CAROUSEL_MIN_COLUMNS) return;
+
+    const carousel = document.createElement('div');
+    carousel.className = 'megamenu-columns-carousel';
+
+    const arrowPrev = document.createElement('button');
+    arrowPrev.type = 'button';
+    arrowPrev.className = 'megamenu-carousel-arrow megamenu-carousel-arrow-prev icon-arrow-left is-hidden';
+    arrowPrev.setAttribute('aria-label', 'Previous columns');
+
+    const arrowNext = document.createElement('button');
+    arrowNext.type = 'button';
+    arrowNext.className = 'megamenu-carousel-arrow megamenu-carousel-arrow-next icon-arrow-left';
+    arrowNext.setAttribute('aria-label', 'Next columns');
+
+    const track = document.createElement('div');
+    track.className = 'megamenu-columns-carousel-track';
+
+    columnsContainer.parentNode.insertBefore(carousel, columnsContainer);
+    track.appendChild(columnsContainer);
+    carousel.appendChild(arrowPrev);
+    carousel.appendChild(track);
+    carousel.appendChild(arrowNext);
+
+    function updateArrows() {
+      const { scrollLeft } = track;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      arrowPrev.classList.toggle('is-hidden', scrollLeft <= 0);
+      arrowNext.classList.toggle('is-hidden', maxScroll <= 0 || scrollLeft >= maxScroll - 1);
+    }
+
+    arrowPrev.addEventListener('click', () => {
+      const firstColumn = columnsContainer.querySelector(':scope > .megamenu-column');
+      const step = firstColumn ? firstColumn.offsetWidth + 20 : track.clientWidth * 0.8;
+      track.scrollBy({ left: -step, behavior: 'smooth' });
+    });
+
+    arrowNext.addEventListener('click', () => {
+      const firstColumn = columnsContainer.querySelector(':scope > .megamenu-column');
+      const step = firstColumn ? firstColumn.offsetWidth + 20 : track.clientWidth * 0.8;
+      track.scrollBy({ left: step, behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+
+    setTimeout(updateArrows, 0);
   });
 }
 
@@ -144,7 +293,10 @@ function buildDesktopLayout(header, blocks) {
   mainNavRight.className = 'main-nav-right';
 
   mainNavBlocks.forEach((navBlock) => mainNavRight.appendChild(navBlock));
-  if (loginBlock) mainNavRight.appendChild(loginBlock);
+  if (loginBlock) {
+    mainNavRight.appendChild(loginBlock);
+    setupLoginPanelEvents(loginBlock);
+  }
   if (locationBlock) mainNavRight.appendChild(locationBlock);
   if (searchBlock) mainNavRight.appendChild(searchBlock);
 
@@ -154,6 +306,7 @@ function buildDesktopLayout(header, blocks) {
   const desktopState = { isNavItemActive: false };
   setupDesktopScrollBehavior(topNavBlock, mainNavDesktop, () => desktopState.isNavItemActive);
   setupDesktopMegamenuBehavior(mainNavDesktop, mainNavBlocks, topNavBlock, desktopState);
+  setupMegamenuColumnsCarousel(header);
 }
 
 /**
@@ -182,64 +335,59 @@ function setupMobileScrollBehavior(header, mobileTopBar) {
  * @param {HTMLElement} mobileNavContent
  * @param {NodeListOf<Element>} mainNavBlocks
  */
+
 function buildMobileMainNavItems(mobileNavContent, mainNavBlocks) {
+  const backButtonEventStack = [];
+
+  const backBtn = document.createElement('div');
+  backBtn.className = 'mob-megamenu-back-btn';
+  backBtn.innerHTML = `
+    <span class="icon-arrow-left"></span>
+  `;
+
+  mobileNavContent.appendChild(backBtn);
+
   mainNavBlocks.forEach((navBlock) => {
-    const navItem = document.createElement('div');
-    navItem.className = 'mobile-nav-item-nested';
-    const navItemWrapper = navBlock.querySelector('.main-nav-item-wrapper');
-    const navTrigger = navBlock.querySelector('.main-nav-trigger');
+    mobileNavContent.appendChild(navBlock);
 
-    navItem.appendChild(navTrigger);
+    const triggerButton = navBlock.querySelector('.main-nav-trigger');
+    triggerButton.classList.remove('icon-dropdown');
+    triggerButton.classList.add('icon-arrow-left');
 
-    const innerList = document.createElement('ul');
-    innerList.className = 'first-level-list';
-    const firstLevelBackBtn = document.createElement('li');
-    firstLevelBackBtn.className = 'first-level-list-item back-btn';
-    firstLevelBackBtn.innerHTML = `
-      <button class="button">
-        <span class="icon">Back</span>
-      </button>
-    `;
-    innerList.appendChild(firstLevelBackBtn);
-
-    firstLevelBackBtn.addEventListener('click', () => {
-      innerList.classList.remove('active');
+    triggerButton.addEventListener('click', () => {
+      const menuPanel = navBlock.querySelector('.megamenu-panel');
+      menuPanel.classList.add('active');
+      backButtonEventStack.push(menuPanel);
+      backBtn.classList.add('active');
+      slideDown(menuPanel, { duration: 1000 });
     });
 
-    navItemWrapper.querySelectorAll('.megamenu-panel .megamenu-column .megamenu-column-links').forEach((column) => {
-      const columnList = document.createElement('li');
-      columnList.className = 'first-level-list-item';
-      columnList.appendChild(column);
-      innerList.appendChild(columnList);
-
-      const columnMenuList = column.querySelector('.megamenu-link-list');
-
-      const secondLevelBackBtn = document.createElement('li');
-      secondLevelBackBtn.className = 'megamenu-link-item back-btn';
-      secondLevelBackBtn.innerHTML = `
-        <button class="button">
-          <span class="icon">Back</span>
-        </button>
-      `;
-      columnMenuList.prepend(secondLevelBackBtn);
-
-      secondLevelBackBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        columnList.querySelector('.megamenu-link-list').classList.remove('active');
-      });
-
-      columnList.addEventListener('click', () => {
-        columnList.querySelector('.megamenu-link-list').classList.add('active');
+    const menuCategories = navBlock.querySelectorAll('.megamenu-panel .megamenu-inner .megamenu-column .megamenu-category');
+    menuCategories.forEach((category) => {
+      category.addEventListener('click', () => {
+        const menuColumn = category.closest('.megamenu-column');
+        menuColumn.classList.add('active');
+        backButtonEventStack.push(menuColumn);
+        const menuPanel = navBlock.querySelector('.megamenu-panel');
+        slideDown(menuPanel, { duration: 1000 });
       });
     });
+  });
 
-    navItem.appendChild(innerList);
+  backBtn.addEventListener('click', () => {
+    if (backButtonEventStack.length > 0) {
+      const lastEvent = backButtonEventStack.pop();
 
-    mobileNavContent.appendChild(navItem);
-
-    navTrigger.addEventListener('click', () => {
-      innerList.classList.add('active');
-    });
+      slideUp(lastEvent, {
+        duration: 500,
+        onComplete: () => {
+          lastEvent.classList.remove('active');
+        },
+      });
+    }
+    if (backButtonEventStack.length === 0) {
+      backBtn.classList.remove('active');
+    }
   });
 }
 
@@ -328,6 +476,7 @@ function buildMobileLayout(header, blocks) {
   if (loginBlock) {
     loginBlock.classList.add('mobile-login');
     mobileTopBar.appendChild(loginBlock);
+    setupLoginPanelEvents(loginBlock);
   }
 
   const mobileNavMenu = document.createElement('div');
@@ -362,7 +511,39 @@ function buildMobileLayout(header, blocks) {
 }
 
 /**
- * Loads and decorates the header (nav). Delegates to desktop or mobile layout.
+ * Applies desktop or mobile layout to the header using a fresh clone of the nav template.
+ * @param {HTMLElement} header
+ * @param {DocumentFragment} fragmentTemplate
+ * Persistent clone of the nav fragment (unchanged by this call)
+ * @param {boolean} desktop
+ */
+function applyLayout(header, fragmentTemplate, desktop) {
+  // Reset body overflow in case we're switching away from mobile with menu open
+  document.body.style.overflowY = '';
+  // Remove overlays and document keydown listeners from the current layout's login wrappers
+  header.querySelectorAll('.login-wrapper').forEach((wrapper) => {
+    if (wrapper.loginOverlay?.parentNode) {
+      wrapper.loginOverlay.remove();
+    }
+    wrapper.loginOverlay = undefined;
+    if (wrapper.loginKeydownHandler) {
+      document.removeEventListener('keydown', wrapper.loginKeydownHandler);
+      wrapper.loginKeydownHandler = undefined;
+    }
+  });
+  header.innerHTML = '';
+  const workingCopy = fragmentTemplate.cloneNode(true);
+  const blocks = getNavBlocks(workingCopy);
+  if (desktop) {
+    buildDesktopLayout(header, blocks);
+  } else {
+    buildMobileLayout(header, blocks);
+  }
+}
+
+/**
+ * Loads and decorates the header (nav). Delegates to desktop or mobile layout and
+ * re-applies layout when the viewport crosses the 1025px breakpoint.
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
@@ -372,17 +553,18 @@ export default async function decorate(block) {
 
   if (!fragment) return;
 
+  // Keep a persistent template so we can re-build layout on resize/orientation change
+  const fragmentTemplate = fragment.cloneNode(true);
+
   block.textContent = '';
   const header = document.createElement('div');
   header.className = 'header-nav';
 
-  const blocks = getNavBlocks(fragment);
-
-  if (isDesktop.matches) {
-    buildDesktopLayout(header, blocks);
-  } else {
-    buildMobileLayout(header, blocks);
-  }
+  applyLayout(header, fragmentTemplate, isDesktop.matches);
 
   block.append(header);
+
+  isDesktop.addEventListener('change', () => {
+    applyLayout(header, fragmentTemplate, isDesktop.matches);
+  });
 }

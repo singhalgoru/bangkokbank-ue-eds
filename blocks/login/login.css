@@ -10,18 +10,23 @@
   border-radius: 0.4375rem;
 }
 
-.login .icon-login {
-  padding: 0;
+.login .icon-login::before {
   font-size: 1.25rem;
-  line-height: 2.9375rem;
+  font-weight: 700;
   color: var(--bbl-color-white);
 }
 
-.login .icon-dropdown {
-  margin-top: 0.3125rem;
+.login .icon-dropdown::before {
   font-size: 0.4375rem;
-  line-height: 1;
   color: var(--bbl-color-white);
+}
+
+.login-button-text {
+  display: none;
+}
+
+button.login-button.primary {
+  background-color: transparent;
 }
 
 /* Hide panel by default - slide from right on all devices */
@@ -64,17 +69,6 @@
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Desktop overlay positioning */
-@media (width > 1024px) {
-  .login-button {
-    min-width: 7.5rem;
-  }
-
-  .login-overlay {
-    top: var(--nav-height, 6.25rem);
-  }
-}
-
 /* Show overlay when active */
 .login-overlay.is-active {
   opacity: 1;
@@ -87,7 +81,7 @@ body.login-panel-open {
 }
 
 /* Desktop: adjust panel positioning below main-nav-desktop */
-@media (width > 1024px) {
+@media (width > 64rem) {
   .login-panel {
     top: var(--nav-height, 6.25rem);
     height: calc(100vh - var(--nav-height, 6.25rem));
@@ -96,7 +90,20 @@ body.login-panel-open {
     padding: 1.5rem;
   }
 
-  .login-overlay {
-    top: var(--nav-height, 3.75rem);
+  .login-button {
+    min-width: 7.5rem;
+  }
+
+  button.login-button.primary {
+    background-color: var(--bbl-color-active-blue);
+  }
+
+  .login .icon-login::before,
+  .login .icon-dropdown::before {
+    display: none;
+  }
+
+  .login-button-text {
+    display: block;
   }
 }
