@@ -123,10 +123,6 @@ export default function decorate(block) {
     bannerIndex += 1;
   });
 
-  bannerList.querySelectorAll('.hero-banner-thumbnail-item').forEach((thumbnailItem) => {
-    thumbnailList.append(thumbnailItem);
-  });
-
   mainImgContainer.append(bannerList);
   thumbnailOuter.append(thumbnailList);
 
@@ -139,6 +135,10 @@ export default function decorate(block) {
   }
 
   block.replaceChildren(wrapper);
+
+  block.querySelectorAll('.hero-banner-thumbnail-item').forEach((thumbnailItem) => {
+    thumbnailList.append(thumbnailItem);
+  });
 
   changeBanner(block);
   lazyLoadThumbnails(block);
