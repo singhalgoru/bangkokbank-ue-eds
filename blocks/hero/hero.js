@@ -22,6 +22,13 @@ function lazyLoadThumbnails(block) {
   window.addEventListener('scroll', load, { passive: true });
 }
 
+// ✅ local helper - only in hero.js, does not touch shared moveInstrumentation
+function copyInstrumentation(from, to) {
+  [...from.attributes]
+    .filter(({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'))
+    .forEach(({ nodeName, nodeValue }) => to.setAttribute(nodeName, nodeValue));
+}
+
 export default function decorate(block) {
   const [variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
@@ -77,7 +84,6 @@ export default function decorate(block) {
       const logoWrapper = document.createElement('div');
       logoWrapper.className = 'hero-banner-logo-wrapper';
       logoWrapper.append(logoImg);
-
       contentInner.append(logoWrapper);
     }
 
@@ -117,8 +123,16 @@ export default function decorate(block) {
       thumbnailItem.append(thumbImg);
     }
 
+    // ✅ move instrumentation from row to bannerItem (shared function untouched)
     moveInstrumentation(row, bannerItem);
-    bannerItem.append(thumbnailItem);
+
+    // ✅ copy same aue attributes from bannerItem to thumbnailItem
+    // so AEM editor maps thumbnailItem under the correct Hero Item
+    // this is done locally in hero.js only - shared function not touched
+    copyInstrumentation(bannerItem, thumbnailItem);
+
+    // ✅ thumbnailItem goes directly into thumbnailList - no moving needed
+    thumbnailList.append(thumbnailItem);
     bannerList.append(bannerItem);
 
     bannerIndex += 1;
@@ -136,10 +150,6 @@ export default function decorate(block) {
   }
 
   block.replaceChildren(wrapper);
-
-  block.querySelectorAll('.hero-banner-thumbnail-item').forEach((thumbnailItem) => {
-    thumbnailList.append(thumbnailItem);
-  });
 
   changeBanner(block);
   lazyLoadThumbnails(block);
