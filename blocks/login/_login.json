@@ -17,15 +17,15 @@
       }
     },
     {
-      "title": "Login Panel Content",
-      "id": "login-panel-content",
+      "title": "Login Panel Section",
+      "id": "login-panel-section",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Login Panel Content",
-              "model": "login-panel-content"
+              "name": "Login Panel Section",
+              "model": "login-panel-section"
             }
           }
         }
@@ -43,49 +43,41 @@
           "description": "Text shown on the login button (e.g., 'Log on')",
           "required": true,
           "value": "Log on"
-        }
-      ]
-    },
-    {
-      "id": "login-panel-content",
-      "fields": [
+        },
         {
           "component": "text",
           "name": "loginPanelTitle",
           "label": "Title",
           "description": "Title for the login panel (e.g., Online Banking)",
           "required": true
+        }
+      ]
+    },
+    {
+      "id": "login-panel-section",
+      "fields": [
+        {
+          "component": "text",
+          "name": "loginPanelSubTitle",
+          "label": "Sub Title",
+          "description": "Sub Title (e.g., Personal, Business)",
+          "required": true
         },
         {
-          "component": "repeater",
-          "name": "loginPanelSections",
-          "label": "Login Panel Sections",
-          "description": "Add one or more login panel sections with subtitle and panel links for desktop and mobile",
-          "fields": [
-            {
-              "component": "text",
-              "name": "loginPanelSubTitle",
-              "label": "Sub Title",
-              "description": "Sub Title (e.g., Personal, Business)",
-              "required": true
-            },
-            {
-              "component": "richtext",
-              "name": "desktopPanelLinks",
-              "value": "",
-              "label": "Desktop Panel Links",
-              "description": "List of links for login panel on Desktop",
-              "valueType": "string"
-            },
-            {
-              "component": "richtext",
-              "name": "mobilePanelLinks",
-              "value": "",
-              "label": "Mobile Panel Links",
-              "description": "List of links for login panel on Mobile",
-              "valueType": "string"
-            }
-          ]
+          "component": "richtext",
+          "name": "desktopPanelLinks",
+          "value": "",
+          "label": "Desktop Panel Links",
+          "description": "List of links for login panel on Desktop",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "mobilePanelLinks",
+          "value": "",
+          "label": "Mobile Panel Links",
+          "description": "List of links for login panel on Mobile",
+          "valueType": "string"
         }
       ]
     }
@@ -94,7 +86,7 @@
     {
       "id": "login",
       "components": [
-        "login-panel-content"
+        "login-panel-section"
       ]
     }
   ]

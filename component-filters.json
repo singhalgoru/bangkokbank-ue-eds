@@ -87,7 +87,7 @@
   {
     "id": "login",
     "components": [
-      "login-panel-content"
+      "login-panel-section"
     ]
   },
   {

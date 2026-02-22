@@ -330,15 +330,15 @@
           }
         },
         {
-          "title": "Login Panel Content",
-          "id": "login-panel-content",
+          "title": "Login Panel Section",
+          "id": "login-panel-section",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Login Panel Content",
-                  "model": "login-panel-content"
+                  "name": "Login Panel Section",
+                  "model": "login-panel-section"
                 }
               }
             }
