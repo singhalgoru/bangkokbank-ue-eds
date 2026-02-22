@@ -22,14 +22,6 @@ function lazyLoadThumbnails(block) {
   window.addEventListener('scroll', load, { passive: true });
 }
 
-function stripInstrumentation(el) {
-  [...el.querySelectorAll('*'), el].forEach((node) => {
-    [...node.attributes]
-      .filter(({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'))
-      .forEach(({ nodeName }) => node.removeAttribute(nodeName));
-  });
-}
-
 export default function decorate(block) {
   const [variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
@@ -109,49 +101,29 @@ export default function decorate(block) {
     content.append(contentInner);
     bannerItem.append(content);
 
-    /* ------------ thumbnail item (real - stays in bannerItem for AEM) ------------ */
-    const thumbnailItem = document.createElement('li');
-    thumbnailItem.className = 'hero-banner-thumbnail-item';
-    thumbnailItem.dataset.index = bannerIndex;
-    if (bannerIndex === 0) thumbnailItem.classList.add('hero-banner-thumbnail-item-active');
-
-    const thumbPicture = thumbImgCell?.querySelector('picture');
-
-    // ✅ clone picture FIRST before thumbImg gets moved out of it
-    const clonedPicture = thumbPicture?.cloneNode(true);
-
-    const thumbImg = thumbPicture?.querySelector('img');
-
-    if (thumbImg) {
-      thumbImg.className = 'hero-banner-thumbnail-img';
-      thumbImg.loading = 'lazy';
-      thumbnailItem.append(thumbImg);
-    }
-
+    // ✅ moveInstrumentation - bannerItem covers all Hero Item fields
+    // including homeThumbImage - editors edit via properties panel sidebar
     moveInstrumentation(row, bannerItem);
-
-    // ✅ real thumbnailItem with instrumentation stays inside bannerItem for AEM content tree
-    bannerItem.append(thumbnailItem);
     bannerList.append(bannerItem);
 
-    /* ------------ visual clone (no instrumentation - for thumbnail strip only) ------------ */
+    /* ------------ visual thumbnail for strip - no instrumentation ------------ */
+    const thumbPicture = thumbImgCell?.querySelector('picture');
+
     const visualThumb = document.createElement('li');
     visualThumb.className = 'hero-banner-thumbnail-item';
     visualThumb.dataset.index = bannerIndex;
     if (bannerIndex === 0) visualThumb.classList.add('hero-banner-thumbnail-item-active');
 
-    if (clonedPicture) {
-      // ✅ strip all data-aue-* so AEM ignores this visual clone completely
-      stripInstrumentation(clonedPicture);
-      const clonedImg = clonedPicture.querySelector('img');
-      if (clonedImg) {
-        clonedImg.className = 'hero-banner-thumbnail-img';
-        clonedImg.loading = 'lazy';
+    if (thumbPicture) {
+      // ✅ append original picture directly - no clone needed, no instrumentation issues
+      const thumbImg = thumbPicture.querySelector('img');
+      if (thumbImg) {
+        thumbImg.className = 'hero-banner-thumbnail-img';
+        thumbImg.loading = 'lazy';
       }
-      visualThumb.append(clonedPicture);
+      visualThumb.append(thumbPicture);
     }
 
-    // ✅ visual clone goes into thumbnailList for rendering only
     thumbnailList.append(visualThumb);
 
     bannerIndex += 1;
