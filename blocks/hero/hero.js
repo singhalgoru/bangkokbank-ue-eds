@@ -22,7 +22,6 @@ function lazyLoadThumbnails(block) {
   window.addEventListener('scroll', load, { passive: true });
 }
 
-// ✅ strips all aue instrumentation attrs from an element and its descendants
 function stripInstrumentation(el) {
   [...el.querySelectorAll('*'), el].forEach((node) => {
     [...node.attributes]
@@ -117,6 +116,10 @@ export default function decorate(block) {
     if (bannerIndex === 0) thumbnailItem.classList.add('hero-banner-thumbnail-item-active');
 
     const thumbPicture = thumbImgCell?.querySelector('picture');
+
+    // ✅ clone picture FIRST before thumbImg gets moved out of it
+    const clonedPicture = thumbPicture?.cloneNode(true);
+
     const thumbImg = thumbPicture?.querySelector('img');
 
     if (thumbImg) {
@@ -127,8 +130,7 @@ export default function decorate(block) {
 
     moveInstrumentation(row, bannerItem);
 
-    // ✅ real thumbnailItem with instrumentation stays inside bannerItem
-    // AEM content tree sees it correctly nested under Hero Item
+    // ✅ real thumbnailItem with instrumentation stays inside bannerItem for AEM content tree
     bannerItem.append(thumbnailItem);
     bannerList.append(bannerItem);
 
@@ -138,10 +140,8 @@ export default function decorate(block) {
     visualThumb.dataset.index = bannerIndex;
     if (bannerIndex === 0) visualThumb.classList.add('hero-banner-thumbnail-item-active');
 
-    if (thumbPicture) {
-      const clonedPicture = thumbPicture.cloneNode(true);
-      // ✅ strip all data-aue-* and data-richtext-* from clone
-      // so AEM cannot see this element - purely visual
+    if (clonedPicture) {
+      // ✅ strip all data-aue-* so AEM ignores this visual clone completely
       stripInstrumentation(clonedPicture);
       const clonedImg = clonedPicture.querySelector('img');
       if (clonedImg) {
