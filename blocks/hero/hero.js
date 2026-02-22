@@ -52,8 +52,6 @@ export default function decorate(block) {
     bannerItem.dataset.index = bannerIndex;
     if (bannerIndex === 0) bannerItem.classList.add('hero-banner-item-active');
 
-    moveInstrumentation(row, bannerItem);
-
     const picture = imageCell?.querySelector('picture');
     const img = picture?.querySelector('img');
 
@@ -119,7 +117,7 @@ export default function decorate(block) {
       thumbImg.loading = 'lazy';
       thumbnailItem.append(thumbImg);
     }
-
+    moveInstrumentation(row, bannerItem, thumbnailItem);
     thumbnailList.append(thumbnailItem);
 
     bannerIndex += 1;
