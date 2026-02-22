@@ -18,13 +18,13 @@
   user-select: none;
 }
 
-.carousel-dotted .carousel-item {
+.carousel-dotted .carousel-dotted-item {
   position: relative;
   display: none;
   opacity: 1;
 }
 
-.carousel-dotted .carousel-item.is-active {
+.carousel-dotted .carousel-dotted-item.is-active {
   display: block;
   z-index: 1;
 }
@@ -60,12 +60,12 @@
 }
 
 /* Without-image slides don't need background */
-.carousel-dotted .carousel-item.without-image .carousel-bg::after,
-.carousel-dotted .carousel-item.without-image .carousel-bg {
+.carousel-dotted .carousel-dotted-item.without-image .carousel-bg::after,
+.carousel-dotted .carousel-dotted-item.without-image .carousel-bg {
   display: none;
 }
 
-.carousel-dotted .carousel-content {
+.carousel-dotted .carousel-dotted-content {
   position: relative;
   z-index: 1;
   padding: var(--bbl-space-250);
@@ -74,7 +74,7 @@
 }
 
 /* Without-image variation: text-only layout */
-.carousel-dotted .carousel-item.without-image .carousel-content {
+.carousel-dotted .carousel-dotted-item.without-image .carousel-dotted-content {
   min-height: 12.6875rem;
   max-height: 12.6875rem;
   padding: var(--bbl-space-300);
@@ -95,7 +95,7 @@
   margin-bottom: 0.875rem;
 }
 
-.carousel-dotted .carousel-description {
+.carousel-dotted .carousel-dotted-description {
   font-family: var(--bbl-font-family-medium);
   font-weight: var(--bbl-font-weight-regular);
   font-size: 1.1375rem;
@@ -104,7 +104,7 @@
   margin-bottom: 1.875rem;
 }
 
-.carousel-dotted .carousel-header {
+.carousel-dotted .carousel-dotted-header {
   font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-regular);
   font-size: 0.875rem;
@@ -257,7 +257,7 @@
   min-height: 27.8125rem;
 }
 
-.carousel-dotted .carousel-item {
+.carousel-dotted .carousel-dotted-item {
   position: absolute;
   inset: 0;
   display: block;
@@ -265,7 +265,7 @@
   transition: opacity 400ms ease;
 }
 
-.carousel-dotted .carousel-item.is-active {
+.carousel-dotted .carousel-dotted-item.is-active {
   opacity: 1;
 }
 
@@ -283,7 +283,7 @@
   will-change: transform;
 }
 
-.carousel-dotted.all-without-image .carousel-item.without-image {
+.carousel-dotted.all-without-image .carousel-dotted-item.without-image {
   position: relative;
   display: block;
   opacity: 1;
@@ -306,14 +306,14 @@
   background: linear-gradient(to top, rgb(255 255 255 / 35%) 0%, rgb(255 255 255 / 0%) 100%);
 }
 
-.carousel-dotted .carousel-content {
+.carousel-dotted .carousel-dotted-content {
   padding: var(--bbl-space-300);
   min-height: initial;
   max-height: initial;
 }
 
 /* Without-image: full width on desktop */
-.carousel-dotted .carousel-item.without-image .carousel-content {
+.carousel-dotted .carousel-dotted-item.without-image .carousel-dotted-content {
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -322,7 +322,7 @@
   padding: var(--bbl-space-500);
 }
 
-.carousel-dotted .carousel-description {
+.carousel-dotted .carousel-dotted-description {
   font-size: 1.3125rem;
   line-height: 1.4219rem;
   margin-bottom: var(--bbl-space-300);
@@ -351,7 +351,7 @@
   right: var(--bbl-space-300);
 }
 
-.carousel-dotted .carousel-description p {
+.carousel-dotted .carousel-dotted-description p {
   margin: 0;
 }
 
@@ -370,11 +370,11 @@
   min-height: 28.375rem;
 }
 
-.carousel-dotted .carousel-item {
+.carousel-dotted .carousel-dotted-item {
   min-height: 28.375rem;
 }
 
-.carousel-dotted.all-without-image .carousel-item.without-image {
+.carousel-dotted.all-without-image .carousel-dotted-item.without-image {
   min-height: 28.375rem;
 }
 
@@ -402,14 +402,14 @@
   line-height: 1.125rem;
 }
 
-.carousel-dotted .carousel-description {
+.carousel-dotted .carousel-dotted-description {
   font-weight: var(--bbl-font-weight-regular);
   font-size: var(--bbl-space-400);
   line-height: var(--bbl-space-400);
   margin-bottom: var(--bbl-space-300);
 }
 
-.carousel-dotted .carousel-header {
+.carousel-dotted .carousel-dotted-header {
   font-weight: var(--bbl-font-weight-regular);
   font-size: 1rem;
   line-height: 1rem;
