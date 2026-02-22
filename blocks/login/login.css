@@ -99,6 +99,7 @@ body.login-panel-open {
   }
 
   .login .icon-login::before,
+  .login .icon-dropdown,
   .login .icon-dropdown::before {
     display: none;
   }
