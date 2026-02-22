@@ -296,3 +296,15 @@ body.wealth :is(.button-container .button, .button) {
         border: 1px solid var(--bbl-color-blue-90);
     }
 }
+
+/* =========================================================================
+   SECTION-LEVEL SPACING - Global Styles
+   ========================================================================= */
+
+.pad-top-30 {
+    padding-top: 1.875rem;
+}
+
+.pad-bot-30 {
+    padding-bottom: 1.875rem;
+}
