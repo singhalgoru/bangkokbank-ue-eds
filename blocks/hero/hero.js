@@ -118,6 +118,7 @@ export default function decorate(block) {
     }
 
     moveInstrumentation(row, bannerItem);
+    bannerItem.append(thumbnailItem);
     bannerList.append(bannerItem);
 
     bannerIndex += 1;
