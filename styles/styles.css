@@ -192,11 +192,11 @@ main img {
 }
 
 .pad-top-30 {
-    padding-top: 30px;
+    padding-top: 1.875rem;
 }
 
 .pad-bot-30 {
-    padding-bottom: 30px;
+    padding-bottom: 1.875rem;
 }
 
 @media (width >= 1920px) {
