@@ -57,27 +57,35 @@
           "required": true
         },
         {
-          "component": "text",
-          "name": "loginPanelSubTitle",
-          "label": "Sub Title",
-          "description": "Sub Title (e.g., Personal, Business)",
-          "required": true
-        },
-        {
-          "component": "richtext",
-          "name": "desktopPanelLinks",
-          "value": "",
-          "label": "Desktop Panel Links",
-          "description": "List of links for login panel on Desktop",
-          "valueType": "string"
-        },
-        {
-          "component": "richtext",
-          "name": "mobilePanelLinks",
-          "value": "",
-          "label": "Mobile Panel Links",
-          "description": "List of links for login panel on Mobile",
-          "valueType": "string"
+          "component": "repeater",
+          "name": "loginPanelSections",
+          "label": "Login Panel Sections",
+          "description": "Add one or more login panel sections with subtitle and panel links for desktop and mobile",
+          "fields": [
+            {
+              "component": "text",
+              "name": "loginPanelSubTitle",
+              "label": "Sub Title",
+              "description": "Sub Title (e.g., Personal, Business)",
+              "required": true
+            },
+            {
+              "component": "richtext",
+              "name": "desktopPanelLinks",
+              "value": "",
+              "label": "Desktop Panel Links",
+              "description": "List of links for login panel on Desktop",
+              "valueType": "string"
+            },
+            {
+              "component": "richtext",
+              "name": "mobilePanelLinks",
+              "value": "",
+              "label": "Mobile Panel Links",
+              "description": "List of links for login panel on Mobile",
+              "valueType": "string"
+            }
+          ]
         }
       ]
     }
