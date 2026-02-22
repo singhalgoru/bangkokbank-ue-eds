@@ -117,7 +117,7 @@ export default function decorate(block) {
       thumbImg.loading = 'lazy';
       thumbnailItem.append(thumbImg);
     }
-    moveInstrumentation(row, bannerItem, thumbnailItem);
+    moveInstrumentation(row, bannerItem, thumbnailList);
     thumbnailList.append(thumbnailItem);
 
     bannerIndex += 1;
