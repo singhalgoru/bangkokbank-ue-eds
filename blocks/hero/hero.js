@@ -22,13 +22,6 @@ function lazyLoadThumbnails(block) {
   window.addEventListener('scroll', load, { passive: true });
 }
 
-// ✅ local helper - only in hero.js, does not touch shared moveInstrumentation
-function copyInstrumentation(from, to) {
-  [...from.attributes]
-    .filter(({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'))
-    .forEach(({ nodeName, nodeValue }) => to.setAttribute(nodeName, nodeValue));
-}
-
 export default function decorate(block) {
   const [variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
@@ -108,7 +101,8 @@ export default function decorate(block) {
     content.append(contentInner);
     bannerItem.append(content);
 
-    /* ---------------- thumbnail item ---------------- */
+    /* ---------------- thumbnail item (AEM instrumentation) ---------------- */
+    // ✅ Real thumbnailItem with instrumentation - stays inside bannerItem for AEM content tree
     const thumbnailItem = document.createElement('li');
     thumbnailItem.className = 'hero-banner-thumbnail-item';
     thumbnailItem.dataset.index = bannerIndex;
@@ -123,17 +117,29 @@ export default function decorate(block) {
       thumbnailItem.append(thumbImg);
     }
 
-    // ✅ move instrumentation from row to bannerItem (shared function untouched)
+    // ✅ moveInstrumentation from row to bannerItem
     moveInstrumentation(row, bannerItem);
 
-    // ✅ copy same aue attributes from bannerItem to thumbnailItem
-    // so AEM editor maps thumbnailItem under the correct Hero Item
-    // this is done locally in hero.js only - shared function not touched
-    copyInstrumentation(bannerItem, thumbnailItem);
-
-    // ✅ thumbnailItem goes directly into thumbnailList - no moving needed
-    thumbnailList.append(thumbnailItem);
+    // ✅ thumbnailItem stays inside bannerItem - AEM sees it nested under Hero Item
+    bannerItem.append(thumbnailItem);
     bannerList.append(bannerItem);
+
+    /* ---------------- visual clone for thumbnail strip ---------------- */
+    // ✅ Clone - no instrumentation, only for visual rendering in thumbnail strip
+    const visualThumb = document.createElement('li');
+    visualThumb.className = 'hero-banner-thumbnail-item';
+    visualThumb.dataset.index = bannerIndex;
+    if (bannerIndex === 0) visualThumb.classList.add('hero-banner-thumbnail-item-active');
+
+    if (thumbImg) {
+      const clonedImg = thumbImg.cloneNode(true);
+      clonedImg.className = 'hero-banner-thumbnail-img';
+      clonedImg.loading = 'lazy';
+      visualThumb.append(clonedImg);
+    }
+
+    // ✅ visual clone goes into thumbnailList for rendering
+    thumbnailList.append(visualThumb);
 
     bannerIndex += 1;
   });
