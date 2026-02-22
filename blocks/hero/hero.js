@@ -22,6 +22,15 @@ function lazyLoadThumbnails(block) {
   window.addEventListener('scroll', load, { passive: true });
 }
 
+// ✅ strips all aue instrumentation attrs from an element and its descendants
+function stripInstrumentation(el) {
+  [...el.querySelectorAll('*'), el].forEach((node) => {
+    [...node.attributes]
+      .filter(({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'))
+      .forEach(({ nodeName }) => node.removeAttribute(nodeName));
+  });
+}
+
 export default function decorate(block) {
   const [variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
@@ -101,8 +110,7 @@ export default function decorate(block) {
     content.append(contentInner);
     bannerItem.append(content);
 
-    /* ---------------- thumbnail item (AEM instrumentation) ---------------- */
-    // ✅ Real thumbnailItem with instrumentation - stays inside bannerItem for AEM content tree
+    /* ------------ thumbnail item (real - stays in bannerItem for AEM) ------------ */
     const thumbnailItem = document.createElement('li');
     thumbnailItem.className = 'hero-banner-thumbnail-item';
     thumbnailItem.dataset.index = bannerIndex;
@@ -117,28 +125,33 @@ export default function decorate(block) {
       thumbnailItem.append(thumbImg);
     }
 
-    // ✅ moveInstrumentation from row to bannerItem
     moveInstrumentation(row, bannerItem);
 
-    // ✅ thumbnailItem stays inside bannerItem - AEM sees it nested under Hero Item
+    // ✅ real thumbnailItem with instrumentation stays inside bannerItem
+    // AEM content tree sees it correctly nested under Hero Item
     bannerItem.append(thumbnailItem);
     bannerList.append(bannerItem);
 
-    /* ---------------- visual clone for thumbnail strip ---------------- */
-    // ✅ Clone - no instrumentation, only for visual rendering in thumbnail strip
+    /* ------------ visual clone (no instrumentation - for thumbnail strip only) ------------ */
     const visualThumb = document.createElement('li');
     visualThumb.className = 'hero-banner-thumbnail-item';
     visualThumb.dataset.index = bannerIndex;
     if (bannerIndex === 0) visualThumb.classList.add('hero-banner-thumbnail-item-active');
 
-    if (thumbImg) {
-      const clonedImg = thumbImg.cloneNode(true);
-      clonedImg.className = 'hero-banner-thumbnail-img';
-      clonedImg.loading = 'lazy';
-      visualThumb.append(clonedImg);
+    if (thumbPicture) {
+      const clonedPicture = thumbPicture.cloneNode(true);
+      // ✅ strip all data-aue-* and data-richtext-* from clone
+      // so AEM cannot see this element - purely visual
+      stripInstrumentation(clonedPicture);
+      const clonedImg = clonedPicture.querySelector('img');
+      if (clonedImg) {
+        clonedImg.className = 'hero-banner-thumbnail-img';
+        clonedImg.loading = 'lazy';
+      }
+      visualThumb.append(clonedPicture);
     }
 
-    // ✅ visual clone goes into thumbnailList for rendering
+    // ✅ visual clone goes into thumbnailList for rendering only
     thumbnailList.append(visualThumb);
 
     bannerIndex += 1;
