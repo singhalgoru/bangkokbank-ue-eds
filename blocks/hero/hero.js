@@ -23,8 +23,7 @@ function lazyLoadThumbnails(block) {
 }
 
 export default function decorate(block) {
-  // eslint-disable-next-line no-unused-vars
-  const [dataidCell, variantcell] = block.children;
+  const [variantcell] = block.children;
   const variant = variantcell?.textContent?.trim() || 'default';
 
   const mainImgContainer = document.createElement('div');
