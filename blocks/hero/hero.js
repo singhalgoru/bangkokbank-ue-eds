@@ -101,7 +101,6 @@ export default function decorate(block) {
     contentInner.append(contentGroup);
     content.append(contentInner);
     bannerItem.append(content);
-    bannerList.append(bannerItem);
 
     /* ---------------- thumbnail item ---------------- */
     const thumbnailItem = document.createElement('li');
@@ -117,10 +116,15 @@ export default function decorate(block) {
       thumbImg.loading = 'lazy';
       thumbnailItem.append(thumbImg);
     }
-    moveInstrumentation(row, bannerItem, thumbnailList);
-    thumbnailList.append(thumbnailItem);
+
+    moveInstrumentation(row, bannerItem);
+    bannerList.append(bannerItem);
 
     bannerIndex += 1;
+  });
+
+  bannerList.querySelectorAll('.hero-banner-thumbnail-item').forEach((thumbnailItem) => {
+    thumbnailList.append(thumbnailItem);
   });
 
   mainImgContainer.append(bannerList);
