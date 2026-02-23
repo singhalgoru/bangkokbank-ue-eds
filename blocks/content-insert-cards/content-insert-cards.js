@@ -1,5 +1,5 @@
 export default function decorate(block) {
-  // Get the first child div which contains all the rows
+  // Get the first child div which contains all the rows from the main
   const mainDiv = block.children[0];
   if (!mainDiv) {
     return;
