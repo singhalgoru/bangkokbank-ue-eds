@@ -215,6 +215,33 @@
     ]
   },
   {
+    "id": "brand-logo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "logo-link",
+        "label": "Brand Logo Link",
+        "description": "Home page URL"
+      },
+      {
+        "component": "text",
+        "name": "brand-logo-alt-text",
+        "label": "Alternative Text for Accessibility 1",
+        "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "product-card",
     "fields": [
       {
@@ -536,7 +563,14 @@
         "name": "withImage",
         "label": "With Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withoutImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -679,7 +713,14 @@
         "name": "withoutImage",
         "label": "Without Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -709,6 +750,233 @@
               "!!": [
                 {
                   "var": "withoutImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "hero-banner-image-carousel",
+        "label": "Hero Banner Image Carousel",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "boolean",
+        "name": "text-animation-variant",
+        "label": "Text Animation Variant",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "heroImage",
+        "label": "Hero Image",
+        "multi": false,
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": "",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "",
+        "label": "Sub Title",
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "heroLink",
+        "label": "Link",
+        "description": "Destination URL for the button",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "heroLinkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true,
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "heroLinkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "name": "heroLinkType",
+        "label": "Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ],
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -965,6 +1233,17 @@
     ]
   },
   {
+    "id": "header-section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      }
+    ]
+  },
+  {
     "id": "hero",
     "fields": [
       {
@@ -1101,6 +1380,182 @@
     ]
   },
   {
+    "id": "location",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "locationLink",
+        "label": "Location Page URL",
+        "description": "Link to the location finder page",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ariaLabel",
+        "label": "Accessibility Label",
+        "description": "Screen reader label (defaults to 'Find locations')",
+        "value": "Find locations"
+      }
+    ]
+  },
+  {
+    "id": "login",
+    "fields": [
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text",
+        "description": "Text shown on the login button (e.g., 'Log on')",
+        "required": true,
+        "value": "Log on"
+      },
+      {
+        "component": "text",
+        "name": "loginPanelTitle",
+        "label": "Title",
+        "description": "Title for the login panel (e.g., Online Banking)",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "login-panel-section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "loginPanelSubTitle",
+        "label": "Sub Title",
+        "description": "Sub Title (e.g., Personal, Business)",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "desktopPanelLinks",
+        "value": "",
+        "label": "Desktop Panel Links",
+        "description": "List of links for login panel on Desktop",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "mobilePanelLinks",
+        "value": "",
+        "label": "Mobile Panel Links",
+        "description": "List of links for login panel on Mobile",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "main-nav-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "mainNavItem",
+        "label": "Main Nav Item Text",
+        "description": "Text for the main nav item (e.g., Personal Banking, Business Banking)",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "mainNavItemTitle",
+        "label": "Main Nav Item Title",
+        "description": "Title for the main nav item (e.g., Personal Home, Business Home)",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "mainNavItemLink",
+        "label": "Main Nav Item Title Link",
+        "description": "URL for the main nav item title (e.g. Personal Home Url, Business Home Url)"
+      }
+    ]
+  },
+  {
+    "id": "megamenu-column",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Column Image",
+        "description": "Image displayed at top of megamenu column",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-alt-text",
+        "label": "Alternative Text for Accessibility 1",
+        "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "links",
+        "value": "",
+        "label": "Column Links",
+        "description": "Structured links using H3 for category titles and list items for links",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "nav-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "navName",
+        "label": "Nav Name",
+        "description": "Select a nav label",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Personal Banking",
+            "value": "personal-banking"
+          },
+          {
+            "name": "Business Banking",
+            "value": "business-banking"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "navTitle",
+        "label": "Nav Title",
+        "description": "Title text for the nav item",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for nav item"
+      }
+    ]
+  },
+  {
+    "id": "menu-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "menu-cards",
     "fields": [
       {
@@ -1133,6 +1588,25 @@
         "name": "link",
         "label": "Redirection Link",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "search",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "searchLink",
+        "label": "Search Page URL",
+        "description": "Link to the search page",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "ariaLabel",
+        "label": "Accessibility Label",
+        "description": "Screen reader label (defaults to 'Search')",
+        "value": "Search"
       }
     ]
   },
@@ -1227,6 +1701,73 @@
             "value": "tertiary"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "top-nav-link",
+    "fields": [
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "description": "Text for the link",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link URL",
+        "description": "Destination URL"
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "link-only",
+        "label": "Link Type",
+        "description": "Style variant for the link",
+        "options": [
+          {
+            "name": "Link Only",
+            "value": "link-only"
+          },
+          {
+            "name": "Link with Icon/Logo",
+            "value": "link-logo"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Icon Image",
+        "description": "Icon/flag image shown next to link",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "classes"
+            },
+            "link-logo"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "icon-alt-text",
+        "label": "Alternative Text for Accessibility 1",
+        "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
+        "valueType": "string",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "classes"
+            },
+            "link-logo"
+          ]
+        }
       }
     ]
   },
