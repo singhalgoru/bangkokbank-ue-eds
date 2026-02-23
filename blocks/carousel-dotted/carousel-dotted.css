@@ -247,19 +247,25 @@
   z-index: 2;
 }
 
-.carousel-dotted .icon-arrow-right {
+.carousel-dotted .icon-arrow-left {
   display: inline-flex;
   align-items: center;
   gap: var(--bbl-space-075);
 }
 
 /* Override button-tertiary's SVG arrow with icomoon icon font */
-.carousel-dotted .button-tertiary.icon-arrow-right::after {
+.carousel-dotted .button-tertiary.icon-arrow-left::before {
   background-color: transparent;
   mask: none;
   font-size: 0.70em;
   position: relative;
   top: 0.0625rem;
+  left: 5.3125rem;
+}
+
+/* Remove the ::after pseudo-element from button-tertiary */
+.carousel-dotted .button-tertiary::after {
+  display: none;
 }
 
 .carousel-item.slick-active:not(.is-active)
