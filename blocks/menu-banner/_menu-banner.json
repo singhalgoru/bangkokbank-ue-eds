@@ -56,9 +56,16 @@
           "valueType": "string"
         },
         {
-          "component": "text",
-          "name": "title",
-          "label": "Title",
+          "component": "richtext",
+          "name": "titleDesktop",
+          "label": "Title (Desktop/Tablet)",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "richtext",
+          "name": "titleMobile",
+          "label": "Title (Mobile)",
           "valueType": "string",
           "required": true
         }
