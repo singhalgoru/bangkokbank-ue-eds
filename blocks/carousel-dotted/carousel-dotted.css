@@ -260,7 +260,7 @@
   font-size: 0.85em;
   position: relative;
   top: 0.0625rem;
-  left: 75px;
+  left: 4.6875rem;
 }
 
 /* Remove the ::after pseudo-element from button-tertiary */
@@ -580,6 +580,10 @@
 .carousel-dotted:is(.all-hero-banner-image-carousel, .all-text-animation-variant) 
 .carousel-subtitle p{
   color: var(--bbl-color-white);
+}
+
+.carousel-dotted .button-tertiary.icon-arrow-left::before {
+  left: 5.3125rem;
 }
 }
 
