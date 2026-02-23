@@ -205,6 +205,10 @@ Mobile slide-out menu
 	font-size: 0.625rem;
 }
 
+.header .top-nav.block.is-hidden {
+	opacity: 0;
+}
+
 @media (width > 64rem) {
 	/* Top nav - hides on scroll */
 	.header-nav>.top-nav {

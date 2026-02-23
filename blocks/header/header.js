@@ -335,10 +335,9 @@ function setupMobileScrollBehavior(header, mobileTopBar) {
  * @param {HTMLElement} mobileNavContent
  * @param {NodeListOf<Element>} mainNavBlocks
  */
+let backButtonEventStack = [];
 
-function buildMobileMainNavItems(mobileNavContent, mainNavBlocks) {
-  const backButtonEventStack = [];
-
+function buildMobileMainNavItems(mobileNavContent, mainNavBlocks, topNavBlock) {
   const backBtn = document.createElement('div');
   backBtn.className = 'mob-megamenu-back-btn';
   backBtn.innerHTML = `
@@ -359,7 +358,8 @@ function buildMobileMainNavItems(mobileNavContent, mainNavBlocks) {
       menuPanel.classList.add('active');
       backButtonEventStack.push(menuPanel);
       backBtn.classList.add('active');
-      slideDown(menuPanel, { duration: 1000 });
+      if (topNavBlock) topNavBlock.classList.add('is-hidden');
+      slideDown(menuPanel, { duration: 700 });
     });
 
     const menuCategories = navBlock.querySelectorAll('.megamenu-panel .megamenu-inner .megamenu-column .megamenu-category');
@@ -368,8 +368,7 @@ function buildMobileMainNavItems(mobileNavContent, mainNavBlocks) {
         const menuColumn = category.closest('.megamenu-column');
         menuColumn.classList.add('active');
         backButtonEventStack.push(menuColumn);
-        const menuPanel = navBlock.querySelector('.megamenu-panel');
-        slideDown(menuPanel, { duration: 1000 });
+        slideDown(menuColumn, { duration: 700 });
       });
     });
   });
@@ -387,8 +386,20 @@ function buildMobileMainNavItems(mobileNavContent, mainNavBlocks) {
     }
     if (backButtonEventStack.length === 0) {
       backBtn.classList.remove('active');
+      if (topNavBlock) topNavBlock.classList.remove('is-hidden');
     }
   });
+}
+
+function resetBackButtonEventStack(blocks) {
+  const { topNavBlock } = blocks;
+  if (topNavBlock) topNavBlock.classList.remove('is-hidden');
+  const modBackButton = document.querySelector('.mob-megamenu-back-btn');
+  if (modBackButton) modBackButton.classList.remove('active');
+  backButtonEventStack.forEach((eventElement) => {
+    eventElement.classList.remove('active');
+  });
+  backButtonEventStack = [];
 }
 
 /**
@@ -397,7 +408,7 @@ function buildMobileMainNavItems(mobileNavContent, mainNavBlocks) {
  * @param {HTMLElement} mobileNavMenu
  * @param {HTMLElement} mobileNavOverlay
  */
-function setupMobileMenuBehavior(hamburger, mobileNavMenu, mobileNavOverlay) {
+function setupMobileMenuBehavior(hamburger, mobileNavMenu, mobileNavOverlay, blocks) {
   const closeMobileMenu = () => {
     hamburger.setAttribute('aria-expanded', 'false');
     hamburger.setAttribute('aria-label', 'Open navigation');
@@ -427,11 +438,16 @@ function setupMobileMenuBehavior(hamburger, mobileNavMenu, mobileNavOverlay) {
     }
   });
 
-  mobileNavOverlay.addEventListener('click', closeMobileMenu);
+  mobileNavOverlay.addEventListener('click', () => {
+    closeMobileMenu();
+    resetBackButtonEventStack(blocks);
+  });
+
   document.addEventListener('click', (e) => {
     if (mobileNavMenu.classList.contains('is-open')) {
       if (!mobileNavMenu.contains(e.target) && !hamburger.contains(e.target)) {
         closeMobileMenu();
+        resetBackButtonEventStack(blocks);
       }
     }
   });
@@ -439,6 +455,7 @@ function setupMobileMenuBehavior(hamburger, mobileNavMenu, mobileNavOverlay) {
   window.addEventListener('keydown', (e) => {
     if (e.code === 'Escape' && mobileNavMenu.classList.contains('is-open')) {
       closeMobileMenu();
+      resetBackButtonEventStack(blocks);
     }
   });
 }
@@ -492,7 +509,7 @@ function buildMobileLayout(header, blocks) {
   if (locationBlock) mobileMenuTopRow.appendChild(locationBlock);
   mobileNavContent.appendChild(mobileMenuTopRow);
 
-  buildMobileMainNavItems(mobileNavContent, mainNavBlocks);
+  buildMobileMainNavItems(mobileNavContent, mainNavBlocks, topNavBlock);
 
   if (topNavBlock) mobileNavContent.appendChild(topNavBlock);
 
@@ -506,7 +523,7 @@ function buildMobileLayout(header, blocks) {
   header.appendChild(mobileNavOverlay);
   header.appendChild(mobileNavMenu);
 
-  setupMobileMenuBehavior(hamburger, mobileNavMenu, mobileNavOverlay);
+  setupMobileMenuBehavior(hamburger, mobileNavMenu, mobileNavOverlay, blocks);
   setupMobileScrollBehavior(header, mobileTopBar);
 }
 
