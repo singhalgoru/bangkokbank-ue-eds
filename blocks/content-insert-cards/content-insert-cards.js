@@ -35,11 +35,7 @@ export default function decorate(block) {
 
   figure.appendChild(imageContainer);
 
-  // Create figcaption for content
-  const figcaption = document.createElement('figcaption');
-  figcaption.className = 'intro-info';
-
-  // Process category (first row) - only if it exists
+  // Process category (first row) - add it to figure (on top of image)
   if (categoryRow) {
     const categoryDiv = categoryRow.querySelector('p');
     const categoryText = categoryDiv?.textContent?.trim();
@@ -48,9 +44,13 @@ export default function decorate(block) {
       const category = document.createElement('p');
       category.className = 'category';
       category.textContent = categoryText;
-      figcaption.appendChild(category);
+      figure.appendChild(category);
     }
   }
+
+  // Create figcaption for content
+  const figcaption = document.createElement('figcaption');
+  figcaption.className = 'intro-info';
 
   // Process title (third row) - only if it exists
   if (titleRow) {
