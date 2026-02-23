@@ -7,10 +7,14 @@
     flex-direction: column;
 }
 
+.cross-banner-image {
+    height: 23.7187rem;
+    overflow: hidden;
+}
+
 .cross-banner-image img {
-    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -92,7 +96,7 @@ body.wealth
     background: var(--bbl-color-white);
     color: var(--bbl-color-black);
     border: 1px solid var(--bbl-color-white);
-    min-width:  9.6875rem;
+    min-width: 9.6875rem;
 
     &:hover {
         background: var(--bbl-color-blue-90);
@@ -121,6 +125,10 @@ body.private
         padding: 0 var(--bbl-space-600);
     }
 
+    .cross-banner-image {
+        height: 28.375rem;
+    }
+
     .cross-banner-content {
         padding-inline: 0;
     }
@@ -141,6 +149,10 @@ body.private
 @media (width >= 64.0625rem) {
     .section.full-bleed-special.cross-banner-container {
         padding: 0 var(--bbl-space-1050);
+    }
+
+    .cross-banner-image {
+        height: 36.5rem;
     }
 
     .cross-banner-content {
