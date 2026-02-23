@@ -4,7 +4,7 @@
 
 .content-insert-cards {
   margin-bottom: var(--bbl-space-300);
-  padding: 0 16px;
+  padding: 0 var(--bbl-space-200);
 }
 
 /* --- Cards Wrapper --- */
@@ -29,7 +29,7 @@
 .content-insert-cards .content-insert-card-placeholder {
   min-height: 3.125rem;
   padding: var(--bbl-space-200);
-  border: 1px dashed rgb(0 0 0 / 20%);
+  border: 1px dashed var(--bbl-color-black-alpha-20);
   border-radius: var(--bbl-rounded-150);
   background-color: rgb(0 0 0 / 2%);
 }
@@ -44,14 +44,14 @@
 /* --- Category Badge --- */
 .content-insert-cards .category {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0.625rem;
+  left: 0.625rem;
   z-index: 1;
-  background-color: rgb(0 100 255);
+  background-color: var(--bbl-color-active-blue);
   color: var(--bbl-color-white);
-  padding: 0.4375rem 1rem 0.3125rem;
+  padding: 0.4375rem var(--bbl-space-200) 0.3125rem;
   border-radius: 1.25rem;
-  font-size: 12.6px;
+  font-size: 0.7875rem;
   line-height: 1.29;
   font-weight: var(--bbl-font-weight-regular);
   font-family: var(--bbl-font-family-medium);
@@ -97,7 +97,7 @@
   line-height: 1.08;
   font-weight: var(--bbl-font-weight-regular);
   font-family: var(--bbl-font-family-medium);
-  color: rgb(0 0 0);
+  color: var(--bbl-color-black);
   margin: 0 0 0.625rem;
   overflow: hidden;
   display: -webkit-box;
@@ -149,8 +149,8 @@
   font-weight: var(--bbl-font-weight-regular);
   font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif;
   color: var(--bbl-color-white);
-  background-color: rgb(0 100 255);
-  border: 1px solid rgb(0 100 255);
+  background-color: var(--bbl-color-active-blue);
+  border: 1px solid var(--bbl-color-active-blue);
   border-radius: var(--bbl-rounded-100);
   text-decoration: none;
   transition: all 0.3s ease;
@@ -159,7 +159,7 @@
   width: 100% !important;
   min-width: auto;
   box-sizing: border-box;
-  letter-spacing: .8px;
+  letter-spacing: 0.05rem;
 }
 
 .content-insert-cards .btn-primary:hover {
@@ -175,8 +175,8 @@
 }
 
 .content-insert-cards .btn-primary:focus {
-  outline: 0.125rem solid var(--bbl-color-active-blue);
-  outline-offset: 0.125rem;
+  outline: var(--bbl-space-025) solid var(--bbl-color-active-blue);
+  outline-offset: var(--bbl-space-025);
 }
 
 @media (width >=47.5rem) {
@@ -270,10 +270,10 @@
 }
 
 .content-insert-cards .title-2 {
-  font-size: 1.5rem;
+  font-size: var(--bbl-heading-h5-size);
   line-height: 1.08;
   margin-bottom: 0.625rem;
-  padding-bottom: 15px;
+  padding-bottom: 0.9375rem;
   font-weight: var(--bbl-font-weight-regular);
   font-family: var(--bbl-font-family-medium);
 }
@@ -288,6 +288,6 @@
 }
 
 .content-insert-cards .category {
-  font-size: 14.4px;
+  font-size: 0.9rem;
 }
 }
