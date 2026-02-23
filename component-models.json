@@ -1024,6 +1024,68 @@
     ]
   },
   {
+    "id": "menu-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "backgroundImage",
+        "label": "Background Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "backgroundImageAlt",
+        "label": "Background Image Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eye-brow Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "menu-banner-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "cardTitle",
+        "label": "Card Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "cardImg",
+        "label": "Card Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "alt",
+        "label": "Card Image Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cardLink",
+        "label": "Card Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "menu-cards",
     "fields": [
       {
