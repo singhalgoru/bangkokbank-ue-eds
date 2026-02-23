@@ -12,13 +12,16 @@
 
 .hero-banner-hero-with-thumbnail-images::after {
     content: "";
-    border-bottom: 1px solid var(--bbl-color-grey-20);
     position: absolute;
     bottom: 0;
     width: calc(100% - 2rem);
     margin: auto;
     left: 0;
     right: 0;
+}
+
+.hero-banner-hero-with-thumbnail-images:has(.hero-banner-thumbnail-outer-active)::after {
+    border-bottom: 1px solid var(--bbl-color-grey-20);
 }
 
 .hero-banner-container {
@@ -94,6 +97,7 @@
 }
 
 .hero-banner-thumbnail-outer {
+    display: none;
     position: relative;
     bottom: 0;
     transition: visibility 0s, opacity 0.5s, bottom 0.5s linear;
@@ -110,6 +114,7 @@
 .hero-banner-thumbnail-outer.hero-banner-thumbnail-outer-active {
     visibility: visible;
     opacity: 1;
+    display: block;
 }
 
 .hero-banner-thumbnail-outer::-webkit-scrollbar {
@@ -462,5 +467,6 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
         padding: 0;
     }
 }
+
 
 
