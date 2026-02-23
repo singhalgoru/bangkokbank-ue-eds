@@ -257,10 +257,10 @@
 .carousel-dotted .button-tertiary.icon-arrow-left::before {
   background-color: transparent;
   mask: none;
-  font-size: 0.70em;
+  font-size: 0.85em;
   position: relative;
   top: 0.0625rem;
-  left: 5.3125rem;
+  left: 75px;
 }
 
 /* Remove the ::after pseudo-element from button-tertiary */
@@ -614,6 +614,7 @@
   z-index: 2;
 }
 
+
 .carousel-dotted .carousel-badge {
   font-weight: var(--bbl-font-weight-medium);
   font-size: 0.9rem;
@@ -654,5 +655,9 @@
 .carousel-subtitle p{
   font-size: 1.5rem;
   line-height: 1.625rem;
+}
+
+.carousel-dotted .button-tertiary.icon-arrow-left::before {
+  left: 5.3125rem;
 }
 }
