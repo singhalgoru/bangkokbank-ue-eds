@@ -1,30 +1,35 @@
-export default function decorate(block) {
-  // Get all rows directly from the block
-  const rows = [...block.children];
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
+function createCard(cardItem) {
+  // Get all rows from the card item
+  const rows = [...cardItem.children];
 
   if (rows.length === 0) {
-    return;
+    return null;
   }
 
   // Destructure rows - [0] = categoryRow, [1] = imageRow,
   // [2] = titleRow, [3] = descRow, [4] = buttonRow
-  const [categoryRow, imageRow, titleRow, descRow, buttonRow] = rows[0].children;
+  const [categoryRow, imageRow, titleRow, descRow, buttonRow] = rows;
 
   // Check if we have at least the image row to proceed
   if (!imageRow) {
-    return;
+    return null;
   }
 
   const picture = imageRow.querySelector('picture');
 
   // Only proceed if we have a picture
   if (!picture) {
-    return;
+    return null;
   }
 
   // Create the main card container
   const card = document.createElement('div');
   card.className = 'content-insert-card';
+
+  // Move instrumentation from original cardItem to the new card
+  moveInstrumentation(cardItem, card);
 
   const figure = document.createElement('figure');
   figure.className = 'thumb-large smaller';
@@ -105,7 +110,37 @@ export default function decorate(block) {
   figure.appendChild(figcaption);
   card.appendChild(figure);
 
-  // Replace block content with the new card structure
-  block.innerHTML = '';
-  block.appendChild(card);
+  return card;
+}
+
+export default function decorate(block) {
+  // Get all card items (direct children divs)
+  const cardItems = [...block.children];
+
+  // Create a container for all cards
+  const cardsContainer = document.createElement('div');
+  cardsContainer.className = 'content-insert-cards-wrapper';
+
+  // Process each card item
+  cardItems.forEach((cardItem) => {
+    const card = createCard(cardItem);
+    if (card) {
+      // Add the decorated card
+      cardsContainer.appendChild(card);
+    } else {
+      // Keep the original item for Universal Editor tracking
+      // Move instrumentation to maintain editability
+      const placeholder = document.createElement('div');
+      placeholder.className = 'content-insert-card-placeholder';
+      moveInstrumentation(cardItem, placeholder);
+      // Keep original children for Universal Editor
+      while (cardItem.firstElementChild) {
+        placeholder.appendChild(cardItem.firstElementChild);
+      }
+      cardsContainer.appendChild(placeholder);
+    }
+  });
+
+  // Replace block content
+  block.replaceChildren(cardsContainer);
 }
