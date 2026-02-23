@@ -536,7 +536,14 @@
         "name": "withImage",
         "label": "With Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withoutImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -679,7 +686,14 @@
         "name": "withoutImage",
         "label": "Without Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -1247,6 +1261,42 @@
             "value": "tertiary"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "menu-cards",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Menu Cards Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "menu-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Card Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Redirection Link",
+        "valueType": "string"
       }
     ]
   },
