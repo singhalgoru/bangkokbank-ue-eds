@@ -247,19 +247,25 @@
   z-index: 2;
 }
 
-.carousel-dotted .icon-arrow-right {
+.carousel-dotted .icon-arrow-left {
   display: inline-flex;
   align-items: center;
   gap: var(--bbl-space-075);
 }
 
 /* Override button-tertiary's SVG arrow with icomoon icon font */
-.carousel-dotted .button-tertiary.icon-arrow-right::after {
+.carousel-dotted .button-tertiary.icon-arrow-left::before {
   background-color: transparent;
   mask: none;
-  font-size: 0.70em;
+  font-size: 0.85em;
   position: relative;
   top: 0.0625rem;
+  left: 4.6875rem;
+}
+
+/* Remove the ::after pseudo-element from button-tertiary */
+.carousel-dotted .button-tertiary::after {
+  display: none;
 }
 
 .carousel-item.slick-active:not(.is-active)
@@ -575,6 +581,10 @@
 .carousel-subtitle p{
   color: var(--bbl-color-white);
 }
+
+.carousel-dotted .button-tertiary.icon-arrow-left::before {
+  left: 5.3125rem;
+}
 }
 
 @media (width >=64rem) {
@@ -607,6 +617,7 @@
   pointer-events: none;
   z-index: 2;
 }
+
 
 .carousel-dotted .carousel-badge {
   font-weight: var(--bbl-font-weight-medium);
@@ -648,5 +659,9 @@
 .carousel-subtitle p{
   font-size: 1.5rem;
   line-height: 1.625rem;
+}
+
+.carousel-dotted .button-tertiary.icon-arrow-left::before {
+  left: 5.3125rem;
 }
 }
