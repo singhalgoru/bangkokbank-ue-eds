@@ -1,48 +1,61 @@
 export default function decorate(block) {
-  // Get the first child div which contains all the rows from the main
-  const mainDiv = block.children[0];
-  if (!mainDiv) {
+  // Get all rows directly from the block
+  const rows = [...block.children];
+
+  if (rows.length === 0) {
     return;
   }
 
-  // Get all rows from the main div
-  const rows = [...mainDiv.children];
+  // Destructure rows - [0] = imageRow, [1] = titleRow, [2] = descRow, [3] = buttonRow
+  const [imageRow, titleRow, descRow, buttonRow] = rows;
+
+  // Check if we have at least the image row to proceed
+  if (!imageRow) {
+    return;
+  }
+
+  const picture = imageRow.querySelector('picture');
+
+  // Only proceed if we have a picture
+  if (!picture) {
+    return;
+  }
 
   // Create the main card container
   const card = document.createElement('div');
   card.className = 'content-insert-card';
 
-  // Process the image (first row)
-  const imageRow = rows[0];
-  const picture = imageRow?.querySelector('picture');
+  const figure = document.createElement('figure');
+  figure.className = 'thumb-large smaller';
 
-  if (picture) {
-    const figure = document.createElement('figure');
-    figure.className = 'thumb-large smaller';
+  const imageContainer = document.createElement('div');
+  imageContainer.className = 'thumb';
+  imageContainer.appendChild(picture);
 
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'thumb';
-    imageContainer.appendChild(picture);
+  figure.appendChild(imageContainer);
 
-    figure.appendChild(imageContainer);
+  // Create figcaption for content
+  const figcaption = document.createElement('figcaption');
+  figcaption.className = 'intro-info';
 
-    // Create figcaption for content
-    const figcaption = document.createElement('figcaption');
-    figcaption.className = 'intro-info';
+  // Process title (second row) - only if it exists
+  if (titleRow) {
+    const titleDiv = titleRow.querySelector('div');
+    const titleText = titleDiv?.textContent?.trim();
 
-    // Process title (second row)
-    const titleRow = rows[1];
-    const titleText = titleRow?.textContent?.trim();
     if (titleText) {
       const title = document.createElement('h3');
       title.className = 'title-2 line';
       title.textContent = titleText;
       figcaption.appendChild(title);
     }
+  }
 
-    // Process description (third row)
-    const descRow = rows[2];
-    const descText = descRow?.textContent?.trim();
+  // Process description (third row) - only if it exists
+  if (descRow) {
+    const descDiv = descRow.querySelector('div');
+    const descText = descDiv?.textContent?.trim();
+
     if (descText) {
       const desc = document.createElement('div');
       desc.className = 'desc';
@@ -52,36 +65,33 @@ export default function decorate(block) {
       desc.appendChild(paragraph);
       figcaption.appendChild(desc);
     }
-
-    // Process button (fourth row)
-    const buttonRow = rows[3];
-    if (buttonRow) {
-      const buttonContainer = buttonRow.querySelector('.button-container');
-      const link = buttonContainer?.querySelector('a') || buttonRow.querySelector('a');
-
-      if (link) {
-        const buttonGroup = document.createElement('div');
-        buttonGroup.className = 'button-group';
-
-        // Create new button with proper classes
-        const button = document.createElement('a');
-        button.className = 'btn-primary';
-        button.href = link.href;
-        button.textContent = link.textContent || 'Read More';
-        button.title = link.title || 'read-more';
-
-        buttonGroup.appendChild(button);
-        figcaption.appendChild(buttonGroup);
-      }
-    }
-
-    figure.appendChild(figcaption);
-    card.appendChild(figure);
   }
+
+  // Process button (fourth row) - only if it exists
+  if (buttonRow) {
+    const buttonContainer = buttonRow.querySelector('.button-container');
+    const link = buttonContainer?.querySelector('a') || buttonRow.querySelector('a');
+
+    if (link) {
+      const buttonGroup = document.createElement('div');
+      buttonGroup.className = 'button-group';
+
+      // Create new button with proper classes
+      const button = document.createElement('a');
+      button.className = 'btn-primary';
+      button.href = link.href;
+      button.textContent = link.textContent || 'Read More';
+      button.title = link.title || 'read-more';
+
+      buttonGroup.appendChild(button);
+      figcaption.appendChild(buttonGroup);
+    }
+  }
+
+  figure.appendChild(figcaption);
+  card.appendChild(figure);
 
   // Replace block content with the new card structure
-  if (card.children.length > 0) {
-    block.innerHTML = '';
-    block.appendChild(card);
-  }
+  block.innerHTML = '';
+  block.appendChild(card);
 }
