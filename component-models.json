@@ -536,7 +536,14 @@
         "name": "withImage",
         "label": "With Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withoutImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -679,7 +686,14 @@
         "name": "withoutImage",
         "label": "Without Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",

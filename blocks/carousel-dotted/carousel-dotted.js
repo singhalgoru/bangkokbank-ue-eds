@@ -12,7 +12,7 @@ import {
  */
 function buildSlideWithImage(row, index, cells) {
   const slide = document.createElement('div');
-  slide.className = 'carousel-item with-image';
+  slide.className = 'carousel-dotted-item with-image';
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
@@ -27,7 +27,7 @@ function buildSlideWithImage(row, index, cells) {
 
   // Create content container
   const content = document.createElement('div');
-  content.className = 'carousel-content';
+  content.className = 'carousel-dotted-content';
 
   // Badge text (cell 1)
   const badgeText = cells[1]?.textContent.trim();
@@ -41,7 +41,7 @@ function buildSlideWithImage(row, index, cells) {
   // Description (cell 3)
   if (cells[3]) {
     const description = document.createElement('div');
-    description.className = 'carousel-description';
+    description.className = 'carousel-dotted-description';
     while (cells[3].firstChild) description.append(cells[3].firstChild);
     content.append(description);
   }
@@ -62,19 +62,19 @@ function buildSlideWithImage(row, index, cells) {
  */
 function buildSlideWithoutImage(row, index, cells) {
   const slide = document.createElement('div');
-  slide.className = 'carousel-item without-image';
+  slide.className = 'carousel-dotted-item without-image';
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
   // Create content container
   const content = document.createElement('div');
-  content.className = 'carousel-content';
+  content.className = 'carousel-dotted-content';
 
   // Header text (cell 1)
   const headerText = cells[6]?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
-    header.className = 'carousel-header';
+    header.className = 'carousel-dotted-header';
     header.textContent = headerText;
     content.append(header);
   }
