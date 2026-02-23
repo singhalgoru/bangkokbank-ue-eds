@@ -14,7 +14,7 @@ export default function decorate(block) {
 
   // Process the image (first row)
   const imageRow = rows[0];
-  const picture = imageRow.querySelector('picture');
+  const picture = imageRow?.querySelector('picture');
 
   if (picture) {
     const figure = document.createElement('figure');
@@ -32,7 +32,7 @@ export default function decorate(block) {
 
     // Process title (second row)
     const titleRow = rows[1];
-    const titleText = titleRow.textContent.trim();
+    const titleText = titleRow?.textContent?.trim();
     if (titleText) {
       const title = document.createElement('h3');
       title.className = 'title-2 line';
@@ -42,7 +42,7 @@ export default function decorate(block) {
 
     // Process description (third row)
     const descRow = rows[2];
-    const descText = descRow.textContent.trim();
+    const descText = descRow?.textContent?.trim();
     if (descText) {
       const desc = document.createElement('div');
       desc.className = 'desc';
@@ -55,22 +55,24 @@ export default function decorate(block) {
 
     // Process button (fourth row)
     const buttonRow = rows[3];
-    const buttonContainer = buttonRow.querySelector('.button-container');
-    const link = buttonContainer?.querySelector('a') || buttonRow.querySelector('a');
+    if (buttonRow) {
+      const buttonContainer = buttonRow.querySelector('.button-container');
+      const link = buttonContainer?.querySelector('a') || buttonRow.querySelector('a');
 
-    if (link) {
-      const buttonGroup = document.createElement('div');
-      buttonGroup.className = 'button-group';
+      if (link) {
+        const buttonGroup = document.createElement('div');
+        buttonGroup.className = 'button-group';
 
-      // Create new button with proper classes
-      const button = document.createElement('a');
-      button.className = 'btn-primary';
-      button.href = link.href;
-      button.textContent = link.textContent || 'Read More';
-      button.title = link.title || 'read-more';
+        // Create new button with proper classes
+        const button = document.createElement('a');
+        button.className = 'btn-primary';
+        button.href = link.href;
+        button.textContent = link.textContent || 'Read More';
+        button.title = link.title || 'read-more';
 
-      buttonGroup.appendChild(button);
-      figcaption.appendChild(buttonGroup);
+        buttonGroup.appendChild(button);
+        figcaption.appendChild(buttonGroup);
+      }
     }
 
     figure.appendChild(figcaption);
@@ -78,6 +80,8 @@ export default function decorate(block) {
   }
 
   // Replace block content with the new card structure
-  block.innerHTML = '';
-  block.appendChild(card);
+  if (card.children.length > 0) {
+    block.innerHTML = '';
+    block.appendChild(card);
+  }
 }
