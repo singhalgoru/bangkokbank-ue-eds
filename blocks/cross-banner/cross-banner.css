@@ -77,12 +77,12 @@
 }
 
 .wealth .cross-banner-description {
-    line-height: 17.99px;
+    line-height: 1.1244rem;
     color: var(--bbl-color-white);
 }
 
 .private .cross-banner-description {
-    line-height: 17.99px;
+    line-height: 1.1244rem;
 }
 
 body.wealth
