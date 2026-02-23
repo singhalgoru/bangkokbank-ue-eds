@@ -3,21 +3,45 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 const DEFAULT_BUTTON_TEXT = 'Log on';
 
 /**
- * Parses the block content and returns button text and content rows.
+ * Parses the block content per _login.json: first row = buttonText + loginPanelTitle,
+ * following rows = login-panel-section (loginPanelSubTitle, desktopPanelLinks, mobilePanelLinks).
  * @param {Element} block The login block element
- * @returns {{ buttonText: string, contentRows: Element[] } | null} Null when block has no children
+ * @returns {{
+ * buttonText: string,
+ * loginPanelTitle: string,
+ * sections: Array<{ row: Element,
+ * subTitle: string,
+ * desktopLinksCell: Element,
+ * mobileLinksCell: Element }> } | null}
+ * Null when block has no children
  */
 function parseBlockContent(block) {
   const rows = [...block.children];
   if (rows.length === 0) return null;
 
-  const buttonTextRow = rows[0];
-  const buttonText = buttonTextRow.querySelector('p')?.textContent?.trim()
-    || buttonTextRow.textContent?.trim()
+  const firstRow = rows[0];
+  const cells0 = [...firstRow.children];
+  const buttonText = cells0[0]?.querySelector('p')?.textContent?.trim()
+    || cells0[0]?.textContent?.trim()
     || DEFAULT_BUTTON_TEXT;
+  const loginPanelTitle = rows[1]?.querySelector('p')?.textContent?.trim()
+    || rows[1]?.textContent?.trim()
+    || '';
 
-  const contentRows = rows.slice(1);
-  return { buttonText, contentRows };
+  const sections = rows.slice(2).map((row) => {
+    const cells = [...row.children];
+    const subTitle = cells[0]?.querySelector('p')?.textContent?.trim()
+      || cells[0]?.textContent?.trim()
+      || '';
+    return {
+      row,
+      subTitle,
+      desktopLinksCell: cells[1],
+      mobileLinksCell: cells[2],
+    };
+  });
+
+  return { buttonText, loginPanelTitle, sections };
 }
 
 /**
@@ -48,8 +72,8 @@ function createLoginButton(buttonText) {
 
 /**
  * Builds a single link list element from a list of list items.
- * @param {HTMLUListElement} listEl Source list element
- * @param {string} [listClassName] Optional extra class (e.g. for standalone lists)
+ * @param {HTMLUListElement|HTMLOListElement} listEl Source list element
+ * @param {string} [listClassName] Optional extra class (e.g. for standalone lists, desktop/mobile)
  * @returns {HTMLUListElement}
  */
 function buildLinkList(listEl, listClassName = '') {
@@ -78,40 +102,29 @@ function buildLinkList(listEl, listClassName = '') {
 }
 
 /**
- * Builds a section (heading + list) from a heading element.
- * @param {HTMLHeadingElement} heading
- * @returns {HTMLDivElement|null} Section element or null if no following list
+ * Builds a link list from a cell that may contain ul/ol (richtext).
+ * @param {Element} [cell] Cell element (e.g. desktopPanelLinks or mobilePanelLinks)
+ * @param {string} [listClassName] Optional extra class
+ * @returns {HTMLUListElement|null} Link list or null if no list in cell
  */
-function buildSectionFromHeading(heading) {
-  const sectionGroup = document.createElement('div');
-  sectionGroup.className = 'login-section';
-
-  const sectionTitle = document.createElement('h3');
-  sectionTitle.className = 'login-section-title';
-  sectionTitle.textContent = heading.textContent;
-  sectionGroup.appendChild(sectionTitle);
-
-  let nextSibling = heading.nextElementSibling;
-  while (nextSibling && nextSibling.tagName !== 'UL' && nextSibling.tagName !== 'H3') {
-    nextSibling = nextSibling.nextElementSibling;
-  }
-
-  if (nextSibling && nextSibling.tagName === 'UL') {
-    const linkList = buildLinkList(nextSibling);
-    sectionGroup.appendChild(linkList);
-    return sectionGroup;
-  }
-
-  return null;
+function buildLinkListFromCell(cell, listClassName = '') {
+  if (!cell) return null;
+  const listEl = cell.querySelector('ul, ol');
+  if (!listEl) return null;
+  return buildLinkList(listEl, listClassName);
 }
 
 /**
- * Builds panel DOM from content rows (sections and standalone lists).
- * Preserves authoring instrumentation by moving data-aue-* from each row to a wrapper.
- * @param {Element[]} contentRows
+ * Builds panel DOM from parsed login data (panel title + sections per _login.json).
+ * Preserves authoring instrumentation by moving data-aue-* from each section row to a wrapper.
+ * @param {string} loginPanelTitle Title for the login panel (e.g. Online Banking)
+ * @param {Array<{ row: Element,
+ * subTitle: string,
+ * desktopLinksCell: Element,
+ * mobileLinksCell: Element }>} sections
  * @returns {HTMLDivElement}
  */
-function createLoginPanel(contentRows) {
+function createLoginPanel(loginPanelTitle, sections) {
   const loginPanel = document.createElement('div');
   loginPanel.className = 'login-panel';
   loginPanel.setAttribute('aria-hidden', 'true');
@@ -119,30 +132,37 @@ function createLoginPanel(contentRows) {
   const panelInner = document.createElement('div');
   panelInner.className = 'login-panel-inner';
 
-  contentRows.forEach((row) => {
+  if (loginPanelTitle) {
+    const panelTitleEl = document.createElement('h2');
+    panelTitleEl.className = 'login-panel-title';
+    panelTitleEl.textContent = loginPanelTitle;
+    panelInner.appendChild(panelTitleEl);
+  }
+
+  sections.forEach(({
+    row, subTitle, desktopLinksCell, mobileLinksCell,
+  }) => {
     const wrapper = document.createElement('div');
-    wrapper.className = 'login-panel-content';
+    wrapper.className = 'login-panel-section';
     moveInstrumentation(row, wrapper);
 
-    const cells = [...row.children];
-    cells.forEach((cell) => {
-      const headings = cell.querySelectorAll('h3');
-      const lists = cell.querySelectorAll('ul');
+    // const sectionGroup = document.createElement('div');
+    // sectionGroup.className = 'login-section';
 
-      if (headings.length === 0 && lists.length === 0) return;
+    if (subTitle) {
+      const sectionTitle = document.createElement('h3');
+      sectionTitle.className = 'login-section-subtitle';
+      sectionTitle.textContent = subTitle;
+      wrapper.appendChild(sectionTitle);
+    }
 
-      headings.forEach((heading) => {
-        const section = buildSectionFromHeading(heading);
-        if (section) wrapper.appendChild(section);
-      });
+    const desktopList = buildLinkListFromCell(desktopLinksCell, 'login-link-list-desktop');
+    if (desktopList) wrapper.appendChild(desktopList);
 
-      lists.forEach((list) => {
-        if (list.previousElementSibling?.tagName === 'H3') return;
-        const linkList = buildLinkList(list, 'login-link-list-standalone');
-        wrapper.appendChild(linkList);
-      });
-    });
+    const mobileList = buildLinkListFromCell(mobileLinksCell, 'login-link-list-mobile');
+    if (mobileList) wrapper.appendChild(mobileList);
 
+    // wrapper.appendChild(sectionGroup);
     panelInner.appendChild(wrapper);
   });
 
@@ -151,19 +171,27 @@ function createLoginPanel(contentRows) {
 }
 
 function applyLayout(block) {
-  // Use a less "private" property name; remove the dangling underscore.
   let loginContent = block.loginContent || parseBlockContent(block);
   if (!loginContent) return;
 
-  const { buttonText, contentRows } = loginContent;
+  const { buttonText, loginPanelTitle, sections } = loginContent;
   if (!block.loginContent) {
     block.loginContent = {
       buttonText,
-      contentRows: contentRows.map((el) => el.cloneNode(true)),
+      loginPanelTitle,
+      sections: sections.map(({ row, subTitle }) => {
+        const rowClone = row.cloneNode(true);
+        const cells = [...rowClone.children];
+        return {
+          row: rowClone,
+          subTitle,
+          desktopLinksCell: cells[1],
+          mobileLinksCell: cells[2],
+        };
+      }),
     };
     loginContent = block.loginContent;
   }
-  const rowsToUse = loginContent.contentRows;
 
   block.innerHTML = '';
 
@@ -171,7 +199,7 @@ function applyLayout(block) {
   loginWrapper.className = 'login-wrapper';
 
   const loginButton = createLoginButton(loginContent.buttonText);
-  const loginPanel = createLoginPanel(rowsToUse);
+  const loginPanel = createLoginPanel(loginContent.loginPanelTitle, loginContent.sections);
   loginWrapper.appendChild(loginButton);
   loginWrapper.appendChild(loginPanel);
 
@@ -179,10 +207,12 @@ function applyLayout(block) {
 }
 
 /**
- * Decorates the Login block.
- * Creates a login button with a dropdown panel containing categorized login links.
- * - Button with configurable text (e.g., 'Log on')
- * - Dropdown panel with sections (Personal, Business) and login links
+ * Decorates the Login block per _login.json.
+ * - Login row: buttonText, loginPanelTitle (panel heading)
+ * - Section rows (login-panel-section):
+ * loginPanelSubTitle, desktopPanelLinks, mobilePanelLinks
+ * Renders a login button and dropdown panel with optional
+ * title and sections with desktop/mobile link lists.
  * @param {Element} block The login block element
  */
 export default function decorate(block) {

@@ -2,6 +2,24 @@
   position: relative;
 }
 
+.login-panel-title {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  border-bottom: 1px solid var(--bbl-color-grey-150);
+  color: var(--bbl-color-grey-140);
+  padding: 0.625rem 0 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Desktop panel: show desktop links, hide mobile links */
+.login-link-list-desktop {
+  display: none;
+}
+
+.login-link-list-mobile {
+  display: block;
+}
+
 .login-button {
   max-height: 2rem;
   font-size: .9rem;
@@ -41,7 +59,6 @@ button.login-button.primary {
   background: var(--bbl-color-white);
   box-shadow: -0.25rem 0 0.75rem rgb(0 0 0 / 15%);
   border-radius: 0;
-  padding: 1rem;
   visibility: hidden;
   transform: translateX(100%);
   transition: transform 0.3s ease, visibility 0.3s ease;
@@ -80,14 +97,73 @@ body.login-panel-open {
   overflow: hidden;
 }
 
+.login-section-title {
+  font-size: 1.5rem !important;
+  line-height: 1.625rem !important;
+  font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
+  color: var(--bbl-color-grey-140);
+  padding: 0.625rem 0 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--bbl-color-grey-150);
+}
+
+.login-section-subtitle {
+  color: var(--bbl-color-black);
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  line-height: normal;
+  position: relative;
+  padding-bottom: 0.9375rem;
+}
+
+.login-section-subtitle::before {
+  content: "";
+  position: absolute;
+  width: 1.3125rem;
+  bottom: 0;
+  height: 0.0625rem;
+  background: var(--bbl-color-grey-150);
+  left: 0;
+  right: auto;
+}
+
+ul.login-link-list {
+  margin-bottom: 1.875rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.login-panel-inner {
+  text-align: left;
+  padding: 1.875rem;
+}
+
+a.login-link {
+  font-size: 0.875rem;
+  font-family: BangkokBank-Light, Tahoma, Helvetica, Arial, sans-serif;
+  padding: 0.375rem 0;
+  display: inline-block;
+  color: var(--bbl-color-grey-70);
+}
+
+a.login-link:hover {
+  color: var(--bbl-color-blue-90);
+  text-decoration: none;
+}
+
 /* Desktop: adjust panel positioning below main-nav-desktop */
 @media (width > 64rem) {
   .login-panel {
     top: var(--nav-height, 6.25rem);
     height: calc(100vh - var(--nav-height, 6.25rem));
-    width: 20rem;
-    max-width: none;
-    padding: 1.5rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .login-panel-inner {
+    padding: 1.875rem 6.5625rem 1.875rem 3.125rem;
+    text-align: right;
   }
 
   .login-button {
@@ -106,5 +182,26 @@ body.login-panel-open {
 
   .login-button-text {
     display: block;
+  }
+
+  .login-section-subtitle::before {
+    left: auto;
+    right: 0;
+  }
+
+  a.login-link {
+    font-size: 1rem;
+  }
+
+  .login-section-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .login-link-list-desktop {
+    display: block;
+  }
+
+  .login-link-list-mobile {
+    display: none;
   }
 }
