@@ -5,11 +5,10 @@ function changeBanner(block) {
   block.addEventListener('mouseenter', (e) => {
     const thumbnail = e.target.closest('.hero-banner-thumbnail-item');
     if (!thumbnail) return;
-
-    const idx = thumbnail.dataset.index;
+    const { index } = thumbnail.dataset;
     block.querySelectorAll('[data-index]').forEach((el) => {
-      el.classList.toggle('hero-banner-item-active', el.classList.contains('hero-banner-item') && el.dataset.index === idx);
-      el.classList.toggle('hero-banner-thumbnail-item-active', el.classList.contains('hero-banner-thumbnail-item') && el.dataset.index === idx);
+      el.classList.toggle('hero-banner-item-active', el.classList.contains('hero-banner-item') && el.dataset.index === index);
+      el.classList.toggle('hero-banner-thumbnail-item-active', el.classList.contains('hero-banner-thumbnail-item') && el.dataset.index === index);
     });
   }, true);
 }
@@ -22,123 +21,99 @@ function lazyLoadThumbnails(block) {
   window.addEventListener('scroll', load, { passive: true });
 }
 
+function stripInstrumentation(el) {
+  [...el.querySelectorAll('*'), el].forEach((node) => {
+    [...node.attributes]
+      .filter(({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'))
+      .forEach(({ nodeName }) => node.removeAttribute(nodeName));
+  });
+}
+
+function createElement(tag, ...classNames) {
+  const el = document.createElement(tag);
+  if (classNames.length) el.classList.add(...classNames);
+  return el;
+}
+
+function createThumbItem(picture, index, { strip = false, active = false } = {}) {
+  const item = createElement('li', 'hero-banner-thumbnail-item');
+  if (active) item.classList.add('hero-banner-thumbnail-item-active');
+  item.dataset.index = index;
+  if (picture) {
+    if (strip) stripInstrumentation(picture);
+    const img = picture.querySelector('img');
+    if (img) { img.className = 'hero-banner-thumbnail-img'; img.loading = 'lazy'; item.append(img); }
+  }
+  return item;
+}
+
 export default function decorate(block) {
-  // eslint-disable-next-line no-unused-vars
-  const [dataidCell, variantcell] = block.children;
-  const variant = variantcell?.textContent?.trim() || 'default';
+  const variant = block.children[0]?.textContent?.trim() || 'default';
 
-  const mainImgContainer = document.createElement('div');
-  mainImgContainer.classList = 'hero-banner-container';
+  const bannerList = createElement('ul', 'hero-banner-list');
+  const thumbnailList = createElement('ul', 'hero-banner-thumbnail-list', 'content');
 
-  const bannerList = document.createElement('ul');
-  bannerList.classList = 'hero-banner-list';
+  [...block.children].slice(2, 9).forEach((row, i) => {
+    const [imageCell, logoImageCell, thumbImgCell, headingCell, textCell, linkCell] = row.children;
 
-  const thumbnailOuter = document.createElement('div');
-  thumbnailOuter.classList = 'hero-banner-thumbnail-outer';
+    const bannerItem = createElement('li', 'hero-banner-item');
+    if (i === 0) bannerItem.classList.add('hero-banner-item-active');
+    bannerItem.dataset.index = i;
 
-  const thumbnailList = document.createElement('ul');
-  thumbnailList.classList = 'hero-banner-thumbnail-list content';
+    const img = imageCell?.querySelector('img');
+    if (img) { img.className = 'hero-banner-img'; img.loading = 'lazy'; bannerItem.append(img); }
 
-  let bannerIndex = 0;
-
-  const items = [...block.children].slice(2, 9);
-
-  items.forEach((row) => {
-    const [imageCell, logoImageCell, thumbImgCell, headingCell, textCell, linkCell] = [
-      ...row.children,
-    ];
-
-    const bannerItem = document.createElement('li');
-    bannerItem.className = 'hero-banner-item';
-    bannerItem.dataset.index = bannerIndex;
-    if (bannerIndex === 0) bannerItem.classList.add('hero-banner-item-active');
-
-    moveInstrumentation(row, bannerItem);
-
-    const picture = imageCell?.querySelector('picture');
-    const img = picture?.querySelector('img');
-
-    if (img) {
-      img.className = 'hero-banner-img';
-      img.loading = 'lazy';
-      bannerItem.append(img);
-    }
-
-    const content = document.createElement('div');
-    content.className = 'hero-banner-content content';
-
-    const contentInner = document.createElement('div');
-    contentInner.className = 'hero-banner-content-inner';
-
-    const contentGroup = document.createElement('div');
-    contentGroup.classList = 'hero-banner-content-group';
-
-    const logoPicture = logoImageCell?.querySelector('picture');
-    const logoImg = logoPicture?.querySelector('img');
+    const contentInner = createElement('div', 'hero-banner-content-inner');
+    const logoImg = logoImageCell?.querySelector('img');
     if (logoImg) {
       logoImg.className = 'hero-banner-logo';
-      const logoWrapper = document.createElement('div');
-      logoWrapper.className = 'hero-banner-logo-wrapper';
+      const logoWrapper = createElement('div', 'hero-banner-logo-wrapper');
       logoWrapper.append(logoImg);
-
       contentInner.append(logoWrapper);
     }
 
-    if (headingCell) {
-      contentGroup.innerHTML += headingCell.innerHTML;
-    }
-
-    if (textCell) {
-      const textElement = textCell.firstElementChild || textCell;
-      textElement.classList.add('hero-banner-content-inner-text');
-      contentGroup.innerHTML += textCell.innerHTML;
-    }
-
-    if (linkCell) {
-      contentGroup.innerHTML += linkCell.innerHTML;
-    }
-
+    const contentGroup = createElement('div', 'hero-banner-content-group');
+    if (textCell?.firstElementChild) textCell.firstElementChild.classList.add('hero-banner-content-inner-text');
+    [headingCell, textCell, linkCell].forEach((cell) => {
+      if (cell) contentGroup.innerHTML += cell.innerHTML;
+    });
     decorateButtonsV1(contentGroup);
     contentGroup.querySelector('a')?.classList.add('button-m');
 
     contentInner.append(contentGroup);
+    const content = createElement('div', 'hero-banner-content', 'content');
     content.append(contentInner);
     bannerItem.append(content);
-    bannerList.append(bannerItem);
-
-    /* ---------------- thumbnail item ---------------- */
-    const thumbnailItem = document.createElement('li');
-    thumbnailItem.className = 'hero-banner-thumbnail-item';
-    thumbnailItem.dataset.index = bannerIndex;
-    if (bannerIndex === 0) thumbnailItem.classList.add('hero-banner-thumbnail-item-active');
 
     const thumbPicture = thumbImgCell?.querySelector('picture');
-    const thumbImg = thumbPicture?.querySelector('img');
+    const cloned = thumbPicture?.cloneNode(true);
 
+    const thumbImg = thumbPicture?.querySelector('img');
     if (thumbImg) {
       thumbImg.className = 'hero-banner-thumbnail-img';
-      thumbImg.loading = 'lazy';
-      thumbnailItem.append(thumbImg);
+      thumbImg.style.display = 'none';
+      thumbImg.setAttribute('aria-hidden', 'true');
+      bannerItem.append(thumbImg);
     }
 
-    thumbnailList.append(thumbnailItem);
-
-    bannerIndex += 1;
+    moveInstrumentation(row, bannerItem);
+    bannerList.append(bannerItem);
+    thumbnailList.append(createThumbItem(cloned, i, { strip: true, active: i === 0 }));
   });
 
+  const mainImgContainer = createElement('div', 'hero-banner-container');
   mainImgContainer.append(bannerList);
-  thumbnailOuter.append(thumbnailList);
 
-  const wrapper = document.createElement('div');
-  wrapper.className = `hero-banner hero-banner-${variant}`;
+  const wrapper = createElement('div', 'hero-banner', `hero-banner-${variant}`);
   wrapper.append(mainImgContainer);
 
   if (variant === 'hero-with-thumbnail-images') {
+    const thumbnailOuter = createElement('div', 'hero-banner-thumbnail-outer');
+    thumbnailOuter.append(thumbnailList);
     wrapper.append(thumbnailOuter);
   }
 
   block.replaceChildren(wrapper);
-
   changeBanner(block);
   lazyLoadThumbnails(block);
 }

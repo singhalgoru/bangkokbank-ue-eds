@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "header-section"
     ]
   },
   {
@@ -24,7 +25,8 @@
       "warning-card",
       "menu-cards",
       "carousel-dotted",
-      "menu-banner"
+      "menu-banner",
+      "cross-banner"
     ]
   },
   {
@@ -67,6 +69,17 @@
     ]
   },
   {
+    "id": "header-section",
+    "components": [
+      "top-nav",
+      "brand-logo",
+      "main-nav-item",
+      "login",
+      "location",
+      "search"
+    ]
+  },
+  {
     "id": "hero",
     "components": [
       "hero-item"
@@ -81,10 +94,40 @@
     "maxItems": 4
   },
   {
+    "id": "login",
+    "components": [
+      "login-panel-section"
+    ]
+  },
+  {
+    "id": "main-nav-item",
+    "components": [
+      "megamenu-column"
+    ]
+  },
+  {
+    "id": "megamenu",
+    "components": [
+      "nav-item"
+    ]
+  },
+  {
+    "id": "nav-item",
+    "components": [
+      "menu-item"
+    ]
+  },
+  {
     "id": "menu-cards",
     "components": [
       "menu-card"
     ],
     "maxItems": 6
+  },
+  {
+    "id": "top-nav",
+    "components": [
+      "top-nav-link"
+    ]
   }
 ]

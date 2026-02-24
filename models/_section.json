@@ -105,7 +105,8 @@
         "warning-card",
         "menu-cards",
         "carousel-dotted",
-        "menu-banner"
+        "menu-banner",
+        "cross-banner"
       ]
     }
   ]
