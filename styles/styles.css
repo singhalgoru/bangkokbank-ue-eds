@@ -163,9 +163,15 @@ main img {
 /* sections (default) */
 .section {
     width: 100%;
-    padding: 0 var(--bbl-space-section-xl);
+    padding: 0 var(--bbl-space-section-sm);
     margin: 0 auto;
     box-sizing: border-box;
+}
+
+@media (width > 64rem) {
+    .section {
+        padding: 0 var(--bbl-space-section-xl);
+    }
 }
 
 @media (width > 120rem) {
