@@ -197,15 +197,27 @@ main img {
 }
 
 .section.full-bleed-bg .content {
-    /* padding: 0; */
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0 var(--bbl-space-section-xs);
     margin: 0 auto;
+}
+
+@media (width > 47.5rem) {
+    .section.full-bleed-bg .content {
+        padding: 0 var(--bbl-space-section-sm);
+    }
+}
+
+@media (width > 64rem) {
+    .section.full-bleed-bg .content {
+        padding: 0 var(--bbl-space-section-xl);
+    }
 }
 
 @media (width > 120rem) {
     .section.full-bleed-bg .content {
         max-width: var(--bbl-layout-content-max-width-1920);
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
