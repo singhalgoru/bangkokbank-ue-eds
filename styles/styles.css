@@ -266,6 +266,7 @@ main img {
 
 @media (width > 64rem) {
     .section.full-bleed-special {
+        max-width: 100%;
         padding-inline:  var(--bbl-space-section-xl);
     }
 }
