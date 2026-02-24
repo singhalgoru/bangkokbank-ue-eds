@@ -35,6 +35,7 @@ button,
   /* Typography */
   font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-medium);
+  line-height: 1;
   text-align: center;
   
   /* Layout */
