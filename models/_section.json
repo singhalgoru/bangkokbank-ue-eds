@@ -117,7 +117,8 @@
         "story-card",
         "warning-card",
         "menu-cards",
-        "carousel-dotted"
+        "carousel-dotted",
+        "cross-banner"
       ]
     }
   ]
