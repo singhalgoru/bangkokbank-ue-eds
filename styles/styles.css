@@ -163,65 +163,63 @@ main img {
 /* sections (default) */
 .section {
     width: 100%;
-    padding: 0 var(--bbl-space-section-xs);
+    padding-inline: var(--bbl-space-section-xs);
     margin: 0 auto;
     box-sizing: border-box;
 }
 
 @media (width > 47.5rem) {
     .section {
-        padding: 0 var(--bbl-space-section-sm);
+        padding-inline: var(--bbl-space-section-sm);
     }
 }
 
 @media (width > 64rem) {
     .section {
-        padding: 0 var(--bbl-space-section-xl);
+        padding-inline: var(--bbl-space-section-xl);
     }
 }
 
 @media (width > 87.5rem) {
     .section {
         max-width: var(--bbl-layout-content-max-width-desktop);
-        padding-left: 0;
-        padding-right: 0;
+        padding-inline: 0;
     }
 }
 
 /* sections (full-bleed-bg) */
 .section.full-bleed-bg {
     max-width: 100%;
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline: 0;
     margin: 0 auto;
 }
 
 .section.full-bleed-bg .content {
-    padding: 0 var(--bbl-space-section-xs);
+    padding-inline: var(--bbl-space-section-xs);
     margin: 0 auto;
 }
 
 @media (width > 47.5rem) {
     .section.full-bleed-bg .content {
-        padding: 0 var(--bbl-space-section-sm);
+        padding-inline: var(--bbl-space-section-sm);
     }
 }
 
 @media (width > 64rem) {
     .section.full-bleed-bg .content {
-        padding: 0 var(--bbl-space-section-xl);
+        padding-inline: var(--bbl-space-section-xl);
     }
 }
 
 @media (width > 120rem) {
     .section.full-bleed-bg .content {
         max-width: var(--bbl-layout-content-max-width-1920);
-        padding-left: 0;
-        padding-right: 0;
+        padding-inline: 0;
     }
 }
 
 /* section metadata: full-bleed-special */
+
 /* .section.full-bleed-special {
     width: 100%;
     max-width: 100%;
@@ -262,21 +260,20 @@ main img {
 
 @media (width > 47.5rem) {
     .section.full-bleed-special {
-        padding: 0 var(--bbl-space-section-sm);
+        padding-inline: var(--bbl-space-section-sm);
     }
 }
 
 @media (width > 64rem) {
     .section.full-bleed-special {
-        padding: 0 var(--bbl-space-section-xl);
+        padding-inline:  var(--bbl-space-section-xl);
     }
 }
 
 @media (width > 120rem) {
     .section.full-bleed-special {
         max-width: var(--bbl-layout-content-max-width-1920);
-        padding-left: 0;
-        padding-right: 0;
+        padding-inline: 0;
     }
 }
 
