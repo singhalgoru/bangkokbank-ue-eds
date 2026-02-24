@@ -235,7 +235,6 @@ main img {
 
 @media (width >= 1920px) {
     .section.full-bleed-special {
-        max-width: var(--bbl-layout-content-max-width-1920);
         padding-left: 0;
         padding-right: 0;
     }
