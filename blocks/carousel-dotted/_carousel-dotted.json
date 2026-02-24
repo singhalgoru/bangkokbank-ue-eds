@@ -245,6 +245,7 @@
           "name": "image",
           "label": "Image",
           "valueType": "string",
+          "multi": false,
           "condition": {
             "and": [
               { "!!": [{ "var": "withImage" }] },
