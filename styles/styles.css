@@ -168,13 +168,12 @@ main img {
     box-sizing: border-box;
 }
 
-@media (width >= 1400px) {
+/* @media (width >= 1400px) {
     .section {
-        /* max-width: var(--bbl-layout-content-max-width-desktop); */
-        max-width: var(--bbl-layout-content-max-width-1920);
+        max-width: var(--bbl-layout-content-max-width-desktop);
         padding: 0;
     }
-}
+} */
 
 /* sections (full-bleed-bg) */
 .section.full-bleed-bg {
