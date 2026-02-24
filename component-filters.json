@@ -87,13 +87,6 @@
     "maxItems": 8
   },
   {
-    "id": "menu-banner",
-    "components": [
-      "menu-banner-card"
-    ],
-    "maxItems": 4
-  },
-  {
     "id": "login",
     "components": [
       "login-panel-section"
@@ -116,6 +109,13 @@
     "components": [
       "menu-item"
     ]
+  },
+  {
+    "id": "menu-banner",
+    "components": [
+      "menu-banner-card"
+    ],
+    "maxItems": 4
   },
   {
     "id": "menu-cards",
