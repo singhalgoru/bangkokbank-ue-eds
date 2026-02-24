@@ -35,7 +35,6 @@ button,
   /* Typography */
   font-family: var(--bbl-font-family-primary);
   font-weight: var(--bbl-font-weight-medium);
-  line-height: 1;
   text-align: center;
   
   /* Layout */
@@ -102,6 +101,11 @@ button.primary {
   background: var(--bbl-color-active-blue);
   color: var(--bbl-color-white);
   border: none;
+  width: 6.25rem;
+  height: 3.125rem;
+  font-size: 0.875rem;
+  line-height: 2.75rem;
+  display: flex;
 }
 
 button:focus-visible,
