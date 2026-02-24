@@ -146,6 +146,13 @@
             ]
           }
         },
+         {
+          "component": "boolean",
+          "name": "showDotsArrows",
+          "label": "Show Dots & Arrows",
+          "valueType": "boolean",
+          "value": false
+         },
         {
           "component": "boolean",
           "name": "autoScroll",
