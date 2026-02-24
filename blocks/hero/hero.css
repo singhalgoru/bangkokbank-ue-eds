@@ -270,7 +270,7 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
     -webkit-text-fill-color: transparent;
 }
 
-@media (width >= 760px) {
+@media (width > 47.5rem) {
     .hero-banner::after {
         width: calc(100% - 6rem);
     }
@@ -329,7 +329,7 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
     }
 }
 
-@media (width >= 1024px) {
+@media (width > 64rem) {
     .hero-banner::after {
         content: none;
     }
@@ -462,7 +462,7 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
     }
 }
 
-@media (width >= 1920px) {
+@media (width >= 120rem) {
     .section.full-bleed-bg.section.full-bleed-bg .hero-banner-content.content {
         padding: 0;
     }
