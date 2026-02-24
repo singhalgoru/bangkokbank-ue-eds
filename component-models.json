@@ -368,7 +368,14 @@
         "component": "boolean",
         "name": "showDots",
         "label": "Show Dots",
-        "valueType": "boolean"
+        "valueType": "boolean",
+        "condition": {
+          "!": [
+            {
+              "var": "showArrows"
+            }
+          ]
+        }
       },
       {
         "component": "select",
@@ -433,7 +440,14 @@
         "name": "showArrows",
         "label": "Show Arrows",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "showDots"
+            }
+          ]
+        }
       },
       {
         "component": "select",
