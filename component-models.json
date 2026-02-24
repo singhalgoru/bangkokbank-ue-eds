@@ -573,10 +573,26 @@
         "value": false
       },
       {
-        "component": "text",
-        "name": "badgeText",
-        "label": "Badge Text",
+        "component": "select",
+        "name": "withImageType",
+        "label": "Image Type",
+        "description": "Choose how the image should be presented",
         "valueType": "string",
+        "value": "full-background",
+        "options": [
+          {
+            "name": "WITH FULL BACKGROUND IMAGE",
+            "value": "full-background"
+          },
+          {
+            "name": "WITH CIRCULAR IMAGE",
+            "value": "circular-image"
+          },
+          {
+            "name": "WITH SQUARE IMAGE",
+            "value": "square-image"
+          }
+        ],
         "condition": {
           "and": [
             {
@@ -602,6 +618,39 @@
                   "var": "withImage"
                 }
               ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "badgeText",
+        "label": "Badge Text",
+        "valueType": "string",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
+              ]
             }
           ]
         }
@@ -619,6 +668,14 @@
                   "var": "withImage"
                 }
               ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
+              ]
             }
           ]
         }
@@ -635,6 +692,14 @@
                 {
                   "var": "withImage"
                 }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
               ]
             }
           ]
@@ -654,6 +719,14 @@
                   "var": "withImage"
                 }
               ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
+              ]
             }
           ]
         }
@@ -670,6 +743,14 @@
                 {
                   "var": "withImage"
                 }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
               ]
             }
           ]
@@ -703,6 +784,170 @@
                 {
                   "var": "withImage"
                 }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "full-background"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "circularImage",
+        "label": "Circular Image",
+        "valueType": "string",
+        "multi": false,
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "circular-image"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "circularTitle",
+        "label": "Title",
+        "valueType": "string",
+        "description": "Title shown for circular image layout",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "circular-image"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "circularText",
+        "label": "Text",
+        "valueType": "string",
+        "description": "Text shown for circular image layout",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "circular-image"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "squareImage",
+        "label": "Square Image",
+        "valueType": "string",
+        "multi": false,
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "square-image"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "squareStep",
+        "label": "Step",
+        "valueType": "string",
+        "description": "Shown for square image layout",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "square-image"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "squareText",
+        "label": "Text",
+        "valueType": "string",
+        "description": "Text shown for square image layout",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "withImageType"
+                },
+                "square-image"
               ]
             }
           ]
