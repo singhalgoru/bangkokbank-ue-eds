@@ -260,9 +260,27 @@
           "valueType": "boolean",
           "value": false,
           "condition": {
-            "!": [
+            "and": [
               {
-                "var": "withoutImage"
+                "!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
               }
             ]
           }
@@ -410,9 +428,27 @@
           "valueType": "boolean",
           "value": false,
           "condition": {
-            "!": [
+            "and": [
               {
-                "var": "withImage"
+                "!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
               }
             ]
           }
@@ -456,14 +492,64 @@
           "name": "hero-banner-image-carousel",
           "label": "Hero Banner Image Carousel",
           "valueType": "boolean",
-          "value": false
+          "value": false,
+          "condition": {
+            "and": [
+              {
+                "!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           "component": "boolean",
           "name": "text-animation-variant",
           "label": "Text Animation Variant",
           "valueType": "boolean",
-          "value": false
+          "value": false,
+          "condition": {
+            "and": [
+              {
+                "!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              },
+              {
+                "!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           "component": "reference",
