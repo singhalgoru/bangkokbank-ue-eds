@@ -63,7 +63,9 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "carousel-dotted",
+      "menu-cards"
     ]
   },
   {

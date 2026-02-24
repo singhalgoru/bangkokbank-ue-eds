@@ -1,6 +1,6 @@
 .carousel-dotted-container {
-  padding-left: var(--bbl-space-200);
-  padding-right: var(--bbl-space-200);
+  /* padding-left: var(--bbl-space-200);
+  padding-right: var(--bbl-space-200); */
 }
 
 .carousel-dotted {
