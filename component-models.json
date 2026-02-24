@@ -370,9 +370,20 @@
         "label": "Show Dots",
         "valueType": "boolean",
         "condition": {
-          "!": [
+          "and": [
             {
-              "var": "showArrows"
+              "!": [
+                {
+                  "var": "showArrows"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showDotsArrows"
+                }
+              ]
             }
           ]
         }
@@ -442,9 +453,20 @@
         "valueType": "boolean",
         "value": false,
         "condition": {
-          "!": [
+          "and": [
             {
-              "var": "showDots"
+              "!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showDotsArrows"
+                }
+              ]
             }
           ]
         }
@@ -480,6 +502,31 @@
           "and": [
             {
               "!!": [
+                {
+                  "var": "showArrows"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "showDotsArrows",
+        "label": "Show Dots & Arrows",
+        "valueType": "boolean",
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
                 {
                   "var": "showArrows"
                 }
