@@ -48,10 +48,12 @@ function decorateButtonsV1(element) {
         return false;
       };
 
-      if (hasTargetTrue(twoup) || hasTargetTrue(up) || a.target === '_blank') {
-        a.target = '_blank';
-      } else {
-        a.target = '_self';
+      if (a.classList.contains('button')) {
+        if (hasTargetTrue(twoup) || hasTargetTrue(up) || a.target === '_blank') {
+          a.target = '_blank';
+        } else {
+          a.target = '_self';
+        }
       }
     }
   });
