@@ -277,7 +277,7 @@
     .carousel-nav {
         display: block;
         position: absolute;
-        top: 55%;
+        top: 60%;
         transform: translateY(-50%);
         background: rgb(255 255 255 / 90%);
         width: 66px;
