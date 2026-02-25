@@ -72,19 +72,20 @@
     padding: 3.125rem 0 0;
 }
 
-.wealth .bg-grey-100 .cross-banner-title {
-    color: var(--bbl-color-white);
-}
-
 .wealth .bg-grey-100 .cross-banner-description {
     line-height: 1.1244rem;
-    color: var(--bbl-color-white);
+}
+
+.wealth :is(.bg-truthful-blue, .bg-grey-100)
+  :is(.cross-banner-title, .cross-banner-description) {
+  color: var(--bbl-color-white);
 }
 
 body.wealth
-    main
-    .cross-banner-container
-    :is(.button-container .button, .button) {
+  main
+  .cross-banner-container
+  :is(.bg-truthful-blue, .bg-grey-100)
+  :is(.button-container .button, .button) {
     background: var(--bbl-color-white);
     color: var(--bbl-color-black);
     border: 1px solid var(--bbl-color-white);
@@ -92,7 +93,7 @@ body.wealth
 
     &:hover {
         background: var(--bbl-color-blue-90);
-        border: 1px solid var(--bbl-color-blue-90);
+        border-color: var(--bbl-color-blue-90);
         color: var(--bbl-color-white);
         box-shadow: none;
     }
