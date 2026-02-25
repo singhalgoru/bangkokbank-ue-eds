@@ -67,12 +67,16 @@
 							"value": "image-right"
 						}
 					]
-				},
-				{
-					"...": "../../models/elements/_button-fields.json"
 				}
 			]
 		}
 	],
-	"filters": []
+	"filters": [
+		{
+			"id": "story-card",
+			"components": [
+				"button"
+			]
+		}
+	]
 }
