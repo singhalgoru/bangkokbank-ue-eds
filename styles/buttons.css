@@ -102,11 +102,6 @@ button.primary {
   background: var(--bbl-color-active-blue);
   color: var(--bbl-color-white);
   border: none;
-  width: 6.25rem;
-  height: 3.125rem;
-  font-size: 0.875rem;
-  line-height: 2.75rem;
-  display: flex;
 }
 
 button:focus-visible,
