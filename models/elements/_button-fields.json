@@ -47,19 +47,11 @@
       "fields": [
         {
           "component": "boolean",
-          "name": "openInNewWindow",
-          "label": "Open in new window",
-          "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+          "name": "targetLink",
+          "label": "Open link in new tab",
+          "description": "Enable to open the button link in a new browser tab",
           "valueType": "boolean",
           "value": false
-        },
-        {
-          "component": "text",
-          "name": "target",
-          "label": "Target (hidden)",
-          "description": "Computed link target value",
-          "type": "hidden",
-          "value": "_self"
         }
       ]
     }
