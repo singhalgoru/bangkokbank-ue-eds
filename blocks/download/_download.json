@@ -58,7 +58,7 @@
           "component": "select",
           "name": "linkTarget",
           "value": "",
-          "label": "Open Primary Link in New Page?",
+          "label": "Open Link in New Page?",
           "valueType": "string",
           "options": [
             {
