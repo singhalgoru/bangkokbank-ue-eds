@@ -61,13 +61,17 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
   if (buttonRows && buttonRows.length > 0) {
     buttonRows.forEach((buttonRow) => {
       const buttonContainer = buttonRow.querySelector('.button-container');
-      if (buttonContainer) {
-        const anchor = buttonContainer.querySelector('a');
-        // Only append if button has valid href, title, and text content
-        if (anchor && anchor.href && anchor.textContent.trim()) {
-          content.appendChild(buttonContainer.cloneNode(true));
-        }
+
+      if (!buttonContainer) return;
+
+      const anchor = buttonContainer.querySelector('a');
+
+      // Skip if all fields are empty (no anchor or no meaningful content)
+      if (!anchor || !anchor.href || !anchor.textContent.trim()) {
+        return;
       }
+
+      content.appendChild(buttonContainer.cloneNode(true));
     });
   }
 
