@@ -430,87 +430,17 @@
       },
       {
         "component": "boolean",
-        "name": "showArrows",
-        "label": "Show Arrows",
+        "name": "showArrowsDots",
+        "label": "Show Dots and Arrows",
         "valueType": "boolean",
         "value": false
-      },
-      {
-        "component": "select",
-        "name": "arrowsAlignment",
-        "label": "Arrows Alignment",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Middle",
-            "value": "middle"
-          },
-          {
-            "name": "Bottom Left",
-            "value": "bottom-left"
-          },
-          {
-            "name": "Bottom Right",
-            "value": "bottom-right"
-          },
-          {
-            "name": "Top Left",
-            "value": "top-left"
-          },
-          {
-            "name": "Top Right",
-            "value": "top-right"
-          }
-        ],
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "showArrows"
-                }
-              ]
-            }
-          ]
-        }
       },
       {
         "component": "boolean",
-        "name": "autoScroll",
-        "label": "Auto-Scroll",
+        "name": "showLinks",
+        "label": "Show Links",
         "valueType": "boolean",
         "value": false
-      },
-      {
-        "component": "select",
-        "name": "scrollTimeDelay",
-        "label": "Scroll Time Delay (milliseconds)",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "3 seconds",
-            "value": "3000"
-          },
-          {
-            "name": "5 seconds",
-            "value": "5000"
-          },
-          {
-            "name": "10 seconds",
-            "value": "10000"
-          }
-        ],
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "autoScroll"
-                }
-              ]
-            }
-          ]
-        }
       },
       {
         "component": "aem-content",
@@ -552,6 +482,44 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "autoScroll",
+        "label": "Auto-Scroll",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "select",
+        "name": "scrollTimeDelay",
+        "label": "Scroll Time Delay (milliseconds)",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "3 seconds",
+            "value": "3000"
+          },
+          {
+            "name": "5 seconds",
+            "value": "5000"
+          },
+          {
+            "name": "10 seconds",
+            "value": "10000"
+          }
+        ],
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "autoScroll"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },
