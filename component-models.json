@@ -369,29 +369,12 @@
         "name": "showDots",
         "label": "Show Dots",
         "valueType": "boolean",
-        "condition": {
-          "and": [
+        "disabled": {
+          "==": [
             {
-              "!": [
-                {
-                  "var": "showArrows"
-                }
-              ]
+              "var": "showArrows"
             },
-            {
-              "!": [
-                {
-                  "var": "showDotsArrows"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "autoScroll"
-                }
-              ]
-            }
+            true
           ]
         }
       },
@@ -459,29 +442,12 @@
         "label": "Show Arrows",
         "valueType": "boolean",
         "value": false,
-        "condition": {
-          "and": [
+        "disabled": {
+          "==": [
             {
-              "!": [
-                {
-                  "var": "showDots"
-                }
-              ]
+              "var": "showDots"
             },
-            {
-              "!": [
-                {
-                  "var": "showDotsArrows"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "autoScroll"
-                }
-              ]
-            }
+            true
           ]
         }
       },
@@ -526,67 +492,10 @@
       },
       {
         "component": "boolean",
-        "name": "showDotsArrows",
-        "label": "Show Dots & Arrows",
-        "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "and": [
-            {
-              "!": [
-                {
-                  "var": "showDots"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "showArrows"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "autoScroll"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "boolean",
         "name": "autoScroll",
         "label": "Auto-Scroll",
         "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "and": [
-            {
-              "!": [
-                {
-                  "var": "showDots"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "showArrows"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "showDotsArrows"
-                }
-              ]
-            }
-          ]
-        }
+        "value": false
       },
       {
         "component": "select",
@@ -670,62 +579,11 @@
         "name": "withImage",
         "label": "With Image",
         "valueType": "boolean",
-        "value": false
-      },
-      {
-        "component": "select",
-        "name": "withImageType",
-        "label": "Image Type",
-        "description": "Choose how the image should be presented",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "WITH FULL BACKGROUND IMAGE",
-            "value": "full-background"
-          },
-          {
-            "name": "WITH CIRCULAR IMAGE",
-            "value": "circular-image"
-          },
-          {
-            "name": "WITH SQUARE IMAGE",
-            "value": "square-image"
-          }
-        ],
+        "value": false,
         "condition": {
-          "and": [
+          "!": [
             {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Image",
-        "valueType": "string",
-        "multi": false,
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "full-background"
-              ]
+              "var": "withoutImage"
             }
           ]
         }
@@ -743,13 +601,22 @@
                   "var": "withImage"
                 }
               ]
-            },
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string",
+        "condition": {
+          "and": [
             {
-              "==": [
+              "!!": [
                 {
-                  "var": "withImageType"
-                },
-                "full-background"
+                  "var": "withImage"
+                }
               ]
             }
           ]
@@ -768,14 +635,6 @@
                   "var": "withImage"
                 }
               ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "full-background"
-              ]
             }
           ]
         }
@@ -792,14 +651,6 @@
                 {
                   "var": "withImage"
                 }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "full-background"
               ]
             }
           ]
@@ -819,14 +670,6 @@
                   "var": "withImage"
                 }
               ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "full-background"
-              ]
             }
           ]
         }
@@ -843,14 +686,6 @@
                 {
                   "var": "withImage"
                 }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "full-background"
               ]
             }
           ]
@@ -885,170 +720,6 @@
                   "var": "withImage"
                 }
               ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "full-background"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "reference",
-        "name": "circularImage",
-        "label": "Circular Image",
-        "valueType": "string",
-        "multi": false,
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "circular-image"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "richtext",
-        "name": "circularTitle",
-        "label": "Title",
-        "valueType": "string",
-        "description": "Title shown for circular image layout",
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "circular-image"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "richtext",
-        "name": "circularText",
-        "label": "Text",
-        "valueType": "string",
-        "description": "Text shown for circular image layout",
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "circular-image"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "reference",
-        "name": "squareImage",
-        "label": "Square Image",
-        "valueType": "string",
-        "multi": false,
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "square-image"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "name": "squareStep",
-        "label": "Step",
-        "valueType": "string",
-        "description": "Shown for square image layout",
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "square-image"
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "richtext",
-        "name": "squareText",
-        "label": "Text",
-        "valueType": "string",
-        "description": "Text shown for square image layout",
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            },
-            {
-              "==": [
-                {
-                  "var": "withImageType"
-                },
-                "square-image"
-              ]
             }
           ]
         }
@@ -1058,7 +729,14 @@
         "name": "withoutImage",
         "label": "Without Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
