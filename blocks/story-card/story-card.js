@@ -60,6 +60,12 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
   // Buttons - keep original HTML structure for each button
   if (buttonRows && buttonRows.length > 0) {
     buttonRows.forEach((buttonRow) => {
+      // Check if all divs inside buttonRow are empty
+      const allDivs = buttonRow.querySelectorAll('div');
+      const allEmpty = Array.from(allDivs).every((div) => !div.textContent.trim());
+
+      if (allEmpty) return;
+
       const buttonContainer = buttonRow.querySelector('.button-container');
 
       if (!buttonContainer) return;
