@@ -161,10 +161,29 @@ export default function decorate(block) {
 
   // Collect all button rows after position row
   const buttonRows = rows.slice(positionRowIndex + 1);
-  const allDivs = buttonRows[0]?.querySelectorAll('div');
-  const allEmpty = Array.from(allDivs || []).every((div) => !div.textContent.trim());
-  if (buttonRows.length > 0 && allEmpty) {
-    return;
+
+  // Check if all buttons are complete - if any button is empty, return
+  for (let i = 0; i < buttonRows.length; i += 1) {
+    const buttonRow = buttonRows[i];
+    const allDivs = buttonRow.querySelectorAll('div');
+    const isEmpty = Array.from(allDivs).every((div) => !div.textContent.trim());
+
+    if (isEmpty) {
+      // At least one button is empty, don't render the block
+      return;
+    }
+
+    // Check if button has complete data
+    const buttonContainer = buttonRow.querySelector('.button-container');
+    if (!buttonContainer) {
+      return;
+    }
+
+    const anchor = buttonContainer.querySelector('a');
+    if (!anchor || !anchor.href || !anchor.textContent.trim()) {
+      // Button is incomplete, don't render
+      return;
+    }
   }
 
   // Get image
