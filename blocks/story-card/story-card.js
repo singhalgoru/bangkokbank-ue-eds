@@ -161,6 +161,11 @@ export default function decorate(block) {
 
   // Collect all button rows after position row
   const buttonRows = rows.slice(positionRowIndex + 1);
+  const allDivs = buttonRows[0]?.querySelectorAll('div');
+  const allEmpty = Array.from(allDivs || []).every((div) => !div.textContent.trim());
+  if (buttonRows.length > 0 && allEmpty) {
+    return;
+  }
 
   // Get image
   const img = imageRow?.querySelector('img');
