@@ -40,15 +40,7 @@
           "component": "boolean",
           "name": "showDots",
           "label": "Show Dots",
-          "valueType": "boolean",
-          "disabled": {
-            "==": [
-              {
-                "var": "showArrows"
-              },
-              true
-            ]
-          }
+          "valueType": "boolean"
         },
         {
           "component": "select",
@@ -113,15 +105,7 @@
           "name": "showArrows",
           "label": "Show Arrows",
           "valueType": "boolean",
-          "value": false,
-          "disabled": {
-            "==": [
-              {
-                "var": "showDots"
-              },
-              true
-            ]
-          }
+          "value": false
         },
         {
           "component": "select",
@@ -428,20 +412,8 @@
           "multi": false,
           "condition": {
             "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -453,20 +425,8 @@
           "value": "",
           "condition": {
             "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -478,20 +438,8 @@
           "valueType": "string",
           "condition": {
             "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -503,20 +451,8 @@
           "valueType": "string",
           "condition": {
             "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -527,20 +463,8 @@
           "description": "Destination URL for the button",
           "condition": {
             "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -551,21 +475,9 @@
           "description": "Button label text",
           "required": true,
           "condition": {
-            "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+           "or": [
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -575,21 +487,9 @@
           "label": "Title",
           "description": "Accessibility title attribute (optional)",
           "condition": {
-            "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+           "or": [
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         },
@@ -615,21 +515,9 @@
             }
           ],
           "condition": {
-            "or": [
-              {
-                "!!": [
-                  {
-                    "var": "hero-banner-image-carousel"
-                  }
-                ]
-              },
-              {
-                "!!": [
-                  {
-                    "var": "text-animation-variant"
-                  }
-                ]
-              }
+           "or": [
+              { "!!": [{ "var": "hero-banner-image-carousel" }] },
+              { "!!": [{ "var": "text-animation-variant" }] }
             ]
           }
         }

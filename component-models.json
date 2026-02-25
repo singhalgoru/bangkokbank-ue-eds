@@ -368,15 +368,7 @@
         "component": "boolean",
         "name": "showDots",
         "label": "Show Dots",
-        "valueType": "boolean",
-        "disabled": {
-          "==": [
-            {
-              "var": "showArrows"
-            },
-            true
-          ]
-        }
+        "valueType": "boolean"
       },
       {
         "component": "select",
@@ -441,15 +433,7 @@
         "name": "showArrows",
         "label": "Show Arrows",
         "valueType": "boolean",
-        "value": false,
-        "disabled": {
-          "==": [
-            {
-              "var": "showDots"
-            },
-            true
-          ]
-        }
+        "value": false
       },
       {
         "component": "select",
