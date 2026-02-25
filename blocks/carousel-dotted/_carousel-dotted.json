@@ -40,7 +40,8 @@
       "component": "boolean",
       "name": "showDots",
       "label": "Show Dots",
-      "valueType": "boolean"
+      "valueType": "boolean",
+      "readOnly": { "var": "showArrowsDots" } 
     },
     {
       "component": "select",
@@ -74,7 +75,8 @@
       "name": "showArrowsDots",
       "label": "Show Dots and Arrows",
       "valueType": "boolean",
-      "value": false
+      "value": false,
+      "readOnly": { "var": "showDots" } 
     },
     {
       "component": "boolean",
