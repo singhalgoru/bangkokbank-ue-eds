@@ -213,7 +213,6 @@
           "label": "Image Type",
           "description": "Choose how the image should be presented",
           "valueType": "string",
-          "value": "full-background",
           "options": [
             {
               "name": "WITH FULL BACKGROUND IMAGE",
