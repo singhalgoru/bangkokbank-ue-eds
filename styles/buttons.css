@@ -166,6 +166,12 @@ button.secondary {
   background: transparent;
   color: var(--bbl-color-active-blue);
   border: 2px solid var(--bbl-color-active-blue);
+  width: 6.25rem;
+  height: 3.125rem;
+  font-size: 0.875rem;
+  line-height: 2.75rem;
+  display: flex;
+  font-style: normal;
 }
 
 /* Hover */
