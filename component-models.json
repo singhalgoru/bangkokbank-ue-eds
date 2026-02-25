@@ -368,7 +368,32 @@
         "component": "boolean",
         "name": "showDots",
         "label": "Show Dots",
-        "valueType": "boolean"
+        "valueType": "boolean",
+        "condition": {
+          "and": [
+            {
+              "!": [
+                {
+                  "var": "showArrows"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showDotsArrows"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "autoScroll"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "select",
@@ -433,7 +458,32 @@
         "name": "showArrows",
         "label": "Show Arrows",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showDotsArrows"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "autoScroll"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "select",
@@ -479,14 +529,64 @@
         "name": "showDotsArrows",
         "label": "Show Dots & Arrows",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showArrows"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "autoScroll"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "boolean",
         "name": "autoScroll",
         "label": "Auto-Scroll",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showArrows"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "showDotsArrows"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "select",
