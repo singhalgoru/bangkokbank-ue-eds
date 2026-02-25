@@ -44,7 +44,6 @@ button,
   
   /* Ensure proper touch targets */
   min-height: 28px;
-  width: 6.25rem;
   line-height: 2.75rem;
 }
 
@@ -64,6 +63,7 @@ button,
   height: 3.125rem;
   padding: 0 var(--bbl-space-200);
   font-size: 0.875rem;
+  width: 6.25rem;
 }
 
 /* --- Medium (Desktop) - 44px height --- */
