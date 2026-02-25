@@ -143,6 +143,37 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target hidden",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection hidden",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
+          }
+        ]
       }
     ]
   },
@@ -358,6 +389,37 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
+          }
+        ]
       }
     ]
   },
@@ -550,6 +612,37 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
           }
         ]
       }
@@ -1034,6 +1127,37 @@
             "value": "tertiary"
           }
         ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
+          }
+        ]
       }
     ]
   },
@@ -1121,6 +1245,37 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
           }
         ]
       }
@@ -1217,6 +1372,37 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
           }
         ]
       }
@@ -1374,6 +1560,37 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
           }
         ]
       }
@@ -1699,6 +1916,37 @@
           {
             "name": "Tertiary",
             "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "targetSettings",
+        "label": "Target settings",
+        "fields": [
+          {
+            "component": "text",
+            "name": "openInNewWindow",
+            "label": "Open in new window",
+            "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
+            "valueType": "boolean",
+            "value": false
+          },
+          {
+            "component": "text",
+            "name": "target",
+            "label": "Target (hidden)",
+            "description": "Computed link target value",
+            "type": "hidden",
+            "value": "_self"
+          },
+          {
+            "component": "text",
+            "name": "targetRedirection",
+            "label": "Target redirection (hidden)",
+            "description": "Identifier for redirection behaviour",
+            "type": "hidden",
+            "value": "target-redirection"
           }
         ]
       }
