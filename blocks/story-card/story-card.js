@@ -63,8 +63,8 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
       const buttonContainer = buttonRow.querySelector('.button-container');
       if (buttonContainer) {
         const anchor = buttonContainer.querySelector('a');
-        // Only append if button has valid href
-        if (anchor && anchor.href) {
+        // Only append if button has valid href, title, and text content
+        if (anchor && anchor.href && anchor.textContent.trim()) {
           content.appendChild(buttonContainer.cloneNode(true));
         }
       }
