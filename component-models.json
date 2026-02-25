@@ -150,7 +150,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -164,14 +164,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection hidden",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -396,7 +388,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -410,14 +402,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -621,7 +605,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -635,14 +619,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -1134,7 +1110,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -1148,14 +1124,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -1254,7 +1222,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -1268,14 +1236,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -1381,7 +1341,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -1395,14 +1355,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -1569,7 +1521,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -1583,14 +1535,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
@@ -1925,7 +1869,7 @@
         "label": "Target settings",
         "fields": [
           {
-            "component": "text",
+            "component": "boolean",
             "name": "openInNewWindow",
             "label": "Open in new window",
             "description": "When true the link will open in a new tab (target = _blank). When false it will open in the same tab (target = _self).",
@@ -1939,14 +1883,6 @@
             "description": "Computed link target value",
             "type": "hidden",
             "value": "_self"
-          },
-          {
-            "component": "text",
-            "name": "targetRedirection",
-            "label": "Target redirection (hidden)",
-            "description": "Identifier for redirection behaviour",
-            "type": "hidden",
-            "value": "target-redirection"
           }
         ]
       }
