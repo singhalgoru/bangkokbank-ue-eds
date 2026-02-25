@@ -68,6 +68,12 @@
     ]
   },
   {
+    "id": "download",
+    "components": [
+      "download-button"
+    ]
+  },
+  {
     "id": "header-section",
     "components": [
       "top-nav",

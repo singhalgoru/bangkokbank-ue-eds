@@ -177,6 +177,7 @@
   --bbl-color-white-alpha-30: rgba(255, 255, 255, 0.30);
   --bbl-color-white-alpha-40: rgba(255, 255, 255, 0.40);
   --bbl-color-white-alpha-60: rgba(255, 255, 255, 0.60);
+  --bbl-color-white-alpha-125: rgba(221, 221, 221, 0.5);
 
   /* =========================================================================
      SEMANTIC ALIASES (For Easier Use)

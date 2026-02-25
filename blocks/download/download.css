@@ -1,0 +1,18 @@
+.download-file {
+    height: 44px;
+    font-family: Muli-Bold, sans-serif;
+    text-decoration: none;
+    display: block;
+    line-height: 44px;
+    background: var(--bbl-color-ice-blue);
+    box-shadow: 0 2px 8px 0 var(--bbl-color-white-alpha-12);
+    margin-bottom: 7px;
+    padding: 0 40px 0 30px;
+    max-width: 100%;
+    text-align: left;
+    position: relative;
+    color: var(--bbl-color-black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
