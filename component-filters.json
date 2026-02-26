@@ -26,7 +26,9 @@
       "menu-cards",
       "carousel-dotted",
       "cross-banner",
-      "download"
+      "download",
+      "form",
+      "embed-adaptive-form"
     ]
   },
   {
@@ -72,6 +74,36 @@
     "id": "download",
     "components": [
       "download-button"
+    ]
+  },
+  {
+    "id": "form",
+    "components": [
+      "captcha",
+      "checkbox",
+      "checkbox-group",
+      "date-input",
+      "drop-down",
+      "email",
+      "file-input",
+      "form-accordion",
+      "form-button",
+      "form-fragment",
+      "form-image",
+      "form-modal",
+      "form-reset-button",
+      "form-submit-button",
+      "number-input",
+      "panel",
+      "password",
+      "plain-text",
+      "radio-group",
+      "rating",
+      "telephone-input",
+      "text-input",
+      "tnc",
+      "wizard",
+      "range"
     ]
   },
   {

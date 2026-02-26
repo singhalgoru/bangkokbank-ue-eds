@@ -106,7 +106,9 @@
         "menu-cards",
         "carousel-dotted",
         "cross-banner",
-        "download"
+        "download",
+        "form",
+        "embed-adaptive-form"
       ]
     }
   ]
