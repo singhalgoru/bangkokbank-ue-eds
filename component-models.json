@@ -368,33 +368,19 @@
         "component": "select",
         "label": "Variant",
         "name": "filter",
-        "value": "with-image",
+        "value": "show-dots",
         "required": true,
         "valueType": "string",
         "options": [
           {
-            "name": "With Image",
-            "value": "with-image"
+            "name": "Show Dots",
+            "value": "show-dots"
           },
           {
-            "name": "Without Image",
-            "value": "without-image"
-          },
-          {
-            "name": "Hero Banner",
-            "value": "hero"
-          },
-          {
-            "name": "Text Animation",
-            "value": "text-animation"
+            "name": "Show Arrows and Dots",
+            "value": "show-arrows-dots"
           }
         ]
-      },
-      {
-        "component": "boolean",
-        "name": "showDots",
-        "label": "Show Dots",
-        "valueType": "boolean"
       },
       {
         "component": "select",
@@ -414,14 +400,7 @@
             "name": "Right",
             "value": "right"
           }
-        ],
-        "condition": {
-          "!!": [
-            {
-              "var": "showDots"
-            }
-          ]
-        }
+        ]
       },
       {
         "component": "select",
@@ -437,21 +416,7 @@
             "name": "Outside container",
             "value": "outside-container"
           }
-        ],
-        "condition": {
-          "!!": [
-            {
-              "var": "showDots"
-            }
-          ]
-        }
-      },
-      {
-        "component": "boolean",
-        "name": "showArrowsDots",
-        "label": "Show Dots and Arrows",
-        "valueType": "boolean",
-        "value": false
+        ]
       },
       {
         "component": "boolean",
@@ -538,7 +503,7 @@
     ]
   },
   {
-    "id": "carousel-dotted-slide-with-image",
+    "id": "carousel-dotted-slide-show-dots",
     "fields": [
       {
         "component": "text",
@@ -548,66 +513,128 @@
         "hidden": true
       },
       {
+        "component": "boolean",
+        "name": "withImage",
+        "label": "With Full Background Image",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
         "component": "text",
         "name": "badgeText",
         "label": "Badge Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "!!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "reference",
         "name": "image",
         "label": "Image",
         "valueType": "string",
-        "required": true
+        "condition": {
+          "!!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "richtext",
         "name": "description",
         "label": "Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "carousel-dotted-slide-without-image",
-    "fields": [
-      {
-        "component": "text",
-        "name": "variant",
-        "label": "Variant",
         "valueType": "string",
-        "hidden": true
+        "condition": {
+          "!!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "withoutImage",
+        "label": "Without Image",
+        "valueType": "boolean",
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
         "name": "headerText",
         "label": "Header Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "!!": [
+            {
+              "var": "withoutImage"
+            }
+          ]
+        }
       },
       {
         "component": "richtext",
         "name": "defaultText",
         "label": "Default Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "carousel-dotted-slide-hero",
-    "fields": [
-      {
-        "component": "text",
-        "name": "variant",
-        "label": "Variant",
         "valueType": "string",
-        "hidden": true
+        "condition": {
+          "!!": [
+            {
+              "var": "withoutImage"
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "heroBannerImageCarousel",
+        "label": "Hero Banner Image Carousel",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "boolean",
+        "name": "textAnimationVariant",
+        "label": "Text Animation Variant",
+        "valueType": "boolean",
+        "value": false
       },
       {
         "component": "reference",
         "name": "heroImage",
         "label": "Hero Image",
         "multi": false,
-        "required": true
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -615,40 +642,147 @@
         "name": "imageAlt",
         "label": "Alt",
         "value": "",
-        "required": true
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "richtext",
         "name": "title",
         "value": "",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "richtext",
         "name": "subtitle",
         "value": "",
         "label": "Sub Title",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "aem-content",
         "name": "heroLink",
         "label": "Link",
-        "description": "Destination URL for the button"
+        "description": "Destination URL for the button",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",
         "name": "heroLinkText",
         "label": "Text",
         "description": "Button label text",
-        "required": true
+        "required": true,
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",
         "name": "heroLinkTitle",
         "label": "Title",
-        "description": "Accessibility title attribute (optional)"
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "select",
@@ -670,12 +804,30 @@
             "name": "Tertiary",
             "value": "tertiary"
           }
-        ]
+        ],
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "heroBannerImageCarousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "textAnimationVariant"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },
   {
-    "id": "carousel-dotted-slide-text-animation",
+    "id": "carousel-dotted-slide-show-arrows-dots",
     "fields": [
       {
         "component": "text",
@@ -685,74 +837,103 @@
         "hidden": true
       },
       {
+        "component": "boolean",
+        "name": "withCircularImage",
+        "label": "With Circular Image",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "text",
+        "name": "circularTitle",
+        "label": "Title",
+        "valueType": "string",
+        "condition": {
+          "!!": [
+            {
+              "var": "withCircularImage"
+            }
+          ]
+        }
+      },
+      {
         "component": "reference",
-        "name": "heroImage",
-        "label": "Hero Image",
-        "multi": false,
-        "required": true
-      },
-      {
-        "component": "text",
+        "name": "circularImage",
+        "label": "Image",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": "",
-        "required": true
+        "condition": {
+          "!!": [
+            {
+              "var": "withCircularImage"
+            }
+          ]
+        }
       },
       {
         "component": "richtext",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
+        "name": "circularDescription",
+        "label": "Description",
+        "valueType": "string",
+        "condition": {
+          "!!": [
+            {
+              "var": "withCircularImage"
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "withDefaultImage",
+        "label": "With Default Image",
+        "valueType": "boolean",
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withCircularImage"
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "defaultStep",
+        "label": "Step/Title",
+        "valueType": "string",
+        "condition": {
+          "!!": [
+            {
+              "var": "withDefaultImage"
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "defaultImage",
+        "label": "Image",
+        "valueType": "string",
+        "condition": {
+          "!!": [
+            {
+              "var": "withDefaultImage"
+            }
+          ]
+        }
       },
       {
         "component": "richtext",
-        "name": "subtitle",
-        "value": "",
-        "label": "Sub Title",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "heroLink",
-        "label": "Link",
-        "description": "Destination URL for the button"
-      },
-      {
-        "component": "text",
-        "name": "heroLinkText",
-        "label": "Text",
-        "description": "Button label text",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "heroLinkTitle",
-        "label": "Title",
-        "description": "Accessibility title attribute (optional)"
-      },
-      {
-        "component": "select",
-        "name": "heroLinkType",
-        "label": "Type",
-        "description": "Button style variant",
+        "name": "defaultDescription",
+        "label": "Description",
         "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "Primary",
-            "value": "primary"
-          },
-          {
-            "name": "Secondary",
-            "value": "secondary"
-          },
-          {
-            "name": "Tertiary",
-            "value": "tertiary"
-          }
-        ]
+        "condition": {
+          "!!": [
+            {
+              "var": "withDefaultImage"
+            }
+          ]
+        }
       }
     ]
   },
