@@ -1,13 +1,14 @@
-.download-file {
-    height: 44px;
-    font-family: Muli-Bold, sans-serif;
+.download-item .download-file {
+    max-height: 2.75rem;
     text-decoration: none;
     display: block;
-    line-height: 44px;
+    font: var(--bbl-font-weight-regular) var(--bbl-font-size-b2) / 2.75rem
+            Muli-Bold,
+        sans-serif;
     background: var(--bbl-color-ice-blue);
-    box-shadow: 0 2px 8px 0 var(--bbl-color-white-alpha-12);
-    margin-bottom: 7px;
-    padding: 0 40px 0 30px;
+    box-shadow: 0 0.125rem 0.5rem 0 var(--bbl-color-white-alpha-12);
+    margin-bottom: 0.4375rem;
+    padding: 0 var(--bbl-space-500) 0 1.875rem;
     max-width: 100%;
     text-align: left;
     position: relative;
@@ -15,4 +16,26 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.download-item .download-file.button-tertiary::after {
+    display: none;
+}
+
+.download-file .icon-download::before {
+    position: absolute;
+    right: 0.3125rem;
+    font-size: 2.25rem;
+    margin-top: var(--bbl-space-075);
+    transition: transform 0.2s ease-in-out;
+}
+
+.download-file:hover .icon-download::before {
+    transform: translateY(-4px);
+}
+
+@media (width > 64rem) {
+    .download-item .download-file {
+        font-size: var(--bbl-font-size-b1);
+    }
 }
