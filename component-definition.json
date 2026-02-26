@@ -167,7 +167,7 @@
                 "template": {
                   "name": "Carousel Dotted",
                   "model": "carousel-dotted",
-                  "filter": "carousel-dotted"
+                  "filter": "with-image"
                 }
               }
             }
@@ -175,14 +175,63 @@
         },
         {
           "title": "Carousel Slide",
-          "id": "carousel-dotted-slide",
+          "id": "carousel-dotted-slide-with-image",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Carousel Slide",
-                  "model": "carousel-dotted-slide"
+                  "model": "carousel-dotted-slide-with-image",
+                  "variant": "with-image"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Slide",
+          "id": "carousel-dotted-slide-without-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Slide",
+                  "model": "carousel-dotted-slide-without-image",
+                  "variant": "without-image"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Slide",
+          "id": "carousel-dotted-slide-hero",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Slide",
+                  "model": "carousel-dotted-slide-hero",
+                  "variant": "hero"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Slide",
+          "id": "carousel-dotted-slide-text-animation",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Slide",
+                  "model": "carousel-dotted-slide-text-animation",
+                  "variant": "text-animation"
                 }
               }
             }

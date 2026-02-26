@@ -41,9 +41,27 @@
     ]
   },
   {
-    "id": "carousel-dotted",
+    "id": "with-image",
     "components": [
-      "carousel-dotted-slide"
+      "carousel-dotted-slide-with-image"
+    ]
+  },
+  {
+    "id": "without-image",
+    "components": [
+      "carousel-dotted-slide-without-image"
+    ]
+  },
+  {
+    "id": "hero",
+    "components": [
+      "carousel-dotted-slide-hero"
+    ]
+  },
+  {
+    "id": "text-animation",
+    "components": [
+      "carousel-dotted-slide-text-animation"
     ]
   },
   {
