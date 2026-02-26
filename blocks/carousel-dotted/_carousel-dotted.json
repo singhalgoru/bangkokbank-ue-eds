@@ -97,9 +97,6 @@
           "condition": { "===": [{ "var": "filter" }, "show-dots"] }
         },
         {
-          "...": "../../models/elements/_button-fields.json"
-        },
-        {
           "component": "boolean",
           "name": "autoScroll",
           "label": "Auto-Scroll",
