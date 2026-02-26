@@ -25,7 +25,7 @@
             "template": {
               "name": "Card",
               "model": "card",
-              "filter": "download-button"
+              "filter": "card"
             }
           }
         }
