@@ -79,6 +79,34 @@ export function isExternalUrl(url) {
 }
 
 /**
+ * Decorates a single anchor as a download button (icon, target, /-/media rewrite, rel hardening).
+ * Used by the download block and by the cards block when a card contains a download-style row.
+ * @param {HTMLAnchorElement} anchor - The link element to decorate
+ * @param {string} [targetValue='_self'] - Target attribute value (e.g. '_blank', '_self')
+ */
+export function decorateDownloadAnchor(anchor, targetValue = '_self') {
+  if (!anchor) return;
+  const target = (targetValue?.trim() || '_self');
+  anchor.setAttribute('target', target);
+  anchor.classList.add('download-file');
+
+  const href = anchor.getAttribute('href');
+  if (href?.startsWith('/-/media')) {
+    anchor.setAttribute('href', `https://www.bangkokbank.com${href}`);
+    if (target === '_blank') {
+      const rel = anchor.getAttribute('rel') || '';
+      const tokens = new Set(rel.split(/\s+/).filter(Boolean));
+      tokens.add('noopener').add('noreferrer');
+      anchor.setAttribute('rel', [...tokens].join(' '));
+    }
+  }
+
+  const icon = document.createElement('span');
+  icon.className = 'icon-download';
+  anchor.append(icon);
+}
+
+/**
  * Set target="_blank" on external links in a container
  * @param {Element} container - The container element to process
  */
