@@ -455,11 +455,10 @@
         "label": "Link",
         "description": "Destination URL for the button",
         "condition": {
-          "===": [
+          "!!": [
             {
-              "var": "filter"
-            },
-            "showLinks"
+              "var": "showLinks"
+            }
           ]
         }
       },
@@ -470,11 +469,10 @@
         "description": "Button label text",
         "required": true,
         "condition": {
-          "===": [
+          "!!": [
             {
-              "var": "filter"
-            },
-            "showLinks"
+              "var": "showLinks"
+            }
           ]
         }
       },
@@ -484,11 +482,10 @@
         "label": "Title",
         "description": "Accessibility title attribute (optional)",
         "condition": {
-          "===": [
+          "!!": [
             {
-              "var": "filter"
-            },
-            "showLinks"
+              "var": "showLinks"
+            }
           ]
         }
       },
@@ -514,11 +511,10 @@
           }
         ],
         "condition": {
-          "===": [
+          "!!": [
             {
-              "var": "filter"
-            },
-            "showLinks"
+              "var": "showLinks"
+            }
           ]
         }
       },
@@ -527,15 +523,7 @@
         "name": "autoScroll",
         "label": "Auto-Scroll",
         "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "===": [
-            {
-              "var": "filter"
-            },
-            "show-dots"
-          ]
-        }
+        "value": false
       },
       {
         "component": "select",
@@ -557,21 +545,9 @@
           }
         ],
         "condition": {
-          "and": [
+          "!!": [
             {
-              "===": [
-                {
-                  "var": "filter"
-                },
-                "show-dots"
-              ]
-            },
-            {
-              "!!": [
-                {
-                  "var": "autoScroll"
-                }
-              ]
+              "var": "autoScroll"
             }
           ]
         }
