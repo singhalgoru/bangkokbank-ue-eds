@@ -3,7 +3,6 @@ import {
   readBoolean,
   readDotsAlignment,
   readPosition,
-  readArrowsAlignment,
 } from '../../scripts/helper-files/carousel-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
@@ -347,30 +346,20 @@ export default function decorate(block) {
   const showDots = readBoolean(rows[0]);
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
-  const showArrows = readBoolean(rows[3]);
-  const arrowsAlignment = readArrowsAlignment(rows[4]);
-  const autoScroll = readBoolean(rows[5]);
-  const scrollTimeDelay = rows[6]?.textContent.trim() || '';
-  let nextIndex = 7;
+  const showArrowsDots = readBoolean(rows[3]);
+  const showLinks = readBoolean(rows[4]);
+  const autoScroll = readBoolean(rows[6]);
+  const scrollTimeDelay = rows[7]?.textContent.trim() || '';
+
+  // See more link is at Row 5 if showLinks is true
   let seeMoreLink = null;
-
-  while (nextIndex < rows.length) {
-    const row = rows[nextIndex];
-    const link = row?.querySelector('a');
-    const hasContent = row?.textContent.trim();
-
-    if (link) {
-      seeMoreLink = link;
-      nextIndex += 1;
-      break;
-    } else if (!hasContent) {
-      nextIndex += 1;
-    } else {
-      break;
-    }
+  if (showLinks) {
+    const seeMoreRow = rows[5];
+    seeMoreLink = seeMoreRow?.querySelector('a');
   }
 
-  const slides = rows.slice(nextIndex);
+  // Slides start from Row 8
+  const slides = rows.slice(8);
   block.className = 'carousel-dotted';
 
   if (showDots) {
@@ -379,9 +368,8 @@ export default function decorate(block) {
     block.classList.add('no-dots');
   }
 
-  if (showArrows) {
-    block.classList.add('show-arrows');
-    block.classList.add(`arrows-${arrowsAlignment}`);
+  if (showArrowsDots) {
+    block.classList.add('show-arrows-dots');
   }
 
   if (autoScroll) {
@@ -584,7 +572,7 @@ export default function decorate(block) {
 
   if (showDots) {
     block.append(dots);
-  } else if (showArrows) {
+  } else if (showArrowsDots) {
     block.append(prevArrow, nextArrow);
   }
 
