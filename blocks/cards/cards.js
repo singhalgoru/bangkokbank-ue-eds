@@ -13,7 +13,7 @@ export default function decorate(block) {
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'cards-card-image';
-      } else if (div.classList.contains('download-button')) {
+      } else if (div.classList.contains('download')) {
         // Keep download-button class as is - it will be auto-decorated
         div.classList.add('cards-download-button');
       } else {
