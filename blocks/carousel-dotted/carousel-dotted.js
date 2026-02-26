@@ -347,7 +347,7 @@ export default function decorate(block) {
   // Row 1: dotsAlignment
   // Row 2: dotsPosition
   // Row 3: showLinks
-  // Rows 4-7: button fields (from _button-fields.json spread)
+  // Rows 4-7: button fields (from _button-fields.json spread: link, linkText, linkTitle, linkType)
   // Row 8: autoScroll
   // Row 9: scrollTimeDelay
   // Rows 10+: slides
@@ -356,19 +356,35 @@ export default function decorate(block) {
   const showArrowsDots = carouselVariant === 'show-dots-with-arrows';
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
-  const showLinks = readBoolean(rows[3]);
   const autoScroll = readBoolean(rows[8]);
   const scrollTimeDelay = rows[9]?.textContent.trim() || '';
 
-  // See more link is at Row 4 (link field from button-fields) if showLinks is true
+  // Dynamically find the see-more link and slide start index
+  // Start scanning from row 4 (after showLinks) to skip button-fields, autoScroll, scrollTimeDelay
   let seeMoreLink = null;
-  if (showLinks) {
-    const seeMoreRow = rows[4];
-    seeMoreLink = seeMoreRow?.querySelector('a');
+  let nextIndex = 4;
+  while (nextIndex < rows.length) {
+    const row = rows[nextIndex];
+    const link = row?.querySelector('a');
+    const hasContent = row?.textContent.trim();
+
+    if (link) {
+      seeMoreLink = link;
+      nextIndex += 1;
+      break;
+    } else if (!hasContent) {
+      nextIndex += 1;
+    } else {
+      // Check if this row looks like a slide (has multiple cells = block item)
+      const cells = [...(row?.children || [])];
+      if (cells.length > 2) {
+        break; // This is a slide row, stop scanning
+      }
+      nextIndex += 1;
+    }
   }
 
-  // Slides start from Row 10
-  const slides = rows.slice(10);
+  const slides = rows.slice(nextIndex);
   block.className = 'carousel-dotted';
 
   if (showDots) {
