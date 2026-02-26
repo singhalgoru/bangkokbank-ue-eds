@@ -366,23 +366,6 @@
     "fields": [
       {
         "component": "select",
-        "name": "carouselVariant",
-        "label": "Carousel Variant",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "Show Dots",
-            "value": "show-dots"
-          },
-          {
-            "name": "Show Dots with Arrows",
-            "value": "show-dots-with-arrows"
-          }
-        ]
-      },
-      {
-        "component": "select",
         "name": "dotsAlignment",
         "label": "Dots Alignment",
         "valueType": "string",
@@ -399,27 +382,7 @@
             "name": "Right",
             "value": "right"
           }
-        ],
-        "condition": {
-          "or": [
-            {
-              "===": [
-                {
-                  "var": "carouselVariant"
-                },
-                "show-dots"
-              ]
-            },
-            {
-              "===": [
-                {
-                  "var": "carouselVariant"
-                },
-                "show-dots-with-arrows"
-              ]
-            }
-          ]
-        }
+        ]
       },
       {
         "component": "select",
@@ -435,42 +398,14 @@
             "name": "Outside container",
             "value": "outside-container"
           }
-        ],
-        "condition": {
-          "or": [
-            {
-              "===": [
-                {
-                  "var": "carouselVariant"
-                },
-                "show-dots"
-              ]
-            },
-            {
-              "===": [
-                {
-                  "var": "carouselVariant"
-                },
-                "show-dots-with-arrows"
-              ]
-            }
-          ]
-        }
+        ]
       },
       {
         "component": "boolean",
         "name": "showLinks",
         "label": "Show Links",
         "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "===": [
-            {
-              "var": "carouselVariant"
-            },
-            "show-dots"
-          ]
-        }
+        "value": false
       },
       {
         "component": "aem-content",
@@ -518,15 +453,7 @@
         "name": "autoScroll",
         "label": "Auto-Scroll",
         "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "===": [
-            {
-              "var": "carouselVariant"
-            },
-            "show-dots"
-          ]
-        }
+        "value": false
       },
       {
         "component": "select",
@@ -550,14 +477,6 @@
         "condition": {
           "and": [
             {
-              "===": [
-                {
-                  "var": "carouselVariant"
-                },
-                "show-dots"
-              ]
-            },
-            {
               "!!": [
                 {
                   "var": "autoScroll"
@@ -566,6 +485,47 @@
             }
           ]
         }
+      }
+    ]
+  },
+  {
+    "id": "carousel-dotted-arrows",
+    "fields": [
+      {
+        "component": "select",
+        "name": "dotsAlignment",
+        "label": "Dots Alignment",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "dotsPosition",
+        "label": "Dots Position",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Inside container",
+            "value": "inside-container"
+          },
+          {
+            "name": "Outside container",
+            "value": "outside-container"
+          }
+        ]
       }
     ]
   },

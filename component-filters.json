@@ -43,7 +43,12 @@
   {
     "id": "carousel-dotted",
     "components": [
-      "carousel-dotted-slide",
+      "carousel-dotted-slide"
+    ]
+  },
+  {
+    "id": "carousel-dotted-arrows",
+    "components": [
       "carousel-dotted-slide-arrows"
     ]
   },
