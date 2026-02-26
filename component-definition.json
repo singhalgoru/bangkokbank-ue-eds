@@ -167,7 +167,23 @@
                 "template": {
                   "name": "Carousel Dotted",
                   "model": "carousel-dotted",
-                  "filter": "show-dots"
+                  "filter": "carousel-dotted"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Dotted (Arrows)",
+          "id": "carousel-dotted-arrows",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Carousel Dotted (Arrows)",
+                  "model": "carousel-dotted",
+                  "filter": "carousel-dotted-arrows"
                 }
               }
             }
@@ -175,31 +191,29 @@
         },
         {
           "title": "Carousel Slide",
-          "id": "carousel-dotted-slide-show-dots",
+          "id": "carousel-dotted-slide",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Carousel Slide",
-                  "model": "carousel-dotted-slide-show-dots",
-                  "variant": "show-dots"
+                  "model": "carousel-dotted-slide"
                 }
               }
             }
           }
         },
         {
-          "title": "Carousel Slide",
-          "id": "carousel-dotted-slide-show-arrows-dots",
+          "title": "Carousel Slide with Arrows",
+          "id": "carousel-dotted-slide-arrows",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Carousel Slide",
-                  "model": "carousel-dotted-slide-show-arrows-dots",
-                  "variant": "show-arrows-dots"
+                  "name": "Carousel Slide with Arrows",
+                  "model": "carousel-dotted-slide-arrows"
                 }
               }
             }

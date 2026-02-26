@@ -365,22 +365,31 @@
     "id": "carousel-dotted",
     "fields": [
       {
-        "component": "select",
-        "label": "Variant",
-        "name": "filter",
-        "value": "show-dots",
-        "required": true,
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Show Dots",
-            "value": "show-dots"
-          },
-          {
-            "name": "Show Arrows and Dots",
-            "value": "show-arrows-dots"
-          }
-        ]
+        "component": "boolean",
+        "name": "showDots",
+        "label": "Show Dots",
+        "valueType": "boolean",
+        "condition": {
+          "!": [
+            {
+              "var": "showArrowsDots"
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "showArrowsDots",
+        "label": "Show Dots and Arrows",
+        "valueType": "boolean",
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "showDots"
+            }
+          ]
+        }
       },
       {
         "component": "select",
@@ -402,11 +411,14 @@
           }
         ],
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "filter"
-            },
-            "show-dots"
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            }
           ]
         }
       },
@@ -426,11 +438,14 @@
           }
         ],
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "filter"
-            },
-            "show-dots"
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            }
           ]
         }
       },
@@ -439,15 +454,48 @@
         "name": "showLinks",
         "label": "Show Links",
         "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "===": [
-            {
-              "var": "filter"
-            },
-            "show-dots"
-          ]
-        }
+        "value": false
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the button"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ]
       },
       {
         "component": "boolean",
@@ -476,9 +524,13 @@
           }
         ],
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "autoScroll"
+              "!!": [
+                {
+                  "var": "autoScroll"
+                }
+              ]
             }
           ]
         }
@@ -486,21 +538,21 @@
     ]
   },
   {
-    "id": "carousel-dotted-slide-show-dots",
+    "id": "carousel-dotted-slide",
     "fields": [
-      {
-        "component": "text",
-        "name": "variant",
-        "label": "Variant",
-        "valueType": "string",
-        "hidden": true
-      },
       {
         "component": "boolean",
         "name": "withImage",
-        "label": "With Full Background Image",
+        "label": "With Image",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withoutImage"
+            }
+          ]
+        }
       },
       {
         "component": "text",
@@ -508,9 +560,13 @@
         "label": "Badge Text",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withImage"
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
             }
           ]
         }
@@ -521,9 +577,13 @@
         "label": "Image",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withImage"
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
             }
           ]
         }
@@ -534,9 +594,98 @@
         "label": "Description",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withImage"
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the button",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true,
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ],
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
             }
           ]
         }
@@ -561,42 +710,51 @@
         "label": "Header Text",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withoutImage"
+              "!!": [
+                {
+                  "var": "withoutImage"
+                }
+              ]
             }
           ]
         }
       },
       {
         "component": "richtext",
-        "name": "defaultText",
+        "name": "default-text",
         "label": "Default Text",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withoutImage"
+              "!!": [
+                {
+                  "var": "withoutImage"
+                }
+              ]
             }
           ]
         }
       },
       {
         "component": "boolean",
-        "name": "heroBannerImageCarousel",
+        "name": "hero-banner-image-carousel",
         "label": "Hero Banner Image Carousel",
         "valueType": "boolean",
         "value": false
       },
       {
         "component": "boolean",
-        "name": "textAnimationVariant",
+        "name": "text-animation-variant",
         "label": "Text Animation Variant",
         "valueType": "boolean",
         "value": false
       },
       {
         "component": "reference",
+        "valueType": "string",
         "name": "heroImage",
         "label": "Hero Image",
         "multi": false,
@@ -605,14 +763,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -630,14 +788,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -655,14 +813,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -680,14 +838,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -704,14 +862,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -729,14 +887,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -753,14 +911,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -793,14 +951,14 @@
             {
               "!!": [
                 {
-                  "var": "heroBannerImageCarousel"
+                  "var": "hero-banner-image-carousel"
                 }
               ]
             },
             {
               "!!": [
                 {
-                  "var": "textAnimationVariant"
+                  "var": "text-animation-variant"
                 }
               ]
             }
@@ -810,110 +968,429 @@
     ]
   },
   {
-    "id": "carousel-dotted-slide-show-arrows-dots",
+    "id": "carousel-dotted-slide-arrows",
     "fields": [
       {
-        "component": "text",
-        "name": "variant",
-        "label": "Variant",
-        "valueType": "string",
-        "hidden": true
-      },
-      {
         "component": "boolean",
-        "name": "withCircularImage",
-        "label": "With Circular Image",
-        "valueType": "boolean",
-        "value": false
-      },
-      {
-        "component": "text",
-        "name": "circularTitle",
-        "label": "Title",
-        "valueType": "string",
-        "condition": {
-          "!!": [
-            {
-              "var": "withCircularImage"
-            }
-          ]
-        }
-      },
-      {
-        "component": "reference",
-        "name": "circularImage",
-        "label": "Image",
-        "valueType": "string",
-        "condition": {
-          "!!": [
-            {
-              "var": "withCircularImage"
-            }
-          ]
-        }
-      },
-      {
-        "component": "richtext",
-        "name": "circularDescription",
-        "label": "Description",
-        "valueType": "string",
-        "condition": {
-          "!!": [
-            {
-              "var": "withCircularImage"
-            }
-          ]
-        }
-      },
-      {
-        "component": "boolean",
-        "name": "withDefaultImage",
-        "label": "With Default Image",
+        "name": "withImage",
+        "label": "With Image",
         "valueType": "boolean",
         "value": false,
         "condition": {
           "!": [
             {
-              "var": "withCircularImage"
+              "var": "withoutImage"
             }
           ]
         }
       },
       {
         "component": "text",
-        "name": "defaultStep",
-        "label": "Step/Title",
+        "name": "badgeText",
+        "label": "Badge Text",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withDefaultImage"
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
             }
           ]
         }
       },
       {
         "component": "reference",
-        "name": "defaultImage",
+        "name": "image",
         "label": "Image",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withDefaultImage"
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
             }
           ]
         }
       },
       {
         "component": "richtext",
-        "name": "defaultDescription",
+        "name": "description",
         "label": "Description",
         "valueType": "string",
         "condition": {
-          "!!": [
+          "and": [
             {
-              "var": "withDefaultImage"
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the button",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true,
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ],
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "withoutImage",
+        "label": "Without Image",
+        "valueType": "boolean",
+        "value": false,
+        "condition": {
+          "!": [
+            {
+              "var": "withImage"
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "headerText",
+        "label": "Header Text",
+        "valueType": "string",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withoutImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "default-text",
+        "label": "Default Text",
+        "valueType": "string",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withoutImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "hero-banner-image-carousel",
+        "label": "Hero Banner Image Carousel",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "boolean",
+        "name": "text-animation-variant",
+        "label": "Text Animation Variant",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "heroImage",
+        "label": "Hero Image",
+        "multi": false,
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": "",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "",
+        "label": "Sub Title",
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "heroLink",
+        "label": "Link",
+        "description": "Destination URL for the button",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "heroLinkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true,
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "heroLinkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "name": "heroLinkType",
+        "label": "Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ],
+        "condition": {
+          "or": [
+            {
+              "!!": [
+                {
+                  "var": "hero-banner-image-carousel"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
+                  "var": "text-animation-variant"
+                }
+              ]
             }
           ]
         }
