@@ -42,18 +42,6 @@
     ]
   },
   {
-    "id": "card",
-    "components": [
-      "download-button"
-    ]
-  },
-  {
-    "id": "download",
-    "components": [
-      "download-button"
-    ]
-  },
-  {
     "id": "carousel-dotted",
     "components": [
       "carousel-dotted-slide"
