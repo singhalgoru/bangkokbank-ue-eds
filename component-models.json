@@ -366,10 +366,11 @@
     "fields": [
       {
         "component": "select",
-        "name": "carouselVariant",
+        "name": "filter",
         "label": "Carousel Variant",
         "valueType": "string",
         "value": "show-dots",
+        "required": true,
         "options": [
           {
             "name": "Show Dots",
@@ -405,7 +406,7 @@
             {
               "===": [
                 {
-                  "var": "carouselVariant"
+                  "var": "filter"
                 },
                 "show-dots"
               ]
@@ -413,7 +414,7 @@
             {
               "===": [
                 {
-                  "var": "carouselVariant"
+                  "var": "filter"
                 },
                 "show-dots-with-arrows"
               ]
@@ -441,7 +442,7 @@
             {
               "===": [
                 {
-                  "var": "carouselVariant"
+                  "var": "filter"
                 },
                 "show-dots"
               ]
@@ -449,7 +450,7 @@
             {
               "===": [
                 {
-                  "var": "carouselVariant"
+                  "var": "filter"
                 },
                 "show-dots-with-arrows"
               ]
@@ -466,7 +467,7 @@
         "condition": {
           "===": [
             {
-              "var": "carouselVariant"
+              "var": "filter"
             },
             "show-dots"
           ]
@@ -522,7 +523,7 @@
         "condition": {
           "===": [
             {
-              "var": "carouselVariant"
+              "var": "filter"
             },
             "show-dots"
           ]
@@ -552,7 +553,7 @@
             {
               "===": [
                 {
-                  "var": "carouselVariant"
+                  "var": "filter"
                 },
                 "show-dots"
               ]
@@ -572,6 +573,13 @@
   {
     "id": "carousel-dotted-slide",
     "fields": [
+      {
+        "component": "text",
+        "name": "variant",
+        "label": "Variant",
+        "valueType": "string",
+        "hidden": true
+      },
       {
         "component": "boolean",
         "name": "withImage",
@@ -1002,6 +1010,13 @@
   {
     "id": "carousel-dotted-slide-arrows",
     "fields": [
+      {
+        "component": "text",
+        "name": "variant",
+        "label": "Variant",
+        "valueType": "string",
+        "hidden": true
+      },
       {
         "component": "reference",
         "name": "image",

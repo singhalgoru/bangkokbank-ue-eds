@@ -167,7 +167,7 @@
                 "template": {
                   "name": "Carousel Dotted",
                   "model": "carousel-dotted",
-                  "filter": "carousel-dotted"
+                  "filter": "show-dots"
                 }
               }
             }
@@ -182,7 +182,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Carousel Slide",
-                  "model": "carousel-dotted-slide"
+                  "model": "carousel-dotted-slide",
+                  "variant": "show-dots"
                 }
               }
             }
@@ -197,7 +198,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Carousel Slide Arrows",
-                  "model": "carousel-dotted-slide-arrows"
+                  "model": "carousel-dotted-slide-arrows",
+                  "variant": "show-dots-with-arrows"
                 }
               }
             }

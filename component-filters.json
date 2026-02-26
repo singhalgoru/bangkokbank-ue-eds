@@ -41,9 +41,14 @@
     ]
   },
   {
-    "id": "carousel-dotted",
+    "id": "show-dots",
     "components": [
-      "carousel-dotted-slide",
+      "carousel-dotted-slide"
+    ]
+  },
+  {
+    "id": "show-dots-with-arrows",
+    "components": [
       "carousel-dotted-slide-arrows"
     ]
   },
