@@ -345,18 +345,29 @@ function getRowValueCell(row) {
   return row;
 }
 
-function readVariant(row, fallback = 'showDots') {
-  const value = getRowValueCell(row)?.textContent.trim().toLowerCase() || '';
+function normalizeVariantValue(value = '') {
+  return value.toLowerCase().replace(/[^a-z]/g, '');
+}
 
-  if (['showdots', 'show-dots', 'show dots', 'dots'].includes(value)) return 'showDots';
+function resolveVariant(value, fallback = 'showDots') {
+  const normalized = normalizeVariantValue(value);
   if (
-    ['showarrowsdots', 'show-arrows-dots', 'show dots and arrows', 'arrows', 'arrows-dots']
-      .includes(value)
+    normalized.includes('showdotsandarrows')
+    || normalized.includes('showarrowsdots')
+    || normalized === 'arrows'
+    || normalized === 'arrowsdots'
   ) {
     return 'showArrowsDots';
   }
-
+  if (normalized.includes('showdots') || normalized === 'dots') {
+    return 'showDots';
+  }
   return fallback;
+}
+
+function readVariant(row, fallback = 'showDots') {
+  const value = getRowValueCell(row)?.textContent.trim() || '';
+  return resolveVariant(value, fallback);
 }
 
 export default function decorate(block) {
@@ -366,7 +377,8 @@ export default function decorate(block) {
 
   // Read configuration values from block rows.
   // Supports both new variant config and legacy boolean rows.
-  const variant = readVariant(configRows[0], '');
+  const variantFromDataset = resolveVariant(block.dataset.filter || block.dataset.variant || '', '');
+  const variant = readVariant(configRows[0], variantFromDataset);
   const legacyShowDots = readBoolean(getRowValueCell(configRows[0]));
   const legacyShowArrowsDots = readBoolean(getRowValueCell(configRows[3]));
   let resolvedVariant = variant;
