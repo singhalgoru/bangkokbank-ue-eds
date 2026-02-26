@@ -41,12 +41,6 @@
     ]
   },
   {
-    "id": "carousel-dotted",
-    "components": [
-      "carousel-dotted-slide"
-    ]
-  },
-  {
     "id": "carousel",
     "components": [
       "carousel-card"
@@ -120,6 +114,18 @@
     "id": "top-nav",
     "components": [
       "top-nav-link"
+    ]
+  },
+  {
+    "id": "showDots",
+    "components": [
+      "carousel-dotted-slide"
+    ]
+  },
+  {
+    "id": "showArrowsDots",
+    "components": [
+      "carousel-dotted-slide-arrows"
     ]
   }
 ]

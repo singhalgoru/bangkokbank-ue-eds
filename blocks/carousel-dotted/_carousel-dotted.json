@@ -10,7 +10,7 @@
             "template": {
               "name": "Carousel Dotted",
               "model": "carousel-dotted",
-              "filter": "carousel-dotted"
+              "filter": "showDots"
             }
           }
         }
@@ -25,7 +25,24 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Carousel Slide",
-              "model": "carousel-dotted-slide"
+              "model": "carousel-dotted-slide",
+              "variant": "showDots"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Carousel Slide Arrows",
+      "id": "carousel-dotted-slide-arrows",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Carousel Slide Arrows",
+              "model": "carousel-dotted-slide-arrows",
+              "variant": "showArrowsDots"
             }
           }
         }
@@ -34,81 +51,179 @@
   ],
   "models": [
     {
-  "id": "carousel-dotted",
-  "fields": [
-    {
-      "component": "boolean",
-      "name": "showDots",
-      "label": "Show Dots",
-      "valueType": "boolean"
+      "id": "carousel-dotted",
+      "fields": [
+        {
+          "component": "select",
+          "name": "filter",
+          "label": "Variant",
+          "valueType": "string",
+          "value": "showDots",
+          "options": [
+            {
+              "name": "Show Dots",
+              "value": "showDots"
+            },
+            {
+              "name": "Show Dots and Arrows",
+              "value": "showArrowsDots"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "dotsAlignment",
+          "label": "Dots Alignment",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Center",
+              "value": "center"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ],
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "dotsPosition",
+          "label": "Dots Position",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Inside container",
+              "value": "inside-container"
+            },
+            {
+              "name": "Outside container",
+              "value": "outside-container"
+            }
+          ],
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "showLinks",
+          "label": "Show Links",
+          "valueType": "boolean",
+          "value": false,
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "...": "../../models/elements/_button-fields.json",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "autoScroll",
+          "label": "Auto-Scroll",
+          "valueType": "boolean",
+          "value": false,
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "scrollTimeDelay",
+          "label": "Scroll Time Delay (milliseconds)",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "3 seconds",
+              "value": "3000"
+            },
+            {
+              "name": "5 seconds",
+              "value": "5000"
+            },
+            {
+              "name": "10 seconds",
+              "value": "10000"
+            }
+          ],
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "autoScroll"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
     },
-    {
-      "component": "select",
-      "name": "dotsAlignment",
-      "label": "Dots Alignment",
-      "valueType": "string",
-      "options": [
-        { "name": "Left", "value": "left" },
-        { "name": "Center", "value": "center" },
-        { "name": "Right", "value": "right" }
-      ],
-      "condition": {
-        "and": [{ "!!": [{ "var": "showDots" }] }]
-      }
-    },
-    {
-      "component": "select",
-      "name": "dotsPosition",
-      "label": "Dots Position",
-      "valueType": "string",
-      "options": [
-        { "name": "Inside container", "value": "inside-container" },
-        { "name": "Outside container", "value": "outside-container" }
-      ],
-      "condition": {
-        "and": [{ "!!": [{ "var": "showDots" }] }]
-      }
-    },
-    {
-      "component": "boolean",
-      "name": "showArrowsDots",
-      "label": "Show Dots and Arrows",
-      "valueType": "boolean",
-      "value": false
-    },
-    {
-      "component": "boolean",
-      "name": "showLinks",
-      "label": "Show Links",
-      "valueType": "boolean",
-      "value": false
-    },
-    {
-      "...": "../../models/elements/_button-fields.json"
-    },
-    {
-      "component": "boolean",
-      "name": "autoScroll",
-      "label": "Auto-Scroll",
-      "valueType": "boolean",
-      "value": false
-    },
-    {
-      "component": "select",
-      "name": "scrollTimeDelay",
-      "label": "Scroll Time Delay (milliseconds)",
-      "valueType": "string",
-      "options": [
-        { "name": "3 seconds", "value": "3000" },
-        { "name": "5 seconds", "value": "5000" },
-        { "name": "10 seconds", "value": "10000" }
-      ],
-      "condition": {
-        "and": [{ "!!": [{ "var": "autoScroll" }] }]
-      }
-    }
-  ]
-},
     {
       "id": "carousel-dotted-slide",
       "fields": [
@@ -332,8 +447,20 @@
           "multi": false,
           "condition": {
             "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -345,8 +472,20 @@
           "value": "",
           "condition": {
             "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -358,8 +497,20 @@
           "valueType": "string",
           "condition": {
             "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -371,8 +522,20 @@
           "valueType": "string",
           "condition": {
             "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -383,8 +546,20 @@
           "description": "Destination URL for the button",
           "condition": {
             "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -395,9 +570,21 @@
           "description": "Button label text",
           "required": true,
           "condition": {
-           "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -407,9 +594,21 @@
           "label": "Title",
           "description": "Accessibility title attribute (optional)",
           "condition": {
-           "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -435,9 +634,451 @@
             }
           ],
           "condition": {
-           "or": [
-              { "!!": [{ "var": "hero-banner-image-carousel" }] },
-              { "!!": [{ "var": "text-animation-variant" }] }
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "carousel-dotted-slide-arrows",
+      "fields": [
+        {
+          "component": "boolean",
+          "name": "withImage",
+          "label": "With Image",
+          "valueType": "boolean",
+          "value": false,
+          "condition": {
+            "!": [
+              {
+                "var": "withoutImage"
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "badgeText",
+          "label": "Badge Text",
+          "valueType": "string",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "name": "image",
+          "label": "Image",
+          "valueType": "string",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "label": "Description",
+          "valueType": "string",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "description": "Destination URL for the button",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true,
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            }
+          ],
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "withoutImage",
+          "label": "Without Image",
+          "valueType": "boolean",
+          "value": false,
+          "condition": {
+            "!": [
+              {
+                "var": "withImage"
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "headerText",
+          "label": "Header Text",
+          "valueType": "string",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "richtext",
+          "name": "default-text",
+          "label": "Default Text",
+          "valueType": "string",
+          "condition": {
+            "and": [
+              {
+                "!!": [
+                  {
+                    "var": "withoutImage"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "hero-banner-image-carousel",
+          "label": "Hero Banner Image Carousel",
+          "valueType": "boolean",
+          "value": false
+        },
+        {
+          "component": "boolean",
+          "name": "text-animation-variant",
+          "label": "Text Animation Variant",
+          "valueType": "boolean",
+          "value": false
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "heroImage",
+          "label": "Hero Image",
+          "multi": false,
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Alt",
+          "value": "",
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "richtext",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string",
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "richtext",
+          "name": "subtitle",
+          "value": "",
+          "label": "Sub Title",
+          "valueType": "string",
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "name": "heroLink",
+          "label": "Link",
+          "description": "Destination URL for the button",
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "heroLinkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true,
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "heroLinkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)",
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "heroLinkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            }
+          ],
+          "condition": {
+            "or": [
+              {
+                "!!": [
+                  {
+                    "var": "hero-banner-image-carousel"
+                  }
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "text-animation-variant"
+                  }
+                ]
+              }
             ]
           }
         }
@@ -446,9 +1087,15 @@
   ],
   "filters": [
     {
-      "id": "carousel-dotted",
+      "id": "showDots",
       "components": [
         "carousel-dotted-slide"
+      ]
+    },
+    {
+      "id": "showArrowsDots",
+      "components": [
+        "carousel-dotted-slide-arrows"
       ]
     }
   ]

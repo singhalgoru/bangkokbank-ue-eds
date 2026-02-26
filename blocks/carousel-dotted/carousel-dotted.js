@@ -339,27 +339,55 @@ function initializeAutoScroll(
   }
 }
 
+function getRowValueCell(row) {
+  if (!row) return null;
+  if (row.children?.length === 2) return row.children[1];
+  return row;
+}
+
+function readVariant(row, fallback = 'showDots') {
+  const value = getRowValueCell(row)?.textContent.trim().toLowerCase() || '';
+
+  if (['showdots', 'show-dots', 'show dots', 'dots'].includes(value)) return 'showDots';
+  if (
+    ['showarrowsdots', 'show-arrows-dots', 'show dots and arrows', 'arrows', 'arrows-dots']
+      .includes(value)
+  ) {
+    return 'showArrowsDots';
+  }
+
+  return fallback;
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
+  const firstSlideRowIndex = rows.findIndex((row) => row.children.length > 2);
+  const configRows = firstSlideRowIndex > -1 ? rows.slice(0, firstSlideRowIndex) : rows;
 
-  // Read configuration values from block rows
-  const showDots = readBoolean(rows[0]);
-  const dotsAlignment = readDotsAlignment(rows[1]);
-  const dotsPosition = readPosition(rows[2]);
-  const showArrowsDots = readBoolean(rows[3]);
-  const showLinks = readBoolean(rows[4]);
-  const autoScroll = readBoolean(rows[6]);
-  const scrollTimeDelay = rows[7]?.textContent.trim() || '';
+  // Read configuration values from block rows.
+  // Supports both new variant config and legacy boolean rows.
+  const variant = readVariant(configRows[0], '');
+  const legacyShowDots = readBoolean(getRowValueCell(configRows[0]));
+  const legacyShowArrowsDots = readBoolean(getRowValueCell(configRows[3]));
+  const resolvedVariant = variant
+    || (legacyShowArrowsDots ? 'showArrowsDots' : (legacyShowDots ? 'showDots' : 'none'));
+
+  const showDots = resolvedVariant === 'showDots';
+  const showArrowsDots = resolvedVariant === 'showArrowsDots';
+  const dotsAlignment = showDots ? readDotsAlignment(getRowValueCell(configRows[1])) : 'center';
+  const dotsPosition = showDots ? readPosition(getRowValueCell(configRows[2])) : 'inside-container';
+  const showLinks = showDots ? readBoolean(getRowValueCell(configRows[3])) : false;
+  const autoScroll = showDots ? readBoolean(getRowValueCell(configRows[8])) : false;
+  const scrollTimeDelay = showDots ? (getRowValueCell(configRows[9])?.textContent.trim() || '') : '';
 
   // See more link is at Row 5 if showLinks is true
   let seeMoreLink = null;
   if (showLinks) {
-    const seeMoreRow = rows[5];
+    const seeMoreRow = configRows[4];
     seeMoreLink = seeMoreRow?.querySelector('a');
   }
 
-  // Slides start from Row 8
-  const slides = rows.slice(8);
+  const slides = firstSlideRowIndex > -1 ? rows.slice(firstSlideRowIndex) : rows.slice(8);
   block.className = 'carousel-dotted';
 
   if (showDots) {
