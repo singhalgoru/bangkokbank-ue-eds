@@ -390,13 +390,9 @@
           }
         ],
         "condition": {
-          "and": [
+          "!!": [
             {
-              "!!": [
-                {
-                  "var": "showDots"
-                }
-              ]
+              "var": "showDots"
             }
           ]
         }
@@ -417,13 +413,9 @@
           }
         ],
         "condition": {
-          "and": [
+          "!!": [
             {
-              "!!": [
-                {
-                  "var": "showDots"
-                }
-              ]
+              "var": "showDots"
             }
           ]
         }
@@ -510,13 +502,9 @@
           }
         ],
         "condition": {
-          "and": [
+          "!!": [
             {
-              "!!": [
-                {
-                  "var": "autoScroll"
-                }
-              ]
+              "var": "autoScroll"
             }
           ]
         }
@@ -529,13 +517,24 @@
       {
         "component": "boolean",
         "name": "withImage",
-        "label": "With Image",
+        "label": "With Full Background Image",
         "valueType": "boolean",
         "value": false,
         "condition": {
-          "!": [
+          "and": [
             {
-              "var": "withoutImage"
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "withoutImage"
+                }
+              ]
             }
           ]
         }
@@ -547,6 +546,13 @@
         "valueType": "string",
         "condition": {
           "and": [
+            {
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
             {
               "!!": [
                 {
@@ -567,6 +573,13 @@
             {
               "!!": [
                 {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
                   "var": "withImage"
                 }
               ]
@@ -584,108 +597,16 @@
             {
               "!!": [
                 {
-                  "var": "withImage"
+                  "var": "showDots"
                 }
               ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link",
-        "description": "Destination URL for the button",
-        "condition": {
-          "and": [
+            },
             {
               "!!": [
                 {
                   "var": "withImage"
                 }
               ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "Text",
-        "description": "Button label text",
-        "required": true,
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "name": "linkTitle",
-        "label": "Title",
-        "description": "Accessibility title attribute (optional)",
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "select",
-        "name": "linkType",
-        "label": "Type",
-        "description": "Button style variant",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "Primary",
-            "value": "primary"
-          },
-          {
-            "name": "Secondary",
-            "value": "secondary"
-          },
-          {
-            "name": "Tertiary",
-            "value": "tertiary"
-          }
-        ],
-        "condition": {
-          "and": [
-            {
-              "!!": [
-                {
-                  "var": "withImage"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "component": "boolean",
-        "name": "withoutImage",
-        "label": "Without Image",
-        "valueType": "boolean",
-        "value": false,
-        "condition": {
-          "!": [
-            {
-              "var": "withImage"
             }
           ]
         }
@@ -697,6 +618,13 @@
         "valueType": "string",
         "condition": {
           "and": [
+            {
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
             {
               "!!": [
                 {
@@ -717,6 +645,13 @@
             {
               "!!": [
                 {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!!": [
+                {
                   "var": "withoutImage"
                 }
               ]
@@ -729,18 +664,31 @@
         "name": "hero-banner-image-carousel",
         "label": "Hero Banner Image Carousel",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!!": [
+            {
+              "var": "showDots"
+            }
+          ]
+        }
       },
       {
         "component": "boolean",
         "name": "text-animation-variant",
         "label": "Text Animation Variant",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "!!": [
+            {
+              "var": "showDots"
+            }
+          ]
+        }
       },
       {
         "component": "reference",
-        "valueType": "string",
         "name": "heroImage",
         "label": "Hero Image",
         "multi": false,
