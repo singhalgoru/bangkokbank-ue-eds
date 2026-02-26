@@ -1246,18 +1246,23 @@
       },
       {
         "component": "select",
-        "name": "linkTarget",
-        "value": "",
-        "label": "Open Link in New Page?",
+        "name": "linkType",
+        "label": "Type",
+        "description": "Button style variant",
         "valueType": "string",
+        "value": "",
         "options": [
           {
-            "name": "Yes",
-            "value": "_blank"
+            "name": "Primary",
+            "value": "primary"
           },
           {
-            "name": "No",
-            "value": "_self"
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
           }
         ]
       }
