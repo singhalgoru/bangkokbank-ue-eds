@@ -105,7 +105,9 @@
         "warning-card",
         "menu-cards",
         "carousel-dotted",
-        "cross-banner"
+        "cross-banner",
+        "form",
+        "embed-adaptive-form"
       ]
     }
   ]
