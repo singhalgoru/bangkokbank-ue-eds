@@ -61,6 +61,12 @@
       "components": [
         "card"
       ]
+    },
+    {
+      "id": "card",
+      "components": [
+        "download-button"
+      ]
     }
   ]
 }
