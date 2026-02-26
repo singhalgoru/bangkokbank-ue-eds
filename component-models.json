@@ -302,6 +302,10 @@
     ]
   },
   {
+    "id": "cards",
+    "fields": []
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -318,6 +322,20 @@
         "label": "Text",
         "valueType": "string"
       },
+      {
+        "component": "blocks",
+        "name": "download-buttons",
+        "label": "Download Buttons",
+        "multi": true,
+        "allowedBlocks": [
+          "download-button"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "download-button",
+    "fields": [
       {
         "component": "aem-content",
         "name": "link",
@@ -339,23 +357,18 @@
       },
       {
         "component": "select",
-        "name": "linkType",
-        "label": "Type",
-        "description": "Button style variant",
-        "valueType": "string",
+        "name": "linkTarget",
         "value": "",
+        "label": "Open Link in New Page?",
+        "valueType": "string",
         "options": [
           {
-            "name": "Primary",
-            "value": "primary"
+            "name": "Yes",
+            "value": "_blank"
           },
           {
-            "name": "Secondary",
-            "value": "secondary"
-          },
-          {
-            "name": "Tertiary",
-            "value": "tertiary"
+            "name": "No",
+            "value": "_self"
           }
         ]
       }

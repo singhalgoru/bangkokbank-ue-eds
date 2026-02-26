@@ -8,24 +8,28 @@ export default function decorate(block) {
     const li = document.createElement('li');
     moveInstrumentation(row, li);
 
-    while (row.firstElementChild) li.append(row.firstElementChild);
+    while (row.firstElementChild) {
+      li.append(row.firstElementChild);
+    }
 
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'cards-card-image';
-      } else if (div.classList.contains('download')) {
-        // Keep download-button class as is - it will be auto-decorated
-        div.classList.add('cards-download-button');
+      } else if (div.classList.contains('download-button')) {
+        div.classList.add('cards-nested-block');
       } else {
         div.className = 'cards-card-body';
       }
     });
+
     ul.append(li);
   });
+
   ul.querySelectorAll('picture > img').forEach((img) => {
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
+
   block.replaceChildren(ul);
 }
