@@ -74,7 +74,8 @@
             { "name": "Left", "value": "left" },
             { "name": "Center", "value": "center" },
             { "name": "Right", "value": "right" }
-          ]
+          ],
+          "condition": { "===": [{ "var": "filter" }, "show-dots"] }
         },
         {
           "component": "select",
@@ -84,17 +85,20 @@
           "options": [
             { "name": "Inside container", "value": "inside-container" },
             { "name": "Outside container", "value": "outside-container" }
-          ]
+          ],
+          "condition": { "===": [{ "var": "filter" }, "show-dots"] }
         },
         {
           "component": "boolean",
           "name": "showLinks",
           "label": "Show Links",
           "valueType": "boolean",
-          "value": false
+          "value": false,
+          "condition": { "===": [{ "var": "filter" }, "show-dots"] }
         },
         {
-          "...": "../../models/elements/_button-fields.json"
+          "...": "../../models/elements/_button-fields.json",
+          "condition": { "===": [{ "var": "filter" }, "show-dots"] }
         },
         {
           "component": "boolean",
