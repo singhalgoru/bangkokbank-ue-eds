@@ -97,8 +97,7 @@
           "condition": { "===": [{ "var": "filter" }, "show-dots"] }
         },
         {
-          "...": "../../models/elements/_button-fields.json",
-          "condition": { "===": [{ "var": "filter" }, "show-dots"] }
+          "...": "../../models/elements/_button-fields.json"
         },
         {
           "component": "boolean",
