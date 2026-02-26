@@ -521,20 +521,9 @@
         "valueType": "boolean",
         "value": false,
         "condition": {
-          "and": [
+          "!!": [
             {
-              "!!": [
-                {
-                  "var": "showDots"
-                }
-              ]
-            },
-            {
-              "!": [
-                {
-                  "var": "withoutImage"
-                }
-              ]
+              "var": "showDots"
             }
           ]
         }
@@ -612,6 +601,31 @@
         }
       },
       {
+        "component": "boolean",
+        "name": "withoutImage",
+        "label": "Without Image",
+        "valueType": "boolean",
+        "value": false,
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "showDots"
+                }
+              ]
+            },
+            {
+              "!": [
+                {
+                  "var": "withImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
         "component": "text",
         "name": "headerText",
         "label": "Header Text",
@@ -637,7 +651,7 @@
       },
       {
         "component": "richtext",
-        "name": "default-text",
+        "name": "defaultText",
         "label": "Default Text",
         "valueType": "string",
         "condition": {
@@ -661,7 +675,7 @@
       },
       {
         "component": "boolean",
-        "name": "hero-banner-image-carousel",
+        "name": "heroBannerImageCarousel",
         "label": "Hero Banner Image Carousel",
         "valueType": "boolean",
         "value": false,
@@ -675,7 +689,7 @@
       },
       {
         "component": "boolean",
-        "name": "text-animation-variant",
+        "name": "textAnimationVariant",
         "label": "Text Animation Variant",
         "valueType": "boolean",
         "value": false,
@@ -693,18 +707,29 @@
         "label": "Hero Image",
         "multi": false,
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -718,18 +743,29 @@
         "label": "Alt",
         "value": "",
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -743,18 +779,29 @@
         "label": "Title",
         "valueType": "string",
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -768,18 +815,29 @@
         "label": "Sub Title",
         "valueType": "string",
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -792,18 +850,29 @@
         "label": "Link",
         "description": "Destination URL for the button",
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -817,18 +886,29 @@
         "description": "Button label text",
         "required": true,
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -841,18 +921,29 @@
         "label": "Title",
         "description": "Accessibility title attribute (optional)",
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
@@ -881,18 +972,29 @@
           }
         ],
         "condition": {
-          "or": [
+          "and": [
             {
               "!!": [
                 {
-                  "var": "hero-banner-image-carousel"
+                  "var": "showDots"
                 }
               ]
             },
             {
-              "!!": [
+              "or": [
                 {
-                  "var": "text-animation-variant"
+                  "!!": [
+                    {
+                      "var": "heroBannerImageCarousel"
+                    }
+                  ]
+                },
+                {
+                  "!!": [
+                    {
+                      "var": "textAnimationVariant"
+                    }
+                  ]
                 }
               ]
             }
