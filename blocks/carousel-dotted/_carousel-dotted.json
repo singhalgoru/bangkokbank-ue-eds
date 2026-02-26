@@ -91,23 +91,11 @@
             }
           ],
           "condition": {
-            "or": [
+            "===": [
               {
-                "===": [
-                  {
-                    "var": "filter"
-                  },
-                  "show-dots"
-                ]
+                "var": "filter"
               },
-              {
-                "===": [
-                  {
-                    "var": "filter"
-                  },
-                  "show-dots-with-arrows"
-                ]
-              }
+              "show-dots"
             ]
           }
         },
@@ -127,23 +115,11 @@
             }
           ],
           "condition": {
-            "or": [
+            "===": [
               {
-                "===": [
-                  {
-                    "var": "filter"
-                  },
-                  "show-dots"
-                ]
+                "var": "filter"
               },
-              {
-                "===": [
-                  {
-                    "var": "filter"
-                  },
-                  "show-dots-with-arrows"
-                ]
-              }
+              "show-dots"
             ]
           }
         },

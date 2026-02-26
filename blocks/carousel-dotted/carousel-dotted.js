@@ -343,23 +343,32 @@ export default function decorate(block) {
   const rows = [...block.children];
 
   // Read configuration values from block rows
-  const showDots = readBoolean(rows[0]);
+  // Row 0: filter (carousel variant: "show-dots" | "show-dots-with-arrows")
+  // Row 1: dotsAlignment
+  // Row 2: dotsPosition
+  // Row 3: showLinks
+  // Rows 4-7: button fields (from _button-fields.json spread)
+  // Row 8: autoScroll
+  // Row 9: scrollTimeDelay
+  // Rows 10+: slides
+  const carouselVariant = rows[0]?.textContent.trim().toLowerCase() || 'show-dots';
+  const showDots = carouselVariant === 'show-dots';
+  const showArrowsDots = carouselVariant === 'show-dots-with-arrows';
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
-  const showArrowsDots = readBoolean(rows[3]);
-  const showLinks = readBoolean(rows[4]);
-  const autoScroll = readBoolean(rows[6]);
-  const scrollTimeDelay = rows[7]?.textContent.trim() || '';
+  const showLinks = readBoolean(rows[3]);
+  const autoScroll = readBoolean(rows[8]);
+  const scrollTimeDelay = rows[9]?.textContent.trim() || '';
 
-  // See more link is at Row 5 if showLinks is true
+  // See more link is at Row 4 (link field from button-fields) if showLinks is true
   let seeMoreLink = null;
   if (showLinks) {
-    const seeMoreRow = rows[5];
+    const seeMoreRow = rows[4];
     seeMoreLink = seeMoreRow?.querySelector('a');
   }
 
-  // Slides start from Row 8
-  const slides = rows.slice(8);
+  // Slides start from Row 10
+  const slides = rows.slice(10);
   block.className = 'carousel-dotted';
 
   if (showDots) {
@@ -389,9 +398,9 @@ export default function decorate(block) {
 
   if (
     slidesWithImage > 0
-  && slidesWithoutImage === 0
-  && slidesHeroBanner === 0
-  && slidesTextAnimation === 0
+    && slidesWithoutImage === 0
+    && slidesHeroBanner === 0
+    && slidesTextAnimation === 0
   ) {
     block.classList.add('all-with-image');
   } else if (
