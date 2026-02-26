@@ -24,8 +24,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Card",
-              "model": "card",
-              "filter": "download-button"
+              "model": "card"
             }
           }
         }
@@ -51,8 +50,12 @@
           "valueType": "string"
         },
         {
-          "...": "../../models/elements/_button-fields.json"
-        } 
+          "component": "container",
+          "name": "buttons",
+          "label": "Download Buttons",
+          "multi": true,
+          "itemType": "download-button"
+        }
       ]
     }
   ],
