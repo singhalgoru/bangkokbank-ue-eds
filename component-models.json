@@ -366,7 +366,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "filter",
+        "name": "carouselVariant",
         "label": "Carousel Variant",
         "valueType": "string",
         "value": "show-dots",
@@ -404,7 +404,7 @@
         "condition": {
           "===": [
             {
-              "var": "filter"
+              "var": "carouselVariant"
             },
             "show-dots"
           ]
@@ -428,7 +428,7 @@
         "condition": {
           "===": [
             {
-              "var": "filter"
+              "var": "carouselVariant"
             },
             "show-dots"
           ]
@@ -443,7 +443,7 @@
         "condition": {
           "===": [
             {
-              "var": "filter"
+              "var": "carouselVariant"
             },
             "show-dots"
           ]
