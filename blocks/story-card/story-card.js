@@ -26,10 +26,22 @@ function getHTMLContent(row) {
  * @param {string} titleText - Title text
  * @param {string} descriptionHTML - Description HTML
  * @param {Array} buttonRows - Array of button row elements
+ * @param {Element} eyebrowRow - Original eyebrow row for instrumentation
+ * @param {Element} titleRow - Original title row for instrumentation
+ * @param {Element} descriptionRow - Original description row for instrumentation
  * @param {Document} doc - Document reference
  * @returns {Element} The content element
  */
-function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) {
+function buildContent(
+  eyebrowText,
+  titleText,
+  descriptionHTML,
+  buttonRows,
+  eyebrowRow,
+  titleRow,
+  descriptionRow,
+  doc,
+) {
   const content = doc.createElement('div');
   content.className = 'content';
 
@@ -38,6 +50,7 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
     const eyebrow = doc.createElement('h4');
     eyebrow.className = 'sub-title-medium line';
     eyebrow.textContent = eyebrowText;
+    moveInstrumentation(eyebrowRow, eyebrow);
     content.appendChild(eyebrow);
   }
 
@@ -46,6 +59,7 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
     const title = doc.createElement('h2');
     title.className = 'title-1';
     title.textContent = titleText;
+    moveInstrumentation(titleRow, title);
     content.appendChild(title);
   }
 
@@ -54,6 +68,7 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
     const description = doc.createElement('div');
     description.className = 'editor text-default';
     description.innerHTML = descriptionHTML;
+    moveInstrumentation(descriptionRow, description);
     content.appendChild(description);
   }
 
@@ -65,7 +80,9 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
         const anchor = buttonContainer.querySelector('a');
         // Only append if button has valid href and text
         if (anchor && anchor.href && anchor.textContent.trim()) {
-          content.appendChild(buttonContainer.cloneNode(true));
+          const clonedContainer = buttonContainer.cloneNode(true);
+          moveInstrumentation(buttonRow, clonedContainer);
+          content.appendChild(clonedContainer);
         }
       }
     });
@@ -78,10 +95,11 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc) 
  * Build the thumb element with picture
  * @param {Element} img - Original image element
  * @param {string} imageAlt - Image alt text
+ * @param {Element} imageRow - Original image row for instrumentation
  * @param {Document} doc - Document reference
  * @returns {Element} The thumb element
  */
-function buildThumb(img, imageAlt, doc) {
+function buildThumb(img, imageAlt, imageRow, doc) {
   const thumb = doc.createElement('div');
   thumb.className = 'thumb';
 
@@ -97,6 +115,11 @@ function buildThumb(img, imageAlt, doc) {
     moveInstrumentation(img, optimizedPicture.querySelector('img'));
 
     thumb.appendChild(optimizedPicture);
+  }
+
+  // Move instrumentation from original image row to thumb
+  if (imageRow) {
+    moveInstrumentation(imageRow, thumb);
   }
 
   return thumb;
@@ -174,7 +197,7 @@ export default function decorate(block) {
   thumbFull.className = 'thumb-full';
 
   // Build thumb with picture element
-  const thumb = buildThumb(img, imageAlt, doc);
+  const thumb = buildThumb(img, imageAlt, imageRow, doc);
 
   // Build outer/inner/content
   const outer = doc.createElement('div');
@@ -183,7 +206,16 @@ export default function decorate(block) {
   const inner = doc.createElement('div');
   inner.className = 'inner';
 
-  const content = buildContent(eyebrowText, titleText, descriptionHTML, buttonRows, doc);
+  const content = buildContent(
+    eyebrowText,
+    titleText,
+    descriptionHTML,
+    buttonRows,
+    eyebrowRow,
+    titleRow,
+    descriptionRow,
+    doc,
+  );
   inner.appendChild(content);
   outer.appendChild(inner);
 
@@ -199,6 +231,9 @@ export default function decorate(block) {
   }
 
   wrapper.appendChild(thumbFull);
+
+  // Move instrumentation from original block to new wrapper
+  moveInstrumentation(block, wrapper);
 
   // Replace block content
   block.textContent = '';
