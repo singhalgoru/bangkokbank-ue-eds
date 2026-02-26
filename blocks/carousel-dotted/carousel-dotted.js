@@ -8,7 +8,7 @@ import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
  * Build a slide WITH IMAGE variation
- * Structure: Badge Text | Image | Description | Link
+ * Structure: With Image | Badge Text | Image | Description | Link
  */
 function buildSlideWithImage(row, index, cells) {
   const slide = document.createElement('div');
@@ -16,7 +16,7 @@ function buildSlideWithImage(row, index, cells) {
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  // Create and append background image if it exists
+  // Create and append background image if it exists (cell 2)
   const picture = cells[2]?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -58,7 +58,7 @@ function buildSlideWithImage(row, index, cells) {
 
 /**
  * Build a slide WITHOUT IMAGE variation
- * Structure: Header Text | Default Text
+ * Structure: ... fields ... | Header Text | Default Text
  */
 function buildSlideWithoutImage(row, index, cells) {
   const slide = document.createElement('div');
@@ -70,8 +70,13 @@ function buildSlideWithoutImage(row, index, cells) {
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Header text (cell 1)
-  const headerText = cells[6]?.textContent.trim();
+  // Looking at the JSON, withoutImage fields come after all the withImage fields
+  // The structure in cells would be approximately:
+  // 0: withImage, 1: badgeText, 2: image, 3: description, 4: link, 5: withoutImage
+  // 6-8: link fields (linkText, linkTitle, linkType)
+  // 9: headerText, 10: default-text
+  // Header text - need to find the correct index
+  const headerText = cells[9]?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-dotted-header';
@@ -79,11 +84,11 @@ function buildSlideWithoutImage(row, index, cells) {
     content.append(header);
   }
 
-  // Default text (cell 2)
-  if (cells[7]) {
+  // Default text
+  if (cells[10]) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (cells[7].firstChild) defaultText.append(cells[7].firstChild);
+    while (cells[10].firstChild) defaultText.append(cells[10].firstChild);
     content.append(defaultText);
   }
 
@@ -93,14 +98,17 @@ function buildSlideWithoutImage(row, index, cells) {
 
 /**
  * Build a slide HERO BANNER IMAGE CAROUSEL or TEXT ANIMATION VARIANT
- * Structure: Image | Image Alt | Title | Subtitle | Button
+ * Structure: ... | hero-banner | text-animation | Hero Image |
+ *  Image Alt | Title | Subtitle | Hero Link
  */
 function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
 
-  const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(10, 14);
+  // Hero fields start after withoutImage fields
+  // Based on JSON: cells 13+ are hero fields (heroImage, imageAlt, title, subtitle, heroLink)
+  const [heroImageCell, , titleCell, subtitleCell, linkCell] = cells.slice(13, 18);
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -143,8 +151,20 @@ function buildSlideHeroVariant(row, index, cells, variant) {
 function buildSlide(row, index) {
   const cells = [...row.children];
 
-  const heroBannerImageCarousel = cells[8]?.textContent.trim().toLowerCase() === 'true';
-  const textAnimationVariant = cells[9]?.textContent.trim().toLowerCase() === 'true';
+  // Cell structure (hidden variant field is NOT rendered):
+  // Cell 0: withImage boolean
+  // Cell 1: badgeText
+  // Cell 2: image
+  // Cell 3: description
+  // Cell 4: link
+  // Cell 5: withoutImage boolean
+  // Cells 6-8: link fields
+  // Cell 9: headerText
+  // Cell 10: default-text
+  // Cell 11: hero-banner-image-carousel boolean
+  // Cell 12: text-animation-variant boolean
+  const heroBannerImageCarousel = cells[11]?.textContent.trim().toLowerCase() === 'true';
+  const textAnimationVariant = cells[12]?.textContent.trim().toLowerCase() === 'true';
   const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
   const picture = cells[2]?.querySelector('picture');
 
@@ -347,44 +367,45 @@ export default function decorate(block) {
   // Row 1: dotsAlignment
   // Row 2: dotsPosition
   // Row 3: showLinks
-  // Rows 4-7: button fields (from _button-fields.json spread: link, linkText, linkTitle, linkType)
+  // Rows 4-7: link fields (conditional on showLinks)
   // Row 8: autoScroll
-  // Row 9: scrollTimeDelay
+  // Row 9: scrollTimeDelay (conditional on autoScroll)
   // Rows 10+: slides
   const carouselVariant = rows[0]?.textContent.trim().toLowerCase() || 'show-dots';
   const showDots = carouselVariant === 'show-dots';
   const showArrowsDots = carouselVariant === 'show-dots-with-arrows';
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
-  const autoScroll = readBoolean(rows[8]);
-  const scrollTimeDelay = rows[9]?.textContent.trim() || '';
+  const showLinks = readBoolean(rows[3]);
 
-  // Dynamically find the see-more link and slide start index
-  // Start scanning from row 4 (after showLinks) to skip button-fields, autoScroll, scrollTimeDelay
   let seeMoreLink = null;
-  let nextIndex = 4;
-  while (nextIndex < rows.length) {
-    const row = rows[nextIndex];
-    const link = row?.querySelector('a');
-    const hasContent = row?.textContent.trim();
+  if (showLinks) {
+    const linkEl = rows[4]?.querySelector('a');
+    const linkUrl = linkEl ? linkEl.href : rows[4]?.textContent.trim();
+    const linkText = rows[5]?.textContent.trim();
+    const linkTitle = rows[6]?.textContent.trim();
+    const linkType = rows[7]?.textContent.trim().toLowerCase() || 'primary';
 
-    if (link) {
-      seeMoreLink = link;
-      nextIndex += 1;
-      break;
-    } else if (!hasContent) {
-      nextIndex += 1;
-    } else {
-      // Check if this row looks like a slide (has multiple cells = block item)
-      const cells = [...(row?.children || [])];
-      if (cells.length > 2) {
-        break; // This is a slide row, stop scanning
+    if (linkUrl && linkText) {
+      seeMoreLink = document.createElement('a');
+      seeMoreLink.href = linkUrl;
+      seeMoreLink.textContent = linkText;
+      if (linkTitle) seeMoreLink.setAttribute('title', linkTitle);
+
+      const btnClass = linkType.includes('button') ? linkType : `button-${linkType}`;
+      seeMoreLink.className = `button ${btnClass}`;
+
+      if (linkEl && linkEl.target) {
+        seeMoreLink.target = linkEl.target;
       }
-      nextIndex += 1;
     }
   }
 
-  const slides = rows.slice(nextIndex);
+  const autoScroll = readBoolean(rows[8]);
+  const scrollTimeDelay = rows[9]?.textContent.trim() || '';
+
+  // The block configuration uses rows 0-9. Slides start at index 10.
+  const slides = rows.slice(10);
   block.className = 'carousel-dotted';
 
   if (showDots) {
