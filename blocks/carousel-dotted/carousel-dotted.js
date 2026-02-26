@@ -369,8 +369,16 @@ export default function decorate(block) {
   const variant = readVariant(configRows[0], '');
   const legacyShowDots = readBoolean(getRowValueCell(configRows[0]));
   const legacyShowArrowsDots = readBoolean(getRowValueCell(configRows[3]));
-  const resolvedVariant = variant
-    || (legacyShowArrowsDots ? 'showArrowsDots' : (legacyShowDots ? 'showDots' : 'none'));
+  let resolvedVariant = variant;
+  if (!resolvedVariant) {
+    if (legacyShowArrowsDots) {
+      resolvedVariant = 'showArrowsDots';
+    } else if (legacyShowDots) {
+      resolvedVariant = 'showDots';
+    } else {
+      resolvedVariant = 'none';
+    }
+  }
 
   const showDots = resolvedVariant === 'showDots';
   const showArrowsDots = resolvedVariant === 'showArrowsDots';
