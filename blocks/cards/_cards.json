@@ -51,10 +51,7 @@
         },
         {
           "...": "../../models/elements/_button-fields.json"
-        },
-        {
-          "...": "../../models/elements/_button-fields.json"
-        } 
+        }
       ]
     }
   ],

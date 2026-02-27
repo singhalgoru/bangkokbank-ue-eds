@@ -1,6 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import decorateDownloadLinks from '../../scripts/helper-files/download-helper.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -8,7 +7,6 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
     moveInstrumentation(row, li);
-    decorateDownloadLinks(li);
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
