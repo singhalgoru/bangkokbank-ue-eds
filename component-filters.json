@@ -3,7 +3,8 @@
     "id": "main",
     "components": [
       "section",
-      "header-section"
+      "header-section",
+      "tabs-section"
     ]
   },
   {
@@ -27,8 +28,7 @@
       "carousel-dotted",
       "cross-banner",
       "form",
-      "embed-adaptive-form",
-      "tabs"
+      "embed-adaptive-form"
     ]
   },
   {
@@ -150,7 +150,7 @@
     "maxItems": 6
   },
   {
-    "id": "tabs",
+    "id": "tabs-section",
     "components": [
       "tab-item"
     ]

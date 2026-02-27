@@ -1,15 +1,16 @@
 {
   "definitions": [
     {
-      "title": "Tabs",
-      "id": "tabs",
+      "title": "Tabs Section",
+      "id": "tabs-section",
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
+            "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "name": "Tabs",
-              "filter": "tabs"
+              "name": "Tabs Section",
+              "model": "tabs-section",
+              "filter": "tabs-section"
             }
           }
         }
@@ -33,6 +34,17 @@
     }
   ],
   "models": [
+    {
+      "id": "tabs-section",
+      "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        }
+      ]
+    },
     {
       "id": "tab-item",
       "filter": "tab-content",
@@ -127,7 +139,7 @@
   ],
   "filters": [
     {
-      "id": "tabs",
+      "id": "tabs-section",
       "components": [
         "tab-item"
       ]
