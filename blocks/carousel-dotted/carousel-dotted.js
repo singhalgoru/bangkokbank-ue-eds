@@ -376,16 +376,16 @@ export default function decorate(block) {
   const configRows = firstSlideRowIndex > -1 ? rows.slice(0, firstSlideRowIndex) : rows;
 
   // Read configuration values from block rows.
-  // Supports both new variant config and legacy boolean rows.
+  // Supports both new variant config and boolean rows.
   const variantFromDataset = resolveVariant(block.dataset.filter || block.dataset.variant || '', '');
   const variant = readVariant(configRows[0], variantFromDataset);
-  const legacyShowDots = readBoolean(getRowValueCell(configRows[0]));
-  const legacyShowArrowsDots = readBoolean(getRowValueCell(configRows[3]));
+  const showDotsConfig = readBoolean(getRowValueCell(configRows[0]));
+  const showArrowsDotsConfig = readBoolean(getRowValueCell(configRows[3]));
   let resolvedVariant = variant;
   if (!resolvedVariant) {
-    if (legacyShowArrowsDots) {
+    if (showArrowsDotsConfig) {
       resolvedVariant = 'showArrowsDots';
-    } else if (legacyShowDots) {
+    } else if (showDotsConfig) {
       resolvedVariant = 'showDots';
     } else {
       resolvedVariant = 'none';
