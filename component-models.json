@@ -6422,13 +6422,13 @@
     ]
   },
   {
-    "id": "tabs",
+    "id": "tabs-section",
     "fields": [
       {
         "component": "text",
-        "name": "title",
-        "label": "Tabs Title",
-        "valueType": "string"
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
       }
     ]
   },
