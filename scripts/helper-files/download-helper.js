@@ -1,4 +1,4 @@
-export default function decorate(block) {
+export default function decorateDownloadLinks(block) {
   [...block.children].forEach((row) => {
     const [linkCell] = row.children;
     const anchor = linkCell?.querySelector('a');

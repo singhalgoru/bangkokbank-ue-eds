@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import decorateDownloadLinks from '../../scripts/helper-files/download-helper.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -20,4 +21,8 @@ export default function decorate(block) {
     img.closest('picture').replaceWith(optimizedPic);
   });
   block.replaceChildren(ul);
+
+  ul.querySelectorAll('.cards-card-body').forEach((cardBody) => {
+    decorateDownloadLinks(cardBody);
+  });
 }
