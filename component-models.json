@@ -6423,6 +6423,8 @@
   },
   {
     "id": "tab-item",
+    "filter": "tab-content",
+    "contentTreeField": "tabName",
     "fields": [
       {
         "component": "select",
