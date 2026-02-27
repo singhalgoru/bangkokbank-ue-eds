@@ -250,7 +250,10 @@
 .carousel-dotted .icon-arrow-left {
   display: inline-flex;
   align-items: center;
-  gap: var(--bbl-space-075);
+  font-size: 0.8rem;
+  line-height: 1.12rem;
+  margin-right: 0.9375rem;
+  font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
 }
 
 /* Override button-tertiary's SVG arrow with icomoon icon font */
@@ -261,11 +264,26 @@
   position: relative;
   top: 0.0625rem;
   left: 4.6875rem;
+  transition: left 0.3s ease;
 }
 
 /* Remove the ::after pseudo-element from button-tertiary */
 .carousel-dotted .button-tertiary::after {
   display: none;
+}
+
+.carousel-dotted .button-tertiary {
+  transition: color 0.3s ease;
+  padding-right: 1.5rem;
+}
+
+.carousel-dotted .button-tertiary:hover {
+  text-decoration: none;
+  color: var(--bbl-color-blue-90);
+}
+
+.carousel-dotted .button-tertiary.icon-arrow-left:hover::before {
+  left: 5rem;
 }
 
 .carousel-item.slick-active:not(.is-active)
@@ -662,6 +680,7 @@
 }
 
 .carousel-dotted .button-tertiary.icon-arrow-left::before {
-  left: 5.3125rem;
+  left: 4.5rem;
+  font-size: 0.625rem;
 }
 }
