@@ -27,7 +27,8 @@
       "carousel-dotted",
       "cross-banner",
       "form",
-      "embed-adaptive-form"
+      "embed-adaptive-form",
+      "tabs"
     ]
   },
   {
@@ -147,6 +148,37 @@
       "menu-card"
     ],
     "maxItems": 6
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "simple-tab",
+      "tiled-tab",
+      "media-tab"
+    ]
+  },
+  {
+    "id": "tab-content",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "cards-product",
+      "columns",
+      "fragment",
+      "megamenu",
+      "carousel",
+      "story-card",
+      "warning-card",
+      "menu-cards",
+      "carousel-dotted",
+      "cross-banner",
+      "form",
+      "embed-adaptive-form"
+    ]
   },
   {
     "id": "top-nav",

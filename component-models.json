@@ -6422,6 +6422,79 @@
     ]
   },
   {
+    "id": "tabs",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Tabs Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "simple-tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "tabName",
+        "label": "Tab Name",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "tiled-tab",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "imageIcon",
+        "label": "Image/Icon",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "altText",
+        "label": "Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tabName",
+        "label": "Tab Name",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "media-tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "tabName",
+        "label": "Tab Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "altText",
+        "label": "Alt Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "top-nav-link",
     "fields": [
       {
