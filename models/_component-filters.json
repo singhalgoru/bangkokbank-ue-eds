@@ -3,8 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "header-section",
-      "tabs-section"
+      "header-section"
     ]
   },
   {

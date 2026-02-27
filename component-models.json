@@ -6422,75 +6422,91 @@
     ]
   },
   {
-    "id": "tabs-section",
+    "id": "tab-item",
     "fields": [
       {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
-      }
-    ]
-  },
-  {
-    "id": "simple-tab",
-    "fields": [
+        "component": "select",
+        "name": "variant",
+        "label": "Tab Variant",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Simple Tab",
+            "value": "simple"
+          },
+          {
+            "name": "Tiled Tab",
+            "value": "tiled"
+          },
+          {
+            "name": "Media Tab",
+            "value": "media"
+          }
+        ]
+      },
       {
         "component": "text",
         "name": "tabName",
         "label": "Tab Name",
         "valueType": "string",
         "required": true
-      }
-    ]
-  },
-  {
-    "id": "tiled-tab",
-    "fields": [
+      },
       {
         "component": "reference",
         "name": "imageIcon",
         "label": "Image/Icon",
         "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "altText",
-        "label": "Alt Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "tabName",
-        "label": "Tab Name",
-        "valueType": "string",
-        "required": true
-      }
-    ]
-  },
-  {
-    "id": "media-tab",
-    "fields": [
-      {
-        "component": "text",
-        "name": "tabName",
-        "label": "Tab Name",
-        "valueType": "string",
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "variant"
+            },
+            "tiled"
+          ]
+        }
       },
       {
         "component": "reference",
         "name": "image",
         "label": "Image",
         "valueType": "string",
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "variant"
+            },
+            "media"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "altText",
         "label": "Alt Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "or": [
+            {
+              "===": [
+                {
+                  "var": "variant"
+                },
+                "tiled"
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "variant"
+                },
+                "media"
+              ]
+            }
+          ]
+        }
       }
     ]
   },
