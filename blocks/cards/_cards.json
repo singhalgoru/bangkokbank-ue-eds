@@ -53,7 +53,7 @@
           "...": "../../models/elements/_button-fields.json"
         },
         {
-          "...": "../../models/elements/_download-fields.json"
+          "...": "../../models/elements/_button-fields.json"
         } 
       ]
     }
