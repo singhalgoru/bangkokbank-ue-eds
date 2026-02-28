@@ -145,7 +145,7 @@
   {
     "id": "menu-card-actions",
     "components": [
-      "menu-card-items"
+      "menu-card-item"
     ]
   },
   {

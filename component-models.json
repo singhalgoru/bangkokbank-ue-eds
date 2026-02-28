@@ -6295,7 +6295,7 @@
     ]
   },
   {
-    "id": "menu-card-items",
+    "id": "menu-card-item",
     "fields": [
       {
         "component": "reference",
