@@ -8,31 +8,30 @@ function createMenuCardItem(cardElement, variant, doc) {
     imageDiv,
     altDiv,
     titleDiv,
-    titleTypeDiv,
     descDiv,
     buttonDiv,
     enableDropdownDiv,
     dropdownLinksDiv,
-    mobileExpDiv,
   ] = children;
 
-  const title = titleDiv?.textContent.trim();
-  const titleType = titleTypeDiv?.textContent.trim() || 'h3';
+  const title = titleDiv?.innerHTML.trim();
   const description = descDiv?.innerHTML;
   const enableDropdown = enableDropdownDiv?.textContent.trim() === 'true';
 
-  const mobileExperience = mobileExpDiv?.textContent.trim() || 'default';
-
   const img = imageDiv?.querySelector('img');
-  const button = buttonDiv?.querySelector('a');
+  const button = buttonDiv?.querySelector('p');
 
-  // main item
   const card = createElementFromHTML(
-    `<div class="menu-card-item ${variant} ${mobileExperience}"></div>`,
+    '<div class="menu-card-actions-item"></div>',
     doc,
   );
 
-  /* ---------- IMAGE ---------- */
+  const inner = createElementFromHTML(
+    '<div class="menu-card-actions-inner"></div>',
+    doc,
+  );
+
+  // image
   if (img) {
     const picture = createOptimizedPicture(
       img.src,
@@ -43,82 +42,59 @@ function createMenuCardItem(cardElement, variant, doc) {
     const optimizedImg = picture.querySelector('img');
     if (optimizedImg) {
       moveInstrumentation(img, optimizedImg);
-      const imgWrapper = createElementFromHTML(
-        '<div class="menu-card-image"></div>',
-        doc,
-      );
-      imgWrapper.appendChild(picture);
-      card.appendChild(imgWrapper);
+      inner.appendChild(picture);
     }
   }
 
-  /* ---------- CONTENT ---------- */
-  const content = createElementFromHTML(
-    '<div class="menu-card-content"></div>',
-    doc,
-  );
-
   // title
   if (title) {
-    const heading = createElementFromHTML(
-      `<${titleType} class="menu-card-title">${title}</${titleType}>`,
-      doc,
+    inner.appendChild(
+      createElementFromHTML(`<div class="menu-card-actions-title">${title}</div>`, doc),
     );
-    content.appendChild(heading);
+  }
+
+  // button + optional dropdown
+  if (button) {
+    inner.appendChild(button);
+
+    if (variant === 'menu-card-actions-cta-dropdown' && enableDropdown) {
+      const dropdown = createElementFromHTML(
+        '<div class="menu-card-actions-dropdown"></div>',
+        doc,
+      );
+      dropdown.innerHTML = dropdownLinksDiv?.innerHTML || '';
+      inner.appendChild(dropdown);
+    }
   }
 
   // description
   if (description) {
-    const desc = createElementFromHTML(
-      `<div class="menu-card-description">${description}</div>`,
-      doc,
-    );
-    content.appendChild(desc);
-  }
-
-  /* ---------- CTA / DOWNLOAD BUTTON ---------- */
-  if (button) {
-    const btnWrapper = createElementFromHTML(
-      '<div class="menu-card-cta"></div>',
-      doc,
-    );
-
-    btnWrapper.appendChild(button);
-
-    /* ---------- DROPDOWN ---------- */
-    if (variant === 'menu-card-cta-dropdown' && enableDropdown) {
-      const dropdown = createElementFromHTML(
-        '<div class="menu-card-dropdown"></div>',
+    inner.appendChild(
+      createElementFromHTML(
+        `<p class="menu-card-actions-description">${description}</p>`,
         doc,
-      );
-
-      dropdown.innerHTML = dropdownLinksDiv?.innerHTML || '';
-      btnWrapper.appendChild(dropdown);
-    }
-
-    content.appendChild(btnWrapper);
+      ),
+    );
   }
 
-  card.appendChild(content);
+  card.appendChild(inner);
 
   return card;
 }
 
 export default function decorate(block) {
   const doc = block.ownerDocument;
-  const rows = [...block.children];
-
-  // first row = variant selector
-  const variant = rows[0]?.textContent.trim() || 'menu-card-text-download';
+  const [firstRow, ...cardRows] = [...block.children];
+  const [variantDiv, mobileDiv] = [...(firstRow?.children || [])];
+  const variant = variantDiv?.textContent.trim() || 'menu-card-actions--text-download';
+  const mobileExperience = mobileDiv?.textContent.trim() || 'default';
 
   const container = createElementFromHTML(
-    `<div class="menu-card-actions ${variant}"></div>`,
+    `<div class="menu-card-actions ${variant} ${mobileExperience}"></div>`,
     doc,
   );
 
-  const cards = rows.slice(1);
-
-  cards.forEach((row) => {
+  cardRows.forEach((row) => {
     const card = createMenuCardItem(row, variant, doc);
     moveInstrumentation(row, card);
     container.appendChild(card);

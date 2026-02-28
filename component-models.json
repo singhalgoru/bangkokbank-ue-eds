@@ -6291,6 +6291,23 @@
             "value": "menu-card-text-download"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "mobileExperience",
+        "value": "default",
+        "label": "Mobile Experience",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Scrollable",
+            "value": "scrollable"
+          },
+          {
+            "name": "Stacked",
+            "value": "stacked"
+          }
+        ]
       }
     ]
   },
@@ -6307,7 +6324,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
+        "name": "menuCardImageAlt",
         "label": "Alt",
         "value": ""
       },
@@ -6407,24 +6424,15 @@
         "name": "drop-links",
         "value": "",
         "label": "Dropdown Links",
-        "valueType": "string"
-      },
-      {
-        "component": "select",
-        "name": "mobileExperience",
-        "value": "default",
-        "label": "Mobile Experience",
         "valueType": "string",
-        "options": [
-          {
-            "name": "Scrollable",
-            "value": "scrollable"
-          },
-          {
-            "name": "Stacked",
-            "value": "stacked"
-          }
-        ]
+        "condition": {
+          "===": [
+            {
+              "var": "enableCtaDropdown"
+            },
+            true
+          ]
+        }
       }
     ]
   },

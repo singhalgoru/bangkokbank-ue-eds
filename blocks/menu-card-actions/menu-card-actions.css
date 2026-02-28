@@ -1,4 +1,6 @@
-.menu-card-actions {
+.menu-card-action {
   display: flex;
   gap: 1rem;
+  padding-block: 30px;
 }
+
