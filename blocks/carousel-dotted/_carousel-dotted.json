@@ -150,7 +150,10 @@
           }
         },
         {
-          "...": "../../models/elements/_button-fields.json",
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "description": "Destination URL for the button",
           "condition": {
             "and": [
               {
@@ -159,6 +162,105 @@
                     "var": "filter"
                   },
                   "showDots"
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "showLinks"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true,
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "showLinks"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "showLinks"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            }
+          ],
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "filter"
+                  },
+                  "showDots"
+                ]
+              },
+              {
+                "!!": [
+                  {
+                    "var": "showLinks"
+                  }
                 ]
               }
             ]
