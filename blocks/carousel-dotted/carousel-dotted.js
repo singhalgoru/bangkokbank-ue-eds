@@ -8,17 +8,45 @@ import {
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
- * Build a slide WITH IMAGE variation
- * Structure: With Image | Badge Text | Image | Description | Link
+ * Build a prop-name → cell map from a slide row's children.
+ * In Universal Editor each child has data-aue-prop="<fieldName>".
+ * Returns { cellMap, isUE } where isUE indicates whether UE attributes were found.
  */
-function buildSlideWithImage(row, index, cells) {
+function buildSlideCellMap(row) {
+  const children = [...row.children];
+  const cellMap = new Map();
+  let hasProps = false;
+  children.forEach((cell) => {
+    const prop = cell?.dataset?.aueProp || cell?.getAttribute?.('data-aue-prop');
+    if (prop) {
+      cellMap.set(prop, cell);
+      hasProps = true;
+    }
+  });
+  return { cellMap, isUE: hasProps, cells: children };
+}
+
+/**
+ * Get a slide cell either by prop name (UE) or positional index (doc-authored).
+ */
+function getSlideCell(cellMap, isUE, cells, propName, fallbackIndex) {
+  return isUE ? (cellMap.get(propName) ?? null) : cells[fallbackIndex];
+}
+
+/**
+ * Build a slide WITH IMAGE variation
+ * Fields: withImage | badgeText | image | description | link | linkText | linkTitle | linkType
+ */
+function buildSlideWithImage(row, index, cellMap, isUE, cells) {
   const slide = document.createElement('div');
   slide.className = 'carousel-dotted-item with-image';
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  // Create and append background image if it exists (cell 2)
-  const picture = cells[2]?.querySelector('picture');
+  const get = (prop, idx) => getSlideCell(cellMap, isUE, cells, prop, idx);
+
+  // Background image (cell 2 = "image")
+  const picture = get('image', 2)?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
     media.className = 'carousel-bg';
@@ -26,12 +54,11 @@ function buildSlideWithImage(row, index, cells) {
     slide.append(media);
   }
 
-  // Create content container
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Badge text (cell 1)
-  const badgeText = cells[1]?.textContent.trim();
+  // Badge text (cell 1 = "badgeText")
+  const badgeText = get('badgeText', 1)?.textContent.trim();
   if (badgeText) {
     const badge = document.createElement('div');
     badge.className = 'carousel-badge';
@@ -39,16 +66,17 @@ function buildSlideWithImage(row, index, cells) {
     content.append(badge);
   }
 
-  // Description (cell 3)
-  if (cells[3]) {
+  // Description (cell 3 = "description")
+  const descCell = get('description', 3);
+  if (descCell) {
     const description = document.createElement('div');
     description.className = 'carousel-dotted-description';
-    while (cells[3].firstChild) description.append(cells[3].firstChild);
+    while (descCell.firstChild) description.append(descCell.firstChild);
     content.append(description);
   }
 
-  // Link/Button (cell 4)
-  const link = cells[4]?.querySelector('a');
+  // Link/Button (cell 4 = "link")
+  const link = get('link', 4)?.querySelector('a');
   if (link) {
     content.append(link);
   }
@@ -59,25 +87,24 @@ function buildSlideWithImage(row, index, cells) {
 
 /**
  * Build a slide WITHOUT IMAGE variation
- * Structure: ... fields ... | Header Text | Default Text
+ * Fields: withoutImage | headerText | default-text
+ * Doc-authored positional map (all 13 model fields always present):
+ *   0:withImage 1:badgeText 2:image 3:description 4:link 5:withoutImage
+ *   6:linkText 7:linkTitle 8:linkType 9:headerText 10:default-text
  */
-function buildSlideWithoutImage(row, index, cells) {
+function buildSlideWithoutImage(row, index, cellMap, isUE, cells) {
   const slide = document.createElement('div');
   slide.className = 'carousel-dotted-item without-image';
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  // Create content container
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Looking at the JSON, withoutImage fields come after all the withImage fields
-  // The structure in cells would be approximately:
-  // 0: withImage, 1: badgeText, 2: image, 3: description, 4: link, 5: withoutImage
-  // 6-8: link fields (linkText, linkTitle, linkType)
-  // 9: headerText, 10: default-text
-  // Header text - need to find the correct index
-  const headerText = cells[9]?.textContent.trim();
+  const get = (prop, idx) => getSlideCell(cellMap, isUE, cells, prop, idx);
+
+  // Header text (cell 9 = "headerText")
+  const headerText = get('headerText', 9)?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-dotted-header';
@@ -85,11 +112,12 @@ function buildSlideWithoutImage(row, index, cells) {
     content.append(header);
   }
 
-  // Default text
-  if (cells[10]) {
+  // Default text (cell 10 = "default-text")
+  const defaultCell = get('default-text', 10);
+  if (defaultCell) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (cells[10].firstChild) defaultText.append(cells[10].firstChild);
+    while (defaultCell.firstChild) defaultText.append(defaultCell.firstChild);
     content.append(defaultText);
   }
 
@@ -99,17 +127,22 @@ function buildSlideWithoutImage(row, index, cells) {
 
 /**
  * Build a slide HERO BANNER IMAGE CAROUSEL or TEXT ANIMATION VARIANT
- * Structure: ... | hero-banner | text-animation | Hero Image |
- *  Image Alt | Title | Subtitle | Hero Link
+ * Doc-authored positional map:
+ *   11:hero-banner-image-carousel  12:text-animation-variant
+ *   13:heroImage  14:imageAlt  15:title  16:subtitle  17:heroLink
  */
-function buildSlideHeroVariant(row, index, cells, variant) {
+function buildSlideHeroVariant(row, index, cellMap, isUE, cells, variant) {
   const slide = document.createElement('div');
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
 
-  // Hero fields start after withoutImage fields
-  // Based on JSON: cells 13+ are hero fields (heroImage, imageAlt, title, subtitle, heroLink)
-  const [heroImageCell, , titleCell, subtitleCell, linkCell] = cells.slice(13, 18);
+  const get = (prop, idx) => getSlideCell(cellMap, isUE, cells, prop, idx);
+
+  const heroImageCell = get('heroImage', 13);
+  const titleCell = get('title', 15);
+  const subtitleCell = get('subtitle', 16);
+  const linkCell = get('heroLink', 17);
+
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -147,45 +180,31 @@ function buildSlideHeroVariant(row, index, cells, variant) {
 }
 
 /**
- * Build a slide - determines which variation to use and delegates
+ * Build a slide – determines which variation to use and delegates.
+ * Reads fields by data-aue-prop name in UE; falls back to positional index otherwise.
  */
 function buildSlide(row, index) {
-  const cells = [...row.children];
+  const { cellMap, isUE, cells } = buildSlideCellMap(row);
 
-  // Cell structure (hidden variant field is NOT rendered):
-  // Cell 0: withImage boolean
-  // Cell 1: badgeText
-  // Cell 2: image
-  // Cell 3: description
-  // Cell 4: link
-  // Cell 5: withoutImage boolean
-  // Cells 6-8: link fields
-  // Cell 9: headerText
-  // Cell 10: default-text
-  // Cell 11: hero-banner-image-carousel boolean
-  // Cell 12: text-animation-variant boolean
-  const heroBannerImageCarousel = cells[11]?.textContent.trim().toLowerCase() === 'true';
-  const textAnimationVariant = cells[12]?.textContent.trim().toLowerCase() === 'true';
-  const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
-  const picture = cells[2]?.querySelector('picture');
+  const get = (prop, idx) => getSlideCell(cellMap, isUE, cells, prop, idx);
 
-  // Determine slide type priority
+  const heroBannerImageCarousel = get('hero-banner-image-carousel', 11)?.textContent.trim().toLowerCase() === 'true';
+  const textAnimationVariant = get('text-animation-variant', 12)?.textContent.trim().toLowerCase() === 'true';
+  const withImageIndicator = get('withImage', 0)?.textContent.trim().toLowerCase();
+  const picture = get('image', 2)?.querySelector('picture');
+
   if (heroBannerImageCarousel) {
-    return buildSlideHeroVariant(row, index, cells, 'hero-banner-image-carousel');
+    return buildSlideHeroVariant(row, index, cellMap, isUE, cells, 'hero-banner-image-carousel');
   }
-
   if (textAnimationVariant) {
-    return buildSlideHeroVariant(row, index, cells, 'text-animation-variant');
+    return buildSlideHeroVariant(row, index, cellMap, isUE, cells, 'text-animation-variant');
   }
 
-  // Determine if this is a with-image slide:
-  // Either has "true" in cell 0 OR has a picture in cell 2
   const hasImage = (withImageIndicator === 'true' || !!picture);
-
   if (hasImage) {
-    return buildSlideWithImage(row, index, cells);
+    return buildSlideWithImage(row, index, cellMap, isUE, cells);
   }
-  return buildSlideWithoutImage(row, index, cells);
+  return buildSlideWithoutImage(row, index, cellMap, isUE, cells);
 }
 
 /**
