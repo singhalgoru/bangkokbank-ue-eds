@@ -1024,7 +1024,7 @@
       },
       {
         "component": "text",
-        "name": "title",
+        "name": "titleDefaultImage",
         "label": "Title Text",
         "valueType": "string",
         "condition": {
@@ -1106,7 +1106,7 @@
       },
       {
         "component": "text",
-        "name": "title",
+        "name": "titleCircularImage",
         "label": "Title Text",
         "valueType": "string",
         "condition": {
