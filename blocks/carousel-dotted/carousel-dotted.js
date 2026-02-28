@@ -363,33 +363,66 @@ function initializeAutoScroll(
 export default function decorate(block) {
   const rows = [...block.children];
 
+  /**
+   * Known config field names defined in the model (carousel-dotted).
+   * Universal Editor stores each field as a row with data-aue-prop="<name>".
+   * Conditional fields (e.g. link, linkText) are only stored when their
+   * condition is true — so the number of config rows is variable.
+   * We look up each field by prop name first, then fall back to a fixed
+   * positional index for document-authored pages (no data-aue-prop attrs).
+   */
+  const CONFIG_PROPS = new Set([
+    'filter',
+    'dotsAlignment',
+    'dotsPosition',
+    'showLinks',
+    'link',
+    'linkText',
+    'linkTitle',
+    'linkType',
+    'autoScroll',
+    'scrollTimeDelay',
+  ]);
+
+  // Build a map: prop name → row element (Universal Editor context)
+  const propMap = new Map();
+  rows.forEach((row) => {
+    const prop = row?.dataset?.aueProp || row?.getAttribute?.('data-aue-prop');
+    if (prop && CONFIG_PROPS.has(prop)) propMap.set(prop, row);
+  });
+
+  const isUE = propMap.size > 0;
+
+  /**
+   * Read a config row either by prop name (UE) or by positional index (doc-authored).
+   */
+  function getRow(propName, fallbackIndex) {
+    return isUE ? (propMap.get(propName) ?? null) : rows[fallbackIndex];
+  }
+
+  // ---------------------------------------------------------------------------
+  // Read configuration values
+  // ---------------------------------------------------------------------------
   // Resolve the carousel variant. Priority order:
-  //  1. data-aue-filter / data-filter / data-variant on the block element (Universal Editor)
+  //  1. data-aue-filter / data-filter / data-variant on the block element (UE)
   //  2. block className hints
-  //  3. Row 0 text content (Document-authored pages)
-  // Read configuration values from block rows
-  // Row 0: filter (carousel variant: "show-dots" | "show-dots-with-arrows")
-  // Row 1: dotsAlignment
-  // Row 2: dotsPosition
-  // Row 3: showLinks
-  // Rows 4-7: link fields (conditional on showLinks)
-  // Row 8: autoScroll
-  // Row 9: scrollTimeDelay (conditional on autoScroll)
-  // Rows 10+: slides
+  //  3. "filter" row content (doc-authored fallback via detectVariantHint rows scan)
   const carouselVariant = detectVariantHint(block, rows);
   const showDots = carouselVariant === 'showDots';
   const showArrowsDots = carouselVariant === 'showArrowsDots';
-  const dotsAlignment = readDotsAlignment(rows[1]);
-  const dotsPosition = readPosition(rows[2]);
-  const showLinks = readBoolean(rows[3]);
+
+  const dotsAlignment = readDotsAlignment(getRow('dotsAlignment', 1));
+  const dotsPosition = readPosition(getRow('dotsPosition', 2));
+  const showLinks = readBoolean(getRow('showLinks', 3));
 
   let seeMoreLink = null;
   if (showLinks) {
-    const linkEl = rows[4]?.querySelector('a');
-    const linkUrl = linkEl ? linkEl.href : rows[4]?.textContent.trim();
-    const linkText = rows[5]?.textContent.trim();
-    const linkTitle = rows[6]?.textContent.trim();
-    const linkType = rows[7]?.textContent.trim().toLowerCase() || 'primary';
+    const linkRow = getRow('link', 4);
+    const linkEl = linkRow?.querySelector('a');
+    const linkUrl = linkEl ? linkEl.href : linkRow?.textContent.trim();
+    const linkText = getRow('linkText', 5)?.textContent.trim();
+    const linkTitle = getRow('linkTitle', 6)?.textContent.trim();
+    const linkType = getRow('linkType', 7)?.textContent.trim().toLowerCase() || 'primary';
 
     if (linkUrl && linkText) {
       seeMoreLink = document.createElement('a');
@@ -406,11 +439,20 @@ export default function decorate(block) {
     }
   }
 
-  const autoScroll = readBoolean(rows[8]);
-  const scrollTimeDelay = rows[9]?.textContent.trim() || '';
+  const autoScroll = readBoolean(getRow('autoScroll', 8));
+  const scrollTimeDelay = getRow('scrollTimeDelay', 9)?.textContent.trim() || '';
 
-  // The block configuration uses rows 0-9. Slides start at index 10.
-  const slides = rows.slice(10);
+  // ---------------------------------------------------------------------------
+  // Separate slides from config rows
+  // In UE context: slides have NO data-aue-prop matching a known config field.
+  // In doc-authored context: slides start at fixed index 10.
+  // ---------------------------------------------------------------------------
+  const slides = isUE
+    ? rows.filter((row) => {
+      const prop = row?.dataset?.aueProp || row?.getAttribute?.('data-aue-prop');
+      return !prop || !CONFIG_PROPS.has(prop);
+    })
+    : rows.slice(10);
   block.className = 'carousel-dotted';
 
   if (showDots) {
