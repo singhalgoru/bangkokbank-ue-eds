@@ -166,7 +166,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Carousel Dotted",
-                  "model": "carousel-dotted"
+                  "model": "carousel-dotted",
+                  "filter": "showDots"
                 }
               }
             }
@@ -182,7 +183,7 @@
                 "template": {
                   "name": "Carousel Slide",
                   "model": "carousel-dotted-slide",
-                  "variant": "show-dots"
+                  "variant": "showDots"
                 }
               }
             }
@@ -198,7 +199,7 @@
                 "template": {
                   "name": "Carousel Slide Arrows",
                   "model": "carousel-dotted-slide-arrows",
-                  "variant": "show-dots-with-arrows"
+                  "variant": "showArrowsDots"
                 }
               }
             }

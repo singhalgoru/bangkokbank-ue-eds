@@ -41,13 +41,13 @@
     ]
   },
   {
-    "id": "show-dots",
+    "id": "showDots",
     "components": [
       "carousel-dotted-slide"
     ]
   },
   {
-    "id": "show-dots-with-arrows",
+    "id": "showArrowsDots",
     "components": [
       "carousel-dotted-slide-arrows"
     ]
