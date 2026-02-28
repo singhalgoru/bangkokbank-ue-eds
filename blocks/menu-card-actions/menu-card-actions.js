@@ -1,146 +1,129 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
 
-function createElement(tag, ...classNames) {
-  const el = document.createElement(tag);
-  if (classNames.length) el.classList.add(...classNames);
-  return el;
-}
+function createMenuCardItem(cardElement, variant, doc) {
+  const children = [...cardElement.children];
 
-function buildDropdownCta(ctaCell, dropLinksCell) {
-  const links = [...(dropLinksCell?.querySelectorAll('a') || [])];
-  const primaryLink = ctaCell?.querySelector('a');
-  if (primaryLink) links.unshift(primaryLink);
-  if (!links.length) return null;
-
-  const wrapper = createElement('div', 'menu-card-actions-cta', 'menu-card-actions-cta--dropdown');
-
-  const selectBtn = createElement('button', 'menu-card-actions-select');
-  selectBtn.setAttribute('aria-expanded', 'false');
-  selectBtn.setAttribute('aria-haspopup', 'listbox');
-  selectBtn.innerHTML = `<span class="menu-card-actions-select-label">${links[0].textContent.trim()}</span>
-                         <span class="menu-card-actions-select-icon" aria-hidden="true"></span>`;
-
-  const dropdown = createElement('ul', 'menu-card-actions-dropdown');
-  dropdown.setAttribute('role', 'listbox');
-
-  links.forEach((link) => {
-    const li = createElement('li');
-    li.setAttribute('role', 'option');
-    li.innerHTML = `<a href="${link.href}">${link.textContent.trim()}</a>`;
-    dropdown.append(li);
-  });
-
-  selectBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = selectBtn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.menu-card-actions-select[aria-expanded="true"]').forEach((btn) => {
-      btn.setAttribute('aria-expanded', 'false');
-      btn.nextElementSibling?.classList.remove('is-open');
-    });
-    if (!isOpen) {
-      selectBtn.setAttribute('aria-expanded', 'true');
-      dropdown.classList.add('is-open');
-    }
-  });
-
-  document.addEventListener('click', () => {
-    selectBtn.setAttribute('aria-expanded', 'false');
-    dropdown.classList.remove('is-open');
-  });
-
-  wrapper.append(selectBtn, dropdown);
-  return wrapper;
-}
-
-function buildButtonCta(ctaCell, isDownload) {
-  const link = ctaCell?.querySelector('a');
-  if (!link) return null;
-
-  const wrapper = createElement('div', 'menu-card-actions-cta', 'menu-card-actions-cta--button');
-  const btn = createElement('a', 'menu-card-actions-btn');
-  btn.href = link.href;
-  btn.textContent = link.textContent.trim();
-  if (link.title) btn.title = link.title;
-  if (isDownload) {
-    btn.setAttribute('download', '');
-    btn.classList.add('menu-card-actions-btn--download');
-  }
-
-  wrapper.append(btn);
-  return wrapper;
-}
-
-function createCard(row, variant) {
   const [
-    imageCell,
-    titleCell,
-    titleTypeCell,
-    descCell,
-    ctaCell,
-    enableDropdownCell,
-    dropLinksCell,
-    mobileCell,
-  ] = row.children;
-  const mobileExperience = mobileCell?.textContent.trim() || 'stacked';
-  const enableDropdown = enableDropdownCell?.textContent.trim().toLowerCase() === 'true';
-  const titleType = titleTypeCell?.textContent.trim() || 'h3';
-  const tag = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(titleType) ? titleType : 'h3';
+    imageDiv,
+    altDiv,
+    titleDiv,
+    titleTypeDiv,
+    descDiv,
+    buttonDiv,
+    enableDropdownDiv,
+    dropdownLinksDiv,
+    mobileExpDiv,
+  ] = children;
 
-  const card = createElement('div', 'menu-card-actions-item');
-  card.dataset.mobile = mobileExperience;
+  const title = titleDiv?.textContent.trim();
+  const titleType = titleTypeDiv?.textContent.trim() || 'h3';
+  const description = descDiv?.innerHTML;
+  const enableDropdown = enableDropdownDiv?.textContent.trim() === 'true';
 
-  // Image
-  const rawImg = imageCell?.querySelector('img');
-  if (rawImg) {
-    const pic = createOptimizedPicture(rawImg.src, rawImg.alt || '', false);
-    moveInstrumentation(rawImg, pic.querySelector('img'));
-    const figure = createElement('figure', 'menu-card-actions-image');
-    figure.append(pic);
-    card.append(figure);
+  const mobileExperience = mobileExpDiv?.textContent.trim() || 'default';
+
+  const img = imageDiv?.querySelector('img');
+  const button = buttonDiv?.querySelector('a');
+
+  // main item
+  const card = createElementFromHTML(
+    `<div class="menu-card-item ${variant} ${mobileExperience}"></div>`,
+    doc,
+  );
+
+  /* ---------- IMAGE ---------- */
+  if (img) {
+    const picture = createOptimizedPicture(
+      img.src,
+      altDiv?.textContent.trim() || title || '',
+      false,
+    );
+
+    const optimizedImg = picture.querySelector('img');
+    if (optimizedImg) {
+      moveInstrumentation(img, optimizedImg);
+      const imgWrapper = createElementFromHTML(
+        '<div class="menu-card-image"></div>',
+        doc,
+      );
+      imgWrapper.appendChild(picture);
+      card.appendChild(imgWrapper);
+    }
   }
 
-  // Title
-  if (titleCell?.textContent.trim()) {
-    const heading = createElement(tag, 'menu-card-actions-title');
-    heading.textContent = titleCell.textContent.trim();
-    card.append(heading);
+  /* ---------- CONTENT ---------- */
+  const content = createElementFromHTML(
+    '<div class="menu-card-content"></div>',
+    doc,
+  );
+
+  // title
+  if (title) {
+    const heading = createElementFromHTML(
+      `<${titleType} class="menu-card-title">${title}</${titleType}>`,
+      doc,
+    );
+    content.appendChild(heading);
   }
 
-  if (descCell?.innerHTML.trim()) {
-    const desc = createElement('div', 'menu-card-actions-description');
-    desc.innerHTML = descCell.innerHTML;
-    card.append(desc);
+  // description
+  if (description) {
+    const desc = createElementFromHTML(
+      `<div class="menu-card-description">${description}</div>`,
+      doc,
+    );
+    content.appendChild(desc);
   }
 
-  card.append(createElement('hr', 'menu-card-actions-divider'));
+  /* ---------- CTA / DOWNLOAD BUTTON ---------- */
+  if (button) {
+    const btnWrapper = createElementFromHTML(
+      '<div class="menu-card-cta"></div>',
+      doc,
+    );
 
-  const useDropdown = enableDropdown || variant === 'menu-card-cta-dropdown';
-  const cta = useDropdown
-    ? buildDropdownCta(ctaCell, dropLinksCell)
-    : buildButtonCta(ctaCell, variant === 'menu-card-text-download');
+    btnWrapper.appendChild(button);
 
-  if (cta) card.append(cta);
+    /* ---------- DROPDOWN ---------- */
+    if (variant === 'menu-card-cta-dropdown' && enableDropdown) {
+      const dropdown = createElementFromHTML(
+        '<div class="menu-card-dropdown"></div>',
+        doc,
+      );
+
+      dropdown.innerHTML = dropdownLinksDiv?.innerHTML || '';
+      btnWrapper.appendChild(dropdown);
+    }
+
+    content.appendChild(btnWrapper);
+  }
+
+  card.appendChild(content);
 
   return card;
 }
 
 export default function decorate(block) {
-  const variant = block.children[0]?.textContent.trim() || 'default';
+  const doc = block.ownerDocument;
+  const rows = [...block.children];
 
-  const itemRows = [...block.children].slice(1);
-  const mobileExp = itemRows[0]?.children[8]?.textContent.trim() || 'stacked';
+  // first row = variant selector
+  const variant = rows[0]?.textContent.trim() || 'menu-card-text-download';
 
-  if (variant !== 'default') block.classList.add(`menu-card-actions--${variant}`);
-  block.classList.add(`menu-card-actions--mobile-${mobileExp}`);
+  const container = createElementFromHTML(
+    `<div class="menu-card-actions ${variant}"></div>`,
+    doc,
+  );
 
-  const list = createElement('div', 'menu-card-actions-list');
+  const cards = rows.slice(1);
 
-  itemRows.forEach((row) => {
-    const card = createCard(row, variant);
+  cards.forEach((row) => {
+    const card = createMenuCardItem(row, variant, doc);
     moveInstrumentation(row, card);
-    list.append(card);
+    container.appendChild(card);
   });
 
-  block.replaceChildren(list);
+  block.textContent = '';
+  block.appendChild(container);
 }
