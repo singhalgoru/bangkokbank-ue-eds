@@ -3,6 +3,7 @@ import {
   readBoolean,
   readDotsAlignment,
   readPosition,
+  detectVariantHint,
 } from '../../scripts/helper-files/carousel-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
@@ -362,6 +363,10 @@ function initializeAutoScroll(
 export default function decorate(block) {
   const rows = [...block.children];
 
+  // Resolve the carousel variant. Priority order:
+  //  1. data-aue-filter / data-filter / data-variant on the block element (Universal Editor)
+  //  2. block className hints
+  //  3. Row 0 text content (Document-authored pages)
   // Read configuration values from block rows
   // Row 0: filter (carousel variant: "show-dots" | "show-dots-with-arrows")
   // Row 1: dotsAlignment
@@ -371,9 +376,9 @@ export default function decorate(block) {
   // Row 8: autoScroll
   // Row 9: scrollTimeDelay (conditional on autoScroll)
   // Rows 10+: slides
-  const carouselVariant = rows[0]?.textContent.trim().toLowerCase() || 'show-dots';
-  const showDots = carouselVariant === 'show-dots';
-  const showArrowsDots = carouselVariant === 'show-dots-with-arrows';
+  const carouselVariant = detectVariantHint(block, rows);
+  const showDots = carouselVariant === 'showDots';
+  const showArrowsDots = carouselVariant === 'showArrowsDots';
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
   const showLinks = readBoolean(rows[3]);
