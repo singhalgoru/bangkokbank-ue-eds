@@ -61,13 +61,16 @@ function createMenuCardItem(cardElement, variant, doc) {
       doc,
     );
 
-    links.innerHTML = dropdownLinksDiv?.innerHTML || '';
+    if (dropdownLinksDiv) {
+      links.innerHTML = dropdownLinksDiv.innerHTML;
+    }
 
     dropdown.append(label, links);
     inner.appendChild(dropdown);
   } else if (button) {
     inner.appendChild(button);
   }
+
   // description
   if (description) {
     inner.appendChild(
