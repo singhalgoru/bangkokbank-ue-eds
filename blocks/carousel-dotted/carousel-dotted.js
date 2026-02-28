@@ -403,14 +403,33 @@ export default function decorate(block) {
     'scrollTimeDelay',
   ]);
 
-  // Build a map: prop name → row element (Universal Editor context)
-  const propMap = new Map();
-  rows.forEach((row) => {
-    const prop = row?.dataset?.aueProp || row?.getAttribute?.('data-aue-prop');
-    if (prop && CONFIG_PROPS.has(prop)) propMap.set(prop, row);
-  });
+  // ---------------------------------------------------------------------------
+  // Detect Universal Editor context.
+  //
+  // AEM renders UE instrumentation attributes server-side, so they are present
+  // even on the INITIAL page load (before client-side UE JS runs):
+  //   • Config field rows  → data-aue-prop="<fieldName>"
+  //   • Child item rows    → data-aue-resource="urn:..."  (their OWN resource URI)
+  //
+  // isUE is true when ANY child row carries at least one UE attribute.
+  // This is more reliable than propMap.size > 0 because slide items have
+  // data-aue-resource but NOT data-aue-prop, so propMap can be empty even
+  // on a page that IS being served by Universal Editor.
+  // ---------------------------------------------------------------------------
+  const isUE = rows.some((row) => (
+    row?.hasAttribute?.('data-aue-resource')
+    || row?.hasAttribute?.('data-aue-prop')
+    || row?.hasAttribute?.('data-aue-type')
+  ));
 
-  const isUE = propMap.size > 0;
+  // Build a map: prop name → row element (for config field reads in UE)
+  const propMap = new Map();
+  if (isUE) {
+    rows.forEach((row) => {
+      const prop = row?.dataset?.aueProp || row?.getAttribute?.('data-aue-prop');
+      if (prop && CONFIG_PROPS.has(prop)) propMap.set(prop, row);
+    });
+  }
 
   /**
    * Read a config row either by prop name (UE) or by positional index (doc-authored).
@@ -463,14 +482,17 @@ export default function decorate(block) {
 
   // ---------------------------------------------------------------------------
   // Separate slides from config rows
-  // In UE context: slides have NO data-aue-prop matching a known config field.
-  // In doc-authored context: slides start at fixed index 10.
+  //
+  // In UE: child component items (slides) have their OWN data-aue-resource
+  //        (a separate AEM content path). Config field rows do NOT have their
+  //        own resource — they are fields of the block, not separate nodes.
+  //        Using data-aue-resource as the discriminator is reliable on both
+  //        initial page load and after UE in-editor updates.
+  //
+  // In doc-authored pages: no UE attributes at all → use fixed positional index.
   // ---------------------------------------------------------------------------
   const slides = isUE
-    ? rows.filter((row) => {
-      const prop = row?.dataset?.aueProp || row?.getAttribute?.('data-aue-prop');
-      return !prop || !CONFIG_PROPS.has(prop);
-    })
+    ? rows.filter((row) => row?.hasAttribute?.('data-aue-resource'))
     : rows.slice(10);
   block.className = 'carousel-dotted';
 
