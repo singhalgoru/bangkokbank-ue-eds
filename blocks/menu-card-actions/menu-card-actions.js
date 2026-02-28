@@ -11,22 +11,30 @@ function createMenuCardItem(cardElement, variant, doc) {
     dropdownLinksDiv,
   ] = [...cardElement.children];
 
-  const title = titleDiv?.innerHTML.trim();
+  const title = titleDiv?.innerHTML?.trim();
   const description = descDiv?.innerHTML;
-  const enableDropdown = enableDropdownDiv?.textContent.trim() || true;
+  const enableDropdown = enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true';
   const img = imageDiv?.querySelector('img');
   const button = buttonDiv?.querySelector('a');
 
-  const card = createElementFromHTML('<div class="menu-card-action-item"></div>', doc);
-  const inner = createElementFromHTML('<div class="menu-card-action-inner"></div>', doc);
+  const card = createElementFromHTML(
+    '<div class="menu-card-action-item"></div>',
+    doc,
+  );
 
-  // image
+  const inner = createElementFromHTML(
+    '<div class="menu-card-action-inner"></div>',
+    doc,
+  );
+
+  /* ---------------- IMAGE ---------------- */
   if (img) {
     const picture = createOptimizedPicture(
       img.src,
       title || '',
       false,
     );
+
     const optimizedImg = picture.querySelector('img');
     if (optimizedImg) {
       moveInstrumentation(img, optimizedImg);
@@ -34,47 +42,51 @@ function createMenuCardItem(cardElement, variant, doc) {
     }
   }
 
-  // title
+  /* ---------------- TITLE ---------------- */
   if (title) {
     inner.appendChild(
-      createElementFromHTML(`<div class="menu-card-action-title">${title}</div>`, doc),
+      createElementFromHTML(
+        `<div class="menu-card-action-title">${title}</div>`,
+        doc,
+      ),
     );
   }
 
-  if (button && variant !== 'menu-card-cta-dropdown') {
-    inner.appendChild(button);
-  }
+  if (variant === 'menu-card-cta-dropdown') {
+    if (enableDropdown) {
+      const dropdown = createElementFromHTML(
+        '<div class="menu-card-cta-dropdown-wrapper"></div>',
+        doc,
+      );
 
-  if (variant === 'menu-card-cta-dropdown' && enableDropdown) {
-    const dropdown = createElementFromHTML(
-      '<div class="menu-card-cta-dropdown-wrapper"></div>',
-      doc,
-    );
+      const label = createElementFromHTML(
+        `<span class="menu-card-cta-dropdown-text">${button?.textContent.trim() || ''}</span>`,
+        doc,
+      );
 
-    const label = createElementFromHTML(
-      `<span class="menu-card-cta-dropdown-text">${button?.textContent.trim() || ''}</span>`,
-      doc,
-    );
+      const links = createElementFromHTML(
+        '<div class="menu-card-cta-dropdown-links"></div>',
+        doc,
+      );
 
-    const links = createElementFromHTML(
-      '<div class="menu-card-cta-dropdown-links"></div>',
-      doc,
-    );
+      if (dropdownLinksDiv?.querySelector('ul')) {
+        links.innerHTML = dropdownLinksDiv.innerHTML;
+      }
 
-    if (dropdownLinksDiv) {
-      links.innerHTML = dropdownLinksDiv.innerHTML;
+      dropdown.append(label, links);
+      inner.appendChild(dropdown);
+    } else if (button) {
+      inner.appendChild(button);
     }
-
-    dropdown.append(label, links);
-    inner.appendChild(dropdown);
-  } else if (button) {
-    inner.appendChild(button);
   }
 
-  // description
+  /* ---------------- DESCRIPTION ---------------- */
   if (description) {
     inner.appendChild(
-      createElementFromHTML(`<p class="menu-card-action-description">${description}</p>`, doc),
+      createElementFromHTML(
+        `<p class="menu-card-action-description">${description}</p>`,
+        doc,
+      ),
     );
   }
 
@@ -84,9 +96,11 @@ function createMenuCardItem(cardElement, variant, doc) {
 
 export default function decorate(block) {
   const doc = block.ownerDocument;
+
   const [variantRow, mobileRow, ...cardRows] = [...block.children];
-  const variant = variantRow?.textContent.trim();
-  const mobileExperience = mobileRow?.textContent.trim();
+
+  const variant = variantRow?.textContent?.trim();
+  const mobileExperience = mobileRow?.textContent?.trim();
 
   const container = createElementFromHTML(
     `<div class="menu-card-action ${variant} ${mobileExperience}"></div>`,
