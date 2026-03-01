@@ -345,10 +345,6 @@ function getRowValueCell(row) {
   return row;
 }
 
-function normalizeKey(value = '') {
-  return value.toLowerCase().replace(/[^a-z]/g, '');
-}
-
 function normalizeVariantValue(value = '') {
   return value.toLowerCase().replace(/[^a-z]/g, '');
 }
@@ -372,238 +368,79 @@ function resolveVariant(value, fallback = 'showDots') {
   return fallback;
 }
 
-function readVariant(row, fallback = 'showDots') {
-  const value = getRowValueCell(row)?.textContent.trim() || '';
-  return resolveVariant(value, fallback);
-}
-
 function getConfigRows(rows) {
   const firstSlideRowIndex = rows.findIndex((row) => row.children.length > 2);
   const configRows = firstSlideRowIndex > -1 ? rows.slice(0, firstSlideRowIndex) : rows;
   return { firstSlideRowIndex, configRows };
 }
 
-function buildConfigMap(configRows) {
-  const map = new Map();
-  configRows.forEach((row) => {
-    const valueCell = getRowValueCell(row);
-    if (!valueCell) return;
-
-    let key = '';
-    if (row.children?.length >= 2) {
-      key = normalizeKey(row.children[0]?.textContent.trim() || '');
-    } else {
-      // Some authored tables render config rows as single-value cells.
-      // Try common metadata attributes before falling back to positional parsing.
-      key = normalizeKey(
-        row.dataset?.aueProp
-        || row.dataset?.field
-        || row.dataset?.name
-        || row.getAttribute('data-aue-prop')
-        || row.getAttribute('data-field')
-        || row.getAttribute('data-name')
-        || '',
-      );
-    }
-
-    const knownKeys = new Set([
-      'filter',
-      'variant',
-      'dotsalignment',
-      'dotsposition',
-      'showlinks',
-      'showdots',
-      'showarrowsdots',
-      'autoscroll',
-      'scrolltimedelay',
-      'scrolltimedelaymilliseconds',
-      'link',
-    ]);
-    if (key && knownKeys.has(key)) map.set(key, valueCell);
-  });
-  return map;
-}
-
-function getConfigCell(configMap, aliases = []) {
-  for (let i = 0; i < aliases.length; i += 1) {
-    const key = normalizeKey(aliases[i]);
-    if (configMap.has(key)) return configMap.get(key);
-  }
-  return null;
-}
-
-function getPositionalConfig(configRows, block) {
+function parseConfig(configRows, block) {
   const values = configRows.map((row) => getRowValueCell(row)).filter(Boolean);
+  const datasetVariant = resolveVariant(block.dataset.filter || block.dataset.variant || '', '');
+
   if (!values.length) {
     return {
-      variant: resolveVariant(block.dataset.filter || block.dataset.variant || '', 'showDots'),
+      variant: datasetVariant || 'showDots',
       dotsAlignmentCell: null,
       dotsPositionCell: null,
       showLinksCell: null,
       linkCell: null,
       autoScrollCell: null,
       scrollTimeDelayCell: null,
-      legacyShowDotsCell: null,
-      legacyShowArrowsDotsCell: null,
     };
   }
 
-  const variant = resolveVariant(values[0]?.textContent.trim() || '', '');
-  const isVariantMode = !!variant;
-  const alignmentFirst = !!readDotsAlignment(values[0], '');
-  const positionSecond = !!readPosition(values[1], '');
+  const firstRowVariant = resolveVariant(values[0]?.textContent.trim() || '', '');
+  const hasVariantRow = !!firstRowVariant;
+  const variant = firstRowVariant || datasetVariant || 'showDots';
 
-  if (isVariantMode) {
-    let cursor = 1;
-    const dotsAlignmentCell = values[cursor] || null;
-    cursor += 1;
-    const dotsPositionCell = values[cursor] || null;
-    cursor += 1;
-    const showLinksCell = values[cursor] || null;
-    cursor += 1;
+  // In UE output, variant row is often omitted and rows start from dotsAlignment.
+  let cursor = hasVariantRow ? 1 : 0;
 
-    const showLinks = readBoolean(showLinksCell);
-    const linkCell = showLinks ? (values[cursor] || null) : null;
-    if (showLinks) {
-      // _button-fields.json expands to 4 rows: link, linkText, linkTitle, linkType
-      cursor += 4;
-    }
+  const dotsAlignmentCell = values[cursor] || null;
+  cursor += 1;
+  const dotsPositionCell = values[cursor] || null;
+  cursor += 1;
+  const showLinksCell = values[cursor] || null;
+  cursor += 1;
 
-    const autoScrollCell = values[cursor] || null;
-    cursor += 1;
-
-    const autoScroll = readBoolean(autoScrollCell);
-    const scrollTimeDelayCell = autoScroll ? (values[cursor] || null) : null;
-
-    return {
-      variant,
-      dotsAlignmentCell,
-      dotsPositionCell,
-      showLinksCell,
-      linkCell,
-      autoScrollCell,
-      scrollTimeDelayCell,
-      legacyShowDotsCell: null,
-      legacyShowArrowsDotsCell: null,
-    };
+  const showLinks = variant === 'showDots' ? readBoolean(showLinksCell) : false;
+  const linkCell = showLinks ? (values[cursor] || null) : null;
+  if (showLinks) {
+    // _button-fields.json expands to 4 rows: link, linkText, linkTitle, linkType
+    cursor += 4;
   }
 
-  // New schema where author output omits the first filter/variant row
-  // and starts directly with dotsAlignment.
-  if (alignmentFirst || positionSecond) {
-    let cursor = 0;
-    const dotsAlignmentCell = values[cursor] || null;
-    cursor += 1;
-    const dotsPositionCell = values[cursor] || null;
-    cursor += 1;
-    const showLinksCell = values[cursor] || null;
-    cursor += 1;
-
-    const showLinks = readBoolean(showLinksCell);
-    const linkCell = showLinks ? (values[cursor] || null) : null;
-    if (showLinks) {
-      // _button-fields.json expands to 4 rows: link, linkText, linkTitle, linkType
-      cursor += 4;
-    }
-
-    const autoScrollCell = values[cursor] || null;
-    cursor += 1;
-    const autoScroll = readBoolean(autoScrollCell);
-    const scrollTimeDelayCell = autoScroll ? (values[cursor] || null) : null;
-
-    return {
-      variant: 'showDots',
-      dotsAlignmentCell,
-      dotsPositionCell,
-      showLinksCell,
-      linkCell,
-      autoScrollCell,
-      scrollTimeDelayCell,
-      legacyShowDotsCell: null,
-      legacyShowArrowsDotsCell: null,
-    };
-  }
+  const autoScrollCell = values[cursor] || null;
+  cursor += 1;
+  const autoScroll = readBoolean(autoScrollCell);
+  const scrollTimeDelayCell = autoScroll ? (values[cursor] || null) : null;
 
   return {
-    variant: '',
-    dotsAlignmentCell: values[1] || null,
-    dotsPositionCell: values[2] || null,
-    showLinksCell: values[4] || null,
-    linkCell: values[5] || null,
-    autoScrollCell: values[6] || null,
-    scrollTimeDelayCell: values[7] || null,
-    legacyShowDotsCell: values[0] || null,
-    legacyShowArrowsDotsCell: values[3] || null,
+    variant,
+    dotsAlignmentCell,
+    dotsPositionCell,
+    showLinksCell,
+    linkCell,
+    autoScrollCell,
+    scrollTimeDelayCell,
   };
 }
 
-function normalizeRowsWithVariant(childrenRows, block) {
-  const rows = [...childrenRows];
-  const firstRowValue = getRowValueCell(rows[0]);
-  const firstRowVariant = resolveVariant(firstRowValue?.textContent.trim() || '', '');
-  const firstRowLooksLikeAlignment = !!readDotsAlignment(firstRowValue, '');
-
-  if (!firstRowVariant && firstRowLooksLikeAlignment) {
-    const variantRow = document.createElement('div');
-    variantRow.textContent = resolveVariant(block.dataset.filter || block.dataset.variant || '', 'showDots');
-    rows.unshift(variantRow);
-  }
-
-  return rows;
-}
-
 export default function decorate(block) {
-  const rows = normalizeRowsWithVariant([...block.children], block);
-
+  const rows = [...block.children];
   const { firstSlideRowIndex, configRows } = getConfigRows(rows);
-  const configMap = buildConfigMap(configRows);
-  const useConfigMap = configMap.size > 0;
-  const positionalConfig = useConfigMap ? null : getPositionalConfig(configRows, block);
+  const config = parseConfig(configRows, block);
 
-  // Read configuration values from block rows.
-  // Supports both new variant config and legacy boolean rows.
-  const variantFromDataset = resolveVariant(block.dataset.filter || block.dataset.variant || '', '');
-  const variantCell = useConfigMap
-    ? getConfigCell(configMap, ['filter', 'variant'])
-    : positionalConfig.variant;
-  const variant = useConfigMap
-    ? readVariant(variantCell, variantFromDataset)
-    : (variantCell || variantFromDataset);
-  const legacyShowDots = useConfigMap
-    ? readBoolean(getConfigCell(configMap, ['showDots']))
-    : readBoolean(positionalConfig.legacyShowDotsCell);
-  const legacyShowArrowsDots = useConfigMap
-    ? readBoolean(getConfigCell(configMap, ['showArrowsDots']))
-    : readBoolean(positionalConfig.legacyShowArrowsDotsCell);
-  let resolvedVariant = variant;
-  if (!resolvedVariant) {
-    if (legacyShowArrowsDots) {
-      resolvedVariant = 'showArrowsDots';
-    } else if (legacyShowDots) {
-      resolvedVariant = 'showDots';
-    } else {
-      // Default to dots mode when no explicit variant is authored.
-      resolvedVariant = 'showDots';
-    }
-  }
-
-  const showDots = resolvedVariant === 'showDots';
-  const showArrowsDots = resolvedVariant === 'showArrowsDots';
-  const dotsAlignmentCell = useConfigMap
-    ? getConfigCell(configMap, ['dotsAlignment'])
-    : positionalConfig.dotsAlignmentCell;
-  const dotsPositionCell = useConfigMap
-    ? getConfigCell(configMap, ['dotsPosition'])
-    : positionalConfig.dotsPositionCell;
-  const showLinksCell = useConfigMap
-    ? getConfigCell(configMap, ['showLinks'])
-    : positionalConfig.showLinksCell;
-  const autoScrollCell = useConfigMap
-    ? getConfigCell(configMap, ['autoScroll'])
-    : positionalConfig.autoScrollCell;
-  const scrollTimeDelayCell = useConfigMap
-    ? getConfigCell(configMap, ['scrollTimeDelay', 'scrolltimedelaymilliseconds'])
-    : positionalConfig.scrollTimeDelayCell;
+  const showDots = config.variant === 'showDots';
+  const showArrowsDots = config.variant === 'showArrowsDots';
+  const {
+    dotsAlignmentCell,
+    dotsPositionCell,
+    showLinksCell,
+    autoScrollCell,
+    scrollTimeDelayCell,
+  } = config;
 
   const dotsAlignment = showDots ? readDotsAlignment(dotsAlignmentCell) : 'center';
   const dotsPosition = showDots ? readPosition(dotsPositionCell) : 'inside-container';
@@ -614,7 +451,7 @@ export default function decorate(block) {
   // See more link is at Row 5 if showLinks is true
   let seeMoreLink = null;
   if (showLinks) {
-    const seeMoreRow = useConfigMap ? getConfigCell(configMap, ['link']) : positionalConfig.linkCell;
+    const seeMoreRow = config.linkCell;
     seeMoreLink = seeMoreRow?.querySelector('a');
   }
 
