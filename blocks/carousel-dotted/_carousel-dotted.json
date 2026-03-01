@@ -757,140 +757,158 @@
       ]
     },
     {
-      "id": "carousel-dotted-slide-arrows",
-      "fields": [
-        {
-          "component": "boolean",
-          "name": "withDefaultImage",
-          "label": "With Default Image",
-          "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "!": [
-              {
-                "var": "withoutCircularImage"
-              }
-            ]
+  "id": "carousel-dotted-slide-arrows",
+  "fields": [
+    {
+      "component": "boolean",
+      "name": "withDefaultImage",
+      "label": "With Default Image",
+      "valueType": "boolean",
+      "value": false,
+      "condition": {
+        "!": [
+          {
+            "var": "withoutCircularImage"
           }
-        },
-        {
-          "component": "text",
-          "name": "titleDefaultImage",
-          "label": "Title Text",
-          "valueType": "string",
-          "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "component": "reference",
-          "name": "image",
-          "label": "Image",
-          "valueType": "string",
-          "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "component": "richtext",
-          "name": "description",
-          "label": "Description",
-          "valueType": "string",
-          "condition": {
-            "and": [
-              {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "component": "boolean",
-          "name": "withCircularImage",
-          "label": "With Circular Image",
-          "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "!": [
+        ]
+      }
+    },
+    {
+      "component": "reference",
+      "name": "defaultImage",
+      "label": "Default Image",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
               {
                 "var": "withDefaultImage"
               }
             ]
           }
-        },
-        {
-          "component": "text",
-          "name": "step",
-          "label": "Step Text",
-          "valueType": "string",
-          "condition": {
-            "and": [
+        ]
+      }
+    },
+    {
+      "component": "text",
+      "name": "titleDefaultImage",
+      "label": "Title Text",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
+                "var": "withDefaultImage"
               }
             ]
           }
-        },
-        {
-          "component": "text",
-          "name": "titleCircularImage",
-          "label": "Title Text",
-          "valueType": "string",
-          "condition": {
-            "and": [
+        ]
+      }
+    },
+    {
+      "component": "text",
+      "name": "step",
+      "label": "Step Text",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
+                "var": "withDefaultImage"
               }
             ]
           }
-        },
-        {
-          "component": "richtext",
-          "name": "description",
-          "label": "Description",
-          "valueType": "string",
-          "condition": {
-            "and": [
+        ]
+      }
+    },
+    {
+      "component": "richtext",
+      "name": "descriptionDefaultImage",
+      "label": "Description (default image)",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
+                "var": "withDefaultImage"
               }
             ]
           }
-        }
-      ]
+        ]
+      }
+    },
+
+    {
+      "component": "boolean",
+      "name": "withCircularImage",
+      "label": "With Circular Image",
+      "valueType": "boolean",
+      "value": false,
+      "condition": {
+        "!": [
+          {
+            "var": "withDefaultImage"
+          }
+        ]
+      }
+    },
+    {
+      "component": "reference",
+      "name": "circularImage",
+      "label": "Image (circular)",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "component": "text",
+      "name": "titleCircularImage",
+      "label": "Title (circular)",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "component": "richtext",
+      "name": "descriptionCircularImage",
+      "label": "Description (circular)",
+      "valueType": "string",
+      "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
     }
+  ]
+}
   ],
   "filters": [
     {

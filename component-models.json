@@ -1085,6 +1085,23 @@
         }
       },
       {
+        "component": "reference",
+        "name": "defaultImage",
+        "label": "Default Image",
+        "valueType": "string",
+        "condition": {
+          "and": [
+            {
+              "!!": [
+                {
+                  "var": "withDefaultImage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
         "component": "text",
         "name": "titleDefaultImage",
         "label": "Title Text",
@@ -1102,9 +1119,9 @@
         }
       },
       {
-        "component": "reference",
-        "name": "image",
-        "label": "Image",
+        "component": "text",
+        "name": "step",
+        "label": "Step Text",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1120,8 +1137,8 @@
       },
       {
         "component": "richtext",
-        "name": "description",
-        "label": "Description",
+        "name": "descriptionDefaultImage",
+        "label": "Description (default image)",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1150,9 +1167,9 @@
         }
       },
       {
-        "component": "text",
-        "name": "step",
-        "label": "Step Text",
+        "component": "reference",
+        "name": "circularImage",
+        "label": "Image (circular)",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1169,7 +1186,7 @@
       {
         "component": "text",
         "name": "titleCircularImage",
-        "label": "Title Text",
+        "label": "Title (circular)",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1185,8 +1202,8 @@
       },
       {
         "component": "richtext",
-        "name": "description",
-        "label": "Description",
+        "name": "descriptionCircularImage",
+        "label": "Description (circular)",
         "valueType": "string",
         "condition": {
           "and": [
