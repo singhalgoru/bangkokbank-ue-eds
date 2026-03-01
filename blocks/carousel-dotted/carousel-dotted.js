@@ -41,6 +41,55 @@ function getSlideCell(cellMap, isUE, cells, propName, fallbackIndex) {
 }
 
 /**
+ * Read a boolean value from a slide field element.
+ *
+ * In document-authored pages the element's textContent is "true" or "false".
+ * In AEM Universal Editor boolean fields (data-aue-type="boolean") may render
+ * without text content — the value is stored in data-aue-value / data-value
+ * attributes, or displayed via a <input type="checkbox" checked>.
+ */
+function readBoolCell(el) {
+  if (!el) return false;
+  // 1. textContent (document-authored / AEM table rendering)
+  const text = el.textContent?.trim().toLowerCase();
+  if (text === 'true') return true;
+  if (text === 'false') return false;
+  // 2. AEM UE attribute variants
+  const attrs = [
+    el.getAttribute?.('data-aue-value'),
+    el.getAttribute?.('data-value'),
+    el.dataset?.aueValue,
+    el.dataset?.value,
+  ];
+
+  const isTrue = attrs.some((val) => val === 'true');
+  if (isTrue) return true;
+
+  const isFalse = attrs.some((val) => val === 'false');
+  if (isFalse) return false;
+  // 3. Checkbox input (UE inline edit)
+  const check = el.querySelector?.('input[type="checkbox"]');
+  if (check) return check.checked;
+  return false;
+}
+
+/**
+ * Return true if a slide image/reference cell has a value — either a rendered
+ * <picture> element (document-authored) or a non-empty data-aue-value path
+ * attribute (AEM UE reference field rendering).
+ */
+function hasImageValue(el) {
+  if (!el) return false;
+  if (el.querySelector?.('picture')) return true;
+  const ref = el.getAttribute?.('data-aue-value')
+    || el.getAttribute?.('data-value')
+    || el.dataset?.aueValue
+    || el.dataset?.value
+    || '';
+  return ref.trim().length > 0;
+}
+
+/**
  * Build a slide WITH IMAGE variation
  * Fields: withImage | badgeText | image | description | link | linkText | linkTitle | linkType
  */
@@ -197,10 +246,10 @@ function buildSlide(row, index) {
 
   const get = (prop, idx) => getSlideCell(cellMap, isUE, cells, prop, idx);
 
-  const heroBannerImageCarousel = get('hero-banner-image-carousel', 11)?.textContent.trim().toLowerCase() === 'true';
-  const textAnimationVariant = get('text-animation-variant', 12)?.textContent.trim().toLowerCase() === 'true';
-  const withImageIndicator = get('withImage', 0)?.textContent.trim().toLowerCase();
-  const picture = get('image', 2)?.querySelector('picture');
+  const heroBannerImageCarousel = readBoolCell(get('hero-banner-image-carousel', 11));
+  const textAnimationVariant = readBoolCell(get('text-animation-variant', 12));
+  const hasImageIndicator = readBoolCell(get('withImage', 0));
+  const hasImageUrl = hasImageValue(get('image', 2));
 
   if (heroBannerImageCarousel) {
     return buildSlideHeroVariant(row, index, cellMap, isUE, cells, 'hero-banner-image-carousel');
@@ -209,7 +258,7 @@ function buildSlide(row, index) {
     return buildSlideHeroVariant(row, index, cellMap, isUE, cells, 'text-animation-variant');
   }
 
-  const hasImage = (withImageIndicator === 'true' || !!picture);
+  const hasImage = hasImageIndicator || hasImageUrl;
   if (hasImage) {
     return buildSlideWithImage(row, index, cellMap, isUE, cells);
   }
