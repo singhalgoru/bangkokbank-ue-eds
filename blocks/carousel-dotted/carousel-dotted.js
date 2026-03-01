@@ -345,6 +345,10 @@ function getRowValueCell(row) {
   return row;
 }
 
+function normalizeKey(value = '') {
+  return value.toLowerCase().replace(/[^a-z]/g, '');
+}
+
 function normalizeVariantValue(value = '') {
   return value.toLowerCase().replace(/[^a-z]/g, '');
 }
@@ -362,6 +366,9 @@ function resolveVariant(value, fallback = 'showDots') {
   if (normalized.includes('showdots') || normalized === 'dots') {
     return 'showDots';
   }
+  if (normalized.includes('dots') && !normalized.includes('arrow')) {
+    return 'showDots';
+  }
   return fallback;
 }
 
@@ -370,40 +377,244 @@ function readVariant(row, fallback = 'showDots') {
   return resolveVariant(value, fallback);
 }
 
-export default function decorate(block) {
-  const rows = [...block.children];
+function getConfigRows(rows) {
   const firstSlideRowIndex = rows.findIndex((row) => row.children.length > 2);
   const configRows = firstSlideRowIndex > -1 ? rows.slice(0, firstSlideRowIndex) : rows;
+  return { firstSlideRowIndex, configRows };
+}
+
+function buildConfigMap(configRows) {
+  const map = new Map();
+  configRows.forEach((row) => {
+    const valueCell = getRowValueCell(row);
+    if (!valueCell) return;
+
+    let key = '';
+    if (row.children?.length >= 2) {
+      key = normalizeKey(row.children[0]?.textContent.trim() || '');
+    } else {
+      // Some authored tables render config rows as single-value cells.
+      // Try common metadata attributes before falling back to positional parsing.
+      key = normalizeKey(
+        row.dataset?.aueProp
+        || row.dataset?.field
+        || row.dataset?.name
+        || row.getAttribute('data-aue-prop')
+        || row.getAttribute('data-field')
+        || row.getAttribute('data-name')
+        || '',
+      );
+    }
+
+    const knownKeys = new Set([
+      'filter',
+      'variant',
+      'dotsalignment',
+      'dotsposition',
+      'showlinks',
+      'showdots',
+      'showarrowsdots',
+      'autoscroll',
+      'scrolltimedelay',
+      'scrolltimedelaymilliseconds',
+      'link',
+    ]);
+    if (key && knownKeys.has(key)) map.set(key, valueCell);
+  });
+  return map;
+}
+
+function getConfigCell(configMap, aliases = []) {
+  for (let i = 0; i < aliases.length; i += 1) {
+    const key = normalizeKey(aliases[i]);
+    if (configMap.has(key)) return configMap.get(key);
+  }
+  return null;
+}
+
+function getPositionalConfig(configRows, block) {
+  const values = configRows.map((row) => getRowValueCell(row)).filter(Boolean);
+  if (!values.length) {
+    return {
+      variant: resolveVariant(block.dataset.filter || block.dataset.variant || '', 'showDots'),
+      dotsAlignmentCell: null,
+      dotsPositionCell: null,
+      showLinksCell: null,
+      linkCell: null,
+      autoScrollCell: null,
+      scrollTimeDelayCell: null,
+      legacyShowDotsCell: null,
+      legacyShowArrowsDotsCell: null,
+    };
+  }
+
+  const variant = resolveVariant(values[0]?.textContent.trim() || '', '');
+  const isVariantMode = !!variant;
+  const alignmentFirst = !!readDotsAlignment(values[0], '');
+  const positionSecond = !!readPosition(values[1], '');
+
+  if (isVariantMode) {
+    let cursor = 1;
+    const dotsAlignmentCell = values[cursor] || null;
+    cursor += 1;
+    const dotsPositionCell = values[cursor] || null;
+    cursor += 1;
+    const showLinksCell = values[cursor] || null;
+    cursor += 1;
+
+    const showLinks = readBoolean(showLinksCell);
+    const linkCell = showLinks ? (values[cursor] || null) : null;
+    if (showLinks) {
+      // _button-fields.json expands to 4 rows: link, linkText, linkTitle, linkType
+      cursor += 4;
+    }
+
+    const autoScrollCell = values[cursor] || null;
+    cursor += 1;
+
+    const autoScroll = readBoolean(autoScrollCell);
+    const scrollTimeDelayCell = autoScroll ? (values[cursor] || null) : null;
+
+    return {
+      variant,
+      dotsAlignmentCell,
+      dotsPositionCell,
+      showLinksCell,
+      linkCell,
+      autoScrollCell,
+      scrollTimeDelayCell,
+      legacyShowDotsCell: null,
+      legacyShowArrowsDotsCell: null,
+    };
+  }
+
+  // New schema where author output omits the first filter/variant row
+  // and starts directly with dotsAlignment.
+  if (alignmentFirst || positionSecond) {
+    let cursor = 0;
+    const dotsAlignmentCell = values[cursor] || null;
+    cursor += 1;
+    const dotsPositionCell = values[cursor] || null;
+    cursor += 1;
+    const showLinksCell = values[cursor] || null;
+    cursor += 1;
+
+    const showLinks = readBoolean(showLinksCell);
+    const linkCell = showLinks ? (values[cursor] || null) : null;
+    if (showLinks) {
+      // _button-fields.json expands to 4 rows: link, linkText, linkTitle, linkType
+      cursor += 4;
+    }
+
+    const autoScrollCell = values[cursor] || null;
+    cursor += 1;
+    const autoScroll = readBoolean(autoScrollCell);
+    const scrollTimeDelayCell = autoScroll ? (values[cursor] || null) : null;
+
+    return {
+      variant: 'showDots',
+      dotsAlignmentCell,
+      dotsPositionCell,
+      showLinksCell,
+      linkCell,
+      autoScrollCell,
+      scrollTimeDelayCell,
+      legacyShowDotsCell: null,
+      legacyShowArrowsDotsCell: null,
+    };
+  }
+
+  return {
+    variant: '',
+    dotsAlignmentCell: values[1] || null,
+    dotsPositionCell: values[2] || null,
+    showLinksCell: values[4] || null,
+    linkCell: values[5] || null,
+    autoScrollCell: values[6] || null,
+    scrollTimeDelayCell: values[7] || null,
+    legacyShowDotsCell: values[0] || null,
+    legacyShowArrowsDotsCell: values[3] || null,
+  };
+}
+
+function normalizeRowsWithVariant(childrenRows, block) {
+  const rows = [...childrenRows];
+  const firstRowValue = getRowValueCell(rows[0]);
+  const firstRowVariant = resolveVariant(firstRowValue?.textContent.trim() || '', '');
+  const firstRowLooksLikeAlignment = !!readDotsAlignment(firstRowValue, '');
+
+  if (!firstRowVariant && firstRowLooksLikeAlignment) {
+    const variantRow = document.createElement('div');
+    variantRow.textContent = resolveVariant(block.dataset.filter || block.dataset.variant || '', 'showDots');
+    rows.unshift(variantRow);
+  }
+
+  return rows;
+}
+
+export default function decorate(block) {
+  const rows = normalizeRowsWithVariant([...block.children], block);
+
+  const { firstSlideRowIndex, configRows } = getConfigRows(rows);
+  const configMap = buildConfigMap(configRows);
+  const useConfigMap = configMap.size > 0;
+  const positionalConfig = useConfigMap ? null : getPositionalConfig(configRows, block);
 
   // Read configuration values from block rows.
-  // Supports both new variant config and boolean rows.
+  // Supports both new variant config and legacy boolean rows.
   const variantFromDataset = resolveVariant(block.dataset.filter || block.dataset.variant || '', '');
-  const variant = readVariant(configRows[0], variantFromDataset);
-  const showDotsConfig = readBoolean(getRowValueCell(configRows[0]));
-  const showArrowsDotsConfig = readBoolean(getRowValueCell(configRows[3]));
+  const variantCell = useConfigMap
+    ? getConfigCell(configMap, ['filter', 'variant'])
+    : positionalConfig.variant;
+  const variant = useConfigMap
+    ? readVariant(variantCell, variantFromDataset)
+    : (variantCell || variantFromDataset);
+  const legacyShowDots = useConfigMap
+    ? readBoolean(getConfigCell(configMap, ['showDots']))
+    : readBoolean(positionalConfig.legacyShowDotsCell);
+  const legacyShowArrowsDots = useConfigMap
+    ? readBoolean(getConfigCell(configMap, ['showArrowsDots']))
+    : readBoolean(positionalConfig.legacyShowArrowsDotsCell);
   let resolvedVariant = variant;
   if (!resolvedVariant) {
-    if (showArrowsDotsConfig) {
+    if (legacyShowArrowsDots) {
       resolvedVariant = 'showArrowsDots';
-    } else if (showDotsConfig) {
+    } else if (legacyShowDots) {
       resolvedVariant = 'showDots';
     } else {
-      resolvedVariant = 'none';
+      // Default to dots mode when no explicit variant is authored.
+      resolvedVariant = 'showDots';
     }
   }
 
   const showDots = resolvedVariant === 'showDots';
   const showArrowsDots = resolvedVariant === 'showArrowsDots';
-  const dotsAlignment = showDots ? readDotsAlignment(getRowValueCell(configRows[1])) : 'center';
-  const dotsPosition = showDots ? readPosition(getRowValueCell(configRows[2])) : 'inside-container';
-  const showLinks = showDots ? readBoolean(getRowValueCell(configRows[3])) : false;
-  const autoScroll = showDots ? readBoolean(getRowValueCell(configRows[8])) : false;
-  const scrollTimeDelay = showDots ? (getRowValueCell(configRows[9])?.textContent.trim() || '') : '';
+  const dotsAlignmentCell = useConfigMap
+    ? getConfigCell(configMap, ['dotsAlignment'])
+    : positionalConfig.dotsAlignmentCell;
+  const dotsPositionCell = useConfigMap
+    ? getConfigCell(configMap, ['dotsPosition'])
+    : positionalConfig.dotsPositionCell;
+  const showLinksCell = useConfigMap
+    ? getConfigCell(configMap, ['showLinks'])
+    : positionalConfig.showLinksCell;
+  const autoScrollCell = useConfigMap
+    ? getConfigCell(configMap, ['autoScroll'])
+    : positionalConfig.autoScrollCell;
+  const scrollTimeDelayCell = useConfigMap
+    ? getConfigCell(configMap, ['scrollTimeDelay', 'scrolltimedelaymilliseconds'])
+    : positionalConfig.scrollTimeDelayCell;
+
+  const dotsAlignment = showDots ? readDotsAlignment(dotsAlignmentCell) : 'center';
+  const dotsPosition = showDots ? readPosition(dotsPositionCell) : 'inside-container';
+  const showLinks = showDots ? readBoolean(showLinksCell) : false;
+  const autoScroll = showDots ? readBoolean(autoScrollCell) : false;
+  const scrollTimeDelay = showDots ? (getRowValueCell(scrollTimeDelayCell)?.textContent.trim() || '') : '';
 
   // See more link is at Row 5 if showLinks is true
   let seeMoreLink = null;
   if (showLinks) {
-    const seeMoreRow = configRows[4];
+    const seeMoreRow = useConfigMap ? getConfigCell(configMap, ['link']) : positionalConfig.linkCell;
     seeMoreLink = seeMoreRow?.querySelector('a');
   }
 
@@ -516,7 +727,6 @@ export default function decorate(block) {
     const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
       && slidesWithImage === 0
       && slidesWithoutImage === 0;
-
     const allWithoutImageTrack = slidesWithoutImage > 0
       && slidesWithImage === 0
       && slidesHeroBanner === 0
@@ -554,7 +764,7 @@ export default function decorate(block) {
       if (trackWrapper) {
         const slideWidth = block.offsetWidth;
 
-        if (isLoopingForward) {
+        if (allHeroBanner && isLoopingForward) {
           if (isHeroVariant && !isFirstLoad) {
             const cloneSlide = trackWrapper.lastElementChild;
             triggerBgZoom(cloneSlide);
@@ -598,21 +808,25 @@ export default function decorate(block) {
     return { li, button };
   });
 
+  const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0;
   const allWithoutImage = slidesWithoutImage > 0
     && slidesWithImage === 0
     && slidesHeroBanner === 0
     && slidesTextAnimation === 0;
 
-  const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
-    && slidesWithImage === 0
-    && slidesWithoutImage === 0;
-
-  if (allHeroBanner || allWithoutImage) {
+  if (allHeroBanner) {
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
     const cloneFirst = slideEls[0].cloneNode(true);
     cloneFirst.setAttribute('aria-hidden', 'true');
     trackWrapper.replaceChildren(...slideEls, cloneFirst);
+    block.replaceChildren(trackWrapper);
+  } else if (allWithoutImage) {
+    const trackWrapper = document.createElement('div');
+    trackWrapper.className = 'carousel-track-wrapper';
+    trackWrapper.replaceChildren(...slideEls);
     block.replaceChildren(trackWrapper);
   } else {
     block.replaceChildren(...slideEls);
