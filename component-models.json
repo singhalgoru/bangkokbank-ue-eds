@@ -1079,7 +1079,7 @@
         "condition": {
           "!": [
             {
-              "var": "withoutCircularImage"
+              "var": "withCircularImage"
             }
           ]
         }
@@ -1087,7 +1087,7 @@
       {
         "component": "reference",
         "name": "defaultImage",
-        "label": "Default Image",
+        "label": "Image",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1138,7 +1138,7 @@
       {
         "component": "richtext",
         "name": "descriptionDefaultImage",
-        "label": "Description default image",
+        "label": "Description",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1169,7 +1169,7 @@
       {
         "component": "reference",
         "name": "circularImage",
-        "label": "Image circular",
+        "label": "Image",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1186,7 +1186,7 @@
       {
         "component": "text",
         "name": "titleCircularImage",
-        "label": "Title circular",
+        "label": "Title",
         "valueType": "string",
         "condition": {
           "and": [
@@ -1203,7 +1203,7 @@
       {
         "component": "richtext",
         "name": "descriptionCircularImage",
-        "label": "Description circular",
+        "label": "Description",
         "valueType": "string",
         "condition": {
           "and": [
