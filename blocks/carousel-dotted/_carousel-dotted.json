@@ -57,6 +57,7 @@
           "component": "select",
           "name": "filter",
           "label": "Variant",
+          "required": true,
           "valueType": "string",
           "value": "showDots",
           "options": [
