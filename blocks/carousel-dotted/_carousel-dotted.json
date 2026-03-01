@@ -906,7 +906,92 @@
           }
         ]
       }
-    }
+    },
+    {
+      "component": "aem-content",
+      "name": "link",
+      "label": "Link",
+      "description": "Destination URL for the button",
+       "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "component": "text",
+      "name": "linkText",
+      "label": "Text",
+      "description": "Button label text",
+      "required": true,
+       "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "component": "text",
+      "name": "linkTitle",
+      "label": "Title",
+      "description": "Accessibility title attribute (optional)",
+       "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "component": "select",
+      "name": "linkType",
+      "label": "Type",
+      "description": "Button style variant",
+      "valueType": "string",
+      "value": "",
+      "options": [
+        {
+          "name": "Primary",
+          "value": "primary"
+        },
+        {
+          "name": "Secondary",
+          "value": "secondary"
+        },
+        {
+          "name": "Tertiary",
+          "value": "tertiary"
+        }
+      ],
+       "condition": {
+        "and": [
+          {
+            "!!": [
+              {
+                "var": "withCircularImage"
+              }
+            ]
+          }
+        ]
+      }
+    } 
   ]
 }
   ],
