@@ -138,6 +138,85 @@ function buildSlideHeroVariant(row, index, cells, variant) {
 }
 
 /**
+ * Build a slide for carousel-dotted arrows variation
+ * Structure:
+ * withDefaultImage -> defaultImage | titleDefaultImage | step | descriptionDefaultImage
+ * withCircularImage -> circularImage | titleCircularImage | descriptionCircularImage
+ */
+function buildSlideArrows(row, index) {
+  const cells = [...row.children];
+  const withDefaultImage = cells[0]?.textContent.trim().toLowerCase() === 'true';
+  const withCircularImage = cells[5]?.textContent.trim().toLowerCase() === 'true';
+
+  const slide = document.createElement('div');
+  slide.className = 'carousel-dotted-arrows-item';
+  slide.dataset.index = index;
+  moveInstrumentation(row, slide);
+
+  const content = document.createElement('div');
+  content.className = 'carousel-dotted-arrows-content';
+
+  if (withDefaultImage) {
+    const defaultPicture = cells[1]?.querySelector('picture');
+    if (defaultPicture) {
+      const media = document.createElement('div');
+      media.className = 'carousel-dotted-arrows-media';
+      media.append(defaultPicture);
+      slide.append(media);
+    }
+
+    const titleText = cells[2]?.textContent.trim();
+    if (titleText) {
+      const title = document.createElement('div');
+      title.className = 'carousel-dotted-arrows-title';
+      title.textContent = titleText;
+      content.append(title);
+    }
+
+    const stepText = cells[3]?.textContent.trim();
+    if (stepText) {
+      const step = document.createElement('div');
+      step.className = 'carousel-dotted-arrows-step';
+      step.textContent = stepText;
+      content.append(step);
+    }
+
+    if (cells[4]) {
+      const description = document.createElement('div');
+      description.className = 'carousel-dotted-arrows-description';
+      while (cells[4].firstChild) description.append(cells[4].firstChild);
+      content.append(description);
+    }
+  } else if (withCircularImage) {
+    const circularPicture = cells[6]?.querySelector('picture');
+    if (circularPicture) {
+      const media = document.createElement('div');
+      media.className = 'carousel-dotted-arrows-media circular';
+      media.append(circularPicture);
+      slide.append(media);
+    }
+
+    const titleText = cells[7]?.textContent.trim();
+    if (titleText) {
+      const title = document.createElement('div');
+      title.className = 'carousel-dotted-arrows-title';
+      title.textContent = titleText;
+      content.append(title);
+    }
+
+    if (cells[8]) {
+      const description = document.createElement('div');
+      description.className = 'carousel-dotted-arrows-description';
+      while (cells[8].firstChild) description.append(cells[8].firstChild);
+      content.append(description);
+    }
+  }
+
+  slide.append(content);
+  return slide;
+}
+
+/**
  * Build a slide - determines which variation to use and delegates
  */
 function buildSlide(row, index) {
@@ -376,11 +455,14 @@ function getConfigRows(rows) {
 
 function parseConfig(configRows, block) {
   const values = configRows.map((row) => getRowValueCell(row)).filter(Boolean);
-  const datasetVariant = resolveVariant(block.dataset.filter || block.dataset.variant || '', '');
+  const aueFilterVariant = resolveVariant(
+    block.dataset.aueFilter || block.getAttribute('data-aue-filter') || '',
+    '',
+  );
 
   if (!values.length) {
     return {
-      variant: datasetVariant || 'showDots',
+      variant: aueFilterVariant || 'showDots',
       dotsAlignmentCell: null,
       dotsPositionCell: null,
       showLinksCell: null,
@@ -392,7 +474,7 @@ function parseConfig(configRows, block) {
 
   const firstRowVariant = resolveVariant(values[0]?.textContent.trim() || '', '');
   const hasVariantRow = !!firstRowVariant;
-  const variant = firstRowVariant || datasetVariant || 'showDots';
+  const variant = aueFilterVariant || 'showDots';
 
   // In UE output, variant row is often omitted and rows start from dotsAlignment.
   let cursor = hasVariantRow ? 1 : 0;
@@ -466,6 +548,7 @@ export default function decorate(block) {
 
   if (showArrowsDots) {
     block.classList.add('show-arrows-dots');
+    block.classList.add('carousel-dotted-arrows');
   }
 
   if (autoScroll) {
@@ -476,43 +559,47 @@ export default function decorate(block) {
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'carousel');
 
-  const slideEls = slides.map((row, index) => buildSlide(row, index));
+  const slideEls = slides.map((row, index) => (
+    showArrowsDots ? buildSlideArrows(row, index) : buildSlide(row, index)
+  ));
 
-  const slidesWithImage = slideEls.filter((s) => s.classList.contains('with-image')).length;
-  const slidesWithoutImage = slideEls.filter((s) => s.classList.contains('without-image')).length;
-  const slidesHeroBanner = slideEls.filter((s) => s.classList.contains('hero-banner-image-carousel')).length;
-  const slidesTextAnimation = slideEls.filter((s) => s.classList.contains('text-animation-variant')).length;
+  const slidesWithImage = showArrowsDots ? 0 : slideEls.filter((s) => s.classList.contains('with-image')).length;
+  const slidesWithoutImage = showArrowsDots ? 0 : slideEls.filter((s) => s.classList.contains('without-image')).length;
+  const slidesHeroBanner = showArrowsDots ? 0 : slideEls.filter((s) => s.classList.contains('hero-banner-image-carousel')).length;
+  const slidesTextAnimation = showArrowsDots ? 0 : slideEls.filter((s) => s.classList.contains('text-animation-variant')).length;
 
-  if (
-    slidesWithImage > 0
-  && slidesWithoutImage === 0
-  && slidesHeroBanner === 0
-  && slidesTextAnimation === 0
-  ) {
-    block.classList.add('all-with-image');
-  } else if (
-    slidesWithoutImage > 0
-    && slidesWithImage === 0
-    && slidesHeroBanner === 0
-    && slidesTextAnimation === 0
-  ) {
-    block.classList.add('all-without-image');
-  } else if (
-    slidesHeroBanner > 0
-    && slidesWithImage === 0
-    && slidesWithoutImage === 0
-    && slidesTextAnimation === 0
-  ) {
-    block.classList.add('all-hero-banner-image-carousel');
-  } else if (
-    slidesTextAnimation > 0
-    && slidesWithImage === 0
+  if (!showArrowsDots) {
+    if (
+      slidesWithImage > 0
     && slidesWithoutImage === 0
     && slidesHeroBanner === 0
-  ) {
-    block.classList.add('all-text-animation-variant');
-  } else {
-    block.classList.add('mixed-image-slides');
+    && slidesTextAnimation === 0
+    ) {
+      block.classList.add('all-with-image');
+    } else if (
+      slidesWithoutImage > 0
+      && slidesWithImage === 0
+      && slidesHeroBanner === 0
+      && slidesTextAnimation === 0
+    ) {
+      block.classList.add('all-without-image');
+    } else if (
+      slidesHeroBanner > 0
+      && slidesWithImage === 0
+      && slidesWithoutImage === 0
+      && slidesTextAnimation === 0
+    ) {
+      block.classList.add('all-hero-banner-image-carousel');
+    } else if (
+      slidesTextAnimation > 0
+      && slidesWithImage === 0
+      && slidesWithoutImage === 0
+      && slidesHeroBanner === 0
+    ) {
+      block.classList.add('all-text-animation-variant');
+    } else {
+      block.classList.add('mixed-image-slides');
+    }
   }
   const dots = document.createElement('ul');
   dots.className = 'slick-dots';
@@ -585,6 +672,11 @@ export default function decorate(block) {
       slide.classList.toggle('is-active', active);
       slide.classList.toggle('is-current', active);
       slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+      if (showArrowsDots) {
+        slide.style.display = active ? 'block' : 'none';
+      } else {
+        slide.style.display = '';
+      }
     });
     dotButtons.forEach(({ li, button }, i) => {
       const active = i === index;
@@ -665,6 +757,11 @@ export default function decorate(block) {
     trackWrapper.className = 'carousel-track-wrapper';
     trackWrapper.replaceChildren(...slideEls);
     block.replaceChildren(trackWrapper);
+  } else if (showArrowsDots) {
+    const arrowsContainer = document.createElement('div');
+    arrowsContainer.className = 'carousel-dotted-arrows-container';
+    arrowsContainer.replaceChildren(...slideEls);
+    block.replaceChildren(arrowsContainer);
   } else {
     block.replaceChildren(...slideEls);
   }
