@@ -8,22 +8,29 @@ import {
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
- * Build a prop-name → cell map from a slide row's children.
- * In Universal Editor each child has data-aue-prop="<fieldName>".
- * Returns { cellMap, isUE } where isUE indicates whether UE attributes were found.
+ * Build a prop-name → cell map from a slide element's fields.
+ *
+ * In Universal Editor, AEM annotates each slide field with data-aue-prop.
+ * These may be DIRECT children of the slide element OR nested inside a
+ * wrapper div (depending on AEM version / rendering pipeline).
+ * We use querySelectorAll so we find them at any depth.
+ *
+ * Falls back to positional array (cells = direct children) for
+ * document-authored pages where no data-aue-prop attributes exist.
  */
 function buildSlideCellMap(row) {
-  const children = [...row.children];
+  const directChildren = [...row.children];
+
+  // Try: find all data-aue-prop descendants (works for any nesting depth)
+  const propEls = row.querySelectorAll('[data-aue-prop]');
   const cellMap = new Map();
-  let hasProps = false;
-  children.forEach((cell) => {
-    const prop = cell?.dataset?.aueProp || cell?.getAttribute?.('data-aue-prop');
-    if (prop) {
-      cellMap.set(prop, cell);
-      hasProps = true;
-    }
+  propEls.forEach((el) => {
+    const prop = el.dataset.aueProp || el.getAttribute('data-aue-prop');
+    if (prop && !cellMap.has(prop)) cellMap.set(prop, el); // first occurrence wins
   });
-  return { cellMap, isUE: hasProps, cells: children };
+
+  const isUE = cellMap.size > 0;
+  return { cellMap, isUE, cells: directChildren };
 }
 
 /**
@@ -71,7 +78,8 @@ function buildSlideWithImage(row, index, cellMap, isUE, cells) {
   if (descCell) {
     const description = document.createElement('div');
     description.className = 'carousel-dotted-description';
-    while (descCell.firstChild) description.append(descCell.firstChild);
+    // Use innerHTML copy (not DOM mutation) so the original cell stays intact
+    description.innerHTML = descCell.innerHTML;
     content.append(description);
   }
 
@@ -117,7 +125,8 @@ function buildSlideWithoutImage(row, index, cellMap, isUE, cells) {
   if (defaultCell) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (defaultCell.firstChild) defaultText.append(defaultCell.firstChild);
+    // Use innerHTML copy (not DOM mutation) so the original cell stays intact
+    defaultText.innerHTML = defaultCell.innerHTML;
     content.append(defaultText);
   }
 
@@ -483,17 +492,33 @@ export default function decorate(block) {
   // ---------------------------------------------------------------------------
   // Separate slides from config rows
   //
-  // In UE: child component items (slides) have their OWN data-aue-resource
-  //        (a separate AEM content path). Config field rows do NOT have their
-  //        own resource — they are fields of the block, not separate nodes.
-  //        Using data-aue-resource as the discriminator is reliable on both
-  //        initial page load and after UE in-editor updates.
+  // In AEM Universal Editor the correct discriminator for child component items
+  // (slides) is data-aue-type="component". Only actual child items get this
+  // type — config field rows use types like "select", "boolean", "text", etc.
   //
-  // In doc-authored pages: no UE attributes at all → use fixed positional index.
+  // Config field rows may also carry data-aue-resource (pointing to the block's
+  // own JCR node), so filtering on data-aue-resource alone incorrectly includes
+  // them as slides, causing all slides to show the first slide's values.
+  //
+  // Fallback chain:
+  //   1. UE with data-aue-type="component"  → most reliable
+  //   2. UE with data-aue-resource (no component type found) → older UE versions
+  //   3. Doc-authored (no UE attributes)    → positional slice
   // ---------------------------------------------------------------------------
-  const slides = isUE
-    ? rows.filter((row) => row?.hasAttribute?.('data-aue-resource'))
-    : rows.slice(10);
+  let slides;
+  if (!isUE) {
+    slides = rows.slice(10);
+  } else {
+    const componentRows = rows.filter((row) => {
+      const type = row?.dataset?.aueType || row?.getAttribute?.('data-aue-type');
+      return type === 'component';
+    });
+    // If data-aue-type="component" found, use those; otherwise fall back to
+    // data-aue-resource presence (handles older AEM UE rendering)
+    slides = componentRows.length > 0
+      ? componentRows
+      : rows.filter((row) => row?.hasAttribute?.('data-aue-resource'));
+  }
   block.className = 'carousel-dotted';
 
   if (showDots) {
