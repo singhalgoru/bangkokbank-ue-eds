@@ -342,21 +342,19 @@ function initializeAutoScroll(
 export default function decorate(block) {
   const rows = [...block.children];
 
-  const cellsTemp = [...rows[0].children];
-
   // Read configuration values from block rows
-  const variant = cellsTemp[0]?.textContent.trim();
+  const variant = rows[6]?.textContent.trim();
 
   const showDots = variant === 'showDots';
   const showArrows = variant === 'showArrowsDots';
 
-  const dotsAlignment = readDotsAlignment(rows[1]);
-  const dotsPosition = readPosition(rows[2]);
-  const showLinks = readBoolean(rows[3]);
-  const seeMoreLink = showLinks ? rows[4]?.querySelector('a') : null;
-  const autoScroll = readBoolean(rows[8]);
-  const scrollTimeDelay = rows[9]?.textContent.trim() || '';
-  const nextIndex = 10;
+  const dotsAlignment = readDotsAlignment(rows[0]);
+  const dotsPosition = readPosition(rows[1]);
+  const showLinks = readBoolean(rows[2]);
+  const seeMoreLink = showLinks ? rows[3]?.querySelector('a') : null;
+  const autoScroll = readBoolean(rows[4]);
+  const scrollTimeDelay = rows[5]?.textContent.trim() || '';
+  const nextIndex = 6;
 
   const slides = rows.slice(nextIndex);
   block.className = 'carousel-dotted';
