@@ -74,7 +74,6 @@
           "label": "Icon/Image Alt Text",
           "description": "Enter alt text for the icon/image (Tiled Tab only)",
           "valueType": "string",
-          "required": true,
           "condition": {
             "===": [
               {
@@ -98,7 +97,6 @@
           "label": "Icon/Image Alt Text",
           "description": "Enter alt text for the icon/image",
           "valueType": "string",
-          "required": true,
           "condition": {
             "===": [
               {
