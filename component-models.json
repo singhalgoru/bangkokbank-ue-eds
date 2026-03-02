@@ -641,6 +641,13 @@
     "id": "carousel-dotted-slide",
     "fields": [
       {
+        "component": "text",
+        "name": "variant",
+        "label": "Variant",
+        "valueType": "string",
+        "hidden": false
+      },
+      {
         "component": "boolean",
         "name": "withImage",
         "label": "With Image",
@@ -1070,6 +1077,13 @@
   {
     "id": "carousel-dotted-slide-arrows",
     "fields": [
+      {
+        "component": "text",
+        "name": "variant",
+        "label": "Variant",
+        "valueType": "string",
+        "hidden": false
+      },
       {
         "component": "boolean",
         "name": "withDefaultImage",
