@@ -349,12 +349,14 @@ export default function decorate(block) {
   const seeMoreLink = showLinks ? rows[3]?.querySelector('a') : null;
   const autoScroll = readBoolean(rows[4]);
   const scrollTimeDelay = rows[5]?.textContent.trim() || '';
-  const variant = rows[6]?.textContent.trim() || '';
+
+  // Slides start at row 6, variant is in each slide's first cell
+  const nextIndex = 6;
+  const firstSlide = rows[nextIndex];
+  const variant = firstSlide?.children[0]?.textContent.trim() || '';
 
   const showDots = variant === 'showDots';
   const showArrows = variant === 'showArrowsDots';
-
-  const nextIndex = 7;
 
   const slides = rows.slice(nextIndex);
   block.className = 'carousel-dotted';
