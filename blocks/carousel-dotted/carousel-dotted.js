@@ -464,6 +464,7 @@ function parseConfig(configRows, block) {
     return {
       variant: aueFilterVariant || 'showDots',
       dotsAlignmentCell: null,
+      variantNameCell: null,
       dotsPositionCell: null,
       showLinksCell: null,
       linkCell: null,
@@ -480,6 +481,8 @@ function parseConfig(configRows, block) {
   let cursor = hasVariantRow ? 1 : 0;
 
   const dotsAlignmentCell = values[cursor] || null;
+  cursor += 1;
+  const variantNameCell = values[cursor] || null;
   cursor += 1;
   const dotsPositionCell = values[cursor] || null;
   cursor += 1;
@@ -501,6 +504,7 @@ function parseConfig(configRows, block) {
   return {
     variant,
     dotsAlignmentCell,
+    variantNameCell,
     dotsPositionCell,
     showLinksCell,
     linkCell,
@@ -571,9 +575,9 @@ export default function decorate(block) {
   if (!showArrowsDots) {
     if (
       slidesWithImage > 0
-    && slidesWithoutImage === 0
-    && slidesHeroBanner === 0
-    && slidesTextAnimation === 0
+      && slidesWithoutImage === 0
+      && slidesHeroBanner === 0
+      && slidesTextAnimation === 0
     ) {
       block.classList.add('all-with-image');
     } else if (

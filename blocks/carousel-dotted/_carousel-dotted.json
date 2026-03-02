@@ -103,6 +103,13 @@
           }
         },
         {
+          "component": "text",
+          "name": "variant",
+          "label": "Variant",
+          "valueType": "string",
+          "hidden": false
+        },
+        {
           "component": "select",
           "name": "dotsPosition",
           "label": "Dots Position",
