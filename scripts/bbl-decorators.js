@@ -23,6 +23,15 @@ function decorateButtonsV1(element) {
           a.className = 'button secondary';
           twoup.classList.add('button-container');
         }
+        if (
+          up.childNodes.length === 1
+          && up.tagName === 'U'
+          && twoup.childNodes.length === 1
+          && twoup.tagName === 'P'
+        ) {
+          a.className = 'button download';
+          twoup.classList.add('button-container');
+        }
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
           a.className = 'button-tertiary';
           up.classList.add('button-container');
