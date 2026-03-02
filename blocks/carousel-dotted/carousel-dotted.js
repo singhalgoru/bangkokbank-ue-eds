@@ -342,7 +342,7 @@ function initializeAutoScroll(
 export default function decorate(block) {
   const rows = [...block.children];
 
-   const cellsTemp = [...row.children];
+  const cellsTemp = [...rows[0].children];
 
   // Read configuration values from block rows
   const variant = cellsTemp[0]?.textContent.trim();
