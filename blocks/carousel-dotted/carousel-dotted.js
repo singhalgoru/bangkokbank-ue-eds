@@ -3,7 +3,6 @@ import {
   readBoolean,
   readDotsAlignment,
   readPosition,
-  readArrowsAlignment,
 } from '../../scripts/helper-files/carousel-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
@@ -344,31 +343,20 @@ export default function decorate(block) {
   const rows = [...block.children];
 
   // Read configuration values from block rows
-  const showDots = readBoolean(rows[0]);
+  const variant = rows[0]?.textContent.trim();
+  const isShowDotsClass = block.classList.contains('show-dots') || block.classList.contains('showdots');
+  const isShowArrowsClass = block.classList.contains('show-arrows-dots') || block.classList.contains('showarrowsdots');
+
+  const showDots = isShowDotsClass || isShowArrowsClass || variant === 'showDots' || variant === 'showArrowsDots';
+  const showArrows = isShowArrowsClass || variant === 'showArrowsDots';
+
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
-  const showArrows = readBoolean(rows[3]);
-  const arrowsAlignment = readArrowsAlignment(rows[4]);
-  const autoScroll = readBoolean(rows[5]);
-  const scrollTimeDelay = rows[6]?.textContent.trim() || '';
-  let nextIndex = 7;
-  let seeMoreLink = null;
-
-  while (nextIndex < rows.length) {
-    const row = rows[nextIndex];
-    const link = row?.querySelector('a');
-    const hasContent = row?.textContent.trim();
-
-    if (link) {
-      seeMoreLink = link;
-      nextIndex += 1;
-      break;
-    } else if (!hasContent) {
-      nextIndex += 1;
-    } else {
-      break;
-    }
-  }
+  const showLinks = readBoolean(rows[3]);
+  const seeMoreLink = showLinks ? rows[4]?.querySelector('a') : null;
+  const autoScroll = readBoolean(rows[8]);
+  const scrollTimeDelay = rows[9]?.textContent.trim() || '';
+  const nextIndex = 10;
 
   const slides = rows.slice(nextIndex);
   block.className = 'carousel-dotted';
@@ -381,7 +369,6 @@ export default function decorate(block) {
 
   if (showArrows) {
     block.classList.add('show-arrows');
-    block.classList.add(`arrows-${arrowsAlignment}`);
   }
 
   if (autoScroll) {
@@ -401,9 +388,9 @@ export default function decorate(block) {
 
   if (
     slidesWithImage > 0
-  && slidesWithoutImage === 0
-  && slidesHeroBanner === 0
-  && slidesTextAnimation === 0
+    && slidesWithoutImage === 0
+    && slidesHeroBanner === 0
+    && slidesTextAnimation === 0
   ) {
     block.classList.add('all-with-image');
   } else if (
