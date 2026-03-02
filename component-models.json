@@ -414,13 +414,6 @@
         }
       },
       {
-        "component": "text",
-        "name": "variant",
-        "label": "Variant",
-        "valueType": "string",
-        "hidden": false
-      },
-      {
         "component": "select",
         "name": "dotsPosition",
         "label": "Dots Position",
@@ -652,7 +645,7 @@
         "name": "variant",
         "label": "Variant",
         "valueType": "string",
-        "hidden": false
+        "hidden": true
       },
       {
         "component": "boolean",
@@ -1089,7 +1082,7 @@
         "name": "variant",
         "label": "Variant",
         "valueType": "string",
-        "hidden": false
+        "hidden": true
       },
       {
         "component": "boolean",
