@@ -1003,6 +1003,22 @@
           }
         },
         {
+          "title": "Tab Section",
+          "id": "tabs",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Tab Section",
+                  "model": "tabs",
+                  "filter": "tabs"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Top Nav",
           "id": "top-nav",
           "plugins": {

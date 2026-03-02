@@ -149,6 +149,33 @@
     "maxItems": 6
   },
   {
+    "id": "tabs",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "cards-product",
+      "columns",
+      "fragment",
+      "megamenu",
+      "carousel",
+      "story-card",
+      "warning-card",
+      "menu-cards",
+      "carousel-dotted",
+      "cross-banner",
+      "form",
+      "embed-adaptive-form",
+      "brand-logo",
+      "location",
+      "login",
+      "main-nav-item"
+    ]
+  },
+  {
     "id": "top-nav",
     "components": [
       "top-nav-link"
