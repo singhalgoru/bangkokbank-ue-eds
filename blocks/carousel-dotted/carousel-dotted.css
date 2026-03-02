@@ -797,3 +797,74 @@
   margin-top: 0;
   margin-bottom: 1rem;
 }
+
+/* Arrows specific */
+.carousel-dotted.show-arrows-dots .carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid rgb(0 0 0 / 15%);
+  background-color: var(--bbl-color-white);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.carousel-dotted.show-arrows-dots .carousel-arrow:hover {
+  background-color: var(--bbl-color-grey-20, #f4f5f8);
+}
+
+.carousel-dotted.show-arrows-dots .carousel-arrow::before {
+  content: '';
+  display: block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-top: 2px solid var(--bbl-color-grey-60, #666);
+  border-right: 2px solid var(--bbl-color-grey-60, #666);
+  transform: rotate(45deg);
+}
+
+.carousel-dotted.show-arrows-dots .carousel-arrow-prev {
+  left: 1rem;
+}
+
+@media (width >=47.5rem) {
+  .carousel-dotted.show-arrows-dots .carousel-arrow-prev {
+    left: -1rem;
+  }
+}
+
+.carousel-dotted.show-arrows-dots .carousel-arrow-prev::before {
+  transform: rotate(-135deg);
+  margin-left: 0.25rem;
+}
+
+.carousel-dotted.show-arrows-dots .carousel-arrow-next {
+  right: 1rem;
+}
+
+@media (width >=47.5rem) {
+  .carousel-dotted.show-arrows-dots .carousel-arrow-next {
+    right: -1rem;
+  }
+}
+
+.carousel-dotted.show-arrows-dots .carousel-arrow-next::before {
+  margin-right: 0.25rem;
+}
+
+/* Force show-arrows-dots fallback positions so they aren't hidden */
+.carousel-dotted.show-arrows-dots {
+  padding-bottom: 3rem;
+}
+
+.carousel-dotted.show-arrows-dots .slick-dots {
+  bottom: 0;
+}

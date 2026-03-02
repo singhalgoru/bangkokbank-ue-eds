@@ -471,6 +471,8 @@ export default function decorate(block) {
 
   if (showDots) {
     block.classList.add(`dots-${dotsAlignment}-${dotsPosition}`);
+  } else if (showArrows) {
+    block.classList.add('dots-center-outside-container');
   } else {
     block.classList.add('no-dots');
   }
@@ -684,7 +686,7 @@ export default function decorate(block) {
   if (showDots) {
     block.append(dots);
   } else if (showArrows) {
-    block.append(prevArrow, nextArrow);
+    block.append(dots, prevArrow, nextArrow);
   }
 
   if (seeMoreLink) {
