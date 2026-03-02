@@ -1,5 +1,5 @@
 .section.full-bleed-special.cross-banner-container {
-    padding: 0;
+    /* padding: 0; */
 }
 
 .cross-banner {
@@ -122,7 +122,7 @@ body.private
 
 @media (width > 47.5rem) {
     .section.full-bleed-special.cross-banner-container {
-        padding: 0 var(--bbl-space-600);
+        /* padding: 0 var(--bbl-space-600); */
     }
 
     .cross-banner-image {
@@ -141,7 +141,7 @@ body.private
 
 @media (width > 64rem) {
     .section.full-bleed-special.cross-banner-container {
-        padding: 0 var(--bbl-space-1050);
+        /* padding: 0 var(--bbl-space-1050); */
     }
 
     .cross-banner-image {
