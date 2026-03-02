@@ -1,4 +1,3 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
 
 function createMenuCardItem(cardElement, variant, doc) {
@@ -15,7 +14,8 @@ function createMenuCardItem(cardElement, variant, doc) {
   const description = descDiv?.innerHTML;
   const enableDropdown = enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true';
   const img = imageDiv?.querySelector('img');
-  const button = buttonDiv?.querySelector('a');
+  const buttonHTML = buttonDiv?.innerHTML?.trim() || '';
+  const buttonAnchor = buttonDiv?.querySelector('a');
 
   const card = createElementFromHTML(
     '<div class="menu-card-action-item"></div>',
@@ -29,17 +29,8 @@ function createMenuCardItem(cardElement, variant, doc) {
 
   /* ---------------- IMAGE ---------------- */
   if (img) {
-    const picture = createOptimizedPicture(
-      img.src,
-      title || '',
-      false,
-    );
-
-    const optimizedImg = picture.querySelector('img');
-    if (optimizedImg) {
-      moveInstrumentation(img, optimizedImg);
-      inner.appendChild(picture);
-    }
+    const newImg = img.cloneNode(true);
+    inner.appendChild(newImg);
   }
 
   /* ---------------- TITLE ---------------- */
@@ -52,6 +43,18 @@ function createMenuCardItem(cardElement, variant, doc) {
     );
   }
 
+  /* ---------------- DESCRIPTION ---------------- */
+  if (description) {
+    inner.appendChild(
+      createElementFromHTML(
+        `<div class="menu-card-action-description">${description}</div>`,
+        doc,
+      ),
+    );
+    inner.querySelector('.menu-card-action-title')?.classList.add('has-description');
+  }
+
+  /* ---------------- BUTTON / DROPDOWN ---------------- */
   if (variant === 'menu-card-cta-dropdown') {
     if (enableDropdown) {
       const dropdown = createElementFromHTML(
@@ -60,7 +63,7 @@ function createMenuCardItem(cardElement, variant, doc) {
       );
 
       const label = createElementFromHTML(
-        `<span class="menu-card-cta-dropdown-text">${button?.textContent.trim() || ''}</span>`,
+        `<span class="menu-card-cta-dropdown-text">${buttonAnchor?.textContent.trim() || ''}</span>`,
         doc,
       );
 
@@ -75,19 +78,15 @@ function createMenuCardItem(cardElement, variant, doc) {
 
       dropdown.append(label, links);
       inner.appendChild(dropdown);
-    } else if (button) {
-      inner.appendChild(button);
+    } else if (buttonAnchor) {
+      buttonAnchor.classList.add('button-m');
+      inner.appendChild(buttonAnchor);
     }
-  }
-
-  /* ---------------- DESCRIPTION ---------------- */
-  if (description) {
-    inner.appendChild(
-      createElementFromHTML(
-        `<p class="menu-card-action-description">${description}</p>`,
-        doc,
-      ),
-    );
+  } else if (variant === 'menu-card-text-download') {
+    inner.innerHTML += buttonHTML;
+  } else if (buttonAnchor) {
+    buttonAnchor.classList.add('button-m');
+    inner.appendChild(buttonAnchor);
   }
 
   card.appendChild(inner);
