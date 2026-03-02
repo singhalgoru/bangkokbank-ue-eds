@@ -18,7 +18,7 @@ function buildSlideWithImage(row, index, cells) {
   moveInstrumentation(row, slide);
 
   // Create and append background image if it exists
-  const picture = cells[2]?.querySelector('picture');
+  const picture = cells[3]?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
     media.className = 'carousel-bg';
@@ -30,8 +30,8 @@ function buildSlideWithImage(row, index, cells) {
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Badge text (cell 1)
-  const badgeText = cells[1]?.textContent.trim();
+  // Badge text (cell 2)
+  const badgeText = cells[2]?.textContent.trim();
   if (badgeText) {
     const badge = document.createElement('div');
     badge.className = 'carousel-badge';
@@ -39,16 +39,16 @@ function buildSlideWithImage(row, index, cells) {
     content.append(badge);
   }
 
-  // Description (cell 3)
-  if (cells[3]) {
+  // Description (cell 4)
+  if (cells[4]) {
     const description = document.createElement('div');
     description.className = 'carousel-dotted-description';
-    while (cells[3].firstChild) description.append(cells[3].firstChild);
+    while (cells[4].firstChild) description.append(cells[4].firstChild);
     content.append(description);
   }
 
-  // Link/Button (cell 4)
-  const link = cells[4]?.querySelector('a');
+  // Link/Button (cell 5)
+  const link = cells[5]?.querySelector('a');
   if (link) {
     content.append(link);
   }
@@ -71,8 +71,8 @@ function buildSlideWithoutImage(row, index, cells) {
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Header text (cell 1)
-  const headerText = cells[6]?.textContent.trim();
+  // Header text (cell 7)
+  const headerText = cells[7]?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-dotted-header';
@@ -80,11 +80,11 @@ function buildSlideWithoutImage(row, index, cells) {
     content.append(header);
   }
 
-  // Default text (cell 2)
-  if (cells[7]) {
+  // Default text (cell 8)
+  if (cells[8]) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (cells[7].firstChild) defaultText.append(cells[7].firstChild);
+    while (cells[8].firstChild) defaultText.append(cells[8].firstChild);
     content.append(defaultText);
   }
 
@@ -101,7 +101,7 @@ function buildSlideHeroVariant(row, index, cells, variant) {
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
 
-  const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(10, 14);
+  const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(11, 15);
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -144,10 +144,10 @@ function buildSlideHeroVariant(row, index, cells, variant) {
 function buildSlide(row, index) {
   const cells = [...row.children];
 
-  const heroBannerImageCarousel = cells[8]?.textContent.trim().toLowerCase() === 'true';
-  const textAnimationVariant = cells[9]?.textContent.trim().toLowerCase() === 'true';
-  const withImageIndicator = cells[0]?.textContent.trim().toLowerCase();
-  const picture = cells[2]?.querySelector('picture');
+  const heroBannerImageCarousel = cells[9]?.textContent.trim().toLowerCase() === 'true';
+  const textAnimationVariant = cells[10]?.textContent.trim().toLowerCase() === 'true';
+  const withImageIndicator = cells[1]?.textContent.trim().toLowerCase();
+  const picture = cells[3]?.querySelector('picture');
 
   // Determine slide type priority
   if (heroBannerImageCarousel) {
