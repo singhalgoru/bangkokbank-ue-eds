@@ -150,7 +150,7 @@
     "maxItems": 6
   },
   {
-    "id": "tabs-section",
+    "id": "tabs",
     "components": [
       "tab-item"
     ]
@@ -167,7 +167,6 @@
       "cards-product",
       "columns",
       "fragment",
-      "megamenu",
       "carousel",
       "story-card",
       "warning-card",

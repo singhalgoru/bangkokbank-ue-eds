@@ -1,16 +1,15 @@
 {
   "definitions": [
     {
-      "title": "Tabs Section",
-      "id": "tabs-section",
+      "title": "Tabs",
+      "id": "tabs",
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
+            "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Tabs Section",
-              "model": "tabs-section",
-              "filter": "tabs-section"
+              "name": "Tabs",
+              "model": "tabs"
             }
           }
         }
@@ -22,11 +21,10 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
+            "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Tab Item",
-              "model": "tab-item",
-              "filter": "tab-content"
+              "model": "tab-item"
             }
           }
         }
@@ -35,15 +33,8 @@
   ],
   "models": [
     {
-      "id": "tabs-section",
-      "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree"
-        }
-      ]
+      "id": "tabs",
+      "fields": []
     },
     {
       "id": "tab-item",
@@ -139,7 +130,7 @@
   ],
   "filters": [
     {
-      "id": "tabs-section",
+      "id": "tabs",
       "components": [
         "tab-item"
       ]
@@ -156,7 +147,6 @@
         "cards-product",
         "columns",
         "fragment",
-        "megamenu",
         "carousel",
         "story-card",
         "warning-card",
