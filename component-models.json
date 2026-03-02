@@ -382,13 +382,6 @@
         ]
       },
       {
-        "component": "text",
-        "name": "variant",
-        "label": "Variant",
-        "valueType": "string",
-        "hidden": false
-      },
-      {
         "component": "select",
         "name": "dotsAlignment",
         "label": "Dots Alignment",
@@ -647,6 +640,13 @@
   {
     "id": "carousel-dotted-slide",
     "fields": [
+      {
+        "component": "text",
+        "name": "variant",
+        "label": "Variant",
+        "valueType": "string",
+        "hidden": true
+      },
       {
         "component": "boolean",
         "name": "withImage",
@@ -1077,6 +1077,13 @@
   {
     "id": "carousel-dotted-slide-arrows",
     "fields": [
+      {
+        "component": "text",
+        "name": "variant",
+        "label": "Variant",
+        "valueType": "string",
+        "hidden": true
+      },
       {
         "component": "boolean",
         "name": "withDefaultImage",

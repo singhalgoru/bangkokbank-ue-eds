@@ -342,13 +342,13 @@ function initializeAutoScroll(
 export default function decorate(block) {
   const rows = [...block.children];
 
-  // Read configuration values from block rows
-  const variant = rows[0]?.textContent.trim();
-  const isShowDotsClass = block.classList.contains('show-dots') || block.classList.contains('showdots');
-  const isShowArrowsClass = block.classList.contains('show-arrows-dots') || block.classList.contains('showarrowsdots');
+   const cellsTemp = [...row.children];
 
-  const showDots = isShowDotsClass || isShowArrowsClass || variant === 'showDots' || variant === 'showArrowsDots';
-  const showArrows = isShowArrowsClass || variant === 'showArrowsDots';
+  // Read configuration values from block rows
+  const variant = cellsTemp[0]?.textContent.trim();
+
+  const showDots = variant === 'showDots';
+  const showArrows = variant === 'showArrowsDots';
 
   const dotsAlignment = readDotsAlignment(rows[1]);
   const dotsPosition = readPosition(rows[2]);
