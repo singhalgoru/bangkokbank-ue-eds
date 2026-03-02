@@ -168,6 +168,114 @@ function buildSlide(row, index) {
 }
 
 /**
+ * Build a slide for showArrowsDots variant
+ */
+function buildSlideArrowsandDots(row, index) {
+  const cells = [...row.children];
+  const slide = document.createElement('div');
+  slide.dataset.index = index;
+  moveInstrumentation(row, slide);
+
+  const withDefaultImage = cells[1]?.textContent.trim().toLowerCase() === 'true';
+  const withCircularImage = cells[6]?.textContent.trim().toLowerCase() === 'true';
+
+  if (withCircularImage) {
+    slide.className = 'carousel-dotted-item with-circular-image item';
+    const [, , , , , , , circularImageCell, titleCell, descriptionCell, linkCell] = cells;
+
+    // image
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'circle-image';
+    const picture = circularImageCell?.querySelector('picture');
+    if (picture) imageContainer.append(picture);
+    slide.append(imageContainer);
+
+    // content container
+    const content = document.createElement('div');
+    content.className = 'caption';
+
+    if (titleCell && titleCell.textContent.trim()) {
+      const title = document.createElement('h3');
+      title.className = 'title-2';
+      title.innerHTML = titleCell.innerHTML;
+      content.append(title);
+    }
+
+    if (descriptionCell && descriptionCell.textContent.trim()) {
+      const description = document.createElement('div');
+      description.className = 'name text-brown text-default';
+      while (descriptionCell.firstChild) description.append(descriptionCell.firstChild);
+      content.append(description);
+    }
+
+    if (linkCell && linkCell.textContent.trim()) {
+      const linkWrap = document.createElement('div');
+      linkWrap.className = 'button-group';
+      const a = linkCell.querySelector('a');
+      if (a) {
+        a.className = 'sub-title-medium link-primary';
+        linkWrap.append(a);
+      } else {
+        while (linkCell.firstChild) linkWrap.append(linkCell.firstChild);
+      }
+      content.append(linkWrap);
+    }
+
+    slide.append(content);
+    return slide;
+  }
+
+  if (withDefaultImage) {
+    slide.className = 'carousel-dotted-item with-default-image item has-caption bgd-white';
+    const [, , defaultImageCell, titleCell, stepCell, descriptionCell] = cells;
+
+    // image
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'img-thumb';
+    const picture = defaultImageCell?.querySelector('picture');
+    if (picture) imageContainer.append(picture);
+    slide.append(imageContainer);
+
+    // content container
+    const content = document.createElement('div');
+    content.className = 'caption editor';
+
+    if (titleCell && titleCell.textContent.trim()) {
+      const title = document.createElement('h3');
+      title.className = 'title-3';
+      title.innerHTML = titleCell.innerHTML;
+      content.append(title);
+    }
+
+    const hasStep = stepCell && stepCell.textContent.trim();
+    const hasDesc = descriptionCell && descriptionCell.textContent.trim();
+
+    if (hasStep || hasDesc) {
+      const textWrap = document.createElement('div');
+      textWrap.className = 'text-default editor pad-bot';
+
+      if (hasStep) {
+        const step = document.createElement('p');
+        step.className = 'text-large text-light';
+        step.innerHTML = stepCell.innerHTML;
+        textWrap.append(step);
+      }
+
+      if (hasDesc) {
+        while (descriptionCell.firstChild) textWrap.append(descriptionCell.firstChild);
+      }
+      content.append(textWrap);
+    }
+
+    slide.append(content);
+    return slide;
+  }
+
+  slide.className = 'carousel-dotted-item';
+  return slide;
+}
+
+/**
  * Initialize drag/swipe functionality for the carousel
  * @param {HTMLElement} block - The carousel block element
  * @param {Array} slideEls - Array of slide elements
@@ -368,7 +476,7 @@ export default function decorate(block) {
   }
 
   if (showArrows) {
-    block.classList.add('show-arrows');
+    block.classList.add('show-arrows-dots');
   }
 
   if (autoScroll) {
@@ -379,12 +487,16 @@ export default function decorate(block) {
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'carousel');
 
-  const slideEls = slides.map((row, index) => buildSlide(row, index));
+  const slideEls = slides.map((row, index) => (showArrows
+    ? buildSlideArrowsandDots(row, index)
+    : buildSlide(row, index)));
 
   const slidesWithImage = slideEls.filter((s) => s.classList.contains('with-image')).length;
   const slidesWithoutImage = slideEls.filter((s) => s.classList.contains('without-image')).length;
   const slidesHeroBanner = slideEls.filter((s) => s.classList.contains('hero-banner-image-carousel')).length;
   const slidesTextAnimation = slideEls.filter((s) => s.classList.contains('text-animation-variant')).length;
+  const slidesCircularImage = slideEls.filter((s) => s.classList.contains('with-circular-image')).length;
+  const slidesDefaultImage = slideEls.filter((s) => s.classList.contains('with-default-image')).length;
 
   if (
     slidesWithImage > 0
@@ -599,6 +711,10 @@ export default function decorate(block) {
   // Initialize drag/swipe functionality
   // Enable looping only if slides have images (like Grow Club section)
   // Disable looping for text-only slides (like News and Activities section)
-  const enableLooping = slidesWithImage > 0 || slidesHeroBanner > 0 || slidesTextAnimation > 0;
+  const enableLooping = slidesWithImage > 0
+    || slidesHeroBanner > 0
+    || slidesTextAnimation > 0
+    || slidesCircularImage > 0
+    || slidesDefaultImage > 0;
   initializeDragSwipe(block, slideEls, setActive, 50, enableLooping);
 }
