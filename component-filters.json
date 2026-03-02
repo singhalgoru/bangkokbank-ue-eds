@@ -4,7 +4,7 @@
     "components": [
       "section",
       "header-section",
-      "tabs"
+      "tabs-section"
     ]
   },
   {
@@ -150,7 +150,7 @@
     "maxItems": 6
   },
   {
-    "id": "tabs",
+    "id": "tab-section",
     "components": [
       "text",
       "image",

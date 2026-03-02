@@ -6422,8 +6422,8 @@
     ]
   },
   {
-    "id": "tabs",
-    "filter": "tabs",
+    "id": "tab-section",
+    "filter": "tab-section",
     "contentTreeField": "tab-name",
     "fields": [
       {

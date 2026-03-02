@@ -2,15 +2,15 @@
   "definitions": [
     {
       "title": "Tab Section",
-      "id": "tabs",
+      "id": "tab-section",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "name": "Tab Section",
-              "model": "tabs",
-              "filter": "tabs"
+              "model": "tab-section",
+              "filter": "tab-section"
             }
           }
         }
@@ -19,8 +19,8 @@
   ],
   "models": [
     {
-      "id": "tabs",
-      "filter": "tabs",
+      "id": "tab-section",
+      "filter": "tab-section",
       "contentTreeField": "tab-name",
       "fields": [
         {
@@ -187,7 +187,7 @@
   ],
   "filters": [
     {
-      "id": "tabs",
+      "id": "tab-section",
       "components": [
         "text",
         "image",
