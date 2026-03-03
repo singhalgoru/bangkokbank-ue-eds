@@ -6273,6 +6273,170 @@
     ]
   },
   {
+    "id": "menu-card-actions",
+    "fields": [
+      {
+        "component": "select",
+        "name": "variant",
+        "value": "default",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Menu Card Cta Dropdown",
+            "value": "menu-card-cta-dropdown"
+          },
+          {
+            "name": "Menu Card Text Download",
+            "value": "menu-card-text-download"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "mobileExperience",
+        "value": "default",
+        "label": "Mobile Experience",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Scrollable",
+            "value": "scrollable"
+          },
+          {
+            "name": "Stacked",
+            "value": "stacked"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "menu-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "menuCardImage",
+        "label": "Menu Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "menuCardImageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "titleType",
+        "label": "Title Type",
+        "options": [
+          {
+            "name": "h1",
+            "value": "h1"
+          },
+          {
+            "name": "h2",
+            "value": "h2"
+          },
+          {
+            "name": "h3",
+            "value": "h3"
+          },
+          {
+            "name": "h4",
+            "value": "h4"
+          },
+          {
+            "name": "h5",
+            "value": "h5"
+          },
+          {
+            "name": "h6",
+            "value": "h6"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "description": "Destination URL for the button"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text",
+        "description": "Button label text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title",
+        "description": "Accessibility title attribute (optional)"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "description": "Button style variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "name": "enableCtaDropdown",
+        "label": "Enable CTA Dropdown",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "richtext",
+        "name": "drop-links",
+        "value": "",
+        "label": "Dropdown Links",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "enableCtaDropdown"
+            },
+            true
+          ]
+        }
+      }
+    ]
+  },
+  {
     "id": "menu-cards",
     "fields": [
       {

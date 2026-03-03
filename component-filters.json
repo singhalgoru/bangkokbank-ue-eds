@@ -27,7 +27,8 @@
       "carousel-dotted",
       "cross-banner",
       "form",
-      "embed-adaptive-form"
+      "embed-adaptive-form",
+      "menu-card-actions"
     ]
   },
   {
@@ -139,6 +140,12 @@
     "id": "nav-item",
     "components": [
       "menu-item"
+    ]
+  },
+  {
+    "id": "menu-card-actions",
+    "components": [
+      "menu-card-item"
     ]
   },
   {
