@@ -6339,7 +6339,7 @@
       },
       {
         "component": "aem-content",
-        "name": "downloadButton",
+        "name": "downloadLink",
         "label": "Download Link",
         "description": "Download Link for the button",
         "condition": {
@@ -6353,7 +6353,7 @@
       },
       {
         "component": "text",
-        "name": "downloadButton",
+        "name": "downloadLinkText",
         "label": "Download Text",
         "description": "Download Button label text",
         "required": true,
@@ -6368,7 +6368,7 @@
       },
       {
         "component": "text",
-        "name": "downloadButton",
+        "name": "downloadLinkTitle",
         "label": "Download Title",
         "description": "Accessibility title attribute (optional)",
         "condition": {

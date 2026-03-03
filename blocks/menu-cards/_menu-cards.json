@@ -76,17 +76,17 @@
                 },
                 {
                     "...": "../../models/elements/_download.json#/_downloadLinkField",
-                    "name": "downloadButton",
+                    "name": "downloadLink",
                     "condition": { "===": [{ "var": "isDownloadButton" }, true] }
                 },
                 {
                     "...": "../../models/elements/_download.json#/_downloadLinkTextField",
-                    "name": "downloadButton",
+                    "name": "downloadLinkText",
                     "condition": { "===": [{ "var": "isDownloadButton" }, true] }
                 } ,
                 {
                     "...": "../../models/elements/_download.json#/_downloadLinkTitleField",
-                    "name": "downloadButton",
+                    "name": "downloadLinkTitle",
                     "condition": { "===": [{ "var": "isDownloadButton" }, true] }
                 } 
             ]
