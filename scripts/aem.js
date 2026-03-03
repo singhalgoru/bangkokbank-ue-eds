@@ -435,6 +435,17 @@ function decorateButtons(element) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
       if (!a.querySelector('img')) {
+        const classes = new Set(a.className.split(/\s+/).filter(Boolean));
+        if (classes.has('download') || classes.has('button-download')) {
+          a.className = 'button download';
+          if (up?.tagName === 'P' || up?.tagName === 'DIV') {
+            up.classList.add('button-container');
+          } else if (twoup?.tagName === 'P') {
+            twoup.classList.add('button-container');
+          }
+          return;
+        }
+
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
           a.className = 'button'; // default
           up.classList.add('button-container');

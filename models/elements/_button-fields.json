@@ -37,8 +37,11 @@
         {
           "name": "Tertiary",
           "value": "tertiary"
+        },
+        {
+          "name": "Download",
+          "value": "download"
         }
       ]
     }
   ]
-
