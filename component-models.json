@@ -6334,7 +6334,8 @@
         "component": "boolean",
         "label": "Enable download button",
         "name": "isDownloadButton",
-        "valueType": "boolean"
+        "valueType": "boolean",
+        "vaule": false
       },
       {
         "0": {
@@ -6382,6 +6383,7 @@
             }
           ]
         },
+        "name": "menuButton",
         "condition": {
           "===": [
             {
@@ -6411,6 +6413,7 @@
           "label": "Download Title",
           "description": "Accessibility title attribute (optional)"
         },
+        "name": "downloadButton",
         "condition": {
           "===": [
             {

@@ -71,29 +71,18 @@
                     "component": "boolean",
                     "label": "Enable download button",
                     "name": "isDownloadButton",
-                    "valueType": "boolean"
+                    "valueType": "boolean",
+                    "vaule": false
                 },
                 {
                     "...": "../../models/elements/_button-fields.json",
-                    "condition": {
-                        "===": [
-                        {
-                            "var": "isDownloadButton"
-                        },
-                        false
-                        ]
-                    }
+                    "name": "menuButton",
+                    "condition": { "===": [{ "var": "isDownloadButton" }, false] }
                 },
                 {
                     "...": "../../models/elements/_download.json",
-                    "condition": {
-                        "===": [
-                        {
-                            "var": "isDownloadButton"
-                        },
-                        true
-                        ]
-                    }
+                    "name": "downloadButton",
+                    "condition": { "===": [{ "var": "isDownloadButton" }, true] }
                 } 
             ]
         }
