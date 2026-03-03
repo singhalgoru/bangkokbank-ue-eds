@@ -72,7 +72,7 @@
                     "label": "Enable download button",
                     "name": "isDownloadButton",
                     "valueType": "boolean",
-                    "vaule": false
+                    "value": false
                 },
                 {
                     "...": "../../models/elements/_button-fields.json",

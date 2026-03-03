@@ -6335,7 +6335,7 @@
         "label": "Enable download button",
         "name": "isDownloadButton",
         "valueType": "boolean",
-        "vaule": false
+        "value": false
       },
       {
         "0": {
