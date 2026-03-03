@@ -77,18 +77,167 @@
                 {
                     "...": "../../models/elements/_download.json#/_downloadLinkField",
                     "name": "downloadLink",
-                    "condition": { "===": [{ "var": "isDownloadButton" }, true] }
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "isDownloadButton"
+                            },
+                            true
+                        ]
+                    }
                 },
                 {
                     "...": "../../models/elements/_download.json#/_downloadLinkTextField",
                     "name": "downloadLinkText",
-                    "condition": { "===": [{ "var": "isDownloadButton" }, true] }
-                } ,
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "isDownloadButton"
+                            },
+                            true
+                        ]
+                    }
+                },
                 {
                     "...": "../../models/elements/_download.json#/_downloadLinkTitleField",
                     "name": "downloadLinkTitle",
-                    "condition": { "===": [{ "var": "isDownloadButton" }, true] }
-                } 
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "isDownloadButton"
+                            },
+                            true
+                        ]
+                    }
+                },
+                {
+                    "component": "select",
+                    "valueType": "string",
+                    "description": "Select type of button action- approach 2",
+                    "name": "buttonActionType",
+                    "value": "h3",
+                    "label": "Button ActionType",
+                    "options": [
+                      { "name": "Default", "value": "default" },
+                      { "name": "Download", "value": "download" }
+                    ]
+                },
+                {
+                    "component": "aem-content",
+                    "name": "downloadLink2",
+                    "label": "Download Link 2",
+                    "description": "Download Link for the button for approach 2",
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "download"
+                        ]
+                    }
+                },
+                {
+                    "component": "text",
+                    "name": "downloadLinkText2",
+                    "label": "Download Text 2",
+                    "description": "Download Button label text for approach 2",
+                    "required": true,
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "download"
+                        ]
+                    }
+                },
+                {
+                    "component": "text",
+                    "name": "downloadLinkTitle2",
+                    "label": "Download Title 2",
+                    "description": "Accessibility title attribute (optional) for approach 2",
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "download"
+                        ]
+                    }
+                },
+                {
+                    "component": "aem-content",
+                    "name": "link",
+                    "label": "Link",
+                    "description": "Destination URL for the button",
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "default"
+                        ]
+                    }
+                },
+                {
+                    "component": "text",
+                    "name": "linkText",
+                    "label": "Text",
+                    "description": "Button label text",
+                    "required": true,
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "default"
+                        ]
+                    }
+                },
+                {
+                    "component": "text",
+                    "name": "linkTitle",
+                    "label": "Title",
+                    "description": "Accessibility title attribute (optional)",
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "default"
+                        ]
+                    }
+                },
+                {
+                    "component": "select",
+                    "name": "linkType",
+                    "label": "Type",
+                    "description": "Button style variant",
+                    "valueType": "string",
+                    "value": "",
+                    "options": [
+                        {
+                            "name": "Primary",
+                            "value": "primary"
+                        },
+                        {
+                            "name": "Secondary",
+                            "value": "secondary"
+                        },
+                        {
+                            "name": "Tertiary",
+                            "value": "tertiary"
+                        }
+                    ],
+                    "condition": {
+                        "===": [
+                            {
+                                "var": "buttonActionType"
+                            },
+                            "default"
+                        ]
+                    }
+                }
             ]
         }
     ],
