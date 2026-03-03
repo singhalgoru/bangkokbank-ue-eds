@@ -1,4 +1,10 @@
 /* Tab Block Core Styles */
+
+/* Hide source sections in preview mode (preserve for authoring Content Tree) */
+.tabs-source-section {
+  display: none;
+}
+
 .tabs-container {
   max-width: 79.5rem;
   margin: 0 auto;
