@@ -106,6 +106,8 @@
         "menu-cards",
         "carousel-dotted",
         "cross-banner",
+        "form",
+        "embed-adaptive-form",
         "content-insert-cards"
       ]
     }
