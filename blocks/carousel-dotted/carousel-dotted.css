@@ -822,6 +822,7 @@
 
   .carousel-dotted .carousel-dotted-item.with-circular-image,
   .carousel-dotted .carousel-dotted-item.with-default-image {
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
   }
