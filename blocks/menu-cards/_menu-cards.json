@@ -68,10 +68,32 @@
                     "valueType": "string"
                 },
                 {
-                    "...": "../../models/elements/_button-fields.json"
+                    "component": "boolean",
+                    "label": "Enable download button",
+                    "name": "isDownloadButton",
+                    "valueType": "boolean"
                 },
                 {
-                    "...": "../../models/elements/_download.json"
+                    "...": "../../models/elements/_button-fields.json",
+                    "condition": {
+                        "===": [
+                        {
+                            "var": "isDownloadButton"
+                        },
+                        false
+                        ]
+                    }
+                },
+                {
+                    "...": "../../models/elements/_download.json",
+                    "condition": {
+                        "===": [
+                        {
+                            "var": "isDownloadButton"
+                        },
+                        true
+                        ]
+                    }
                 } 
             ]
         }

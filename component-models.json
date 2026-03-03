@@ -6331,68 +6331,94 @@
         "valueType": "string"
       },
       {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link",
-        "description": "Destination URL for the button"
+        "component": "boolean",
+        "label": "Enable download button",
+        "name": "isDownloadButton",
+        "valueType": "boolean"
       },
       {
-        "component": "text",
-        "name": "linkText",
-        "label": "Text",
-        "description": "Button label text",
-        "required": true
+        "0": {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "description": "Destination URL for the button"
+        },
+        "1": {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true
+        },
+        "2": {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)"
+        },
+        "3": {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            },
+            {
+              "name": "Download",
+              "value": "download"
+            }
+          ]
+        },
+        "condition": {
+          "===": [
+            {
+              "var": "isDownloadButton"
+            },
+            false
+          ]
+        }
       },
       {
-        "component": "text",
-        "name": "linkTitle",
-        "label": "Title",
-        "description": "Accessibility title attribute (optional)"
-      },
-      {
-        "component": "select",
-        "name": "linkType",
-        "label": "Type",
-        "description": "Button style variant",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "Primary",
-            "value": "primary"
-          },
-          {
-            "name": "Secondary",
-            "value": "secondary"
-          },
-          {
-            "name": "Tertiary",
-            "value": "tertiary"
-          },
-          {
-            "name": "Download",
-            "value": "download"
-          }
-        ]
-      },
-      {
-        "component": "aem-content",
-        "name": "downloadLink",
-        "label": "Download Link",
-        "description": "Download Link for the button"
-      },
-      {
-        "component": "text",
-        "name": "downloadLinkText",
-        "label": "Download Text",
-        "description": "Download Button label text",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "downloadLinkTitle",
-        "label": "Download Title",
-        "description": "Accessibility title attribute (optional)"
+        "0": {
+          "component": "aem-content",
+          "name": "downloadLink",
+          "label": "Download Link",
+          "description": "Download Link for the button"
+        },
+        "1": {
+          "component": "text",
+          "name": "downloadLinkText",
+          "label": "Download Text",
+          "description": "Download Button label text",
+          "required": true
+        },
+        "2": {
+          "component": "text",
+          "name": "downloadLinkTitle",
+          "label": "Download Title",
+          "description": "Accessibility title attribute (optional)"
+        },
+        "condition": {
+          "===": [
+            {
+              "var": "isDownloadButton"
+            },
+            true
+          ]
+        }
       }
     ]
   },
