@@ -1,21 +1,21 @@
-[
-    {
+{
+    "_downloadLinkField": {
       "component": "aem-content",
       "name": "downloadLink",
       "label": "Download Link",
       "description": "Download Link for the button"
     },
-    {
+    "_downloadLinkTextField": {
       "component": "text",
       "name": "downloadLinkText",
       "label": "Download Text",
       "description": "Download Button label text",
       "required": true
     },
-    {
+    "_downloadLinkTitleField": {
       "component": "text",
       "name": "downloadLinkTitle",
       "label": "Download Title",
       "description": "Accessibility title attribute (optional)"
     }
-]
+  }

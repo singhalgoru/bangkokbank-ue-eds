@@ -65,7 +65,7 @@
                     "component": "aem-content",
                     "name": "link",
                     "label": "Redirection Link",
-                    "valueType": "string"
+                    "valueType": "content-reference"
                 },
                 {
                     "component": "boolean",
@@ -75,12 +75,17 @@
                     "value": false
                 },
                 {
-                    "...": "../../models/elements/_button-fields.json",
-                    "name": "menuButton",
-                    "condition": { "===": [{ "var": "isDownloadButton" }, false] }
+                    "...": "../../models/elements/_download.json#/_downloadLinkField",
+                    "name": "downloadButton",
+                    "condition": { "===": [{ "var": "isDownloadButton" }, true] }
                 },
                 {
-                    "...": "../../models/elements/_download.json",
+                    "...": "../../models/elements/_download.json#/_downloadLinkTextField",
+                    "name": "downloadButton",
+                    "condition": { "===": [{ "var": "isDownloadButton" }, true] }
+                } ,
+                {
+                    "...": "../../models/elements/_download.json#/_downloadLinkTitleField",
                     "name": "downloadButton",
                     "condition": { "===": [{ "var": "isDownloadButton" }, true] }
                 } 
