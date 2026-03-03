@@ -112,11 +112,18 @@ export default async function decorate(block) {
   tabsNav.className = 'tabs-nav';
   tabsNav.setAttribute('role', 'tablist');
 
-  // Create dropdown for mobile
-  const tabsDropdown = document.createElement('div');
-  tabsDropdown.className = 'tabs-dropdown';
-  const select = document.createElement('select');
-  select.setAttribute('aria-label', 'Select tab');
+  // Create dropdown for mobile (not needed for tiled-tab)
+  const isTiledTab = block.classList.contains('tiled-tab');
+  let tabsDropdown;
+  let select;
+
+  if (!isTiledTab) {
+    tabsDropdown = document.createElement('div');
+    tabsDropdown.className = 'tabs-dropdown';
+    select = document.createElement('select');
+    select.setAttribute('name', 'tab-selector');
+    select.setAttribute('aria-label', 'Select tab');
+  }
 
   const tabButtons = [...tabButtonRow.children].map((cell, index) => {
     // Create button for desktop
@@ -141,14 +148,16 @@ export default async function decorate(block) {
 
     tabsNav.appendChild(button);
 
-    // Create option for dropdown
-    const option = document.createElement('option');
-    option.value = index;
-    option.textContent = button.textContent.trim();
-    if (index === 0) {
-      option.selected = true;
+    // Create option for dropdown (skip for tiled-tab)
+    if (!isTiledTab) {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = button.textContent.trim();
+      if (index === 0) {
+        option.selected = true;
+      }
+      select.appendChild(option);
     }
-    select.appendChild(option);
 
     // Add click handler
     button.addEventListener('click', () => {
@@ -158,15 +167,19 @@ export default async function decorate(block) {
     return button;
   });
 
-  tabsDropdown.appendChild(select);
+  // Append dropdown only if not tiled-tab
+  if (!isTiledTab) {
+    tabsDropdown.appendChild(select);
 
-  // Dropdown change handler
-  select.addEventListener('change', (e) => {
-    activateTab(block, parseInt(e.target.value, 10));
-  });
+    // Dropdown change handler
+    select.addEventListener('change', (e) => {
+      activateTab(block, parseInt(e.target.value, 10));
+    });
+
+    tabsNavWrapper.appendChild(tabsDropdown);
+  }
 
   tabsNavWrapper.appendChild(tabsNav);
-  tabsNavWrapper.appendChild(tabsDropdown);
   block.appendChild(tabsNavWrapper);
   tabButtonRow.remove();
 
