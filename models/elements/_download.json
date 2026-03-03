@@ -1,0 +1,22 @@
+[
+    {
+      "component": "aem-content",
+      "name": "link",
+      "label": "Link",
+      "description": "Download Link for the button"
+    },
+    {
+      "component": "text",
+      "name": "linkText",
+      "label": "Text",
+      "description": "Download Button label text",
+      "required": true
+    },
+    {
+      "component": "text",
+      "name": "linkTitle",
+      "label": "Title",
+      "description": "Accessibility title attribute (optional)"
+    }
+]
+
