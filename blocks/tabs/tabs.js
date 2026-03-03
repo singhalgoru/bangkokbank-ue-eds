@@ -1,4 +1,5 @@
 import { loadBlock, decorateBlock } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function activateTab(tabsContainer, targetIndex) {
   const isMediaTab = tabsContainer.classList.contains('media-tab');
@@ -95,6 +96,7 @@ export default async function decorate(block) {
 
     [...imageRow.children].forEach((cell) => {
       const imageItem = document.createElement('div');
+      moveInstrumentation(cell, imageItem);
       imageItem.appendChild(cell.firstElementChild); // Move img element
       imagesContainer.appendChild(imageItem);
     });
@@ -128,6 +130,7 @@ export default async function decorate(block) {
   const tabButtons = [...tabButtonRow.children].map((cell, index) => {
     // Create button for desktop
     const button = document.createElement('button');
+    moveInstrumentation(cell, button);
     button.setAttribute('role', 'tab');
     button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
     button.setAttribute('aria-controls', `tab-panel-${index}`);
@@ -191,6 +194,7 @@ export default async function decorate(block) {
   await Promise.all(contentRows.map(async (row, index) => {
     const contentPanel = document.createElement('div');
     contentPanel.className = 'tab-panel';
+    moveInstrumentation(row, contentPanel);
     contentPanel.setAttribute('role', 'tabpanel');
     contentPanel.setAttribute('aria-labelledby', `tab-${index}`);
     contentPanel.id = `tab-panel-${index}`;
