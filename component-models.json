@@ -1227,7 +1227,7 @@
     ]
   },
   {
-    "id": "download",
+    "id": "download-file",
     "fields": [
       {
         "component": "aem-content",

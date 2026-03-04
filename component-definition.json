@@ -250,15 +250,15 @@
           }
         },
         {
-          "title": "Download",
-          "id": "download",
+          "title": "Download File",
+          "id": "download-file",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Download",
-                  "model": "download"
+                  "name": "Download File",
+                  "model": "download-file"
                 }
               }
             }
