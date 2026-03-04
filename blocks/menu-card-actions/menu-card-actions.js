@@ -19,14 +19,22 @@ function createMenuCardItem(row, variant, doc) {
     (i) => cells[i],
   );
 
-  const actionType = (isNewModel ? cells[4] : buttonDiv)?.textContent?.trim().toLowerCase() || 'default';
+  const actionTypeCellIndex = cells.findIndex((cell) => {
+    const value = cell?.textContent?.trim().toLowerCase();
+    return value === 'default' || value === 'download';
+  });
+  const actionType = actionTypeCellIndex >= 0
+    ? cells[actionTypeCellIndex]?.textContent?.trim().toLowerCase()
+    : 'default';
   const isDownload = actionType === 'download';
   const buttonAnchor = buttonDiv?.querySelector('a');
-  const legacyActionCell = !isNewModel ? cells.find((cell, i) => i > 3 && cell?.querySelector('a')) : null;
+  const actionAnchorCell = actionTypeCellIndex >= 0
+    ? cells.slice(actionTypeCellIndex + 1).find((cell) => cell?.querySelector?.('a'))
+    : null;
 
   const downloadButton = isDownload
     ? createDownloadButtonHTML(
-      isNewModel ? downloadLinkDiv : legacyActionCell,
+      isNewModel ? downloadLinkDiv : actionAnchorCell,
       isNewModel ? downloadLinkTextDiv : null,
       isNewModel ? downloadLinkTitleDiv : null,
       doc,
@@ -59,12 +67,12 @@ function createMenuCardItem(row, variant, doc) {
       if (dropdownLinksDiv?.querySelector('ul')) links.innerHTML = dropdownLinksDiv.innerHTML;
       dropdown.appendChild(links);
       inner.appendChild(dropdown);
-    } else if (buttonAnchor) {
+    } else if (buttonAnchor && actionType !== 'download') {
       buttonAnchor.classList.add('button-m');
       inner.appendChild(buttonAnchor);
     }
   } else if (variant === 'menu-card-text-download') {
-    const actionSource = (isNewModel ? buttonDiv : legacyActionCell)?.cloneNode(true);
+    const actionSource = (isNewModel ? buttonDiv : actionAnchorCell)?.cloneNode(true);
     const actionAnchor = actionSource?.querySelector('a');
 
     if (actionSource && actionType === 'default' && actionAnchor) {

@@ -8,7 +8,7 @@ export default function createDownloadButtonHTML(
 ) {
   const authoredLink = downloadLinkCell?.querySelector('a');
   const href = authoredLink?.getAttribute('href') || authoredLink?.href || '';
-  const text = getCellText(downloadTextCell) || authoredLink?.textContent?.trim() || '';
+  const text = getCellText(downloadTextCell);
 
   if (!href || !text) return null;
 
