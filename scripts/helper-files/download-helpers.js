@@ -14,7 +14,7 @@ export default function createDownloadButtonHTML(
 
   const anchor = doc.createElement('a');
   anchor.href = href;
-  anchor.className = 'download-file icon-download';
+  anchor.className = 'download-files icon-download';
   anchor.textContent = text;
   anchor.title = getCellText(downloadTitleCell) || text;
 
