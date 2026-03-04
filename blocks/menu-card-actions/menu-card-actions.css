@@ -146,6 +146,10 @@
     position: relative;
 }
 
+.menu-card-action-inner .download-button-wrapper .download-file {
+    margin-block: var(--bbl-space-250) 0;
+}
+
 @media (width > 47.5rem) {
     .section.menu-card-actions-container {
         padding-inline: var(--bbl-space-600);

@@ -1,15 +1,5 @@
-function getCellText(cell) {
-  return cell?.textContent?.trim() || '';
-}
+const getCellText = (cell) => cell?.textContent?.trim() || '';
 
-/**
- * Creates the download action anchor from authored download fields.
- * @param {Element} downloadLinkCell
- * @param {Element} downloadTextCell
- * @param {Element} downloadTitleCell
- * @param {Document} doc
- * @returns {HTMLAnchorElement|null}
- */
 export default function createDownloadButtonHTML(
   downloadLinkCell,
   downloadTextCell,
@@ -22,15 +12,14 @@ export default function createDownloadButtonHTML(
 
   if (!href || !text) return null;
 
-  const title = getCellText(downloadTitleCell) || text;
   const anchor = doc.createElement('a');
   anchor.href = href;
-  anchor.className = 'button download-file';
+  anchor.className = 'download-file icon-download';
   anchor.textContent = text;
+  anchor.title = getCellText(downloadTitleCell) || text;
 
-  if (title) {
-    anchor.title = title;
-  }
-
-  return anchor;
+  const wrapper = doc.createElement('div');
+  wrapper.className = 'download-button-wrapper';
+  wrapper.appendChild(anchor);
+  return wrapper;
 }
