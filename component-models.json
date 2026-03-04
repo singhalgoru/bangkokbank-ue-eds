@@ -6376,23 +6376,65 @@
         "valueType": "string"
       },
       {
+        "component": "select",
+        "valueType": "string",
+        "description": "Select type of button action",
+        "name": "buttonActionType",
+        "value": "default",
+        "label": "Button ActionType",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "Download",
+            "value": "download"
+          }
+        ]
+      },
+      {
         "component": "aem-content",
         "name": "link",
         "label": "Link",
-        "description": "Destination URL for the button"
+        "description": "Destination URL for the button",
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "default"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "linkText",
         "label": "Text",
         "description": "Button label text",
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "default"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "linkTitle",
         "label": "Title",
-        "description": "Accessibility title attribute (optional)"
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "default"
+          ]
+        }
       },
       {
         "component": "select",
@@ -6414,14 +6456,73 @@
             "name": "Tertiary",
             "value": "tertiary"
           }
-        ]
+        ],
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "default"
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "downloadLink",
+        "label": "Download Link",
+        "description": "Download Link for the button",
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "download"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "downloadLinkText",
+        "label": "Download Text",
+        "description": "Download Button label text",
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "download"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "downloadLinkTitle",
+        "label": "Download Title",
+        "description": "Accessibility title attribute (optional)",
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "download"
+          ]
+        }
       },
       {
         "component": "boolean",
         "name": "enableCtaDropdown",
         "label": "Enable CTA Dropdown",
         "valueType": "boolean",
-        "value": false
+        "value": false,
+        "condition": {
+          "===": [
+            {
+              "var": "buttonActionType"
+            },
+            "default"
+          ]
+        }
       },
       {
         "component": "richtext",
@@ -6430,11 +6531,23 @@
         "label": "Dropdown Links",
         "valueType": "string",
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "enableCtaDropdown"
+              "===": [
+                {
+                  "var": "enableCtaDropdown"
+                },
+                true
+              ]
             },
-            true
+            {
+              "===": [
+                {
+                  "var": "buttonActionType"
+                },
+                "default"
+              ]
+            }
           ]
         }
       }

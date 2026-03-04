@@ -1,14 +1,43 @@
 import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
+import createDownloadButtonHTML from '../../scripts/helper-files/download-helpers.js';
 
 function createMenuCardItem(cardElement, variant, doc) {
-  const [
-    imageDiv,
-    titleDiv,
-    descDiv,
-    buttonDiv,
-    enableDropdownDiv,
-    dropdownLinksDiv,
-  ] = [...cardElement.children];
+  const cells = [...cardElement.children];
+  const isNewModel = cells.length >= 14;
+  let imageDiv;
+  let titleDiv;
+  let descDiv;
+  let buttonDiv;
+  let enableDropdownDiv;
+  let dropdownLinksDiv;
+  let downloadLinkDiv = null;
+  let downloadLinkTextDiv = null;
+  let downloadLinkTitleDiv = null;
+
+  if (isNewModel) {
+    [
+      imageDiv,
+      titleDiv,,
+      descDiv,,
+      buttonDiv,
+      ,
+      ,,
+      downloadLinkDiv,
+      downloadLinkTextDiv,
+      downloadLinkTitleDiv,
+      enableDropdownDiv,
+      dropdownLinksDiv,
+    ] = cells;
+  } else {
+    [
+      imageDiv,
+      titleDiv,
+      descDiv,
+      buttonDiv,
+      enableDropdownDiv,
+      dropdownLinksDiv,
+    ] = cells;
+  }
 
   const title = titleDiv?.innerHTML?.trim();
   const description = descDiv?.innerHTML;
@@ -16,6 +45,13 @@ function createMenuCardItem(cardElement, variant, doc) {
   const img = imageDiv?.querySelector('img');
   const buttonHTML = buttonDiv?.innerHTML?.trim() || '';
   const buttonAnchor = buttonDiv?.querySelector('a');
+  const downloadButton = createDownloadButtonHTML(
+    downloadLinkDiv,
+    downloadLinkTextDiv,
+    downloadLinkTitleDiv,
+    doc,
+  );
+  const isDownloadEnabled = Boolean(downloadButton);
 
   const card = createElementFromHTML(
     '<div class="menu-card-action-item"></div>',
@@ -55,7 +91,9 @@ function createMenuCardItem(cardElement, variant, doc) {
   }
 
   /* ---------------- BUTTON / DROPDOWN ---------------- */
-  if (variant === 'menu-card-cta-dropdown') {
+  if (isDownloadEnabled && downloadButton) {
+    inner.appendChild(downloadButton);
+  } else if (variant === 'menu-card-cta-dropdown') {
     if (enableDropdown) {
       const dropdown = createElementFromHTML(
         '<div class="menu-card-cta-dropdown-wrapper"></div>',
