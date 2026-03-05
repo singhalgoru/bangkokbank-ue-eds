@@ -98,7 +98,7 @@ function buildSlideWithoutImage(row, index, cells) {
  */
 function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
-  slide.className = `carousel-item ${variant}`;
+  slide.className = `carousel-item ${variant} with-image`;
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
