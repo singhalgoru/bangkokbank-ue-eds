@@ -1,5 +1,6 @@
 import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
 import createDownloadButtonHTML from '../../scripts/helper-files/download-helpers.js';
+import createGlobalDropdown from '../../scripts/helper-files/dropdown-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 function createMenuCardItem(row, variant, doc) {
@@ -61,11 +62,8 @@ function createMenuCardItem(row, variant, doc) {
     inner.appendChild(downloadButton);
   } else if (variant === 'menu-card-cta-dropdown') {
     if (enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true') {
-      const dropdown = createElementFromHTML('<div class="menu-card-cta-dropdown-wrapper"></div>', doc);
-      dropdown.appendChild(createElementFromHTML(`<span class="menu-card-cta-dropdown-text">${buttonAnchor?.textContent.trim() || ''}</span>`, doc));
-      const links = createElementFromHTML('<div class="menu-card-cta-dropdown-links"></div>', doc);
-      if (dropdownLinksDiv?.querySelector('ul')) links.innerHTML = dropdownLinksDiv.innerHTML;
-      dropdown.appendChild(links);
+      const linksHTML = dropdownLinksDiv?.querySelector('ul') ? dropdownLinksDiv.innerHTML : '';
+      const dropdown = createGlobalDropdown(buttonAnchor?.textContent.trim() || 'Select', linksHTML, doc);
       inner.appendChild(dropdown);
     } else if (buttonAnchor && actionType !== 'download') {
       buttonAnchor.classList.add('button-m');

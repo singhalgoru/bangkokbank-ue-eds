@@ -29,6 +29,10 @@
     border: 0.0625rem solid var(--bbl-color-black-alpha-10);
 }
 
+.menu-card-cta-dropdown :is(.menu-card-action-item, .menu-card-action-inner, .global-dropdown) {
+  overflow: visible;
+}
+
 .menu-card-action-inner img {
     height: 5rem;
     width: auto;
@@ -194,6 +198,10 @@
         justify-content: center;
         scroll-snap-type: none;
         scrollbar-width: none;
+    }
+
+    .menu-card-cta-dropdown.menu-card-action:is(.scrollable, .stacked) {
+        overflow: visible;
     }
 
     .menu-card-action.scrollable::-webkit-scrollbar {

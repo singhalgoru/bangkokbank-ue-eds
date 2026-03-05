@@ -8,7 +8,7 @@ export default function createDownloadButtonHTML(
 ) {
   const authoredLink = downloadLinkCell?.querySelector('a');
   const href = authoredLink?.getAttribute('href') || authoredLink?.href || '';
-  const text = getCellText(downloadTextCell);
+  const text = authoredLink?.textContent?.trim() || '';
 
   if (!href || !text) return null;
 
@@ -17,6 +17,10 @@ export default function createDownloadButtonHTML(
   anchor.className = 'download-files icon-download';
   anchor.textContent = text;
   anchor.title = getCellText(downloadTitleCell) || text;
+
+  if (href && href.startsWith('/-/media')) {
+    anchor.setAttribute('href', `https://www.bangkokbank.com${href}`);
+  }
 
   const wrapper = doc.createElement('div');
   wrapper.className = 'download-button-wrapper';
