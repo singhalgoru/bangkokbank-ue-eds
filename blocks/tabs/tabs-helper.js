@@ -23,14 +23,6 @@ function moveInstrumentation(from, to) {
 export default function decorateTabs(main) {
   const sections = [...main.querySelectorAll(':scope > div')];
 
-  // Detect authoring mode - check if any section has data-aue attributes
-  const isAuthoringMode = sections.some((section) => [...section.attributes].some((attr) => attr.name.startsWith('data-aue-')));
-
-  // In authoring mode, don't combine sections - keep content tree as-is
-  if (isAuthoringMode) {
-    return;
-  }
-
   const tabGroups = [];
   let currentGroup = [];
 
