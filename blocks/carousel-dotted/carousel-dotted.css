@@ -493,16 +493,16 @@
 
 /* Override the tablet absolute positioning for show-arrows-dots items so they provide natural height */
 .carousel-dotted.show-arrows-dots .carousel-dotted-item {
-  position: relative ;
-  inset: unset ;
-  display: none ;
-  opacity: 1 ;
-  transition: none ;
+  position: relative;
+  inset: unset;
+  display: none;
+  opacity: 1;
+  transition: none;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-dotted-item.is-active {
-  display: flex ;
-  opacity: 1 ;
+  display: flex;
+  opacity: 1;
 }
 
 /* Circular Image specific */
@@ -676,18 +676,9 @@
   height: auto;
 }
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .carousel-dotted,
-  .carousel-dotted * {
-    transition: none !important;
-    animation: none !important;
-  }
-}
-
 /* Tablet */
 @media (width >=47.5rem) {
-  .carousel-dotted-wrapper{
+  .carousel-dotted-wrapper {
     padding-right: 48px;
     padding-left: 48px;
   }
@@ -857,6 +848,19 @@
     align-items: flex-start;
   }
 
+  /* show-arrows-dots: keep items hidden/visible via display, not opacity */
+  .carousel-dotted.show-arrows-dots .carousel-dotted-item {
+    position: relative;
+    inset: unset;
+    opacity: 1;
+    transition: none;
+    display: none;
+  }
+
+  .carousel-dotted.show-arrows-dots .carousel-dotted-item.is-active {
+    display: flex;
+  }
+
   .carousel-dotted .carousel-dotted-item.with-default-image .img-thumb {
     flex: 0 0 45%;
   }
@@ -895,11 +899,12 @@
     display: flex;
   }
 
-  .carousel-dotted .carousel-dotted-item.with-circular-image .title-2{
+  .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 {
     margin: unset;
   }
 
-  .carousel-dotted .carousel-dotted-item.with-circular-image .text-brown, .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
+  .carousel-dotted .carousel-dotted-item.with-circular-image .text-brown,
+  .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
     margin-top: 40px;
   }
 }
