@@ -141,7 +141,8 @@
           "label": "Button ActionType",
           "options": [
             { "name": "Default", "value": "default" },
-            { "name": "Download", "value": "download" }
+            { "name": "Download", "value": "download" },
+            { "name": "Select Dropdown", "value": "select-dropdown" }
           ]
         },
         {
@@ -218,8 +219,10 @@
           }
         },
         {
-          "...": "../../models/elements/_download.json#/_downloadLinkField",
+          "component": "aem-content",
           "name": "downloadLink",
+          "label": "Download Link",
+          "description": "Download Link for the button",
           "condition": {
             "===": [
               {
@@ -230,8 +233,11 @@
           }
         },
         {
-          "...": "../../models/elements/_download.json#/_downloadLinkTextField",
+          "component": "text",
           "name": "downloadLinkText",
+          "label": "Download Text",
+          "description": "Download Button label text",
+          "required": true,
           "condition": {
             "===": [
               {
@@ -242,8 +248,10 @@
           }
         },
         {
-          "...": "../../models/elements/_download.json#/_downloadLinkTitleField",
+          "component": "text",
           "name": "downloadLinkTitle",
+          "label": "Download Title",
+          "description": "Accessibility title attribute (optional)",
           "condition": {
             "===": [
               {
@@ -254,17 +262,16 @@
           }
         },
         {
-          "component": "boolean",
-          "name": "enableCtaDropdown",
-          "label": "Enable CTA Dropdown",
-          "valueType": "boolean",
-          "value": false,
+          "component": "text",
+          "name": "dropdownLable",
+          "label": "Dropdown Lable",
+          "description": "Dropdown lable text for dropdown links",
           "condition": {
             "===": [
               {
                 "var": "buttonActionType"
               },
-              "default"
+              "select-dropdown"
             ]
           }
         },
@@ -279,17 +286,9 @@
               {
                 "===": [
                   {
-                    "var": "enableCtaDropdown"
-                  },
-                  true
-                ]
-              },
-              {
-                "===": [
-                  {
                     "var": "buttonActionType"
                   },
-                  "default"
+                  "select-dropdown"
                 ]
               }
             ]

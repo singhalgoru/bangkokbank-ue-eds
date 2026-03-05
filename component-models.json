@@ -6414,6 +6414,10 @@
           {
             "name": "Download",
             "value": "download"
+          },
+          {
+            "name": "Select Dropdown",
+            "value": "select-dropdown"
           }
         ]
       },
@@ -6534,17 +6538,16 @@
         }
       },
       {
-        "component": "boolean",
-        "name": "enableCtaDropdown",
-        "label": "Enable CTA Dropdown",
-        "valueType": "boolean",
-        "value": false,
+        "component": "text",
+        "name": "dropdownLable",
+        "label": "Dropdown Lable",
+        "description": "Dropdown lable text for dropdown links",
         "condition": {
           "===": [
             {
               "var": "buttonActionType"
             },
-            "default"
+            "select-dropdown"
           ]
         }
       },
@@ -6559,17 +6562,9 @@
             {
               "===": [
                 {
-                  "var": "enableCtaDropdown"
-                },
-                true
-              ]
-            },
-            {
-              "===": [
-                {
                   "var": "buttonActionType"
                 },
-                "default"
+                "select-dropdown"
               ]
             }
           ]
