@@ -373,9 +373,16 @@ export default function decorate(block) {
 
   const slides = rows
     .slice(nextIndex)
-    .filter((row) => [...row.children].some(
-      (cell) => cell.textContent.trim() !== '' || cell.querySelector('picture'),
-    ));
+    .filter((row) => {
+      const cells = [...row.children];
+
+      const heroBanner = cells[8]?.textContent?.trim()?.toLowerCase() === 'true';
+      const textAnimation = cells[9]?.textContent?.trim()?.toLowerCase() === 'true';
+      const withImage = cells[0]?.textContent?.trim()?.toLowerCase() === 'true';
+      const hasPicture = cells[2]?.querySelector('picture');
+
+      return heroBanner || textAnimation || withImage || hasPicture;
+    });
   block.className = 'carousel-dotted';
 
   if (showDots) {
