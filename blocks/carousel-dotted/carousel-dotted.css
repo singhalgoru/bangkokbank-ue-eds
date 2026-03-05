@@ -474,7 +474,35 @@
   border: none;
   border-radius: 0;
   background: transparent;
-  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 2.5rem;
+  grid-template-rows: auto auto;
+  gap: 0;
+  column-gap: 0.75rem;
+}
+
+.carousel-dotted.show-arrows-dots .carousel-track-wrapper {
+  background: var(--bbl-color-white);
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: var(--bbl-rounded-100);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+  overflow: hidden;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Override the tablet absolute positioning for show-arrows-dots items so they provide natural height */
+.carousel-dotted.show-arrows-dots .carousel-dotted-item {
+  position: relative ;
+  inset: unset ;
+  display: none ;
+  opacity: 1 ;
+  transition: none ;
+}
+
+.carousel-dotted.show-arrows-dots .carousel-dotted-item.is-active {
+  display: flex ;
+  opacity: 1 ;
 }
 
 /* Circular Image specific */
@@ -556,7 +584,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor {
@@ -578,11 +605,9 @@
 
 /* Arrows (show-arrows-dots enables display) */
 .carousel-dotted.show-arrows-dots .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3.125rem;
-  height: 3.125rem;
+  position: static;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   border: 1px solid var(--bbl-color-grey-40);
   background-color: var(--bbl-color-white);
@@ -591,9 +616,11 @@
   display: none;
   align-items: center;
   justify-content: center;
+  align-self: center;
   padding: 0;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+  flex-shrink: 0;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow:hover {
@@ -611,7 +638,8 @@
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow-prev {
-  left: 0.5rem;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow-prev::before {
@@ -620,7 +648,8 @@
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow-next {
-  right: 0.5rem;
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow-next::before {
@@ -635,10 +664,11 @@
 
 /* Dots */
 .carousel-dotted.show-arrows-dots .slick-dots {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  grid-column: 1 / 4;
+  grid-row: 2;
+  position: static;
+  transform: none;
+  margin-top: 0.75rem;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
@@ -827,10 +857,6 @@
     align-items: flex-start;
   }
 
-  .carousel-dotted .carousel-dotted-item.with-default-image {
-    align-items: stretch;
-  }
-
   .carousel-dotted .carousel-dotted-item.with-default-image .img-thumb {
     flex: 0 0 45%;
   }
@@ -847,26 +873,26 @@
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .circle-image {
-    margin: 0 30px 0  0;
+    margin: 0 30px 0 0;
   }
 }
 
 @media (width >=47.5rem) and (width < 64rem) {
   /* Fix tablet spacing and align arrows automatically to content size */
   .carousel-dotted.show-arrows-dots {
-    display: grid;
+    grid-template-columns: 2rem 1fr 2rem;
+    column-gap: 0.5rem;
     min-height: unset;
   }
 
   .carousel-dotted.show-arrows-dots .carousel-dotted-item {
     position: relative;
-    grid-area: 1 / 1;
+    inset: unset;
   }
 
   .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-circular-image,
   .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-default-image {
     display: flex;
-    padding: 0 60px;
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .title-2{
@@ -875,7 +901,7 @@
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .text-brown, .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
     margin-top: 40px;
-}
+  }
 }
 
 @media (width >=64rem) {
@@ -972,6 +998,7 @@
   }
 
   .carousel-dotted.show-arrows-dots .carousel-arrow {
-    top: calc(50% - 3.5rem);
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

@@ -672,12 +672,19 @@ export default function decorate(block) {
     && slidesWithImage === 0
     && slidesWithoutImage === 0;
 
+  const circularOrDefaultImage = slidesCircularImage > 0 || slidesDefaultImage > 0;
+
   if (allHeroBanner || allWithoutImage) {
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
     const cloneFirst = slideEls[0].cloneNode(true);
     cloneFirst.setAttribute('aria-hidden', 'true');
     trackWrapper.replaceChildren(...slideEls, cloneFirst);
+    block.replaceChildren(trackWrapper);
+  } else if (circularOrDefaultImage) {
+    const trackWrapper = document.createElement('div');
+    trackWrapper.className = 'carousel-track-wrapper';
+    trackWrapper.replaceChildren(...slideEls);
     block.replaceChildren(trackWrapper);
   } else {
     block.replaceChildren(...slideEls);
@@ -686,7 +693,12 @@ export default function decorate(block) {
   if (showDots) {
     block.append(dots);
   } else if (showArrows) {
-    block.append(dots, prevArrow, nextArrow);
+    if (circularOrDefaultImage) {
+      const trackWrapper = block.querySelector('.carousel-track-wrapper');
+      block.replaceChildren(prevArrow, trackWrapper, nextArrow, dots);
+    } else {
+      block.append(dots, prevArrow, nextArrow);
+    }
   }
 
   if (seeMoreLink) {
