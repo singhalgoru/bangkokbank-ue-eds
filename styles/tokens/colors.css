@@ -37,6 +37,8 @@
   --bbl-color-grey-140: #3F3F3F;
   --bbl-color-grey-150: #9E9E9E;
   --bbl-color-grey-160: #8A8A8A;
+  --bbl-color-gray-121: #171717;
+  --bbl-color-gray-122: #e8e8e8;
 
   /* =========================================================================
      BLUE SCALE
@@ -177,6 +179,7 @@
   --bbl-color-white-alpha-30: rgba(255, 255, 255, 0.30);
   --bbl-color-white-alpha-40: rgba(255, 255, 255, 0.40);
   --bbl-color-white-alpha-60: rgba(255, 255, 255, 0.60);
+  --bbl-color-white-alpha-50: rgba(255, 255, 255, 0.5);
 
   /* =========================================================================
      SEMANTIC ALIASES (For Easier Use)

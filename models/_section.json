@@ -121,7 +121,9 @@
         "menu-banner",
         "cross-banner",
         "form",
-        "embed-adaptive-form"
+        "embed-adaptive-form",
+        "menu-card-actions",
+        "download-file"
       ]
     }
   ]

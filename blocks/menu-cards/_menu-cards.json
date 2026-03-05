@@ -65,7 +65,7 @@
                     "component": "aem-content",
                     "name": "link",
                     "label": "Redirection Link",
-                    "valueType": "string"
+                    "valueType": "content-reference"
                 }
             ]
         }
