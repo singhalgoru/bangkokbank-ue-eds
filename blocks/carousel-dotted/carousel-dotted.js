@@ -102,7 +102,7 @@ function buildSlideHeroVariant(row, index, cells, variant) {
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  const [heroImageCell, , titleCell, subtitleCell, linkCell] = cells.slice(10, 15);
+  const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(10, 14);
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -371,18 +371,7 @@ export default function decorate(block) {
     }
   }
 
-  const slides = rows
-    .slice(nextIndex)
-    .filter((row) => {
-      const cells = [...row.children];
-
-      const heroBanner = cells[8]?.textContent?.trim()?.toLowerCase() === 'true';
-      const textAnimation = cells[9]?.textContent?.trim()?.toLowerCase() === 'true';
-      const withImage = cells[0]?.textContent?.trim()?.toLowerCase() === 'true';
-      const hasPicture = cells[2]?.querySelector('picture');
-
-      return heroBanner || textAnimation || withImage || hasPicture;
-    });
+  const slides = rows.slice(nextIndex);
   block.className = 'carousel-dotted';
 
   if (showDots) {
@@ -588,11 +577,7 @@ export default function decorate(block) {
     trackWrapper.className = 'carousel-track-wrapper';
     const cloneFirst = slideEls[0].cloneNode(true);
     cloneFirst.setAttribute('aria-hidden', 'true');
-    cloneFirst.classList.add('carousel-clone');
-
-    trackWrapper.append(...slideEls);
-    trackWrapper.append(cloneFirst);
-
+    trackWrapper.replaceChildren(...slideEls, cloneFirst);
     block.replaceChildren(trackWrapper);
   } else {
     block.replaceChildren(...slideEls);
