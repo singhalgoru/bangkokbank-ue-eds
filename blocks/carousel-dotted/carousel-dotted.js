@@ -102,7 +102,7 @@ function buildSlideHeroVariant(row, index, cells, variant) {
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(10, 14);
+  const [heroImageCell, , titleCell, subtitleCell, linkCell] = cells.slice(10, 15);
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
