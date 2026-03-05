@@ -1,3 +1,7 @@
+.section.full-bleed-bg.cross-banner-container .content {
+    padding: 0;
+}
+
 .cross-banner {
     display: flex;
     flex-direction: column;
@@ -76,9 +80,10 @@
     line-height: 1.1244rem;
 }
 
-.wealth :is(.bg-truthful-blue, .bg-grey-100)
-  :is(.cross-banner-title, .cross-banner-description) {
-  color: var(--bbl-color-white);
+.wealth
+    :is(.bg-truthful-blue, .bg-grey-100)
+    :is(.cross-banner-title, .cross-banner-description) {
+    color: var(--bbl-color-white);
 }
 
 body.wealth
@@ -113,7 +118,7 @@ body.private
 }
 
 @media (width > 47.5rem) {
-    .section.full-bleed-bg.cross-banner-container {
+    .section.full-bleed-bg.cross-banner-container .content{
         padding: 0 var(--bbl-space-600);
     }
 
@@ -132,7 +137,7 @@ body.private
 }
 
 @media (width > 64rem) {
-    .section.full-bleed-bg.cross-banner-container {
+    .section.full-bleed-bg.cross-banner-container .content {
         padding: 0 var(--bbl-space-1050);
     }
 
@@ -180,7 +185,7 @@ body.private
 }
 
 @media (width > 120rem) {
-    .section.full-bleed-bg.cross-banner-container {
+    .section.full-bleed-bg.cross-banner-container .content {
         padding: 0;
     }
 
