@@ -1,7 +1,3 @@
-.section.section.full-bleed-bg.hero-container {
-    padding: 0;
-    overflow: hidden;
-}
 
 .hero-banner {
     width: 100%;
@@ -54,7 +50,6 @@
     display: block;
     object-fit: cover;
     object-position: center;
-    aspect-ratio: 5/4;
 }
 
 .section.full-bleed-bg .hero-banner-content.content {
@@ -169,10 +164,6 @@
 
 .hero-banner-simple::after {
     display: none;
-}
-
-.hero-banner-simple .hero-banner-img {
-    aspect-ratio: 136 / 115;
 }
 
 .hero-banner-simple .hero-banner-content :is(h1, h2, h3, h4, h5, h6) {
@@ -327,16 +318,15 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
             :is(h1, h2, h3, h4, h5, h6), .hero-banner-logo-wrapper)::before {
         background: var(--bbl-color-white);
     }
+
+    .hero-banner-simple, .hero-banner-simple-logo-banner {
+        margin-bottom: 0;
+    } 
 }
 
 @media (width > 64rem) {
     .hero-banner::after {
         content: none;
-    }
-
-    .hero-banner-img {
-        aspect-ratio: 192 / 85;
-        height: 53.125rem;
     }
 
     .section.full-bleed-bg .hero-banner-content.content {
@@ -400,12 +390,6 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
         width: 100%;
         max-width: calc((100% / 6) - 1.25rem);
         height: 14.875rem;
-    }
-
-    /* Simple variant override */
-    .hero-banner-simple .hero-banner-img {
-        aspect-ratio: 128 / 45;
-        height: 28.125rem;
     }
 
     .section.full-bleed-bg
