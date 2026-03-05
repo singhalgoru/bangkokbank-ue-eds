@@ -26,6 +26,7 @@
       "warning-card",
       "menu-cards",
       "carousel-dotted",
+      "menu-banner",
       "cross-banner",
       "form",
       "embed-adaptive-form"
@@ -143,11 +144,24 @@
     ]
   },
   {
+    "id": "menu-banner",
+    "components": [
+      "menu-banner-card"
+    ],
+    "maxItems": 4
+  },
+  {
     "id": "menu-cards",
     "components": [
       "menu-card"
     ],
     "maxItems": 6
+  },
+  {
+    "id": "story-card",
+    "components": [
+      "button"
+    ]
   },
   {
     "id": "tab-section",
