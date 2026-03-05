@@ -22,6 +22,15 @@ function moveInstrumentation(from, to) {
 
 export default function decorateTabs(main) {
   const sections = [...main.querySelectorAll(':scope > div')];
+
+  // Detect authoring mode - check if any section has data-aue attributes
+  const isAuthoringMode = sections.some((section) => [...section.attributes].some((attr) => attr.name.startsWith('data-aue-')));
+
+  // In authoring mode, don't combine sections - keep content tree as-is
+  if (isAuthoringMode) {
+    return;
+  }
+
   const tabGroups = [];
   let currentGroup = [];
 
@@ -207,11 +216,9 @@ export default function decorateTabs(main) {
     // Move instrumentation from first section to tabs section
     moveInstrumentation(firstSection, tabsSection);
 
-    // Preserve original sections for Content Tree (authoring view)
-    // Hide them in preview mode but keep in DOM
+    // In preview/published mode, remove original sections
     validTabs.forEach(({ section }) => {
-      section.classList.add('tabs-source-section');
-      section.setAttribute('data-tabs-source', 'true');
+      section.remove();
     });
   });
 }
