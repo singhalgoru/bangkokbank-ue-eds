@@ -50,16 +50,19 @@ function activateTab(tabsContainer, targetIndex) {
 export default async function decorate(block) {
   const rows = [...block.children];
 
-  // Detect variant: check if first row has multiple image-only cells
+  // Detect variant: check if first row has image-only cells
   const firstRow = rows[0];
-  const isMediaTab = firstRow.children.length > 1
-    && [...firstRow.children].every((cell) => {
-      const img = cell.querySelector('img');
-      if (!img) return false;
-      // Check if cell contains only image (and maybe wrapper divs/p tags)
-      const textContent = cell.textContent.trim();
-      return textContent === '' || textContent === img.alt;
-    });
+  const isMediaTab = [...firstRow.children].every((cell) => {
+    const img = cell.querySelector('img');
+    if (!img) return false;
+    // Clone cell and remove image to check for additional content
+    const cellClone = cell.cloneNode(true);
+    const imgClone = cellClone.querySelector('img');
+    if (imgClone) imgClone.remove();
+    // Media tab cells should have no text content beyond the image
+    const remainingText = cellClone.textContent.trim();
+    return remainingText === '';
+  });
 
   let tabButtonRow;
   let contentRows;
