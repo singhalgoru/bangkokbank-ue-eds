@@ -21,16 +21,23 @@
       "id": "download-file",
       "fields": [
         {
-          "...": "../../models/elements/_download.json#/_downloadLinkField",
-          "name": "downloadLink"
+          "component": "aem-content",
+          "name": "downloadLink",
+          "label": "Download Link",
+          "description": "Download Link for the button"
         },
         {
-          "...": "../../models/elements/_download.json#/_downloadLinkTextField",
-          "name": "downloadLinkText"
+          "component": "text",
+          "name": "downloadLinkText",
+          "label": "Download Text",
+          "description": "Download Button label text",
+          "required": true
         },
         {
-          "...": "../../models/elements/_download.json#/_downloadLinkTitleField",
-          "name": "downloadLinkTitle"
+          "component": "text",
+          "name": "downloadLinkTitle",
+          "label": "Download Title",
+          "description": "Accessibility title attribute (optional)"
         }
       ]
     }
