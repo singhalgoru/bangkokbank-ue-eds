@@ -3,30 +3,79 @@ import createDownloadButtonHTML from '../../scripts/helper-files/download-helper
 import createGlobalDropdown from '../../scripts/helper-files/dropdown-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
+function getCellText(cell) {
+  return cell?.textContent?.trim() || '';
+}
+
+function getCellByProp(cells, propName) {
+  return cells.find((cell) => {
+    const directProp = cell.getAttribute('data-aue-prop') || cell.getAttribute('data-richtext-prop');
+    if (directProp === propName) return true;
+    return Boolean(cell.querySelector(`[data-aue-prop="${propName}"], [data-richtext-prop="${propName}"]`));
+  });
+}
+
+function getLinkHref(linkCell) {
+  const authoredLink = linkCell?.querySelector('a');
+  return authoredLink?.getAttribute('href') || authoredLink?.href || getCellText(linkCell);
+}
+
+function createDefaultButton({
+  linkCell,
+  linkTextCell,
+  linkTitleCell,
+  linkTypeCell,
+  doc,
+}) {
+  const href = getLinkHref(linkCell);
+  const text = getCellText(linkTextCell) || linkCell?.querySelector('a')?.textContent?.trim() || '';
+
+  if (!href || !text) return null;
+
+  const button = doc.createElement('a');
+  button.href = href;
+  button.textContent = text;
+  button.title = getCellText(linkTitleCell) || text;
+  button.className = 'button-m';
+
+  const variant = getCellText(linkTypeCell).toLowerCase();
+  if (variant === 'primary' || variant === 'secondary') {
+    button.classList.add('button', variant);
+  } else {
+    button.classList.add('button-tertiary');
+  }
+
+  return button;
+}
+
 function createMenuCardItem(row, variant, doc) {
   const cells = [...row.children];
-  const isNewModel = cells.length >= 14;
-  const [
-    imageDiv,
-    titleDiv,
-    descDiv,
-    buttonDiv,
-    enableDropdownDiv,
-    dropdownLinksDiv,
-    downloadLinkDiv,
-    downloadLinkTextDiv,
-    downloadLinkTitleDiv,
-  ] = (isNewModel ? [0, 1, 3, 5, 13, 14, 10, 11, 12] : [0, 1, 2, 3, 4, 5]).map(
-    (i) => cells[i],
-  );
-
-  const actionTypeCellIndex = cells.findIndex((cell) => {
-    const value = cell?.textContent?.trim().toLowerCase();
-    return value === 'default' || value === 'download';
-  });
-  const actionType = actionTypeCellIndex >= 0
-    ? cells[actionTypeCellIndex]?.textContent?.trim().toLowerCase()
+  const actionTypeCell = getCellByProp(cells, 'buttonActionType');
+  const actionTypeCellIndex = actionTypeCell ? cells.indexOf(actionTypeCell) : -1;
+  const actionType = actionTypeCell
+    ? getCellText(actionTypeCell).toLowerCase()
     : 'default';
+  const isNewModel = actionTypeCellIndex >= 0 || Boolean(getCellByProp(cells, 'linkText'));
+
+  const imageDiv = getCellByProp(cells, 'menuCardImage') || cells[0];
+  const titleDiv = getCellByProp(cells, 'title') || cells[isNewModel ? 2 : 1];
+  const descDiv = getCellByProp(cells, 'description') || cells[isNewModel ? 4 : 2];
+
+  const linkDiv = getCellByProp(cells, 'link') || (isNewModel ? cells[actionTypeCellIndex + 1] : cells[3]);
+  const linkTextDiv = getCellByProp(cells, 'linkText') || (isNewModel ? cells[actionTypeCellIndex + 2] : null);
+  const linkTitleDiv = getCellByProp(cells, 'linkTitle') || (isNewModel ? cells[actionTypeCellIndex + 3] : null);
+  const linkTypeDiv = getCellByProp(cells, 'linkType') || (isNewModel ? cells[actionTypeCellIndex + 4] : null);
+  const enableDropdownDiv = getCellByProp(cells, 'enableCtaDropdown')
+    || (isNewModel ? cells[actionTypeCellIndex + 5] : cells[4]);
+  const dropdownLinksDiv = getCellByProp(cells, 'drop-links')
+    || (isNewModel ? cells[actionTypeCellIndex + 6] : cells[5]);
+  const downloadLinkDiv = getCellByProp(cells, 'downloadLink')
+    || cells[actionTypeCellIndex + 1];
+  const downloadLinkTextDiv = getCellByProp(cells, 'downloadLinkText')
+    || (isNewModel ? cells[actionTypeCellIndex + 2] : null);
+  const downloadLinkTitleDiv = getCellByProp(cells, 'downloadLinkTitle')
+    || (isNewModel ? cells[actionTypeCellIndex + 3] : null);
+
   const isDownload = actionType === 'download';
   const isDropdownEnabled = enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true';
 
@@ -49,8 +98,9 @@ function createMenuCardItem(row, variant, doc) {
   if (variant === 'menu-card-cta-dropdown') {
     if (isDropdownEnabled) {
       // Show dropdown
-      const buttonAnchor = buttonDiv?.querySelector('a');
-      const buttonText = buttonAnchor?.textContent?.trim() || 'Select';
+      const buttonText = getCellText(linkTextDiv)
+        || linkDiv?.querySelector('a')?.textContent?.trim()
+        || 'Select';
       const linksHTML = dropdownLinksDiv?.innerHTML?.trim() || '';
 
       if (linksHTML) {
@@ -66,9 +116,18 @@ function createMenuCardItem(row, variant, doc) {
         doc,
       );
       if (downloadButton) inner.appendChild(downloadButton);
-    } else {
+    } else if (isNewModel) {
       // Show regular button
-      const buttonAnchor = buttonDiv?.querySelector('a');
+      const defaultButton = createDefaultButton({
+        linkCell: linkDiv,
+        linkTextCell: linkTextDiv,
+        linkTitleCell: linkTitleDiv,
+        linkTypeCell: linkTypeDiv,
+        doc,
+      });
+      if (defaultButton) inner.appendChild(defaultButton);
+    } else {
+      const buttonAnchor = linkDiv?.querySelector('a');
       if (buttonAnchor) {
         const clonedButton = buttonAnchor.cloneNode(true);
         clonedButton.classList.add('button-m');
@@ -85,11 +144,20 @@ function createMenuCardItem(row, variant, doc) {
         doc,
       );
       if (downloadButton) inner.appendChild(downloadButton);
-    } else {
+    } else if (isNewModel) {
       // Show regular button
-      const buttonAnchor = buttonDiv?.querySelector('a');
+      const defaultButton = createDefaultButton({
+        linkCell: linkDiv,
+        linkTextCell: linkTextDiv,
+        linkTitleCell: linkTitleDiv,
+        linkTypeCell: linkTypeDiv,
+        doc,
+      });
+      if (defaultButton) inner.appendChild(defaultButton);
+    } else {
+      const buttonAnchor = linkDiv?.querySelector('a');
       if (buttonAnchor) {
-        const buttonContainer = buttonDiv.cloneNode(true);
+        const buttonContainer = linkDiv.cloneNode(true);
         decorateButtonsV1(buttonContainer);
         const decoratedButton = buttonContainer.querySelector('a');
         if (decoratedButton) {
