@@ -271,19 +271,7 @@
           "name": "autoScroll",
           "label": "Auto-Scroll",
           "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "and": [
-              {
-                "===": [
-                  {
-                    "var": "filter"
-                  },
-                  "showDots"
-                ]
-              }
-            ]
-          }
+          "value": false
         },
         {
           "component": "select",
@@ -306,14 +294,6 @@
           ],
           "condition": {
             "and": [
-              {
-                "===": [
-                  {
-                    "var": "filter"
-                  },
-                  "showDots"
-                ]
-              },
               {
                 "!!": [
                   {
