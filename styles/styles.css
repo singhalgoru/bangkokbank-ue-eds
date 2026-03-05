@@ -342,19 +342,16 @@ body.wealth main :is(.button-container .button, .button) {
     width: 100%;
     min-width: 100%;
     max-width: min(90vw, 42rem);
-    opacity: 0;
-    overflow: visible;
-    visibility: hidden;
+    overflow: hidden;
     pointer-events: none;
+    max-height: 0;
+    margin-top: 0.3125rem;
+    transition: max-height 0.5s ease-out;
 }
 
 .global-dropdown.is-open .global-dropdown-panel {
-    opacity: 1;
-    transform: translateY(0);
-    overflow: visible;
-    visibility: visible;
+    max-height: 31.25rem;
     pointer-events: auto;
-    margin-top: 0.3125rem;
 }
 
 .global-dropdown-panel ul {

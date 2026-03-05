@@ -1,11 +1,9 @@
 const updateDropdown = (root, open) => {
   const trigger = root.querySelector('.global-dropdown-trigger');
-  const panel = root.querySelector('.global-dropdown-panel');
-  if (!trigger || !panel) return;
+  if (!trigger) return;
 
   root.classList.toggle('is-open', open);
   trigger.setAttribute('aria-expanded', open);
-  panel.toggleAttribute('hidden', !open);
 };
 
 export default function createGlobalDropdown(label = 'Select', linksHTML = '', doc = document) {
@@ -23,7 +21,6 @@ export default function createGlobalDropdown(label = 'Select', linksHTML = '', d
     className: 'global-dropdown-panel',
     innerHTML: linksHTML,
   });
-  panel.setAttribute('hidden', '');
 
   trigger.addEventListener('click', () => updateDropdown(root, !root.classList.contains('is-open')));
   root.addEventListener('keydown', ({ key }) => key === 'Escape' && updateDropdown(root, false));
