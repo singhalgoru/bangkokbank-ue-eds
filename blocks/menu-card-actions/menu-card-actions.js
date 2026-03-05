@@ -28,19 +28,7 @@ function createMenuCardItem(row, variant, doc) {
     ? cells[actionTypeCellIndex]?.textContent?.trim().toLowerCase()
     : 'default';
   const isDownload = actionType === 'download';
-  const buttonAnchor = buttonDiv?.querySelector('a');
-  const actionAnchorCell = actionTypeCellIndex >= 0
-    ? cells.slice(actionTypeCellIndex + 1).find((cell) => cell?.querySelector?.('a'))
-    : null;
-
-  const downloadButton = isDownload
-    ? createDownloadButtonHTML(
-      isNewModel ? downloadLinkDiv : actionAnchorCell,
-      isNewModel ? downloadLinkTextDiv : null,
-      isNewModel ? downloadLinkTitleDiv : null,
-      doc,
-    )
-    : null;
+  const isDropdownEnabled = enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true';
 
   const inner = createElementFromHTML('<div class="menu-card-action-inner"></div>', doc);
 
@@ -52,39 +40,63 @@ function createMenuCardItem(row, variant, doc) {
     inner.appendChild(createElementFromHTML(`<div class="menu-card-action-title">${title}</div>`, doc));
   }
 
-  const description = descDiv?.innerHTML;
+  const description = descDiv?.innerHTML?.trim();
   if (description) {
     inner.appendChild(createElementFromHTML(`<div class="menu-card-action-description">${description}</div>`, doc));
     inner.querySelector('.menu-card-action-title')?.classList.add('has-description');
   }
 
-  if (downloadButton && variant === 'menu-card-text-download') {
-    inner.appendChild(downloadButton);
-  } else if (variant === 'menu-card-cta-dropdown') {
-    if (enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true') {
-      const linksHTML = dropdownLinksDiv?.querySelector('ul') ? dropdownLinksDiv.innerHTML : '';
-      const dropdown = createGlobalDropdown(buttonAnchor?.textContent.trim() || 'Select', linksHTML, doc);
-      inner.appendChild(dropdown);
-    } else if (buttonAnchor && actionType !== 'download') {
-      buttonAnchor.classList.add('button-m');
-      inner.appendChild(buttonAnchor);
+  if (variant === 'menu-card-cta-dropdown') {
+    if (isDropdownEnabled) {
+      // Show dropdown
+      const buttonAnchor = buttonDiv?.querySelector('a');
+      const buttonText = buttonAnchor?.textContent?.trim() || 'Select';
+      const linksHTML = dropdownLinksDiv?.innerHTML?.trim() || '';
+
+      if (linksHTML) {
+        const dropdown = createGlobalDropdown(buttonText, linksHTML, doc);
+        inner.appendChild(dropdown);
+      }
+    } else if (isDownload) {
+      // Show download button
+      const downloadButton = createDownloadButtonHTML(
+        isNewModel ? downloadLinkDiv : cells[actionTypeCellIndex + 1],
+        isNewModel ? downloadLinkTextDiv : null,
+        isNewModel ? downloadLinkTitleDiv : null,
+        doc,
+      );
+      if (downloadButton) inner.appendChild(downloadButton);
+    } else {
+      // Show regular button
+      const buttonAnchor = buttonDiv?.querySelector('a');
+      if (buttonAnchor) {
+        const clonedButton = buttonAnchor.cloneNode(true);
+        clonedButton.classList.add('button-m');
+        inner.appendChild(clonedButton);
+      }
     }
   } else if (variant === 'menu-card-text-download') {
-    const actionSource = (isNewModel ? buttonDiv : actionAnchorCell)?.cloneNode(true);
-    const actionAnchor = actionSource?.querySelector('a');
-
-    if (actionSource && actionType === 'default' && actionAnchor) {
-      decorateButtonsV1(actionSource);
-      const decorated = actionSource.querySelector('a');
-      if (decorated) {
-        decorated.classList.add('button-m');
-        inner.appendChild(decorated);
+    if (isDownload) {
+      // Show download button
+      const downloadButton = createDownloadButtonHTML(
+        isNewModel ? downloadLinkDiv : cells[actionTypeCellIndex + 1],
+        isNewModel ? downloadLinkTextDiv : null,
+        isNewModel ? downloadLinkTitleDiv : null,
+        doc,
+      );
+      if (downloadButton) inner.appendChild(downloadButton);
+    } else {
+      // Show regular button
+      const buttonAnchor = buttonDiv?.querySelector('a');
+      if (buttonAnchor) {
+        const buttonContainer = buttonDiv.cloneNode(true);
+        decorateButtonsV1(buttonContainer);
+        const decoratedButton = buttonContainer.querySelector('a');
+        if (decoratedButton) {
+          decoratedButton.classList.add('button-m');
+          inner.appendChild(decoratedButton);
+        }
       }
-    } else if (buttonAnchor) {
-      buttonAnchor.classList.add('button-m');
-      inner.appendChild(buttonAnchor);
-    } else if (buttonDiv?.innerHTML && actionType !== 'default' && actionType !== 'download') {
-      inner.innerHTML += buttonDiv.innerHTML.trim();
     }
   }
 
@@ -97,13 +109,16 @@ export default function decorate(block) {
   const doc = block.ownerDocument;
   const [variantRow, mobileRow, ...cardRows] = [...block.children];
 
+  const variant = variantRow?.textContent?.trim() || 'default';
+  const mobileExp = mobileRow?.textContent?.trim() || 'default';
+
   const container = createElementFromHTML(
-    `<div class="menu-card-action ${variantRow?.textContent?.trim()} ${mobileRow?.textContent?.trim()}"></div>`,
+    `<div class="menu-card-action ${variant} ${mobileExp}"></div>`,
     doc,
   );
 
   cardRows.forEach((row) => {
-    const card = createMenuCardItem(row, variantRow?.textContent?.trim(), doc);
+    const card = createMenuCardItem(row, variant, doc);
     moveInstrumentation(row, card);
     container.appendChild(card);
   });
