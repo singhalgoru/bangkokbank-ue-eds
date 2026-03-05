@@ -462,11 +462,8 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
     }
 }
 
-@media (width >= 120rem) {
-    .section.full-bleed-bg.section.full-bleed-bg .hero-banner-content.content {
+@media (width > 120rem) {
+    .section.full-bleed-bg .hero-banner-content.content {
         padding: 0;
     }
 }
-
-
-

@@ -209,6 +209,19 @@
                 "value": "bg-grey-100"
               }
             ]
+          },
+          {
+            "name": "Padding",
+            "children": [
+              {
+                "name": "Padding Top",
+                "value": "pad-top-30"
+              },
+              {
+                "name": "Padding Bottom",
+                "value": "pad-bot-30"
+              }
+            ]
           }
         ]
       }
