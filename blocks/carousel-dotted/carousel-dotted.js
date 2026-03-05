@@ -581,7 +581,11 @@ export default function decorate(block) {
     trackWrapper.className = 'carousel-track-wrapper';
     const cloneFirst = slideEls[0].cloneNode(true);
     cloneFirst.setAttribute('aria-hidden', 'true');
-    trackWrapper.replaceChildren(...slideEls, cloneFirst);
+    cloneFirst.classList.add('carousel-clone');
+
+    trackWrapper.append(...slideEls);
+    trackWrapper.append(cloneFirst);
+
     block.replaceChildren(trackWrapper);
   } else {
     block.replaceChildren(...slideEls);
