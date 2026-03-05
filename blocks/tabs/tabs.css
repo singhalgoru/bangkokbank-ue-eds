@@ -43,6 +43,7 @@
   padding: 0 0.5rem;
   font-size: 0.875rem;
   line-height: 0.875rem;
+  width: auto;
 }
 
 .tabs-nav-wrapper .tabs-nav button::before {
@@ -132,6 +133,7 @@
 /* Simple Tab Variant - Default */
 .tabs.simple-tab .tabs-nav {
   padding-bottom: var(--bbl-space-800);
+  margin-top: 1.875rem;
 }
 
 /* Media Tab Variant - with Images */
