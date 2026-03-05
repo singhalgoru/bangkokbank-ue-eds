@@ -98,7 +98,7 @@ function buildSlideWithoutImage(row, index, cells) {
  */
 function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
-  slide.className = `carousel-item ${variant} with-image`;
+  slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
@@ -371,7 +371,11 @@ export default function decorate(block) {
     }
   }
 
-  const slides = rows.slice(nextIndex);
+  const slides = rows
+    .slice(nextIndex)
+    .filter((row) => [...row.children].some(
+      (cell) => cell.textContent.trim() !== '' || cell.querySelector('picture'),
+    ));
   block.className = 'carousel-dotted';
 
   if (showDots) {
