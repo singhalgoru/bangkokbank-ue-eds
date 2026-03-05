@@ -29,6 +29,10 @@
     border: 0.0625rem solid var(--bbl-color-black-alpha-10);
 }
 
+.menu-card-cta-dropdown :is(.menu-card-action-item, .menu-card-action-inner, .global-dropdown) {
+  overflow: visible;
+}
+
 .menu-card-action-inner img {
     height: 5rem;
     width: auto;
@@ -68,6 +72,7 @@
     line-height: 2.75rem;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-top: var(--bbl-space-250);
 }
 
 .menu-card-cta-dropdown .menu-card-action-inner .button-tertiary::after {
@@ -77,6 +82,7 @@
 .menu-card-cta-dropdown .menu-card-action-inner .button-tertiary {
     position: relative;
     padding-right: 0.9375rem;
+    margin-top: var(--bbl-space-250);
     font: var(--bbl-font-weight-regular) 0.7rem/0.98rem var(--bbl-font-family-medium);
 }
 
@@ -147,6 +153,10 @@
     position: relative;
 }
 
+.menu-card-action-inner .download-button-wrapper .download-files {
+    margin-block: var(--bbl-space-250) 0;
+}
+
 @media (width > 47.5rem) {
     .section.menu-card-actions-container {
         padding-inline: var(--bbl-space-600);
@@ -191,6 +201,10 @@
         scrollbar-width: none;
     }
 
+    .menu-card-cta-dropdown.menu-card-action:is(.scrollable, .stacked) {
+        overflow: visible;
+    }
+
     .menu-card-action.scrollable::-webkit-scrollbar {
         display: none;
     }
@@ -215,6 +229,5 @@
     .menu-card-cta-dropdown .menu-card-action-inner .button-tertiary {
         font-size: 0.8rem; 
         line-height: 1.12rem;
-        margin-top: var(--bbl-space-250);
     }
 }

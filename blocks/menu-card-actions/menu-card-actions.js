@@ -1,6 +1,11 @@
 import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
+import createDownloadButtonHTML from '../../scripts/helper-files/download-helpers.js';
+import createGlobalDropdown from '../../scripts/helper-files/dropdown-helpers.js';
+import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
-function createMenuCardItem(cardElement, variant, doc) {
+function createMenuCardItem(row, variant, doc) {
+  const cells = [...row.children];
+  const isNewModel = cells.length >= 14;
   const [
     imageDiv,
     titleDiv,
@@ -8,106 +13,97 @@ function createMenuCardItem(cardElement, variant, doc) {
     buttonDiv,
     enableDropdownDiv,
     dropdownLinksDiv,
-  ] = [...cardElement.children];
+    downloadLinkDiv,
+    downloadLinkTextDiv,
+    downloadLinkTitleDiv,
+  ] = (isNewModel ? [0, 1, 3, 5, 13, 14, 10, 11, 12] : [0, 1, 2, 3, 4, 5]).map(
+    (i) => cells[i],
+  );
+
+  const actionTypeCellIndex = cells.findIndex((cell) => {
+    const value = cell?.textContent?.trim().toLowerCase();
+    return value === 'default' || value === 'download';
+  });
+  const actionType = actionTypeCellIndex >= 0
+    ? cells[actionTypeCellIndex]?.textContent?.trim().toLowerCase()
+    : 'default';
+  const isDownload = actionType === 'download';
+  const buttonAnchor = buttonDiv?.querySelector('a');
+  const actionAnchorCell = actionTypeCellIndex >= 0
+    ? cells.slice(actionTypeCellIndex + 1).find((cell) => cell?.querySelector?.('a'))
+    : null;
+
+  const downloadButton = isDownload
+    ? createDownloadButtonHTML(
+      isNewModel ? downloadLinkDiv : actionAnchorCell,
+      isNewModel ? downloadLinkTextDiv : null,
+      isNewModel ? downloadLinkTitleDiv : null,
+      doc,
+    )
+    : null;
+
+  const inner = createElementFromHTML('<div class="menu-card-action-inner"></div>', doc);
+
+  const img = imageDiv?.querySelector('img');
+  if (img) inner.appendChild(img.cloneNode(true));
 
   const title = titleDiv?.innerHTML?.trim();
-  const description = descDiv?.innerHTML;
-  const enableDropdown = enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true';
-  const img = imageDiv?.querySelector('img');
-  const buttonHTML = buttonDiv?.innerHTML?.trim() || '';
-  const buttonAnchor = buttonDiv?.querySelector('a');
-
-  const card = createElementFromHTML(
-    '<div class="menu-card-action-item"></div>',
-    doc,
-  );
-
-  const inner = createElementFromHTML(
-    '<div class="menu-card-action-inner"></div>',
-    doc,
-  );
-
-  /* ---------------- IMAGE ---------------- */
-  if (img) {
-    const newImg = img.cloneNode(true);
-    inner.appendChild(newImg);
-  }
-
-  /* ---------------- TITLE ---------------- */
   if (title) {
-    inner.appendChild(
-      createElementFromHTML(
-        `<div class="menu-card-action-title">${title}</div>`,
-        doc,
-      ),
-    );
+    inner.appendChild(createElementFromHTML(`<div class="menu-card-action-title">${title}</div>`, doc));
   }
 
-  /* ---------------- DESCRIPTION ---------------- */
+  const description = descDiv?.innerHTML;
   if (description) {
-    inner.appendChild(
-      createElementFromHTML(
-        `<div class="menu-card-action-description">${description}</div>`,
-        doc,
-      ),
-    );
+    inner.appendChild(createElementFromHTML(`<div class="menu-card-action-description">${description}</div>`, doc));
     inner.querySelector('.menu-card-action-title')?.classList.add('has-description');
   }
 
-  /* ---------------- BUTTON / DROPDOWN ---------------- */
-  if (variant === 'menu-card-cta-dropdown') {
-    if (enableDropdown) {
-      const dropdown = createElementFromHTML(
-        '<div class="menu-card-cta-dropdown-wrapper"></div>',
-        doc,
-      );
-
-      const label = createElementFromHTML(
-        `<span class="menu-card-cta-dropdown-text">${buttonAnchor?.textContent.trim() || ''}</span>`,
-        doc,
-      );
-
-      const links = createElementFromHTML(
-        '<div class="menu-card-cta-dropdown-links"></div>',
-        doc,
-      );
-
-      if (dropdownLinksDiv?.querySelector('ul')) {
-        links.innerHTML = dropdownLinksDiv.innerHTML;
-      }
-
-      dropdown.append(label, links);
+  if (downloadButton && variant === 'menu-card-text-download') {
+    inner.appendChild(downloadButton);
+  } else if (variant === 'menu-card-cta-dropdown') {
+    if (enableDropdownDiv?.textContent?.trim().toLowerCase() === 'true') {
+      const linksHTML = dropdownLinksDiv?.querySelector('ul') ? dropdownLinksDiv.innerHTML : '';
+      const dropdown = createGlobalDropdown(buttonAnchor?.textContent.trim() || 'Select', linksHTML, doc);
       inner.appendChild(dropdown);
-    } else if (buttonAnchor) {
+    } else if (buttonAnchor && actionType !== 'download') {
       buttonAnchor.classList.add('button-m');
       inner.appendChild(buttonAnchor);
     }
   } else if (variant === 'menu-card-text-download') {
-    inner.innerHTML += buttonHTML;
-  } else if (buttonAnchor) {
-    buttonAnchor.classList.add('button-m');
-    inner.appendChild(buttonAnchor);
+    const actionSource = (isNewModel ? buttonDiv : actionAnchorCell)?.cloneNode(true);
+    const actionAnchor = actionSource?.querySelector('a');
+
+    if (actionSource && actionType === 'default' && actionAnchor) {
+      decorateButtonsV1(actionSource);
+      const decorated = actionSource.querySelector('a');
+      if (decorated) {
+        decorated.classList.add('button-m');
+        inner.appendChild(decorated);
+      }
+    } else if (buttonAnchor) {
+      buttonAnchor.classList.add('button-m');
+      inner.appendChild(buttonAnchor);
+    } else if (buttonDiv?.innerHTML && actionType !== 'default' && actionType !== 'download') {
+      inner.innerHTML += buttonDiv.innerHTML.trim();
+    }
   }
 
+  const card = createElementFromHTML('<div class="menu-card-action-item"></div>', doc);
   card.appendChild(inner);
   return card;
 }
 
 export default function decorate(block) {
   const doc = block.ownerDocument;
-
   const [variantRow, mobileRow, ...cardRows] = [...block.children];
 
-  const variant = variantRow?.textContent?.trim();
-  const mobileExperience = mobileRow?.textContent?.trim();
-
   const container = createElementFromHTML(
-    `<div class="menu-card-action ${variant} ${mobileExperience}"></div>`,
+    `<div class="menu-card-action ${variantRow?.textContent?.trim()} ${mobileRow?.textContent?.trim()}"></div>`,
     doc,
   );
 
   cardRows.forEach((row) => {
-    const card = createMenuCardItem(row, variant, doc);
+    const card = createMenuCardItem(row, variantRow?.textContent?.trim(), doc);
     moveInstrumentation(row, card);
     container.appendChild(card);
   });

@@ -133,14 +133,140 @@
           "valueType": "string"
         },
         {
-          "...": "../../models/elements/_button-fields.json"
+          "component": "select",
+          "valueType": "string",
+          "description": "Select type of button action",
+          "name": "buttonActionType",
+          "value": "default",
+          "label": "Button ActionType",
+          "options": [
+            { "name": "Default", "value": "default" },
+            { "name": "Download", "value": "download" }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "description": "Destination URL for the button",
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "default"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text",
+          "description": "Button label text",
+          "required": true,
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "default"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title",
+          "description": "Accessibility title attribute (optional)",
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "default"
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "description": "Button style variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Tertiary",
+              "value": "tertiary"
+            }
+          ],
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "default"
+            ]
+          }
+        },
+        {
+          "...": "../../models/elements/_download.json#/_downloadLinkField",
+          "name": "downloadLink",
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "download"
+            ]
+          }
+        },
+        {
+          "...": "../../models/elements/_download.json#/_downloadLinkTextField",
+          "name": "downloadLinkText",
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "download"
+            ]
+          }
+        },
+        {
+          "...": "../../models/elements/_download.json#/_downloadLinkTitleField",
+          "name": "downloadLinkTitle",
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "download"
+            ]
+          }
         },
         {
           "component": "boolean",
           "name": "enableCtaDropdown",
           "label": "Enable CTA Dropdown",
           "valueType": "boolean",
-          "value": false
+          "value": false,
+          "condition": {
+            "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "default"
+            ]
+          }
         },
         {
           "component": "richtext",
@@ -149,9 +275,23 @@
           "label": "Dropdown Links",
           "valueType": "string",
           "condition": {
-            "===": [
-              { "var": "enableCtaDropdown" },
-              true
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableCtaDropdown"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "buttonActionType"
+                  },
+                  "default"
+                ]
+              }
             ]
           }
         }
