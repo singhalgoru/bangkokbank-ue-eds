@@ -100,6 +100,7 @@ function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
+  moveInstrumentation(row, slide);
 
   const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(10, 14);
   const picture = heroImageCell?.querySelector('picture');
