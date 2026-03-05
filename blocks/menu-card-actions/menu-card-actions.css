@@ -122,12 +122,13 @@
 
 .menu-card-action.stacked .menu-card-action-item {
     width: 100%;
+    padding: 0 0 var(--bbl-space-250);
 }
 
 .menu-card-action.scrollable {
     display: flex;
     overflow: auto hidden;
-    padding: 0 0 1.875rem; 
+    padding: 0 0 0.625rem; 
     gap: var(--bbl-space-250);
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
@@ -136,10 +137,10 @@
 .menu-card-action.scrollable .menu-card-action-item {
     flex: 0 0 16.875rem; 
     width: 16.875rem; 
-    padding: 0;
     scroll-snap-align: start;
     margin: 0;
     box-sizing: border-box;
+    padding: 0 0 var(--bbl-space-250);
 }
 
 .menu-card-action.scrollable::-webkit-scrollbar {
