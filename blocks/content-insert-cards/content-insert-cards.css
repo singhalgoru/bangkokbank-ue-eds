@@ -156,7 +156,7 @@
   transition: all 0.3s ease;
   cursor: pointer;
   text-align: center;
-  width: 100% !important;
+  width: 100%;
   min-width: auto;
   box-sizing: border-box;
   letter-spacing: 0.05rem;
@@ -179,7 +179,7 @@
   outline-offset: var(--bbl-space-025);
 }
 
-@media (width >=47.5rem) {
+@media (width > 47.5rem) {
 .content-insert-cards .content-insert-cards-wrapper {
   gap: var(--bbl-space-500);
 }
@@ -260,7 +260,7 @@
 }
 }
 
-@media (width >=64rem) {
+@media (width > 64rem) {
 .content-insert-cards .thumb {
   height: 23.75rem;
 }
