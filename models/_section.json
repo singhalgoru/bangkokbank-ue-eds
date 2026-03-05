@@ -79,6 +79,19 @@
                   "value": "bg-grey-100"
                 }
               ]
+            },
+            {
+              "name": "Padding",
+              "children": [
+                {
+                  "name": "Padding Top",
+                  "value": "pad-top-30"
+                },
+                {
+                  "name": "Padding Bottom",
+                  "value": "pad-bot-30"
+                }
+              ]
             }
           ]
         }
@@ -106,7 +119,9 @@
         "menu-cards",
         "carousel-dotted",
         "menu-banner",
-        "cross-banner"
+        "cross-banner",
+        "form",
+        "embed-adaptive-form"
       ]
     }
   ]

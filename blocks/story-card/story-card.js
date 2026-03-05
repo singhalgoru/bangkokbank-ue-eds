@@ -25,11 +25,23 @@ function getHTMLContent(row) {
  * @param {string} eyebrowText - Eyebrow text
  * @param {string} titleText - Title text
  * @param {string} descriptionHTML - Description HTML
- * @param {Element} buttonRow - Button row element to keep as-is
+ * @param {Array} buttonRows - Array of button row elements
+ * @param {Element} eyebrowRow - Original eyebrow row for instrumentation
+ * @param {Element} titleRow - Original title row for instrumentation
+ * @param {Element} descriptionRow - Original description row for instrumentation
  * @param {Document} doc - Document reference
  * @returns {Element} The content element
  */
-function buildContent(eyebrowText, titleText, descriptionHTML, buttonRow, doc) {
+function buildContent(
+  eyebrowText,
+  titleText,
+  descriptionHTML,
+  buttonRows,
+  eyebrowRow,
+  titleRow,
+  descriptionRow,
+  doc,
+) {
   const content = doc.createElement('div');
   content.className = 'content';
 
@@ -38,6 +50,7 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRow, doc) {
     const eyebrow = doc.createElement('h4');
     eyebrow.className = 'sub-title-medium line';
     eyebrow.textContent = eyebrowText;
+    moveInstrumentation(eyebrowRow, eyebrow);
     content.appendChild(eyebrow);
   }
 
@@ -46,6 +59,7 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRow, doc) {
     const title = doc.createElement('h2');
     title.className = 'title-1';
     title.textContent = titleText;
+    moveInstrumentation(titleRow, title);
     content.appendChild(title);
   }
 
@@ -54,15 +68,24 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRow, doc) {
     const description = doc.createElement('div');
     description.className = 'editor text-default';
     description.innerHTML = descriptionHTML;
+    moveInstrumentation(descriptionRow, description);
     content.appendChild(description);
   }
 
-  // Button - keep original HTML structure
-  if (buttonRow) {
-    const buttonContainer = buttonRow.querySelector('div');
-    if (buttonContainer) {
-      content.appendChild(buttonContainer.cloneNode(true));
-    }
+  // Buttons - handle multiple buttons
+  if (buttonRows && buttonRows.length > 0) {
+    buttonRows.forEach((buttonRow) => {
+      const buttonContainer = buttonRow?.querySelector('.button-container');
+      if (buttonContainer) {
+        const anchor = buttonContainer.querySelector('a');
+        // Only append if button has valid href and text
+        if (anchor && anchor.href && anchor.textContent.trim()) {
+          const clonedContainer = buttonContainer.cloneNode(true);
+          moveInstrumentation(buttonRow, clonedContainer);
+          content.appendChild(clonedContainer);
+        }
+      }
+    });
   }
 
   return content;
@@ -72,10 +95,11 @@ function buildContent(eyebrowText, titleText, descriptionHTML, buttonRow, doc) {
  * Build the thumb element with picture
  * @param {Element} img - Original image element
  * @param {string} imageAlt - Image alt text
+ * @param {Element} imageRow - Original image row for instrumentation
  * @param {Document} doc - Document reference
  * @returns {Element} The thumb element
  */
-function buildThumb(img, imageAlt, doc) {
+function buildThumb(img, imageAlt, imageRow, doc) {
   const thumb = doc.createElement('div');
   thumb.className = 'thumb';
 
@@ -93,6 +117,11 @@ function buildThumb(img, imageAlt, doc) {
     thumb.appendChild(optimizedPicture);
   }
 
+  // Move instrumentation from original image row to thumb
+  if (imageRow) {
+    moveInstrumentation(imageRow, thumb);
+  }
+
   return thumb;
 }
 
@@ -106,7 +135,7 @@ export default function decorate(block) {
 
   if (rows.length < 5) {
     // eslint-disable-next-line no-console
-    console.warn('Story card block requires at least 5 rows');
+    console.warn('Story card block requires at least 5 rows (image, eyebrow, title, description, imagePosition)');
     return;
   }
 
@@ -117,7 +146,7 @@ export default function decorate(block) {
   // Row 3: title (text)
   // Row 4: description (richtext)
   // Row 5: imagePosition (select)
-  // Row 6+: button fields (link, linkText, linkTitle, linkType)
+  // Row 6+: button child elements (0 or more buttons)
 
   // Find position row by looking for "image-left" or "image-right"
   let positionRowIndex = rows.findIndex((row) => {
@@ -142,7 +171,9 @@ export default function decorate(block) {
   const titleRow = hasAltText ? rows[3] : rows[2];
   const descriptionRow = hasAltText ? rows[4] : rows[3];
   const positionRow = rows[positionRowIndex];
-  const buttonRow = rows[positionRowIndex + 1];
+
+  // Collect all button rows after position row (could be 0, 1, or multiple)
+  const buttonRows = rows.slice(positionRowIndex + 1);
 
   // Get image
   const img = imageRow?.querySelector('img');
@@ -166,7 +197,7 @@ export default function decorate(block) {
   thumbFull.className = 'thumb-full';
 
   // Build thumb with picture element
-  const thumb = buildThumb(img, imageAlt, doc);
+  const thumb = buildThumb(img, imageAlt, imageRow, doc);
 
   // Build outer/inner/content
   const outer = doc.createElement('div');
@@ -175,7 +206,16 @@ export default function decorate(block) {
   const inner = doc.createElement('div');
   inner.className = 'inner';
 
-  const content = buildContent(eyebrowText, titleText, descriptionHTML, buttonRow, doc);
+  const content = buildContent(
+    eyebrowText,
+    titleText,
+    descriptionHTML,
+    buttonRows,
+    eyebrowRow,
+    titleRow,
+    descriptionRow,
+    doc,
+  );
   inner.appendChild(content);
   outer.appendChild(inner);
 
@@ -191,6 +231,9 @@ export default function decorate(block) {
   }
 
   wrapper.appendChild(thumbFull);
+
+  // Move instrumentation from original block to new wrapper
+  moveInstrumentation(block, wrapper);
 
   // Replace block content
   block.textContent = '';

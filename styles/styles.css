@@ -163,61 +163,85 @@ main img {
 /* sections (default) */
 .section {
     width: 100%;
-    padding: 0 var(--bbl-space-section-xl);
+    padding-inline: var(--bbl-space-section-xs);
     margin: 0 auto;
     box-sizing: border-box;
 }
 
-@media (width >= 1400px) {
+@media (width > 47.5rem) {
+    .section {
+        padding-inline: var(--bbl-space-section-sm);
+    }
+}
+
+@media (width > 64rem) {
+    .section {
+        padding-inline: var(--bbl-space-section-xl);
+    }
+}
+
+@media (width > 87.5rem) {
     .section {
         max-width: var(--bbl-layout-content-max-width-desktop);
-        padding: 0;
+        padding-inline: 0;
     }
 }
 
 /* sections (full-bleed-bg) */
 .section.full-bleed-bg {
     max-width: 100%;
-    padding: 0;
+    padding-inline: 0;
     margin: 0 auto;
 }
 
 .section.full-bleed-bg .content {
-    padding: 0;
+    padding-inline: var(--bbl-space-section-xs);
     margin: 0 auto;
 }
 
-@media (width >= 1920px) {
+@media (width > 47.5rem) {
     .section.full-bleed-bg .content {
-        max-width: var(--bbl-layout-content-max-width-1920);
+        padding-inline: var(--bbl-space-section-sm);
     }
 }
 
-/* section metadata: full-bleed-special */
+@media (width > 64rem) {
+    .section.full-bleed-bg .content {
+        padding-inline: var(--bbl-space-section-xl);
+    }
+}
+
+@media (width > 120rem) {
+    .section.full-bleed-bg .content {
+        max-width: var(--bbl-layout-content-max-width-1920);
+        padding-inline: 0;
+    }
+}
+
 .section.full-bleed-special {
     width: 100%;
-    max-width: 100%;
-    padding: 0 var(--bbl-space-container-xs);
+    padding-inline: var(--bbl-space-section-xs);
     margin: 0 auto;
     box-sizing: border-box;
 }
 
-@media (width >= 760px) {
+@media (width > 47.5rem) {
     .section.full-bleed-special {
-        padding: 0 var(--bbl-space-container-md);
+        padding-inline: var(--bbl-space-section-sm);
     }
 }
 
-@media (width >= 1025px) {
+@media (width > 64rem) {
     .section.full-bleed-special {
-        padding: 0 var(--bbl-space-section-xl);
+        max-width: 100%;
+        padding-inline:  var(--bbl-space-section-xl);
     }
 }
 
-@media (width >= 1920px) {
+@media (width > 120rem) {
     .section.full-bleed-special {
         max-width: var(--bbl-layout-content-max-width-1920);
-        padding: 0;
+        padding-inline: 0;
     }
 }
 
@@ -291,4 +315,16 @@ body.wealth main :is(.button-container .button, .button) {
         background: var(--bbl-color-blue-90);
         border: 1px solid var(--bbl-color-blue-90);
     }
+}
+
+/* =========================================================================
+   SECTION-LEVEL SPACING - Global Styles
+   ========================================================================= */
+
+.pad-top-30 {
+    padding-top: 1.875rem;
+}
+
+.pad-bot-30 {
+    padding-bottom: 1.875rem;
 }

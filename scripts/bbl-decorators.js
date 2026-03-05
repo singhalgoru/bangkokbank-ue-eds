@@ -28,6 +28,33 @@ function decorateButtonsV1(element) {
           up.classList.add('button-container');
         }
       }
+
+      // Check for target link setting in adjacent element
+      const hasTargetTrue = (linkParent) => {
+        const nextSibling = linkParent?.nextElementSibling;
+        if (nextSibling && nextSibling.tagName === 'DIV') {
+          const text = nextSibling.textContent.trim().toLowerCase();
+          if (text === 'true') {
+            nextSibling.remove();
+            return true;
+          }
+          // Check for nested div with "true"
+          const childDiv = nextSibling.querySelector(':scope > div');
+          if (childDiv && childDiv.textContent.trim().toLowerCase() === 'true') {
+            nextSibling.remove();
+            return true;
+          }
+        }
+        return false;
+      };
+
+      if (a.classList.contains('button')) {
+        if (hasTargetTrue(twoup) || hasTargetTrue(up) || a.target === '_blank') {
+          a.target = '_blank';
+        } else {
+          a.target = '_self';
+        }
+      }
     }
   });
 }
