@@ -96,7 +96,7 @@ function createCarouselCard(cardElement, doc) {
 
   // If button link exists, wrap the entire content in a single link (no nested anchors)
   if (buttonLink) {
-    const cardLink = createElementFromHTML(`<a href="${buttonLink.href}" class="carousel-item-link"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}></a>`, doc);
+    const cardLink = createElementFromHTML(`<a href="${buttonLink.href}" target="${buttonLink.target || '_self'}" class="carousel-item-link"${buttonLink.title ? ` title="${buttonLink.title}"` : ''}></a>`, doc);
     cardLink.appendChild(contentWrapper);
     card.appendChild(cardLink);
   } else {
