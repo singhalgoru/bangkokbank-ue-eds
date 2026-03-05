@@ -247,10 +247,11 @@ function buildSlideArrowsandDots(row, index) {
       content.append(title);
     }
 
+    const hasTitle = titleCell && titleCell.textContent.trim();
     const hasStep = stepCell && stepCell.textContent.trim();
     const hasDesc = descriptionCell && descriptionCell.textContent.trim();
 
-    if (hasStep || hasDesc) {
+    if (hasTitle || hasStep) {
       const textWrap = document.createElement('div');
       textWrap.className = 'text-default editor pad-bot';
 

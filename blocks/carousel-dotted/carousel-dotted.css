@@ -478,17 +478,15 @@
   grid-template-columns: 2.5rem 1fr 2.5rem;
   grid-template-rows: auto auto;
   gap: 0;
-  column-gap: 0.75rem;
+  column-gap: 1rem;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-track-wrapper {
   background: var(--bbl-color-white);
-  border: 1px solid rgb(0 0 0 / 8%);
-  border-radius: var(--bbl-rounded-100);
-  box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
   overflow: hidden;
   grid-column: 2;
   grid-row: 1;
+  position: relative;
 }
 
 /* Override the tablet absolute positioning for show-arrows-dots items so they provide natural height */
@@ -507,7 +505,6 @@
 
 /* Circular Image specific */
 .carousel-dotted .carousel-dotted-item.with-circular-image {
-  padding: 0 16px;
   align-items: center;
   text-align: left;
 }
@@ -595,17 +592,24 @@
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .text-large.text-light {
-  font-size: 3.5rem;
-  line-height: 1;
+  font-size: 3rem;
+  line-height: 46px;
   font-weight: 300;
-  color: var(--bbl-color-grey-60, #666);
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+.carousel-dotted 
+.carousel-dotted-item.with-default-image 
+.text-default
+p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Arrows (show-arrows-dots enables display) */
 .carousel-dotted.show-arrows-dots .carousel-arrow {
-  position: static;
+  position: relative;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -657,9 +661,7 @@
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow:disabled {
-  opacity: 0.4;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 /* Dots */
@@ -678,14 +680,8 @@
 
 /* Tablet */
 @media (width >=47.5rem) {
-  .carousel-dotted-wrapper {
-    padding-right: 48px;
-    padding-left: 48px;
-  }
-
   .carousel-dotted {
     padding: unset;
-    min-height: 27.8125rem;
   }
 
   .carousel-dotted .carousel-dotted-item {
@@ -861,12 +857,35 @@
     display: flex;
   }
 
+  .carousel-dotted.show-arrows-dots .with-default-image.carousel-dotted-item.is-active {
+    border: 1px solid rgb(0 0 0 / 10%);
+    box-shadow: 0 0 10px transparent;
+    border-radius: 7px;
+    align-items: center;
+  }
+
   .carousel-dotted .carousel-dotted-item.with-default-image .img-thumb {
-    flex: 0 0 45%;
+    flex: 0 0 50%;
   }
 
   .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor {
-    padding: 3rem 4rem;
+    padding: 0 30px;
+  }
+
+  .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 {
+    font-size: 24px;
+    line-height: 26px;
+    margin: unset;
+    font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif ;
+    font-weight: 400;
+  }
+
+  .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default {
+    font-size: 16px;
+    line-height: 26px;
+    margin: unset;
+    font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif ;
+    font-weight: 400;
   }
 
   /* Show arrows on tablet and desktop */
@@ -980,26 +999,25 @@
   }
 
   .carousel-dotted.show-arrows-dots {
-    max-width: 78rem;
     margin-inline: auto;
   }
 
-  .carousel-dotted .carousel-dotted-item.with-circular-image {
-    padding: 1.25rem 3rem 4.5rem;
-  }
-
   .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 {
-    font-size: 2rem;
-    line-height: 1.2;
+    font-size: 24px;
+    line-height: 26px;
+    margin: unset;
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
-    font-size: 1.0625rem;
-    line-height: 1.45;
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 40px;
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .sub-title-medium {
-    font-size: 1.0625rem;
+    font-size: 12.8px;
+    line-height: 1.4;
+    padding-right: 15px;
   }
 
   .carousel-dotted.show-arrows-dots .carousel-arrow {
