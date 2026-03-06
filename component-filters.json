@@ -106,7 +106,6 @@
       "top-nav",
       "brand-logo",
       "main-nav-item",
-      "quick-nav",
       "login",
       "location",
       "search"
@@ -157,12 +156,6 @@
       "menu-card"
     ],
     "maxItems": 6
-  },
-  {
-    "id": "quick-nav",
-    "components": [
-      "quick-nav-item"
-    ]
   },
   {
     "id": "story-card",
