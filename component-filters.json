@@ -157,6 +157,12 @@
     "maxItems": 6
   },
   {
+    "id": "quick-nav",
+    "components": [
+      "quick-nav-item"
+    ]
+  },
+  {
     "id": "story-card",
     "components": [
       "button"
