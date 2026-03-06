@@ -106,6 +106,7 @@
       "top-nav",
       "brand-logo",
       "main-nav-item",
+      "quick-nav",
       "login",
       "location",
       "search"
@@ -127,7 +128,8 @@
   {
     "id": "main-nav-item",
     "components": [
-      "megamenu-column"
+      "megamenu-column",
+      "quick-nav-item"
     ]
   },
   {
