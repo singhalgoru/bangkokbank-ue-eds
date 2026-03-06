@@ -1,6 +1,6 @@
 /* Base styles (mobile-first) */
 .menu-cards {
-  padding: 0 var(--bbl-space-container-xs);
+  /* padding: 0 var(--bbl-space-container-xs); */
 }
 
 .menu-cards .tips-insight-quick-access {
@@ -65,7 +65,7 @@
 /* Tablet: width > 760px */
 @media (width > 47.5rem) {
   .menu-cards {
-    padding: var(--bbl-space-600);
+    /* padding: var(--bbl-space-600); */
   }
 
   .menu-cards .tips-insight-quick-access {
