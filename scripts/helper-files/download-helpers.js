@@ -10,12 +10,6 @@ export default function createDownloadLink(anchor, doc = document) {
   link.classList.remove('button-tertiary');
   link.classList.add('download-files', 'icon-download');
 
-  const href = link.getAttribute('href');
-  if (href && href.startsWith('/-/media')) {
-    const origin = doc.defaultView?.location?.origin ?? '';
-    link.href = `${origin}${href}`;
-  }
-
   wrapper.appendChild(link);
   return wrapper;
 }

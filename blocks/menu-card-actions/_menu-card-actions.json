@@ -219,6 +219,29 @@
           }
         },
         {
+          "component": "container",
+          "name": "targetSettings",
+          "label": "Target settings",
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "targetLink",
+              "label": "Open link in new tab",
+              "description": "Enable to open the button link in a new browser tab",
+              "valueType": "boolean",
+              "value": false,
+              "condition": {
+              "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "default"
+            ]
+          }
+            }
+          ]
+        },
+        {
           "component": "aem-content",
           "name": "downloadLink",
           "label": "Download Link",
@@ -262,6 +285,29 @@
           }
         },
         {
+          "component": "container",
+          "name": "targetSettings",
+          "label": "Target settings",
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "targetLink",
+              "label": "Open link in new tab",
+              "description": "Enable to open the button link in a new browser tab",
+              "valueType": "boolean",
+              "value": false,
+              "condition": {
+              "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "download"
+            ]
+          }
+            }
+          ]
+        },
+        {
           "component": "text",
           "name": "dropdownLable",
           "label": "Dropdown Lable",
@@ -293,6 +339,29 @@
               }
             ]
           }
+        },
+        {
+          "component": "container",
+          "name": "targetSettings",
+          "label": "Target settings",
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "targetLink",
+              "label": "Open link in new tab",
+              "description": "Enable to open the button link in a new browser tab",
+              "valueType": "boolean",
+              "value": false,
+              "condition": {
+              "===": [
+              {
+                "var": "buttonActionType"
+              },
+              "select-dropdown"
+            ]
+            }
+            }
+          ]
         }
       ]
     }
