@@ -29,7 +29,9 @@
       "cross-banner",
       "form",
       "embed-adaptive-form",
-      "content-insert-cards"
+      "content-insert-cards",
+      "menu-card-actions",
+      "download-file"
     ]
   },
   {
@@ -155,6 +157,12 @@
       "menu-banner-card"
     ],
     "maxItems": 4
+  },
+  {
+    "id": "menu-card-actions",
+    "components": [
+      "menu-card-item"
+    ]
   },
   {
     "id": "menu-cards",
