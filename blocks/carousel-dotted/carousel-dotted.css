@@ -474,11 +474,6 @@
   border: none;
   border-radius: 0;
   background: transparent;
-  display: grid;
-  grid-template-columns: 2.5rem 1fr 2.5rem;
-  grid-template-rows: auto auto;
-  gap: 0;
-  column-gap: 1rem;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-track-wrapper {
@@ -501,6 +496,7 @@
 .carousel-dotted.show-arrows-dots .carousel-dotted-item.is-active {
   display: flex;
   opacity: 1;
+  flex-direction: column;
 }
 
 /* Circular Image specific */
@@ -564,6 +560,7 @@
 .carousel-dotted .carousel-dotted-item.with-circular-image .link-primary {
   color: var(--bbl-color-active-blue);
   text-decoration: none;
+  padding-right: 15px;
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .link-primary:hover {
@@ -591,20 +588,40 @@
   flex: 1;
 }
 
-.carousel-dotted .carousel-dotted-item.with-default-image .text-large.text-light {
-  font-size: 3rem;
-  line-height: 46px;
-  font-weight: 300;
-  margin-top: 0;
-  margin-bottom: 0;
+.carousel-dotted .carousel-dotted-item.with-default-image .text-default {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default p {
+  font-size: 14px;
+  line-height: 17.99px;
+  color: #4e4e4e;
+  margin: unset;
+}
+
+.carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 {
+  font-size: 21px;
+  line-height: 22.75px;
+}
+
+.carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 p {
+  margin: unset;
 }
 
 .carousel-dotted 
 .carousel-dotted-item.with-default-image 
-.text-default
-p {
-  margin-top: 0;
-  margin-bottom: 0;
+.caption.editor 
+.text-large.text-light p {
+  font-size: 3rem;
+  line-height: 46px;
+  font-weight: 300;
+  margin: 0;
 }
 
 /* Arrows (show-arrows-dots enables display) */
@@ -855,6 +872,7 @@ p {
 
   .carousel-dotted.show-arrows-dots .carousel-dotted-item.is-active {
     display: flex;
+    flex-direction: row;
   }
 
   .carousel-dotted.show-arrows-dots .with-default-image.carousel-dotted-item.is-active {
@@ -875,7 +893,6 @@ p {
   .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 {
     font-size: 24px;
     line-height: 26px;
-    margin: unset;
     font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif ;
     font-weight: 400;
   }
@@ -883,7 +900,6 @@ p {
   .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default {
     font-size: 16px;
     line-height: 26px;
-    margin: unset;
     font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif ;
     font-weight: 400;
   }
@@ -898,12 +914,16 @@ p {
   .carousel-dotted .carousel-dotted-item.with-circular-image .circle-image {
     margin: 0 30px 0 0;
   }
+
 }
 
 @media (width >=47.5rem) and (width < 64rem) {
   /* Fix tablet spacing and align arrows automatically to content size */
   .carousel-dotted.show-arrows-dots {
+    display: grid;
     grid-template-columns: 2rem 1fr 2rem;
+    grid-template-rows: auto auto;
+    gap: 0;
     column-gap: 0.5rem;
     min-height: unset;
   }
@@ -913,8 +933,8 @@ p {
     inset: unset;
   }
 
-  .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-circular-image,
-  .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-default-image {
+  .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-circular-image.is-active,
+  .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-default-image.is-active {
     display: flex;
   }
 
