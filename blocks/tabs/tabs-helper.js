@@ -138,9 +138,14 @@ export default function decorateTabs(main) {
     validTabs.forEach(({ content }) => {
       const contentCell = document.createElement('div');
 
-      // Move all content elements to this cell
+      // In authoring mode, clone content to keep originals intact for editing
+      // In preview/published mode, move content
       content.forEach((element) => {
-        contentCell.appendChild(element);
+        if (isAuthoringMode) {
+          contentCell.appendChild(element.cloneNode(true));
+        } else {
+          contentCell.appendChild(element);
+        }
       });
 
       tabsBlockRows.push([contentCell]);
