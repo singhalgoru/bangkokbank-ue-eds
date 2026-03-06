@@ -4,7 +4,7 @@
   height: auto;
   border-radius: var(--bbl-rounded-100);
   background: var(--bbl-color-white);
-  border: 1px solid rgb(0 0 0 / 8%);
+  border: 1px solid var(--bbl-color-black-alpha-10);
   padding: var(--bbl-space-000);
 }
 
@@ -39,7 +39,7 @@
   left: 0;
   right: 0;
   height: 6.25rem;
-  background: linear-gradient(to top, rgb(255 255 255 / 25%) 0%, rgb(255 255 255 / 0%) 100%);
+  background: linear-gradient(to top, var(--bbl-color-white-alpha-20) 0%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -99,7 +99,7 @@
   background: var(--bbl-color-blue-140);
   color: var(--bbl-color-white);
   padding: var(--bbl-space-050) 0.4375rem;
-  border-radius: 1.25rem;
+  border-radius: var(--bbl-rounded-full);
   margin-bottom: 0.875rem;
 }
 
@@ -118,7 +118,7 @@
   font-size: 0.875rem;
   line-height: 0.875rem;
   padding: 0 0 var(--bbl-space-250);
-  border-bottom: 1px solid rgb(255 255 255 / 20%);
+  border-bottom: 1px solid var(--bbl-color-white-alpha-20);
   color: var(--bbl-color-grey-60);
 }
 
@@ -136,7 +136,7 @@
 }
 
 .carousel-dotted a.button.primary {
-  border-radius: 0.4375rem;
+  border-radius: var(--bbl-rounded-100);
 }
 
 .carousel-dotted .slick-dots {
@@ -170,7 +170,7 @@
   min-width: var(--bbl-space-100);
   min-height: var(--bbl-space-100);
   border-radius: 50%;
-  border: 1px solid rgb(0 0 0 / 25%);
+  border: 1px solid var(--bbl-color-black-alpha-20);
   padding: var(--bbl-space-000);
   margin: var(--bbl-space-000);
   cursor: pointer;
@@ -183,7 +183,7 @@
 }
 
 .carousel-dotted .slick-dots button:hover {
-  border-color: rgb(0 0 0 / 45%);
+  border-color: var(--bbl-color-black-alpha-40);
 }
 
 .carousel-dotted .slick-dots button:focus-visible {
@@ -279,7 +279,7 @@
   font-size: 0.8rem;
   line-height: 1.12rem;
   margin-right: 0.9375rem;
-  font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
+  font-family: var(--bbl-font-family-medium);
 }
 
 /* Override button-tertiary's SVG arrow with icomoon icon font */
@@ -507,11 +507,11 @@
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .circle-image {
   flex: 0 0 auto;
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto 30px;
+  margin: 0 auto 1.875rem;
 }
 
 
@@ -520,11 +520,11 @@
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 {
-  font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
-  font-size: 21px;
-  line-height: 22.75px;
+  font-family: var(--bbl-font-family-medium);
+  font-size: 1.3125rem;
+  line-height: 1.4219rem;
   color: var(--bbl-color-black);
-  font-weight: 400;
+  font-weight: var(--bbl-font-weight-regular);
 }
 
 
@@ -533,11 +533,11 @@
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
-  font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: var(--bbl-font-family-primary);
+  font-size: 0.875rem;
   line-height: 1.45;
-  color: #7b735f;
-  font-weight: 400;
+  color: var(--bbl-color-grey-70);
+  font-weight: var(--bbl-font-weight-regular);
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .text-default p {
@@ -546,21 +546,21 @@
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .text-brown,
 .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
-  color: #7b735f;
-  margin-top: 20px;
+  color: var(--bbl-color-grey-70);
+  margin-top: 1.25rem;
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .sub-title-medium {
-  font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif;
-  font-size: 11.2px;
-  line-height: 15.68px;
-  font-weight: 400;
+  font-family: var(--bbl-font-family-medium);
+  font-size: 0.7rem;
+  line-height: 0.98rem;
+  font-weight: var(--bbl-font-weight-regular);
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .link-primary {
   color: var(--bbl-color-active-blue);
   text-decoration: none;
-  padding-right: 15px;
+  padding-right: 0.9375rem;
 }
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .link-primary:hover {
@@ -574,7 +574,7 @@
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .img-thumb {
-  background: #f4f5f8;
+  background: var(--bbl-color-grey-10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -589,25 +589,25 @@
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .text-default {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 1.875rem;
+  margin-bottom: 1.875rem;
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 1.875rem;
+  margin-bottom: 1.875rem;
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default p {
-  font-size: 14px;
-  line-height: 17.99px;
-  color: #4e4e4e;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  color: var(--bbl-color-grey-85);
   margin: unset;
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 {
-  font-size: 21px;
-  line-height: 22.75px;
+  font-size: 1.3125rem;
+  line-height: 1.4219rem;
 }
 
 .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 p {
@@ -619,7 +619,7 @@
 .caption.editor 
 .text-large.text-light p {
   font-size: 3rem;
-  line-height: 46px;
+  line-height: 2.875rem;
   font-weight: 300;
   margin: 0;
 }
@@ -640,12 +640,12 @@
   align-self: center;
   padding: 0;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+  box-shadow: 0 0.125rem 0.375rem var(--bbl-color-black-alpha-10);
   flex-shrink: 0;
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow:hover {
-  background-color: var(--bbl-color-grey-20, #f4f5f8);
+  background-color: var(--bbl-color-grey-10);
 }
 
 .carousel-dotted.show-arrows-dots .carousel-arrow::before {
@@ -653,8 +653,8 @@
   display: block;
   width: 0.6rem;
   height: 0.6rem;
-  border-top: 2px solid var(--bbl-color-grey-80, #666);
-  border-right: 2px solid var(--bbl-color-grey-80, #666);
+  border-top: 2px solid var(--bbl-color-grey-80);
+  border-right: 2px solid var(--bbl-color-grey-80);
   transform: rotate(45deg);
 }
 
@@ -749,10 +749,10 @@
     max-height: none;
   }
 
-  .carousel-dotted .carousel-bg::after {
-    height: 8.75rem;
-    background: linear-gradient(to top, rgb(255 255 255 / 35%) 0%, rgb(255 255 255 / 0%) 100%);
-  }
+.carousel-dotted .carousel-bg::after {
+  height: 8.75rem;
+  background: linear-gradient(to top, var(--bbl-color-white-alpha-30) 0%, transparent 100%);
+}
 
   .carousel-dotted .carousel-dotted-content {
     padding: var(--bbl-space-300);
@@ -876,9 +876,9 @@
   }
 
   .carousel-dotted.show-arrows-dots .with-default-image.carousel-dotted-item.is-active {
-    border: 1px solid rgb(0 0 0 / 10%);
-    box-shadow: 0 0 10px transparent;
-    border-radius: 7px;
+    border: 1px solid var(--bbl-color-black-alpha-10);
+    box-shadow: 0 0 0.625rem transparent;
+    border-radius: var(--bbl-rounded-100);
     align-items: center;
   }
 
@@ -887,34 +887,42 @@
   }
 
   .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor {
-    padding: 0 30px;
+    padding: 0 1.875rem;
   }
 
   .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .title-3 {
-    font-size: 24px;
-    line-height: 26px;
-    font-family: BangkokBank-Medium, Tahoma, Helvetica, Arial, sans-serif ;
-    font-weight: 400;
-  }
-
-  .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default {
-    font-size: 16px;
-    line-height: 26px;
-    font-family: BangkokBank-Regular, Tahoma, Helvetica, Arial, sans-serif ;
-    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.625rem;
+    font-family: var(--bbl-font-family-medium);
+    font-weight: var(--bbl-font-weight-regular);
   }
 
   /* Show arrows on tablet and desktop */
   .carousel-dotted.show-arrows-dots .carousel-arrow {
     display: flex;
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .circle-image {
-    margin: 0 30px 0 0;
+    margin: 0 1.875rem 0 0;
   }
 
+  .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 {
+    margin: unset;
+  }
+
+  .carousel-dotted .carousel-dotted-item.with-circular-image .text-brown,
+  .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
+    margin-top: 2.5rem;
+  }
+
+  .carousel-dotted .carousel-dotted-item.with-default-image .caption.editor .text-default {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    font-family: var(--bbl-font-family-primary);
+    font-weight: var(--bbl-font-weight-regular);
+  }
 }
 
 @media (width >=47.5rem) and (width < 64rem) {
@@ -937,16 +945,8 @@
   .carousel-dotted.show-arrows-dots .carousel-dotted-item.with-default-image.is-active {
     display: flex;
   }
-
-  .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 {
-    margin: unset;
-  }
-
-  .carousel-dotted .carousel-dotted-item.with-circular-image .text-brown,
-  .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
-    margin-top: 40px;
-  }
 }
+
 
 @media (width >=64rem) {
   /* Dot positioning variants */
@@ -968,9 +968,9 @@
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .circle-image {
-    max-width: 200px;
-    max-height: 200px;
-    margin-right: 30px;
+    max-width: 12.5rem;
+    max-height: 12.5rem;
+    margin-right: 1.875rem;
   }
 
   .carousel-dotted .carousel-badge {
@@ -1023,21 +1023,21 @@
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 {
-    font-size: 24px;
-    line-height: 26px;
+    font-size: 1.5rem;
+    line-height: 1.625rem;
     margin: unset;
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .text-default {
-    font-size: 16px;
-    line-height: 22px;
-    margin-top: 40px;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    margin-top: 2.5rem;
   }
 
   .carousel-dotted .carousel-dotted-item.with-circular-image .sub-title-medium {
-    font-size: 12.8px;
+    font-size: 0.8rem;
     line-height: 1.4;
-    padding-right: 15px;
+    padding-right: 0.9375rem;
   }
 
   .carousel-dotted.show-arrows-dots .carousel-arrow {
