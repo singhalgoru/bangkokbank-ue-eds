@@ -2,7 +2,7 @@ import { moveInstrumentation, createElementFromHTML } from '../../scripts/script
 import createGlobalDropdown from '../../scripts/helper-files/dropdown-helpers.js';
 import createDownloadLink from '../../scripts/helper-files/download-helpers.js';
 
-function createMenuCardItem(cardElement, variant, doc) {
+function createMenuCardItem(cardElement, doc) {
   const [
     imageDiv,
     titleDiv,
@@ -72,7 +72,7 @@ function createMenuCardItem(cardElement, variant, doc) {
 
   /* ---------------- ACTION : DROPDOWN ---------------- */
   if (actionTypeText === 'select-dropdown') {
-    const dropdown = createGlobalDropdown(dropdownLable, dropdownLinks, doc);
+    const dropdown = createGlobalDropdown(dropdownLable || 'Select', dropdownLinks, doc);
     inner.appendChild(dropdown);
   }
 
@@ -93,7 +93,7 @@ export default function decorate(block) {
   );
 
   cardRows.forEach((row) => {
-    const card = createMenuCardItem(row, variant, doc);
+    const card = createMenuCardItem(row, doc);
     moveInstrumentation(row, card);
     container.appendChild(card);
   });
