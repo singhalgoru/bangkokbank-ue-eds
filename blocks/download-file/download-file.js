@@ -1,4 +1,4 @@
-import createDownloadLink from '../../scripts/helper-files/download-helpers.js';
+import createDownloadLink from '../../scripts/utils/download-helpers.js';
 
 export default function decorate(block) {
   const [row] = [...block.children];

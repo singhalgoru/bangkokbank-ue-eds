@@ -1,6 +1,6 @@
 import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
-import createGlobalDropdown from '../../scripts/helper-files/dropdown-helpers.js';
-import createDownloadLink from '../../scripts/helper-files/download-helpers.js';
+import createGlobalDropdown from '../../scripts/utils/dropdown-helpers.js';
+import createDownloadLink from '../../scripts/utils/download-helpers.js';
 
 function createMenuCardItem(cardElement, doc) {
   const [

@@ -4,7 +4,7 @@ import {
   readDotsAlignment,
   readPosition,
   readArrowsAlignment,
-} from '../../scripts/helper-files/carousel-helpers.js';
+} from '../../scripts/utils/carousel-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
