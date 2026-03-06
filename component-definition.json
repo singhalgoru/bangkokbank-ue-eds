@@ -896,6 +896,21 @@
           }
         },
         {
+          "title": "Quick Nav Item",
+          "id": "quick-nav-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Quick Nav Item",
+                  "model": "quick-nav-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Megamenu",
           "id": "megamenu",
           "plugins": {
