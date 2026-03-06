@@ -122,7 +122,9 @@
         "cross-banner",
         "form",
         "embed-adaptive-form",
-        "content-insert-cards"
+        "content-insert-cards",
+        "menu-card-actions",
+        "download-file"
       ]
     }
   ]
