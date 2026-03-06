@@ -23,6 +23,9 @@ function moveInstrumentation(from, to) {
 export default function decorateTabs(main) {
   const sections = [...main.querySelectorAll(':scope > div')];
 
+  // Detect authoring mode - check if any section has data-aue attributes
+  const isAuthoringMode = sections.some((section) => [...section.attributes].some((attr) => attr.name.startsWith('data-aue-')));
+
   const tabGroups = [];
   let currentGroup = [];
 
@@ -206,11 +209,28 @@ export default function decorateTabs(main) {
     firstSection.insertAdjacentElement('beforebegin', tabsSection);
 
     // Move instrumentation from first section to tabs section
-    moveInstrumentation(firstSection, tabsSection);
+    // In authoring mode, keep instrumentation on original sections too
+    if (isAuthoringMode) {
+      // Copy instrumentation attributes (don't remove from original)
+      const attributes = [...firstSection.attributes]
+        .filter(({ nodeName }) => nodeName.startsWith('data-aue-') || nodeName.startsWith('data-richtext-'));
 
-    // In preview/published mode, remove original sections
-    validTabs.forEach(({ section }) => {
-      section.remove();
-    });
+      attributes.forEach(({ nodeName, value }) => {
+        if (value) {
+          tabsSection.setAttribute(nodeName, value);
+        }
+      });
+    } else {
+      // In preview/published mode, move instrumentation (remove from original)
+      moveInstrumentation(firstSection, tabsSection);
+    }
+
+    // Remove original sections only in preview/published mode
+    // In authoring mode, keep them visible for editing
+    if (!isAuthoringMode) {
+      validTabs.forEach(({ section }) => {
+        section.remove();
+      });
+    }
   });
 }
