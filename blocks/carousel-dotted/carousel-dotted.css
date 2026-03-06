@@ -484,7 +484,6 @@
   position: relative;
 }
 
-/* Override the tablet absolute positioning for show-arrows-dots items so they provide natural height */
 .carousel-dotted.show-arrows-dots .carousel-dotted-item {
   position: relative;
   inset: unset;
