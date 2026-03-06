@@ -52,9 +52,11 @@ export default function decorateTabs(main) {
       }
 
       // Get all content from this section (excluding section-metadata)
-      const contentElements = [...section.children].filter(
-        (child) => !child.classList.contains('section-metadata'),
-      );
+      // In authoring mode, don't extract content - keep reference to section
+      // In preview/published mode, collect content elements to move
+      const contentElements = isAuthoringMode
+        ? []
+        : [...section.children].filter((child) => !child.classList.contains('section-metadata'));
 
       currentGroup.push({
         section,
@@ -79,9 +81,17 @@ export default function decorateTabs(main) {
 
   // Create tabs blocks for each group
   tabGroups.forEach((group) => {
-    // Filter out tabs with empty names or no content
+    // Filter out tabs with empty names
+    // In authoring mode, content array is empty but section has content
+    // In preview/published mode, check content array
     const validTabs = group.filter(
-      (tab) => tab.tabName && tab.tabName.trim() !== '' && tab.content.length > 0,
+      (tab) => {
+        if (!tab.tabName || tab.tabName.trim() === '') return false;
+        // In authoring mode, content is kept in section
+        if (isAuthoringMode) return true;
+        // In preview/published mode, check content array
+        return tab.content.length > 0;
+      },
     );
 
     // Skip if no valid tabs remain
@@ -135,18 +145,24 @@ export default function decorateTabs(main) {
     tabsBlockRows.push(tabButtonCells);
 
     // Create content rows (one row per tab)
-    validTabs.forEach(({ content }) => {
+    validTabs.forEach(({ content, tabName }) => {
       const contentCell = document.createElement('div');
 
-      // In authoring mode, clone content to keep originals intact for editing
-      // In preview/published mode, move content
-      content.forEach((element) => {
-        if (isAuthoringMode) {
-          contentCell.appendChild(element.cloneNode(true));
-        } else {
+      if (isAuthoringMode) {
+        // In authoring mode, add placeholder text
+        // Actual content remains in original sections below
+        const placeholder = document.createElement('p');
+        placeholder.textContent = `Content for "${tabName}" (edit in section below)`;
+        placeholder.style.fontStyle = 'italic';
+        placeholder.style.color = '#666';
+        placeholder.style.padding = '20px';
+        contentCell.appendChild(placeholder);
+      } else {
+        // In preview/published mode, move content
+        content.forEach((element) => {
           contentCell.appendChild(element);
-        }
-      });
+        });
+      }
 
       tabsBlockRows.push([contentCell]);
     });
