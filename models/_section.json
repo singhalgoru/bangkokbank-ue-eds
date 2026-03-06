@@ -121,7 +121,8 @@
         "menu-banner",
         "cross-banner",
         "form",
-        "embed-adaptive-form"
+        "embed-adaptive-form",
+        "content-insert-cards"
       ]
     }
   ]
