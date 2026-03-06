@@ -317,18 +317,29 @@
           "hidden": true
         },
         {
-          "component": "boolean",
-          "name": "withImage",
-          "label": "With Image",
-          "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "!": [
-              {
-                "var": "withoutImage"
-              }
-            ]
-          }
+          "component": "select",
+          "name": "slideType",
+          "label": "Slide Type",
+          "valueType": "string",
+          "value": "withImage",
+          "options": [
+            {
+              "name": "With Image",
+              "value": "withImage"
+            },
+            {
+              "name": "Without Image",
+              "value": "withoutImage"
+            },
+            {
+              "name": "Hero Banner Image Carousel",
+              "value": "heroBannerImageCarousel"
+            },
+            {
+              "name": "Text Animation Variant",
+              "value": "textAnimationVariant"
+            }
+          ]
         },
         {
           "component": "text",
@@ -336,14 +347,11 @@
           "label": "Badge Text",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -353,14 +361,11 @@
           "label": "Image",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -370,14 +375,11 @@
           "label": "Description",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -387,14 +389,11 @@
           "label": "Link",
           "description": "Destination URL for the button",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -405,14 +404,11 @@
           "description": "Button label text",
           "required": true,
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -422,14 +418,11 @@
           "label": "Title",
           "description": "Accessibility title attribute (optional)",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -455,28 +448,11 @@
             }
           ],
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withImage"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "component": "boolean",
-          "name": "withoutImage",
-          "label": "Without Image",
-          "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "!": [
-              {
-                "var": "withImage"
-              }
+                "var": "slideType"
+              },
+              "withImage"
             ]
           }
         },
@@ -486,47 +462,27 @@
           "label": "Header Text",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withoutImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withoutImage"
             ]
           }
         },
         {
           "component": "richtext",
-          "name": "default-text",
+          "name": "defaultText",
           "label": "Default Text",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withoutImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withoutImage"
             ]
           }
-        },
-        {
-          "component": "boolean",
-          "name": "hero-banner-image-carousel",
-          "label": "Hero Banner Image Carousel",
-          "valueType": "boolean",
-          "value": false
-        },
-        {
-          "component": "boolean",
-          "name": "text-animation-variant",
-          "label": "Text Animation Variant",
-          "valueType": "boolean",
-          "value": false
         },
         {
           "component": "reference",
@@ -537,17 +493,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -562,17 +520,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -587,17 +547,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -612,17 +574,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -636,17 +600,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -661,17 +627,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -685,17 +653,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -725,17 +695,19 @@
           "condition": {
             "or": [
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "hero-banner-image-carousel"
-                  }
+                    "var": "slideType"
+                  },
+                  "heroBannerImageCarousel"
                 ]
               },
               {
-                "!!": [
+                "===": [
                   {
-                    "var": "text-animation-variant"
-                  }
+                    "var": "slideType"
+                  },
+                  "textAnimationVariant"
                 ]
               }
             ]
@@ -754,18 +726,21 @@
           "hidden": true
         },
         {
-          "component": "boolean",
-          "name": "withDefaultImage",
-          "label": "With Default Image",
-          "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "!": [
-              {
-                "var": "withCircularImage"
-              }
-            ]
-          }
+          "component": "select",
+          "name": "slideType",
+          "label": "Slide Type",
+          "valueType": "string",
+          "value": "withDefaultImage",
+          "options": [
+            {
+              "name": "With Default Image",
+              "value": "withDefaultImage"
+            },
+            {
+              "name": "With Circular Image",
+              "value": "withCircularImage"
+            }
+          ]
         },
         {
           "component": "reference",
@@ -773,14 +748,11 @@
           "label": "Image",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withDefaultImage"
             ]
           }
         },
@@ -790,14 +762,11 @@
           "label": "Title Text",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withDefaultImage"
             ]
           }
         },
@@ -807,14 +776,11 @@
           "label": "Step Text",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withDefaultImage"
             ]
           }
         },
@@ -824,28 +790,11 @@
           "label": "Description",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withDefaultImage"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "component": "boolean",
-          "name": "withCircularImage",
-          "label": "With Circular Image",
-          "valueType": "boolean",
-          "value": false,
-          "condition": {
-            "!": [
-              {
-                "var": "withDefaultImage"
-              }
+                "var": "slideType"
+              },
+              "withDefaultImage"
             ]
           }
         },
@@ -855,14 +804,11 @@
           "label": "Image",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         },
@@ -872,14 +818,11 @@
           "label": "Title",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         },
@@ -889,14 +832,11 @@
           "label": "Description",
           "valueType": "string",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         },
@@ -906,14 +846,11 @@
           "label": "Link",
           "description": "Destination URL for the button",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         },
@@ -924,14 +861,11 @@
           "description": "Button label text",
           "required": true,
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         },
@@ -941,14 +875,11 @@
           "label": "Title",
           "description": "Accessibility title attribute (optional)",
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         },
@@ -974,14 +905,11 @@
             }
           ],
           "condition": {
-            "and": [
+            "===": [
               {
-                "!!": [
-                  {
-                    "var": "withCircularImage"
-                  }
-                ]
-              }
+                "var": "slideType"
+              },
+              "withCircularImage"
             ]
           }
         }
@@ -1002,4 +930,4 @@
       ]
     }
   ]
-} 
+}

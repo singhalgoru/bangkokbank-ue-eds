@@ -9,6 +9,9 @@ import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 /**
  * Build a slide WITH IMAGE variation
  * Structure: Badge Text | Image | Description | Link
+ * Cell layout (carousel-dotted-slide, slideType = withImage):
+ *   0: variant, 1: slideType, 2: badgeText, 3: image, 4: description,
+ *   5: link, 6: linkText, 7: linkTitle, 8: linkType
  */
 function buildSlideWithImage(row, index, cells) {
   const slide = document.createElement('div');
@@ -16,7 +19,7 @@ function buildSlideWithImage(row, index, cells) {
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  // Create and append background image if it exists
+  // Background image (cell 3)
   const picture = cells[3]?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -25,7 +28,7 @@ function buildSlideWithImage(row, index, cells) {
     slide.append(media);
   }
 
-  // Create content container
+  // Content container
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
@@ -59,6 +62,8 @@ function buildSlideWithImage(row, index, cells) {
 /**
  * Build a slide WITHOUT IMAGE variation
  * Structure: Header Text | Default Text
+ * Cell layout (carousel-dotted-slide, slideType = withoutImage):
+ *   0: variant, 1: slideType, 9: headerText, 10: defaultText
  */
 function buildSlideWithoutImage(row, index, cells) {
   const slide = document.createElement('div');
@@ -66,12 +71,12 @@ function buildSlideWithoutImage(row, index, cells) {
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  // Create content container
+  // Content container
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Header text (cell 7)
-  const headerText = cells[7]?.textContent.trim();
+  // Header text (cell 9)
+  const headerText = cells[9]?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-dotted-header';
@@ -79,11 +84,11 @@ function buildSlideWithoutImage(row, index, cells) {
     content.append(header);
   }
 
-  // Default text (cell 8)
-  if (cells[8]) {
+  // Default text (cell 10)
+  if (cells[10]) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (cells[8].firstChild) defaultText.append(cells[8].firstChild);
+    while (cells[10].firstChild) defaultText.append(cells[10].firstChild);
     content.append(defaultText);
   }
 
@@ -94,13 +99,21 @@ function buildSlideWithoutImage(row, index, cells) {
 /**
  * Build a slide HERO BANNER IMAGE CAROUSEL or TEXT ANIMATION VARIANT
  * Structure: Image | Image Alt | Title | Subtitle | Button
+ * Cell layout (carousel-dotted-slide, slideType = heroBannerImageCarousel / textAnimationVariant):
+ *   0: variant, 1: slideType, 11: heroImage, 12: imageAlt, 13: title, 14: subtitle,
+ *   15: heroLink, 16: heroLinkText, 17: heroLinkTitle, 18: heroLinkType
  */
 function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
 
-  const [heroImageCell, titleCell, subtitleCell, linkCell] = cells.slice(11, 15);
+  // heroImage (cell 11), title (cell 13), subtitle (cell 14), heroLink (cell 15)
+  const heroImageCell = cells[11];
+  const titleCell = cells[13];
+  const subtitleCell = cells[14];
+  const linkCell = cells[15];
+
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
     const media = document.createElement('div');
@@ -138,37 +151,43 @@ function buildSlideHeroVariant(row, index, cells, variant) {
 }
 
 /**
- * Build a slide - determines which variation to use and delegates
+ * Build a slide - determines which variation to use and delegates.
+ * Cell layout: cells[0] = variant (hidden), cells[1] = slideType (select)
+ * slideType values:
+ *  'withImage' | 'withoutImage' | 'heroBannerImageCarousel' | 'textAnimationVariant'
  */
 function buildSlide(row, index) {
   const cells = [...row.children];
 
-  const heroBannerImageCarousel = cells[9]?.textContent.trim().toLowerCase() === 'true';
-  const textAnimationVariant = cells[10]?.textContent.trim().toLowerCase() === 'true';
-  const withImageIndicator = cells[1]?.textContent.trim().toLowerCase();
-  const picture = cells[3]?.querySelector('picture');
+  // cells[1] is now a select with the slide type value
+  const slideType = cells[1]?.textContent.trim();
 
-  // Determine slide type priority
-  if (heroBannerImageCarousel) {
+  if (slideType === 'heroBannerImageCarousel') {
     return buildSlideHeroVariant(row, index, cells, 'hero-banner-image-carousel');
   }
 
-  if (textAnimationVariant) {
+  if (slideType === 'textAnimationVariant') {
     return buildSlideHeroVariant(row, index, cells, 'text-animation-variant');
   }
 
-  // Determine if this is a with-image slide:
-  // Either has "true" in cell 0 OR has a picture in cell 2
-  const hasImage = (withImageIndicator === 'true' || !!picture);
-
-  if (hasImage) {
+  if (slideType === 'withImage') {
     return buildSlideWithImage(row, index, cells);
   }
+
+  // Default: withoutImage
   return buildSlideWithoutImage(row, index, cells);
 }
 
 /**
- * Build a slide for showArrowsDots variant
+ * Build a slide for showArrowsDots variant.
+ * Cell layout (carousel-dotted-slide-arrows):
+ *  cells[0] = variant (hidden), cells[1] = slideType (select)
+ * slideType values:
+ *   withDefaultImage: 0:variant, 1:slideType, 2:defaultImage, 3:titleDefaultImage,
+ *  4:step, 5:descriptionDefaultImage
+ *   withCircularImage: 0:variant, 1:slideType, 6:circularImage, 7:titleCircularImage,
+ *                      8:descriptionCircularImage, 9:link, 10:linkText,
+ *  11:linkTitle, 12:linkType
  */
 function buildSlideArrowsandDots(row, index) {
   const cells = [...row.children];
@@ -176,12 +195,17 @@ function buildSlideArrowsandDots(row, index) {
   slide.dataset.index = index;
   moveInstrumentation(row, slide);
 
-  const withDefaultImage = cells[1]?.textContent.trim().toLowerCase() === 'true';
-  const withCircularImage = cells[6]?.textContent.trim().toLowerCase() === 'true';
+  // cells[1] is now a select with the slide type value
+  const slideType = cells[1]?.textContent.trim();
 
-  if (withCircularImage) {
+  if (slideType === 'withCircularImage') {
     slide.className = 'carousel-dotted-item with-circular-image item';
-    const [, , , , , , , circularImageCell, titleCell, descriptionCell, linkCell] = cells;
+
+    // circularImage (cell 6), title (cell 7), description (cell 8), link (cell 9)
+    const circularImageCell = cells[6];
+    const titleCell = cells[7];
+    const descriptionCell = cells[8];
+    const linkCell = cells[9];
 
     // image
     const imageContainer = document.createElement('div');
@@ -225,9 +249,14 @@ function buildSlideArrowsandDots(row, index) {
     return slide;
   }
 
-  if (withDefaultImage) {
+  if (slideType === 'withDefaultImage') {
     slide.className = 'carousel-dotted-item with-default-image item has-caption bgd-white';
-    const [, , defaultImageCell, titleCell, stepCell, descriptionCell] = cells;
+
+    // defaultImage (cell 2), title (cell 3), step (cell 4), description (cell 5)
+    const defaultImageCell = cells[2];
+    const titleCell = cells[3];
+    const stepCell = cells[4];
+    const descriptionCell = cells[5];
 
     // image
     const imageContainer = document.createElement('div');
