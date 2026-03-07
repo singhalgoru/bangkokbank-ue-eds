@@ -2,8 +2,9 @@
  * Decorates the Main Nav Item block.
  * Creates a megamenu navigation item with:
  * - A main navigation link/button that triggers the dropdown
- * - A megamenu panel containing multiple columns
- * - Each column has an optional image and categorized links
+ * - A megamenu panel (megamenu-inner) containing:
+ *   - Megamenu columns (image + categorized links)
+ *   - Quick nav items (label, link, optional icon) below the columns
  * Authoring fields are preserved by wrapping/moving existing DOM nodes
  * instead of clearing the block and rebuilding, so editor bindings remain.
  * @param {Element} block The main-nav-item block element
@@ -12,13 +13,18 @@ export default function decorate(block) {
   const rows = [...block.children];
   if (rows.length === 0) return;
 
-  // First row contains the main nav item text and link (preserve for authoring)
+  // First row: mainNavItem (main nav text).
+  // Second row: mainNavItemGroup_label + mainNavItemGroup_link (per _main-nav-item.json)
   const mainNavRow = rows[0];
-  const mainNavText = mainNavRow.querySelector('p')?.textContent?.trim()
-    || mainNavRow.textContent?.trim()
-    || 'Navigation';
-  const mainNavRowLink = rows[1];
-  const mainNavLink = mainNavRowLink.querySelector('a')?.href || '#';
+  const homeLinkRow = rows[1];
+  homeLinkRow.classList.add('megamenu-home-link');
+  const homeLinkCells = homeLinkRow?.querySelectorAll('p');
+  const homeLabelCell = homeLinkCells[0];
+  const homeLinkCell = homeLinkCells[1] || homeLinkRow;
+  homeLinkCell.querySelector('a').innerHTML = '';
+  homeLinkCell.querySelector('a').classList.add('icon-arrow-left');
+  homeLinkCell.querySelector('a').innerText = homeLabelCell.textContent.trim();
+  homeLabelCell.setAttribute('hidden', 'hidden');
 
   // Create the main nav item structure (do not clear block; move nodes instead)
   const navItem = document.createElement('div');
@@ -45,37 +51,31 @@ export default function decorate(block) {
 
   const megamenuInner = document.createElement('div');
   megamenuInner.className = 'megamenu-inner';
-
-  // Add the home link for this section at the top (derived from first row data)
-  if (mainNavLink && mainNavLink !== '#') {
-    mainNavRowLink.classList.add('megamenu-home-link');
-    mainNavRowLink.querySelector('a').textContent = `${mainNavText} Home`;
-    mainNavRowLink.querySelector('a').classList.add('icon-arrow-left');
-    megamenuInner.appendChild(mainNavRowLink);
-  }
+  megamenuInner.appendChild(homeLinkRow);
 
   // Create columns container
   const columnsContainer = document.createElement('div');
   columnsContainer.className = 'megamenu-columns';
 
-  // Process megamenu columns: add classes to existing rows/cells to preserve authoring
   const columnRows = rows.slice(2);
+
+  // Process megamenu columns
   columnRows.forEach((row, index) => {
     row.classList.add('megamenu-column');
     row.setAttribute('data-column-index', index);
 
     const cells = [...row.children];
 
-    cells.forEach((cell, cellIndex) => {
+    cells.forEach((cell) => {
       const picture = cell.querySelector('picture');
       if (picture) {
         cell.classList.add('megamenu-column-image');
-        const imageAltTextElem = cells[cellIndex + 1].querySelector('p');
-        if (imageAltTextElem) {
-          const imageAltText = imageAltTextElem.textContent.trim();
-          cell.querySelector('img').alt = imageAltText;
-          imageAltTextElem.remove();
-        }
+        // const imageAltTextElem = cells[cellIndex + 1].querySelector('p');
+        // if (imageAltTextElem) {
+        //   const imageAltText = imageAltTextElem.textContent.trim();
+        //   cell.querySelector('img').alt = imageAltText;
+        //   imageAltTextElem.remove();
+        // }
       }
 
       const lists = cell.querySelectorAll('ul');
@@ -106,6 +106,7 @@ export default function decorate(block) {
   });
 
   megamenuInner.appendChild(columnsContainer);
+
   megamenu.appendChild(megamenuInner);
   navItem.appendChild(megamenu);
 

@@ -78,7 +78,7 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "image",
+          "name": "image_src",
           "label": "Column Image",
           "description": "Image displayed at top of megamenu column",
           "multi": false
@@ -119,7 +119,7 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "quickNavImage",
+          "name": "quickNavImage_src",
           "label": "Icon Image",
           "description": "Icon image shown next to link"
         },
