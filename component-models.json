@@ -6288,19 +6288,17 @@
         "component": "text",
         "name": "mainNavItem",
         "label": "Main Nav Item Text",
-        "description": "Text for the main nav item (e.g., Personal Banking, Business Banking)",
-        "required": true
+        "description": "Text for the main nav item (e.g., Personal Banking, Business Banking)"
       },
       {
         "component": "text",
-        "name": "mainNavItemLabel",
+        "name": "mainNavItemGroup_label",
         "label": "Main Nav Item Label",
-        "description": "Label for the main nav item (e.g., Personal Home, Business Home)",
-        "required": true
+        "description": "Label for the main nav item (e.g., Personal Home, Business Home)"
       },
       {
         "component": "aem-content",
-        "name": "mainNavItemLink",
+        "name": "mainNavItemGroup_link",
         "label": "Main Nav Item Title Link",
         "description": "URL for the main nav item title (e.g. Personal Home Url, Business Home Url)"
       }
@@ -6342,8 +6340,7 @@
         "component": "text",
         "name": "quickNavLabel",
         "label": "Quick Nav Label",
-        "description": "Label for the Quick Nav Item",
-        "required": true
+        "description": "Label for the Quick Nav Item"
       },
       {
         "component": "aem-content",
