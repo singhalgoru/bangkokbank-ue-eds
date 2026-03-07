@@ -61,9 +61,9 @@
         },
         {
           "component": "text",
-          "name": "mainNavItemTitle",
-          "label": "Main Nav Item Title",
-          "description": "Title for the main nav item (e.g., Personal Home, Business Home)",
+          "name": "mainNavItemLabel",
+          "label": "Main Nav Item Label",
+          "description": "Label for the main nav item (e.g., Personal Home, Business Home)",
           "required": true
         },
         {
@@ -87,7 +87,7 @@
         },
         {
           "component": "text",
-          "name": "image-alt-text",
+          "name": "image_alt",
           "label": "Alternative Text for Accessibility 1",
           "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
           "valueType": "string",
@@ -128,7 +128,7 @@
         },
         {
           "component": "text",
-          "name": "icon-alt-text",
+          "name": "quickNavImage_alt",
           "label": "Alternative Text for Accessibility 1",
           "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
           "valueType": "string"
