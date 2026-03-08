@@ -22,7 +22,6 @@
 			"fields": [
 				{
 					"component": "select",
-					"name": "classes",
 					"value": "subnav-dropdown",
 					"label": "Subnav Type",
 					"description": "Select the type of subnav to display",
