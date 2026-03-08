@@ -120,8 +120,8 @@
           "component": "reference",
           "valueType": "string",
           "name": "quickNav_image",
-          "label": "Icon Image",
-          "description": "Icon image shown next to link"
+          "label": "Icon/Logo Image",
+          "description": "Icon/Logo image shown next to link"
         },
         {
           "component": "text",
@@ -139,7 +139,10 @@
       "components": [
         "megamenu-column",
         "quick-nav-item"
-      ]
+      ],
+      "componentLimits": {
+        "quick-nav-item": 4
+      }
     }
   ]
 }

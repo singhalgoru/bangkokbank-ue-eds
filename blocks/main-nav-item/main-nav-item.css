@@ -197,6 +197,38 @@ a.megamenu-link {
   text-decoration: underline;
 }
 
+.quick-nav-items {
+  display: flex;
+  gap: 0.125rem;
+  padding-block: 1.25rem;
+  flex-direction: column;
+}
+
+.quick-nav-item {
+  border-radius: 0.4375rem;
+  border: 1px solid var(--bbl-color-black-alpha-10);
+  height: 4.5625rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-inline: 1.25rem;
+}
+
+.quick-nav-item a {
+  text-decoration: none;
+  color: var(--bbl-color-grey-150);
+}
+
+.quick-nav-item a:hover {
+  text-decoration: underline;
+}
+
+.quick-nav-item span {
+  margin-left: 0.625rem;
+  color: var(--bbl-color-black);
+  font: 0.875rem BangkokBank-Bold, Tahoma, Helvetica, Arial, sans-serif;
+}
+
 @media (width > 64rem) {
   .main-nav-item {
     margin-right: 1.625rem;
@@ -285,7 +317,6 @@ a.megamenu-link {
   .megamenu-columns {
     display: flex;
     gap: 1.25rem;
-    padding-bottom: 2.5rem;
   }
 
   .megamenu-link-item {
@@ -325,4 +356,20 @@ a.megamenu-link {
     color: var(--bbl-color-blue-90);
     text-decoration: none;
   }
+
+  .quick-nav-items {
+    gap: 0.25rem;
+    padding-block: 2.5rem;
+    flex-direction: row;
+  }
+  
+  .quick-nav-item {
+    width: 25%;
+    justify-content: center;
+  }
+
+  .quick-nav-item span {
+    font: 1rem BangkokBank-Bold, Tahoma, Helvetica, Arial, sans-serif;
+  }
+
 }

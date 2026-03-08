@@ -1,3 +1,22 @@
+function isMegaMenuColumn(row) {
+  const cols = row.children;
+  if (cols.length < 2) return false;
+  const hasPictureInFirst = !!cols[0].querySelector('picture');
+  const hasListInSecond = !!cols[1].querySelector('ul');
+
+  return hasPictureInFirst && hasListInSecond;
+}
+
+function isQuickNavItem(row) {
+  const cols = row.children;
+
+  const hasLabelInFirst = !!cols[0].querySelector('span');
+  const hasLinkInFirst = !!cols[0].querySelector('a');
+  const hasPictureInFirst = !!cols[0].querySelector('picture');
+
+  return hasLinkInFirst && (hasPictureInFirst || hasLabelInFirst);
+}
+
 /**
  * Decorates the Main Nav Item block.
  * Creates a megamenu navigation item with:
@@ -31,7 +50,7 @@ export default function decorate(block) {
   navItem.className = 'main-nav-item-wrapper';
 
   // Create the nav trigger button and preserve the first row inside it for authoring
-  const navTrigger = document.createElement('button');
+  const navTrigger = document.createElement('div');
 
   navTrigger.className = 'main-nav-trigger icon-dropdown';
 
@@ -57,7 +76,19 @@ export default function decorate(block) {
   const columnsContainer = document.createElement('div');
   columnsContainer.className = 'megamenu-columns';
 
-  const columnRows = rows.slice(2);
+  // Split content rows into megamenu-columns and quick-nav-items
+  const contentRows = rows.slice(2);
+  const columnRows = [];
+  const quickNavRows = [];
+  contentRows.forEach((row) => {
+    if (isMegaMenuColumn(row)) {
+      columnRows.push(row);
+    } else if (isQuickNavItem(row)) {
+      if (quickNavRows.length < 4) {
+        quickNavRows.push(row);
+      }
+    }
+  });
 
   // Process megamenu columns
   columnRows.forEach((row, index) => {
@@ -70,12 +101,12 @@ export default function decorate(block) {
       const picture = cell.querySelector('picture');
       if (picture) {
         cell.classList.add('megamenu-column-image');
-        // const imageAltTextElem = cells[cellIndex + 1].querySelector('p');
-        // if (imageAltTextElem) {
-        //   const imageAltText = imageAltTextElem.textContent.trim();
-        //   cell.querySelector('img').alt = imageAltText;
-        //   imageAltTextElem.remove();
-        // }
+        const imageAltTextElem = cell.children[1];
+        if (imageAltTextElem) {
+          const imageAltText = imageAltTextElem.textContent.trim();
+          cell.querySelector('img').alt = imageAltText;
+          imageAltTextElem.remove();
+        }
       }
 
       const lists = cell.querySelectorAll('ul');
@@ -106,6 +137,59 @@ export default function decorate(block) {
   });
 
   megamenuInner.appendChild(columnsContainer);
+
+  if (quickNavRows.length > 0) {
+    const quickNavContainer = document.createElement('div');
+    quickNavContainer.className = 'quick-nav-items';
+
+    quickNavRows.forEach((row) => {
+      const inner = row.children[0] || row;
+      const cells = [...inner.children];
+
+      // Optional label: layout is [label?, link, picture, alt]
+      // — if first cell is link (button-container), no label
+      const firstIsLink = cells[0]?.classList?.contains('button-container') || cells[0]?.querySelector('a');
+      const labelP = firstIsLink ? null : cells[0] ?? null;
+      const linkCell = firstIsLink ? cells[0] : cells[1];
+      const pictureCell = firstIsLink ? cells[1] : cells[2];
+      const altP = firstIsLink ? cells[2] : cells[3];
+
+      const anchor = linkCell?.querySelector('a');
+      const picture = pictureCell?.querySelector('picture');
+      let labelText = '';
+      if (labelP) {
+        labelText = labelP.textContent?.trim() || '';
+      }
+      const altText = altP?.textContent?.trim() || '';
+
+      if (!anchor) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'quick-nav-item';
+
+      const link = document.createElement('a');
+      link.href = anchor.getAttribute('href') || '#';
+      // link.className = 'button-tertiary';
+      link.setAttribute('target', anchor.getAttribute('target') || '_self');
+      link.setAttribute('title', labelText);
+
+      if (picture) {
+        const img = picture.querySelector('img');
+        if (img && altText) img.setAttribute('alt', altText);
+        link.appendChild(picture);
+      }
+
+      const span = document.createElement('span');
+      span.textContent = labelText;
+      link.appendChild(span);
+
+      wrapper.appendChild(link);
+      quickNavContainer.appendChild(wrapper);
+    });
+
+    quickNavRows.forEach((row) => row.remove());
+    megamenuInner.appendChild(quickNavContainer);
+  }
 
   megamenu.appendChild(megamenuInner);
   navItem.appendChild(megamenu);
