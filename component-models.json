@@ -7034,6 +7034,7 @@
     "fields": [
       {
         "component": "select",
+        "name": "subnavType",
         "value": "subnav-dropdown",
         "label": "Subnav Type",
         "description": "Select the type of subnav to display",
