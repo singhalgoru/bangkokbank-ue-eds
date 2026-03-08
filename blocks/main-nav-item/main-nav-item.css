@@ -214,6 +214,17 @@ a.megamenu-link {
   padding-inline: 1.25rem;
 }
 
+/* Preserve authoring: row is kept in DOM; flatten so layout matches single link + label + icon */
+.quick-nav-item .quick-nav-item-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
 .quick-nav-item a {
   text-decoration: none;
   color: var(--bbl-color-grey-150);
@@ -223,7 +234,8 @@ a.megamenu-link {
   text-decoration: underline;
 }
 
-.quick-nav-item span {
+.quick-nav-item span,
+.quick-nav-item .quick-nav-label {
   margin-left: 0.625rem;
   color: var(--bbl-color-black);
   font: 0.875rem BangkokBank-Bold, Tahoma, Helvetica, Arial, sans-serif;
@@ -368,7 +380,8 @@ a.megamenu-link {
     justify-content: center;
   }
 
-  .quick-nav-item span {
+  .quick-nav-item span,
+  .quick-nav-item .quick-nav-label {
     font: 1rem BangkokBank-Bold, Tahoma, Helvetica, Arial, sans-serif;
   }
 
