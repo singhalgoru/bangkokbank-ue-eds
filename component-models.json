@@ -6338,26 +6338,26 @@
     "fields": [
       {
         "component": "text",
-        "name": "quickNavLabel",
+        "name": "quickNav_label",
         "label": "Quick Nav Label",
         "description": "Label for the Quick Nav Item"
       },
       {
         "component": "aem-content",
-        "name": "quickNavLink",
+        "name": "quickNav_link",
         "label": "Quick Nav URL",
         "description": "Destination URL"
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "quickNavImage_src",
+        "name": "quickNav_image",
         "label": "Icon Image",
         "description": "Icon image shown next to link"
       },
       {
         "component": "text",
-        "name": "quickNavImage_alt",
+        "name": "quickNav_image_alt",
         "label": "Alternative Text for Accessibility 1",
         "description": "Write descriptive, concise, relevant alt text to describe the image in context, enhancing accessibility for visually impaired users and improving SEO.",
         "valueType": "string"

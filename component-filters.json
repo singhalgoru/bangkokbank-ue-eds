@@ -129,10 +129,7 @@
     "components": [
       "megamenu-column",
       "quick-nav-item"
-    ],
-    "componentLimits": {
-      "quick-nav-item": 4
-    }
+    ]
   },
   {
     "id": "megamenu",
