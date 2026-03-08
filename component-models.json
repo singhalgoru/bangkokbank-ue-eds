@@ -7024,6 +7024,28 @@
     ]
   },
   {
+    "id": "sub-nav",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "subnav-dropdown",
+        "label": "Subnav Type",
+        "description": "Select the type of subnav to display",
+        "options": [
+          {
+            "name": "Subnav with dropdown",
+            "value": "subnav-dropdown"
+          },
+          {
+            "name": "Subnav without dropdown",
+            "value": "subnav-without-dropdown"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "top-nav-link",
     "fields": [
       {

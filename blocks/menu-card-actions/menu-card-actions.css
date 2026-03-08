@@ -1,5 +1,5 @@
 .section.menu-card-actions-container {
-    padding-inline: var(--bbl-space-200);
+    /* padding-inline: var(--bbl-space-200); */
 }
 
 .menu-card-action {
@@ -159,7 +159,7 @@
 
 @media (width > 47.5rem) {
     .section.menu-card-actions-container {
-        padding-inline: var(--bbl-space-600);
+        /* padding-inline: var(--bbl-space-600); */
     }
 
     .menu-card-action.stacked {
@@ -189,7 +189,7 @@
 
 @media (width > 64rem) {
     .section.menu-card-actions-container {
-        padding-inline: var(--bbl-space-600);
+        /* padding-inline: var(--bbl-space-600); */
     }
 
     .menu-card-action:is(.scrollable, .stacked) {
