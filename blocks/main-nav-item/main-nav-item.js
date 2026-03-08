@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 function isMegaMenuColumn(row) {
   const cols = row.children;
   if (cols.length < 2) return false;
@@ -50,7 +52,7 @@ export default function decorate(block) {
   navItem.className = 'main-nav-item-wrapper';
 
   // Create the nav trigger button and preserve the first row inside it for authoring
-  const navTrigger = document.createElement('button');
+  const navTrigger = document.createElement('div');
 
   navTrigger.className = 'main-nav-trigger icon-dropdown';
 
@@ -156,31 +158,41 @@ export default function decorate(block) {
 
       const anchor = linkCell?.querySelector('a');
       const picture = pictureCell?.querySelector('picture');
+      let labelText = '';
+      if (labelP) {
+        labelText = labelP.textContent?.trim() || '';
+      }
       const altText = altP?.textContent?.trim() || '';
 
       if (!anchor) return;
 
-      // Preserve authoring: wrap the original row so AEM bindings remain (do not remove or rebuild)
       const wrapper = document.createElement('div');
       wrapper.className = 'quick-nav-item';
-      row.classList.add('quick-nav-item-row');
+      moveInstrumentation(row, wrapper);
 
-      wrapper.appendChild(row);
+      const link = document.createElement('a');
+      link.href = anchor.getAttribute('href') || '#';
+      link.setAttribute('target', anchor.getAttribute('target') || '_self');
+      link.setAttribute('title', labelText);
+      moveInstrumentation(anchor, link);
 
-      // Move picture and label into the link for display; keep nodes so authoring fields stay bound
       if (picture) {
         const img = picture.querySelector('img');
         if (img && altText) img.setAttribute('alt', altText);
-        anchor.appendChild(picture);
-      }
-      if (labelP) {
-        labelP.classList.add('quick-nav-label');
-        anchor.appendChild(labelP);
+        if (altP && img) moveInstrumentation(altP, img);
+        link.appendChild(picture);
       }
 
+      const span = document.createElement('span');
+      span.textContent = labelText;
+      if (labelP) moveInstrumentation(labelP, span);
+      link.appendChild(span);
+
+      wrapper.appendChild(link);
       quickNavContainer.appendChild(wrapper);
     });
 
+    quickNavRows.forEach((row) => row.remove());
     megamenuInner.appendChild(quickNavContainer);
   }
 
