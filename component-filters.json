@@ -32,7 +32,8 @@
       "embed-adaptive-form",
       "content-insert-cards",
       "menu-card-actions",
-      "download-file"
+      "download-file",
+      "teaser-with-bg-image"
     ]
   },
   {
@@ -203,6 +204,12 @@
       "location",
       "login",
       "main-nav-item"
+    ]
+  },
+  {
+    "id": "teaser-with-bg-image",
+    "components": [
+      "teaser-with-bg-image-card"
     ]
   },
   {
