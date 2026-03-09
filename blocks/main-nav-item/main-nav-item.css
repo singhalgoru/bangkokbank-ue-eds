@@ -261,6 +261,7 @@ a.megamenu-link {
     font-weight: var(--bbl-font-weight-medium, 500);
     color: inherit;
     padding: 0;
+    width: auto;
   }
 
   .main-nav-trigger-text {

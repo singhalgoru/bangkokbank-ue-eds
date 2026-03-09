@@ -52,7 +52,7 @@ export default function decorate(block) {
   navItem.className = 'main-nav-item-wrapper';
 
   // Create the nav trigger button and preserve the first row inside it for authoring
-  const navTrigger = document.createElement('div');
+  const navTrigger = document.createElement('button');
 
   navTrigger.className = 'main-nav-trigger icon-dropdown';
 
