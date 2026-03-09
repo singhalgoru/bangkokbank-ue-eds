@@ -538,7 +538,6 @@
   margin: 0 auto 1.875rem;
 }
 
-
 .carousel-dotted .carousel-dotted-item.with-circular-image .caption {
   flex: 1;
 }
@@ -550,7 +549,6 @@
   color: var(--bbl-color-black);
   font-weight: var(--bbl-font-weight-regular);
 }
-
 
 .carousel-dotted .carousel-dotted-item.with-circular-image .title-2 p {
   margin: 0;
@@ -719,7 +717,6 @@
   height: auto;
 }
 
-/* Tablet */
 @media (width >=47.5rem) {
   .carousel-dotted.show-arrows-dots {
     display: grid;
@@ -756,7 +753,7 @@
 
 
   /* Horizontal sliding track for without-image — tablet min-height only
-     (flex layout + overflow is set globally above the media queries) */
+  (flex layout + overflow is set globally above the media queries) */
   .carousel-dotted.all-without-image .carousel-dotted-item.without-image {
     min-height: 27.8125rem;
   }
