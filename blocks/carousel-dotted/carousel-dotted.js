@@ -711,12 +711,19 @@ export default function decorate(block) {
 
   const circularOrDefaultImage = slidesCircularImage > 0 || slidesDefaultImage > 0;
 
-  if (allHeroBanner || allWithoutImage) {
+  if (allHeroBanner) {
+    // Hero/text-animation variants use a cloned first slide for seamless looping
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
     const cloneFirst = slideEls[0].cloneNode(true);
     cloneFirst.setAttribute('aria-hidden', 'true');
     trackWrapper.replaceChildren(...slideEls, cloneFirst);
+    block.replaceChildren(trackWrapper);
+  } else if (allWithoutImage) {
+    // Without-image variant uses track wrapper for sliding, but NO clone (looping is disabled)
+    const trackWrapper = document.createElement('div');
+    trackWrapper.className = 'carousel-track-wrapper';
+    trackWrapper.replaceChildren(...slideEls);
     block.replaceChildren(trackWrapper);
   } else if (circularOrDefaultImage) {
     const trackWrapper = document.createElement('div');
