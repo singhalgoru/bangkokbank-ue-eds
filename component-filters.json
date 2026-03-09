@@ -137,7 +137,8 @@
   {
     "id": "main-nav-item",
     "components": [
-      "megamenu-column"
+      "megamenu-column",
+      "quick-nav-item"
     ]
   },
   {
