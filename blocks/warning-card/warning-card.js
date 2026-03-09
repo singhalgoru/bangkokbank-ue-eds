@@ -110,10 +110,4 @@ export default function decorate(block) {
 
   innerContainer.appendChild(contentWrapper);
   block.appendChild(innerContainer);
-
-  // Add bg-ice-blue class to parent section
-  const section = block.closest('.section');
-  if (section) {
-    section.classList.add('bg-ice-blue');
-  }
 }

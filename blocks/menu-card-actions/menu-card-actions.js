@@ -1,0 +1,103 @@
+import { moveInstrumentation, createElementFromHTML } from '../../scripts/scripts.js';
+import createGlobalDropdown from '../../scripts/utils/dropdown-helpers.js';
+import createDownloadLink from '../../scripts/utils/download-helpers.js';
+
+function createMenuCardItem(cardElement, doc) {
+  const [
+    imageDiv,
+    titleDiv,
+    descDiv,
+    actionTypeTextDiv,
+    defaultButtonDiv,
+    downloadButtonDiv,
+    dropdownLabletDiv,
+    dropdownLinksDiv,
+  ] = [...cardElement.children];
+
+  const img = imageDiv?.querySelector('img');
+  const title = titleDiv?.innerHTML?.trim();
+  const description = descDiv?.innerHTML;
+  const actionTypeText = actionTypeTextDiv?.textContent?.trim();
+  const defaultButton = defaultButtonDiv?.querySelector('a');
+  const downloadButton = downloadButtonDiv?.querySelector('a');
+  const dropdownLable = dropdownLabletDiv?.textContent?.trim();
+  const dropdownLinks = dropdownLinksDiv?.innerHTML;
+
+  const card = createElementFromHTML(
+    '<div class="menu-card-action-item"></div>',
+    doc,
+  );
+
+  const inner = createElementFromHTML(
+    '<div class="menu-card-action-inner"></div>',
+    doc,
+  );
+
+  /* ---------------- IMAGE ---------------- */
+  if (img) {
+    const newImg = img.cloneNode(true);
+    inner.appendChild(newImg);
+  }
+
+  /* ---------------- TITLE ---------------- */
+  if (title) {
+    inner.appendChild(
+      createElementFromHTML(
+        `<div class="menu-card-action-title">${title}</div>`,
+        doc,
+      ),
+    );
+  }
+
+  /* ---------------- DESCRIPTION ---------------- */
+  if (description) {
+    inner.appendChild(
+      createElementFromHTML(
+        `<div class="menu-card-action-description">${description}</div>`,
+        doc,
+      ),
+    );
+    inner.querySelector('.menu-card-action-title')?.classList.add('has-description');
+  }
+
+  /* ---------------- ACTION DEFAULT ---------------- */
+  if (actionTypeText === 'default' && defaultButton) {
+    inner.appendChild(defaultButton.cloneNode(true));
+  }
+
+  /* ---------------- ACTION : DOWNLOAD ---------------- */
+  if (actionTypeText === 'download' && downloadButton) {
+    inner.appendChild(createDownloadLink(downloadButton, doc));
+  }
+
+  /* ---------------- ACTION : DROPDOWN ---------------- */
+  if (actionTypeText === 'select-dropdown') {
+    const dropdown = createGlobalDropdown(dropdownLable || 'Select', dropdownLinks, doc);
+    inner.appendChild(dropdown);
+  }
+
+  card.appendChild(inner);
+  return card;
+}
+
+export default function decorate(block) {
+  const doc = block.ownerDocument;
+  const [variantRow, mobileRow, ...cardRows] = [...block.children];
+
+  const variant = variantRow?.textContent?.trim();
+  const mobileExperience = mobileRow?.textContent?.trim();
+
+  const container = createElementFromHTML(
+    `<div class="menu-card-action ${variant} ${mobileExperience}"></div>`,
+    doc,
+  );
+
+  cardRows.forEach((row) => {
+    const card = createMenuCardItem(row, doc);
+    moveInstrumentation(row, card);
+    container.appendChild(card);
+  });
+
+  block.textContent = '';
+  block.appendChild(container);
+}
