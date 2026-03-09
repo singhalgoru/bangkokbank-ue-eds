@@ -270,8 +270,7 @@
           "component": "boolean",
           "name": "autoScroll",
           "label": "Auto-Scroll",
-          "valueType": "boolean",
-          "value": false
+          "valueType": "boolean"
         },
         {
           "component": "select",
