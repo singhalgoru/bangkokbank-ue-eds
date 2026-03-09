@@ -28,6 +28,33 @@ function decorateButtonsV1(element) {
           up.classList.add('button-container');
         }
       }
+
+      // Check for target link setting in adjacent element
+      const hasTargetTrue = (linkParent) => {
+        const nextSibling = linkParent?.nextElementSibling;
+        if (nextSibling && nextSibling.tagName === 'DIV') {
+          const text = nextSibling.textContent.trim().toLowerCase();
+          if (text === 'true') {
+            nextSibling.remove();
+            return true;
+          }
+          // Check for nested div with "true"
+          const childDiv = nextSibling.querySelector(':scope > div');
+          if (childDiv && childDiv.textContent.trim().toLowerCase() === 'true') {
+            nextSibling.remove();
+            return true;
+          }
+        }
+        return false;
+      };
+
+      if (a.classList.contains('button')) {
+        if (hasTargetTrue(twoup) || hasTargetTrue(up) || a.target === '_blank') {
+          a.target = '_blank';
+        } else {
+          a.target = '_self';
+        }
+      }
     }
   });
 }
@@ -40,7 +67,30 @@ function decorateTerritoryButtons(main) {
   });
 }
 
+/**
+ * Decorates SVG icons with alt text separated by '-alt_-' in the icon name
+ * @param {Element} element container element
+ */
+function decorateSvgWithAltText(element) {
+  element.querySelectorAll('span.icon img[src$=".svg"]').forEach((img) => {
+    const { iconName } = img.dataset;
+    if (iconName && iconName.includes('-alt_-')) {
+      const [srcPart, altPart] = iconName.split('-alt_-');
+
+      // Update the src to use only the first part
+      const currentSrc = img.getAttribute('src');
+      const basePath = currentSrc.substring(0, currentSrc.lastIndexOf('/') + 1);
+      img.setAttribute('src', `${basePath}${srcPart}.svg`);
+
+      // Update the alt text with the second part (replace underscores and hyphens with spaces)
+      const altText = altPart.replace(/[_-]/g, ' ').trim();
+      img.setAttribute('alt', altText);
+    }
+  });
+}
+
 export {
   decorateTerritoryButtons,
   decorateButtonsV1,
+  decorateSvgWithAltText,
 };

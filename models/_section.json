@@ -26,6 +26,12 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
+          "component": "text",
+          "name": "id",
+          "label": "Section ID",
+          "description": "Adds an HTML id attribute to the section"
+        },
+        {
           "component": "multiselect",
           "name": "style",
           "label": "Style",
@@ -70,7 +76,20 @@
                 },
                 {
                   "name": "Grey 100",
-                  "value": "bg-grey-100 "
+                  "value": "bg-grey-100"
+                }
+              ]
+            },
+            {
+              "name": "Padding",
+              "children": [
+                {
+                  "name": "Padding Top",
+                  "value": "pad-top-30"
+                },
+                {
+                  "name": "Padding Bottom",
+                  "value": "pad-bot-30"
                 }
               ]
             }
@@ -94,6 +113,18 @@
         "fragment",
         "header",
         "megamenu",
+        "carousel",
+        "story-card",
+        "warning-card",
+        "menu-cards",
+        "carousel-dotted",
+        "menu-banner",
+        "cross-banner",
+        "form",
+        "embed-adaptive-form",
+        "content-insert-cards",
+        "menu-card-actions",
+        "download-file",
         "social-icons"
       ]
     }

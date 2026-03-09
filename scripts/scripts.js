@@ -17,6 +17,7 @@ import {
 } from './aem.js';
 
 import {
+  decorateSvgWithAltText,
   decorateTerritoryButtons,
 } from './bbl-decorators.js';
 
@@ -52,6 +53,46 @@ export function moveInstrumentation(from, to) {
       .map(({ nodeName }) => nodeName)
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
+}
+
+/**
+ * Create HTML element from template string
+ * @param {string} html - HTML template string
+ * @param {Document} doc - Document reference
+ * @returns {Element} The created element
+ */
+export function createElementFromHTML(html, doc) {
+  const template = doc.createElement('template');
+  template.innerHTML = html.trim();
+  return template.content.firstElementChild;
+}
+
+/**
+ * Check if a URL is external (different domain from current site)
+ * @param {string} url - The URL to check
+ * @returns {boolean} True if URL is external
+ */
+export function isExternalUrl(url) {
+  try {
+    const urlObj = new URL(url, window.location.href);
+    return urlObj.hostname !== window.location.hostname;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Set target="_blank" on external links in a container
+ * @param {Element} container - The container element to process
+ */
+export function setExternalLinksTarget(container) {
+  const links = container.querySelectorAll('a[href]');
+  links.forEach((link) => {
+    if (isExternalUrl(link.href)) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
 }
 
 /**
@@ -92,6 +133,13 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateTerritoryButtons(main);
+  decorateSvgWithAltText(main);
+  setExternalLinksTarget(main);
+
+  const pageVariant = getMetadata('pagevariant');
+  if (pageVariant) {
+    document.body.classList.add(`${pageVariant}`);
+  }
 }
 
 /**

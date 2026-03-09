@@ -23,6 +23,26 @@
           "label": "Keywords"
         },
         {
+          "component": "select",
+          "valueType": "string",
+          "name": "pageVariant",
+          "label": "Page Variant",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Private",
+              "value": "private"
+            },
+            {
+              "name": "Wealth",
+              "value": "wealth"
+            }
+          ]
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "short-title",
