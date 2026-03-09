@@ -107,6 +107,7 @@
   --bbl-space-gap-xl: var(--bbl-space-400);          /* 32px - extra large gap */
   
   /* --- Section Spacing --- */
+  --bbl-space-section-xs: var(--bbl-space-200);      /* 16px - extra small section */
   --bbl-space-section-sm: var(--bbl-space-600);      /* 48px - small section */
   --bbl-space-section-md: var(--bbl-space-800);      /* 64px - default section */
   --bbl-space-section-lg: var(--bbl-space-1000);     /* 80px - large section */

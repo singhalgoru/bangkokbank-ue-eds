@@ -3,7 +3,8 @@
     "id": "main",
     "components": [
       "section",
-      "header-section"
+      "header-section",
+      "tab-section"
     ]
   },
   {
@@ -25,7 +26,13 @@
       "warning-card",
       "menu-cards",
       "carousel-dotted",
-      "cross-banner"
+      "menu-banner",
+      "cross-banner",
+      "form",
+      "embed-adaptive-form",
+      "content-insert-cards",
+      "menu-card-actions",
+      "download-file"
     ]
   },
   {
@@ -65,6 +72,42 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "content-insert-cards",
+    "components": [
+      "content-insert-card"
+    ]
+  },
+  {
+    "id": "form",
+    "components": [
+      "captcha",
+      "checkbox",
+      "checkbox-group",
+      "date-input",
+      "drop-down",
+      "email",
+      "file-input",
+      "form-accordion",
+      "form-button",
+      "form-fragment",
+      "form-image",
+      "form-modal",
+      "form-reset-button",
+      "form-submit-button",
+      "number-input",
+      "panel",
+      "password",
+      "plain-text",
+      "radio-group",
+      "rating",
+      "telephone-input",
+      "text-input",
+      "tnc",
+      "wizard",
+      "range"
     ]
   },
   {
@@ -110,11 +153,57 @@
     ]
   },
   {
+    "id": "menu-banner",
+    "components": [
+      "menu-banner-card"
+    ],
+    "maxItems": 4
+  },
+  {
+    "id": "menu-card-actions",
+    "components": [
+      "menu-card-item"
+    ]
+  },
+  {
     "id": "menu-cards",
     "components": [
       "menu-card"
     ],
     "maxItems": 6
+  },
+  {
+    "id": "story-card",
+    "components": [
+      "button"
+    ]
+  },
+  {
+    "id": "tab-section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "cards-product",
+      "columns",
+      "fragment",
+      "megamenu",
+      "carousel",
+      "story-card",
+      "warning-card",
+      "menu-cards",
+      "carousel-dotted",
+      "cross-banner",
+      "form",
+      "embed-adaptive-form",
+      "brand-logo",
+      "location",
+      "login",
+      "main-nav-item"
+    ]
   },
   {
     "id": "top-nav",

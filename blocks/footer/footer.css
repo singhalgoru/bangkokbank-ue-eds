@@ -208,13 +208,13 @@
     flex-direction: row;
     justify-content: space-between;
     padding: var(--bbl-space-300) 0 var(--bbl-space-350);
+    gap: var(--bbl-space-500);
   }
 
   .footer .footer-column {
     width: 100%;
     flex: 1;
     border-bottom: none;
-    padding: 0 var(--bbl-space-250);
   }
 
   /* Disable accordion behavior on desktop */
