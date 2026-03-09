@@ -117,9 +117,9 @@ function buildSlideHeroVariant(row, index, cells, variant) {
 
   // heroImage (cell 8), title (cell 10), subtitle (cell 11), heroLink (cell 12)
   const heroImageCell = cells[8];
-  const titleCell = cells[10];
-  const subtitleCell = cells[11];
-  const linkCell = cells[12];
+  const titleCell = cells[9];
+  const subtitleCell = cells[10];
+  const linkCell = cells[11];
 
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
