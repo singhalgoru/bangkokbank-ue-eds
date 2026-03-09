@@ -63,7 +63,10 @@ function buildSlideWithImage(row, index, cells) {
  * Build a slide WITHOUT IMAGE variation
  * Structure: Header Text | Default Text
  * Cell layout (carousel-dotted-slide, slideType = withoutImage):
- *   0: variant, 1: slideType, 9: headerText, 10: defaultText
+ *   0: variant, 1: slideType,
+ *   2: badgeText (empty), 3: image (empty), 4: description (empty),
+ *   5: link group (merged, empty) — AEM UE merges link+linkText+linkTitle+linkType into 1 cell
+ *   6: headerText, 7: defaultText
  */
 function buildSlideWithoutImage(row, index, cells) {
   const slide = document.createElement('div');
@@ -75,8 +78,8 @@ function buildSlideWithoutImage(row, index, cells) {
   const content = document.createElement('div');
   content.className = 'carousel-dotted-content';
 
-  // Header text (cell 9)
-  const headerText = cells[9]?.textContent.trim();
+  // Header text (cell 6)
+  const headerText = cells[6]?.textContent.trim();
   if (headerText) {
     const header = document.createElement('div');
     header.className = 'carousel-dotted-header';
@@ -84,11 +87,11 @@ function buildSlideWithoutImage(row, index, cells) {
     content.append(header);
   }
 
-  // Default text (cell 10)
-  if (cells[10]) {
+  // Default text (cell 7)
+  if (cells[7]) {
     const defaultText = document.createElement('div');
     defaultText.className = 'carousel-default-text';
-    while (cells[10].firstChild) defaultText.append(cells[10].firstChild);
+    while (cells[7].firstChild) defaultText.append(cells[7].firstChild);
     content.append(defaultText);
   }
 
@@ -100,19 +103,22 @@ function buildSlideWithoutImage(row, index, cells) {
  * Build a slide HERO BANNER IMAGE CAROUSEL or TEXT ANIMATION VARIANT
  * Structure: Image | Image Alt | Title | Subtitle | Button
  * Cell layout (carousel-dotted-slide, slideType = heroBannerImageCarousel / textAnimationVariant):
- *   0: variant, 1: slideType, 11: heroImage, 12: imageAlt, 13: title, 14: subtitle,
- *   15: heroLink, 16: heroLinkText, 17: heroLinkTitle, 18: heroLinkType
+ *   0: variant, 1: slideType,
+ *   2: badgeText (empty), 3: image (empty), 4: description (empty),
+ *   5: link group (merged, empty) — link+linkText+linkTitle+linkType merged into 1 cell
+ *   6: headerText (empty), 7: defaultText (empty),
+ *   8: heroImage, 9: imageAlt, 10: title, 11: subtitle, 12: heroLink (merged)
  */
 function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
 
-  // heroImage (cell 11), title (cell 13), subtitle (cell 14), heroLink (cell 15)
-  const heroImageCell = cells[11];
-  const titleCell = cells[13];
-  const subtitleCell = cells[14];
-  const linkCell = cells[15];
+  // heroImage (cell 8), title (cell 10), subtitle (cell 11), heroLink (cell 12)
+  const heroImageCell = cells[8];
+  const titleCell = cells[10];
+  const subtitleCell = cells[11];
+  const linkCell = cells[12];
 
   const picture = heroImageCell?.querySelector('picture');
   if (picture) {
@@ -184,10 +190,11 @@ function buildSlide(row, index) {
  *  cells[0] = variant (hidden), cells[1] = slideType (select)
  * slideType values:
  *   withDefaultImage: 0:variant, 1:slideType, 2:defaultImage, 3:titleDefaultImage,
- *  4:step, 5:descriptionDefaultImage
- *   withCircularImage: 0:variant, 1:slideType, 6:circularImage, 7:titleCircularImage,
- *                      8:descriptionCircularImage, 9:link, 10:linkText,
- *  11:linkTitle, 12:linkType
+ *                     4:step, 5:descriptionDefaultImage  (no link group → no merging)
+ *   withCircularImage: 0:variant, 1:slideType,
+ *                      2-5: withDefaultImage fields (reserved, empty),
+ *                      6:circularImage, 7:titleCircularImage, 8:descriptionCircularImage,
+ *                      9:link (merged — AEM UE merges link+linkText+linkTitle+linkType into 1 cell)
  */
 function buildSlideArrowsandDots(row, index) {
   const cells = [...row.children];
