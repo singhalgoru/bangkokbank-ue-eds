@@ -6602,23 +6602,6 @@
     "fields": [
       {
         "component": "select",
-        "name": "variant",
-        "value": "default",
-        "label": "Variant",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Menu Card Cta Dropdown",
-            "value": "menu-card-cta-dropdown"
-          },
-          {
-            "name": "Menu Card Text Download",
-            "value": "menu-card-text-download"
-          }
-        ]
-      },
-      {
-        "component": "select",
         "name": "mobileExperience",
         "value": "default",
         "label": "Mobile Experience",

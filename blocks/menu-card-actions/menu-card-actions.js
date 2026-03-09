@@ -82,13 +82,11 @@ function createMenuCardItem(cardElement, doc) {
 
 export default function decorate(block) {
   const doc = block.ownerDocument;
-  const [variantRow, mobileRow, ...cardRows] = [...block.children];
-
-  const variant = variantRow?.textContent?.trim();
+  const [mobileRow, ...cardRows] = [...block.children];
   const mobileExperience = mobileRow?.textContent?.trim();
 
   const container = createElementFromHTML(
-    `<div class="menu-card-action ${variant} ${mobileExperience}"></div>`,
+    `<div class="menu-card-action ${mobileExperience}"></div>`,
     doc,
   );
 
