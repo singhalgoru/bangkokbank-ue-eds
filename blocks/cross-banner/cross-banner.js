@@ -9,7 +9,7 @@ export default function decorate(block) {
   const buttonHTML = buttonEl?.innerHTML?.trim() || '';
 
   block.innerHTML = `
-    <div class="cross-banner">
+    <div class="cross-banner content">
       <div class="cross-banner-image">
         ${pictureHTML}
       </div>

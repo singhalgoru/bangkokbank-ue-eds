@@ -6,6 +6,7 @@
 
 .story-card {
   width: 100%;
+  overflow: hidden;
 }
 
 .story-card .wrapper {
@@ -99,6 +100,11 @@
 
 .story-card .text-default p {
   margin: 0;
+}
+
+.story-card .button-container {
+  display: inline-block;
+  margin: 0.3125rem 0.9375rem 0.3125rem 0;
 }
 
 /* ========================================================================

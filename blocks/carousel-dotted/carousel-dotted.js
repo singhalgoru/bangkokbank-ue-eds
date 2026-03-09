@@ -3,7 +3,7 @@ import {
   readBoolean,
   readDotsAlignment,
   readPosition,
-} from '../../scripts/helper-files/carousel-helpers.js';
+} from '../../scripts/utils/carousel-helpers.js';
 import { decorateButtonsV1 } from '../../scripts/bbl-decorators.js';
 
 /**
@@ -113,6 +113,7 @@ function buildSlideHeroVariant(row, index, cells, variant) {
   const slide = document.createElement('div');
   slide.className = `carousel-item ${variant}`;
   slide.dataset.index = index;
+  moveInstrumentation(row, slide);
 
   // heroImage (cell 8), title (cell 10), subtitle (cell 11), heroLink (cell 12)
   const heroImageCell = cells[8];
