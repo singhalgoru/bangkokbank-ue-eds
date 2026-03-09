@@ -5,21 +5,6 @@ import {
   toCamelCase,
 } from '../../scripts/aem.js';
 
-// Local implementation to avoid circular dependency with scripts.js
-function moveInstrumentation(from, to) {
-  const attributes = [...from.attributes]
-    .map(({ nodeName }) => nodeName)
-    .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-'));
-
-  attributes.forEach((attr) => {
-    const value = from.getAttribute(attr);
-    if (value) {
-      to?.setAttribute(attr, value);
-      from.removeAttribute(attr);
-    }
-  });
-}
-
 export default function decorateTabs(main) {
   const sections = [...main.querySelectorAll(':scope > div')];
 
@@ -212,9 +197,6 @@ export default function decorateTabs(main) {
 
     // Insert tabs section before the first section of the group
     firstSection.insertAdjacentElement('beforebegin', tabsSection);
-
-    // Move instrumentation from first section to tabs section
-    moveInstrumentation(firstSection, tabsSection);
 
     // In preview/published mode, remove original sections
     validTabs.forEach(({ section }) => {
