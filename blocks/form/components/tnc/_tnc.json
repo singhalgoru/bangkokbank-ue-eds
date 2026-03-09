@@ -47,7 +47,8 @@
                 "type": "string",
                 "enum": [
                   "true"
-                ]
+                ],
+                "enabled": false
               }
             }
           }

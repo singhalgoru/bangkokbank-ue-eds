@@ -6,11 +6,16 @@ class TermsAndConditions {
     this.fieldDiv = fieldDiv;
     this.fieldJson = fieldJson;
     this.formModel = null;
+    this.approvalCheckboxModel = null;
     this.decorate();
   }
 
   setFormModel(model) {
     this.formModel = model;
+    // Find the approval checkbox model from the panel's items
+    this.approvalCheckboxModel = model?.items?.find(
+      (item) => item.name === 'approvalcheckbox',
+    );
   }
 
   getfieldDiv() {
@@ -41,10 +46,10 @@ class TermsAndConditions {
     if (intersection) {
       const io = new IntersectionObserver(([{ isIntersecting }]) => {
         if (isIntersecting) {
-          /*
-          * TODO: Enable the checkboxes that are disabled by default via the model.
-          *  Currently they are enabled by default
-          * */
+          // Enable the checkbox via the form model
+          if (this.approvalCheckboxModel) {
+            this.approvalCheckboxModel.enabled = true;
+          }
           io.unobserve(intersection);
         }
       }, {
@@ -54,7 +59,19 @@ class TermsAndConditions {
     }
   }
 }
-export default async function decorate(tncDiv, fieldJson) {
+export default async function decorate(tncDiv, fieldJson, container, formId) {
   const tnc = new TermsAndConditions(tncDiv, fieldJson);
+
+  // Import subscribe function from rules engine
+  const { subscribe } = await import('../../rules/index.js');
+
+  // Subscribe to get form model access when it's ready
+  subscribe(tncDiv, formId, (fieldDiv, fieldModel, eventType) => {
+    if (eventType === 'register') {
+      // Form model is ready, store it in the TNC instance
+      tnc.setFormModel(fieldModel);
+    }
+  }, { listenChanges: false });
+
   return tnc.getfieldDiv();
 }
