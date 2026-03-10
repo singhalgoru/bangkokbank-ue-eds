@@ -1,5 +1,0 @@
-mountpoints:
-  /:
-    url: "https://author-p185039-e1938068.adobeaemcloud.com/bin/franklin.delivery/singhalgoru/bangkokbank-ue-eds/qa"
-    type: "markup"
-    suffix: ".html"
