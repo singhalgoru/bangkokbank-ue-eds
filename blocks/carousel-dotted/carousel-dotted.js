@@ -625,17 +625,16 @@ export default function decorate(block) {
       && slidesHeroBanner === 0
       && slidesTextAnimation === 0;
 
+    // FIX: looping forward is now just index 0 after last slide (no clone needed)
     const isLoopingForward = index === 0 && prevIndex === slideEls.length - 1;
 
     slideEls.forEach((slide, i) => {
       const active = i === index;
       const wasActive = slide.classList.contains('is-active');
       if (isHeroVariant && !wasActive && active && !isFirstLoad) {
-        if (!isLoopingForward) {
-          triggerBgZoom(slide);
-          slide.classList.add('is-entering');
-          setTimeout(() => slide.classList.remove('is-entering'), 600);
-        }
+        triggerBgZoom(slide);
+        slide.classList.add('is-entering');
+        setTimeout(() => slide.classList.remove('is-entering'), 600);
       }
 
       slide.classList.toggle('is-active', active);
@@ -658,20 +657,10 @@ export default function decorate(block) {
         const slideWidth = block.offsetWidth;
 
         if (isLoopingForward) {
-          if (isHeroVariant && !isFirstLoad) {
-            const cloneSlide = trackWrapper.lastElementChild;
-            triggerBgZoom(cloneSlide);
-            cloneSlide.classList.add('is-entering');
-            setTimeout(() => cloneSlide.classList.remove('is-entering'), 600);
-          }
-
-          trackWrapper.style.transform = `translate3d(${-slideEls.length * slideWidth}px, 0px, 0px)`;
-          setTimeout(() => {
-            trackWrapper.style.transition = 'none';
-            trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
-            trackWrapper.getBoundingClientRect();
-            trackWrapper.style.transition = '';
-          }, 700);
+          trackWrapper.style.transition = 'none';
+          trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
+          trackWrapper.getBoundingClientRect();
+          trackWrapper.style.transition = '';
         } else {
           trackWrapper.style.transform = `translate3d(${-index * slideWidth}px, 0px, 0px)`;
         }
@@ -713,12 +702,9 @@ export default function decorate(block) {
   const circularOrDefaultImage = slidesCircularImage > 0 || slidesDefaultImage > 0;
 
   if (allHeroBanner) {
-    // Hero/text-animation variants use a cloned first slide for seamless looping
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
-    const cloneFirst = slideEls[0].cloneNode(true);
-    cloneFirst.setAttribute('aria-hidden', 'true');
-    trackWrapper.replaceChildren(...slideEls, cloneFirst);
+    trackWrapper.replaceChildren(...slideEls);
     block.replaceChildren(trackWrapper);
   } else if (allWithoutImage) {
     // Without-image variant uses track wrapper for sliding, but NO clone (looping is disabled)
