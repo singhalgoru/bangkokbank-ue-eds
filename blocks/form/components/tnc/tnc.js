@@ -43,7 +43,8 @@ class TermsAndConditions {
 
   handleScroll() {
     const intersection = this.fieldDiv.querySelector(`.${textIntersectionClass}`);
-    if (intersection) {
+    const textWrapper = this.fieldDiv.querySelector(`.${textDecorationClass}`);
+    if (intersection && textWrapper) {
       const io = new IntersectionObserver(([{ isIntersecting }]) => {
         if (isIntersecting) {
           // Enable the checkbox via the form model
@@ -53,7 +54,8 @@ class TermsAndConditions {
           io.unobserve(intersection);
         }
       }, {
-        threshold: [1],
+        root: textWrapper, // Watch within the scrollable container, not the viewport
+        threshold: [1], // Fire when 100% of the element is visible
       });
       io.observe(intersection);
     }
