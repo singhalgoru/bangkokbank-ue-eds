@@ -487,8 +487,9 @@ function initializeAutoScroll(
 
 export default function decorate(block) {
   const rows = [...block.children];
-  const isAuthoring = rows.some((row) => [...row.attributes]
+  const hasAuthoringAttrs = rows.some((row) => [...row.attributes]
     .some(({ name }) => name.startsWith('data-aue-')));
+  const isAuthoring = hasAuthoringAttrs && window.self !== window.top;
 
   // Read configuration values from block rows
   const dotsAlignment = readDotsAlignment(rows[0]);
