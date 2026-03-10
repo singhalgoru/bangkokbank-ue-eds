@@ -487,6 +487,8 @@ function initializeAutoScroll(
 
 export default function decorate(block) {
   const rows = [...block.children];
+  const isAuthoring = rows.some((row) => [...row.attributes]
+    .some(({ name }) => name.startsWith('data-aue-')));
 
   // Read configuration values from block rows
   const dotsAlignment = readDotsAlignment(rows[0]);
@@ -537,6 +539,10 @@ export default function decorate(block) {
   const slidesTextAnimation = slideEls.filter((s) => s.classList.contains('text-animation-variant')).length;
   const slidesCircularImage = slideEls.filter((s) => s.classList.contains('with-circular-image')).length;
   const slidesDefaultImage = slideEls.filter((s) => s.classList.contains('with-default-image')).length;
+  const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
+    && slidesWithImage === 0
+    && slidesWithoutImage === 0;
+  const shouldCloneHeroSlide = allHeroBanner && slideEls.length > 1 && !isAuthoring;
 
   if (
     slidesWithImage > 0
@@ -616,25 +622,24 @@ export default function decorate(block) {
     const isHeroVariant = block.classList.contains('all-hero-banner-image-carousel')
       || block.classList.contains('all-text-animation-variant');
 
-    const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
-      && slidesWithImage === 0
-      && slidesWithoutImage === 0;
+    const canUseCloneLoop = shouldCloneHeroSlide && allHeroBanner;
 
     const allWithoutImageTrack = slidesWithoutImage > 0
       && slidesWithImage === 0
       && slidesHeroBanner === 0
       && slidesTextAnimation === 0;
 
-    // FIX: looping forward is now just index 0 after last slide (no clone needed)
     const isLoopingForward = index === 0 && prevIndex === slideEls.length - 1;
 
     slideEls.forEach((slide, i) => {
       const active = i === index;
       const wasActive = slide.classList.contains('is-active');
       if (isHeroVariant && !wasActive && active && !isFirstLoad) {
-        triggerBgZoom(slide);
-        slide.classList.add('is-entering');
-        setTimeout(() => slide.classList.remove('is-entering'), 600);
+        if (!isLoopingForward) {
+          triggerBgZoom(slide);
+          slide.classList.add('is-entering');
+          setTimeout(() => slide.classList.remove('is-entering'), 600);
+        }
       }
 
       slide.classList.toggle('is-active', active);
@@ -656,11 +661,21 @@ export default function decorate(block) {
       if (trackWrapper) {
         const slideWidth = block.offsetWidth;
 
-        if (isLoopingForward) {
-          trackWrapper.style.transition = 'none';
-          trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
-          trackWrapper.getBoundingClientRect();
-          trackWrapper.style.transition = '';
+        if (isLoopingForward && canUseCloneLoop) {
+          if (isHeroVariant && !isFirstLoad) {
+            const cloneSlide = trackWrapper.lastElementChild;
+            triggerBgZoom(cloneSlide);
+            cloneSlide.classList.add('is-entering');
+            setTimeout(() => cloneSlide.classList.remove('is-entering'), 600);
+          }
+
+          trackWrapper.style.transform = `translate3d(${-slideEls.length * slideWidth}px, 0px, 0px)`;
+          setTimeout(() => {
+            trackWrapper.style.transition = 'none';
+            trackWrapper.style.transform = 'translate3d(0px, 0px, 0px)';
+            trackWrapper.getBoundingClientRect();
+            trackWrapper.style.transition = '';
+          }, 700);
         } else {
           trackWrapper.style.transform = `translate3d(${-index * slideWidth}px, 0px, 0px)`;
         }
@@ -695,16 +710,18 @@ export default function decorate(block) {
     && slidesHeroBanner === 0
     && slidesTextAnimation === 0;
 
-  const allHeroBanner = (slidesHeroBanner > 0 || slidesTextAnimation > 0)
-    && slidesWithImage === 0
-    && slidesWithoutImage === 0;
-
   const circularOrDefaultImage = slidesCircularImage > 0 || slidesDefaultImage > 0;
 
   if (allHeroBanner) {
     const trackWrapper = document.createElement('div');
     trackWrapper.className = 'carousel-track-wrapper';
-    trackWrapper.replaceChildren(...slideEls);
+    if (shouldCloneHeroSlide) {
+      const cloneFirst = slideEls[0].cloneNode(true);
+      cloneFirst.setAttribute('aria-hidden', 'true');
+      trackWrapper.replaceChildren(...slideEls, cloneFirst);
+    } else {
+      trackWrapper.replaceChildren(...slideEls);
+    }
     block.replaceChildren(trackWrapper);
   } else if (allWithoutImage) {
     // Without-image variant uses track wrapper for sliding, but NO clone (looping is disabled)
