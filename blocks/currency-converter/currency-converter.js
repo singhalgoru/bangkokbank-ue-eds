@@ -1,4 +1,5 @@
 import { fetchPlaceholders } from '../../scripts/placeholder.js';
+import { fetchConfigs } from '../../scripts/config.js';
 
 /**
  * Format number with international comma system
@@ -244,12 +245,13 @@ function createConvertGroup(label, currencies, type, searchPlaceholder) {
  * @param {string} amount - Amount to convert
  * @param {string} fromCurrency - From currency code
  * @param {string} toCurrency - To currency code
+ * @param {string} apiBaseUrl - Base URL for the exchange rate API
  * @returns {Promise<string>} - Converted amount
  */
-async function convertCurrency(amount, fromCurrency, toCurrency) {
+async function convertCurrency(amount, fromCurrency, toCurrency, apiBaseUrl) {
   try {
     // API endpoint for currency conversion
-    const apiUrl = `https://publish-p185039-e1938068.adobeaemcloud.com/api/exchangerateservice/FxCal/${amount}/${fromCurrency}/${toCurrency}`;
+    const apiUrl = `${apiBaseUrl}${amount}/${fromCurrency}/${toCurrency}`;
 
     const response = await fetch(apiUrl);
 
@@ -275,10 +277,12 @@ async function convertCurrency(amount, fromCurrency, toCurrency) {
  * @param {Element} block - The currency converter block element
  */
 export default async function decorate(block) {
-  // Fetch placeholders
+  // Fetch placeholder and config values
   const placeholders = await fetchPlaceholders();
-  const searchPlaceholder = placeholders?.searchInputPlaceholder || 'Type to Search...';
+  const configs = await fetchConfigs();
 
+  const searchPlaceholder = placeholders?.searchInputPlaceholder || 'Type to Search...';
+  const apiBaseUrl = configs?.exchangeRateService || 'https://publish-p185039-e1938068.adobeaemcloud.com/api/exchangerateservice/FxCal/';
   const rows = Array.from(block.children);
 
   // Parse block content
@@ -337,7 +341,7 @@ export default async function decorate(block) {
     convertBtn.classList.add('loading');
 
     try {
-      const result = await convertCurrency(amount, fromCode, toCode);
+      const result = await convertCurrency(amount, fromCode, toCode, apiBaseUrl);
 
       if (result !== null && result !== undefined) {
         toInput.value = formatNumberWithCommas(result);

@@ -22,6 +22,30 @@ export async function fetchPlaceholders(prefix = 'default') {
   window.placeholders = window.placeholders || {};
   if (!window.placeholders[prefix]) {
     window.placeholders[prefix] = new Promise((resolve) => {
+      // Check if placeholders JSON exists in sessionStorage
+      const placeholderKey = 'placeholders';
+      const cachedPlaceholdersJSON = window.sessionStorage.getItem(placeholderKey);
+
+      if (cachedPlaceholdersJSON) {
+        try {
+          const json = JSON.parse(cachedPlaceholdersJSON);
+          const placeholders = {};
+          json.data
+            ?.filter((placeholder) => placeholder.Key)
+            .forEach((placeholder) => {
+              placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
+            });
+          window.placeholders[prefix] = placeholders;
+          resolve(placeholders);
+          return;
+        } catch (e) {
+          // If parsing fails, continue to fetch
+          // eslint-disable-next-line no-console
+          console.warn('Failed to parse cached placeholders, fetching fresh:', e);
+        }
+      }
+
+      // Fetch from placeholders.json if not in sessionStorage
       fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
         .then((resp) => {
           if (resp.ok) {
@@ -29,12 +53,21 @@ export async function fetchPlaceholders(prefix = 'default') {
           }
           return {};
         }).then((json) => {
+          // Store entire JSON in sessionStorage
+          try {
+            window.sessionStorage.setItem(placeholderKey, JSON.stringify(json));
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.warn('Failed to store placeholders in sessionStorage:', e);
+          }
+
           const placeholders = {};
           json.data
-            .filter((placeholder) => placeholder.Key)
+            ?.filter((placeholder) => placeholder.Key)
             .forEach((placeholder) => {
               placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
             });
+
           window.placeholders[prefix] = placeholders;
           resolve(window.placeholders[prefix]);
         }).catch(() => {
