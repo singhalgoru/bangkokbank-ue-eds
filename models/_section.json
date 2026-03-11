@@ -27,7 +27,7 @@
         },
         {
           "component": "text",
-          "name": "sub-nav-label",
+          "name": "subnavLabel",
           "label": "Sub Nav Title",
           "description": "This title will be displayed in the sub-navigation if the page has sub-navigation enabled."
         },
