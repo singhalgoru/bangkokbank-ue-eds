@@ -8,7 +8,7 @@ function escapeHtml(text) {
 }
 
 /**
- * Collect all sections on the page that have a section-level data-id.
+ * Collect all sections on the page that have a sub-nav label.
  * Adjust the selector if your sections live somewhere else.
  */
 function collectSections() {
@@ -17,16 +17,13 @@ function collectSections() {
 
   return sections
     .map((section) => {
-      // Prefer dataset.id; fallback to DOM id; fallback to generated id
-      const dataId = section.dataset.id;
-      if (!dataId) return null;
-
       // Label to show in dropdown:
-      // 1) use metadata label if you introduce one, e.g. data-navLabel
-      // 2) otherwise use first heading text
-      const label = section.dataset.navLabel || dataId || section.querySelector('h1, h2, h3, h4, h5, h6')?.textContent?.trim();
+      // 1) use section's Sub Nav Title (subnavLabel) from section model
+      // 2) fallback to first heading text
+      const label = section.dataset.subnavLabel || section.querySelector('h1, h2, h3, h4, h5, h6')?.textContent?.trim();
+      if (!label) return null;
 
-      return { id: dataId, label, element: section };
+      return { label, element: section };
     })
     .filter(Boolean);
 }
@@ -57,7 +54,7 @@ export default function decorate(block) {
     return;
   }
 
-  // 1. Collect sections
+  // Collect sections
   const sections = collectSections();
   if (!sections.length) {
     // No sections to navigate to, keep the block empty/hidden
@@ -65,7 +62,7 @@ export default function decorate(block) {
     return;
   }
 
-  // 2. Build UI: wrapper + back button + select
+  // Build UI: wrapper + back button + select
   const wrapper = document.createElement('div');
   wrapper.className = 'wrapper content';
 
@@ -79,7 +76,7 @@ export default function decorate(block) {
   });
 
   // Build dropdown links HTML (ul/li/a) for createGlobalDropdown
-  const linksHTML = `<ul>${sections.map(({ id, label: optLabel }) => `<li><a href="#" data-section-id="${escapeHtml(id)}" class="global-dropdown-link">${escapeHtml(optLabel)}</a></li>`).join('')}</ul>`;
+  const linksHTML = `<ul>${sections.map(({ label: optLabel }, index) => `<li><a href="#" data-section-index="${index}" class="global-dropdown-link">${escapeHtml(optLabel)}</a></li>`).join('')}</ul>`;
   const initialLabel = sections[0]?.label ?? 'Select';
   const subNavSelect = createGlobalDropdown(initialLabel, linksHTML, document);
   subNavSelect.classList.add('sub-nav-select');
@@ -88,10 +85,10 @@ export default function decorate(block) {
   subNavSelect.querySelectorAll('.global-dropdown-link').forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      const targetId = link.dataset.sectionId;
-      if (!targetId) return;
+      const sectionIndex = parseInt(link.dataset.sectionIndex, 10);
+      if (Number.isNaN(sectionIndex) || sectionIndex < 0 || sectionIndex >= sections.length) return;
 
-      const targetSection = document.querySelector(`main > .section[data-id="${CSS.escape(targetId)}"]`);
+      const targetSection = sections[sectionIndex].element;
       if (targetSection) {
         targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -104,7 +101,7 @@ export default function decorate(block) {
 
   wrapper.append(backButton, subNavSelect);
 
-  // 4. Clean up any existing table markup from authoring and inject our UI
+  // Clean up any existing table markup from authoring and inject our UI
   block.textContent = '';
   block.appendChild(wrapper);
 }
