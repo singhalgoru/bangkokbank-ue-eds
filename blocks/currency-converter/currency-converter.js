@@ -1,3 +1,5 @@
+import { fetchPlaceholders } from '../../scripts/placeholder.js';
+
 /**
  * Format number with international comma system
  * @param {string} value - The value to format
@@ -42,9 +44,10 @@ function parseCurrencyList(currencyListDiv) {
 /**
  * Create currency dropdown
  * @param {Array} currencies - Array of currency objects
+ * @param {string} searchPlaceholder - Placeholder text for search input
  * @returns {Element} - Dropdown element
  */
-function createCurrencyDropdown(currencies) {
+function createCurrencyDropdown(currencies, searchPlaceholder = 'Type to Search...') {
   const dropdown = document.createElement('div');
   dropdown.className = 'currency-dropdown';
 
@@ -53,7 +56,7 @@ function createCurrencyDropdown(currencies) {
   searchInput.className = 'search-currency';
   searchInput.id = 'search-currency';
   searchInput.name = 'search-currency';
-  searchInput.placeholder = 'Type to Search...';
+  searchInput.placeholder = searchPlaceholder;
 
   const list = document.createElement('ul');
   list.className = 'currency-dropdown-list';
@@ -112,9 +115,10 @@ function createCurrencyDropdown(currencies) {
  * @param {string} label - Label text
  * @param {Array} currencies - Array of currency objects
  * @param {string} type - 'from' or 'to'
+ * @param {string} searchPlaceholder - Placeholder text for search input
  * @returns {Element} - Convert group element
  */
-function createConvertGroup(label, currencies, type) {
+function createConvertGroup(label, currencies, type, searchPlaceholder) {
   const group = document.createElement('div');
   group.className = 'convert-group';
   group.id = `currency-${type}`;
@@ -180,7 +184,7 @@ function createConvertGroup(label, currencies, type) {
     input.addEventListener('cut', (e) => e.preventDefault());
   }
 
-  const dropdown = createCurrencyDropdown(currencies);
+  const dropdown = createCurrencyDropdown(currencies, searchPlaceholder);
 
   const dropdownIcon = document.createElement('span');
   dropdownIcon.className = 'icon-dropdown';
@@ -270,7 +274,11 @@ async function convertCurrency(amount, fromCurrency, toCurrency) {
  * Decorate the currency converter block
  * @param {Element} block - The currency converter block element
  */
-export default function decorate(block) {
+export default async function decorate(block) {
+  // Fetch placeholders
+  const placeholders = await fetchPlaceholders();
+  const searchPlaceholder = placeholders?.searchInputPlaceholder || 'Type to Search...';
+
   const rows = Array.from(block.children);
 
   // Parse block content
@@ -290,7 +298,7 @@ export default function decorate(block) {
   converter.className = 'converter';
 
   // Create From group
-  const fromGroup = createConvertGroup(fromLabel, currencies, 'from');
+  const fromGroup = createConvertGroup(fromLabel, currencies, 'from', searchPlaceholder);
 
   // Create Convert button with icon
   const convertBtn = document.createElement('button');
@@ -309,7 +317,7 @@ export default function decorate(block) {
   convertBtn.appendChild(btnText);
 
   // Create To group
-  const toGroup = createConvertGroup(toLabel, currencies, 'to');
+  const toGroup = createConvertGroup(toLabel, currencies, 'to', searchPlaceholder);
 
   // Add convert functionality
   convertBtn.addEventListener('click', async () => {
