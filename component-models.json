@@ -178,7 +178,7 @@
       },
       {
         "component": "text",
-        "name": "subnavLabel",
+        "name": "subnavlabel",
         "label": "Sub Nav Title",
         "description": "This title will be displayed in the sub-navigation if the page has sub-navigation enabled."
       },
