@@ -45,7 +45,6 @@ button,
   /* Ensure proper touch targets */
   min-height: 28px;
   line-height: 2.75rem;
-  min-width: max-content;
 }
 
 .button-container {

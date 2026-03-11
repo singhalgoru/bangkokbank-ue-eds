@@ -98,7 +98,7 @@
 }
 
 :is(.hero-banner-simple, .hero-banner-simple-logo-banner) .hero-banner-content-inner .button-container {
-    margin: 1.875rem 0 0;
+    margin: 1.5rem 0 0;
 }
 
 .hero-banner-thumbnail-outer {
@@ -367,10 +367,6 @@ body.private .hero-banner-content-group :is(h1, h2, h3, h4, h5, h6) {
 
     .hero-banner-content-inner {
         width: 66.6667%;
-    }
-
-    :is(.hero-banner-simple, .hero-banner-simple-logo-banner) .hero-banner-content-inner {
-        width: 100%;
     }
 
     .hero-banner-content-inner-text {
