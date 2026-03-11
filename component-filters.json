@@ -3,7 +3,8 @@
     "id": "main",
     "components": [
       "section",
-      "header-section"
+      "header-section",
+      "tab-section"
     ]
   },
   {
@@ -48,9 +49,15 @@
     ]
   },
   {
-    "id": "carousel-dotted",
+    "id": "showDots",
     "components": [
       "carousel-dotted-slide"
+    ]
+  },
+  {
+    "id": "showArrowsDots",
+    "components": [
+      "carousel-dotted-slide-arrows"
     ]
   },
   {
@@ -137,7 +144,8 @@
   {
     "id": "main-nav-item",
     "components": [
-      "megamenu-column"
+      "megamenu-column",
+      "quick-nav-item"
     ]
   },
   {
@@ -176,6 +184,33 @@
     "id": "story-card",
     "components": [
       "button"
+    ]
+  },
+  {
+    "id": "tab-section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "cards-product",
+      "columns",
+      "fragment",
+      "megamenu",
+      "carousel",
+      "story-card",
+      "warning-card",
+      "menu-cards",
+      "carousel-dotted",
+      "cross-banner",
+      "form",
+      "embed-adaptive-form",
+      "brand-logo",
+      "location",
+      "login",
+      "main-nav-item"
     ]
   },
   {
