@@ -82,16 +82,11 @@ export default function decorate(block) {
     reopenOnRevisitDiv,
   ] = [...block.children];
 
-  const link = linkDiv?.querySelector('a');
-  const image = imageDiv?.querySelector('img');
-  const titleElement = titleDiv?.firstElementChild;
-
   const config = {
-    image,
-    titleElement,
-    title: titleElement?.textContent?.trim() || '',
+    image: imageDiv?.querySelector('img'),
+    title: titleDiv?.querySelector('div')?.innerHTML || '',
     description: descriptionDiv?.querySelector('div')?.innerHTML || '',
-    linkElement: link || null,
+    linkElement: linkDiv?.querySelector('a') || null,
     targetLink: targetSettingsDiv?.querySelector('div')?.textContent?.trim() === 'true',
     delaySeconds: Number(delaySecondsDiv?.querySelector('div')?.textContent?.trim()) || 0,
     reopenOnRevisit: reopenOnRevisitDiv?.querySelector('div')?.textContent?.trim() === 'true',
