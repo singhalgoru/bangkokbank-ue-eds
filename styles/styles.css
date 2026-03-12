@@ -181,7 +181,7 @@ main img {
 
     .section.columns-3 {
         display: flex;
-        gap: 24px;
+        gap: var(--bbl-space-layout-sm);
     }
 
     .section.columns-3  > * {
