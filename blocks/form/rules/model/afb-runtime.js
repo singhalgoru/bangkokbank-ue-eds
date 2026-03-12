@@ -25,7 +25,7 @@
 import { propertyChange, ExecuteRule, Initialize, RemoveItem, Change, FormLoad, FieldChanged, ValidationComplete, Valid, Invalid, SubmitSuccess, CustomEvent, RequestSuccess, RequestFailure, SubmitError, Submit, Save, Reset, SubmitFailure, Focus, RemoveInstance, AddInstance, AddItem, Click } from './afb-events.js';
 import Formula from '../formula/index.js';
 import { format, parseDefaultDate, datetimeToNumber, parseDateSkeleton, numberToDatetime, formatDate, parseDate } from './afb-formatters.min.js';
-import { fetchCsrfToken } from '../functions.js';
+import { fetchCsrfToken } from '../../functions.js';
 
 function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
