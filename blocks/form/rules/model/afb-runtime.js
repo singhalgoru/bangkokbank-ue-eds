@@ -2923,6 +2923,13 @@ const request = async (context, uri, httpVerb, payload, success, error, headers)
         cryptoMetadata = payload.cryptoMetadata;
         inputPayload = payload;
     }
+    
+    // Always merge headers into requestOptions if they exist
+    const headerNames = Object.keys(headers);
+    if (headerNames.length > 0) {
+        requestOptions.headers = { ...headers };
+    }
+    
     if (payload && payload instanceof FileObject && payload.data instanceof File) {
         const formData = new FormData();
         formData.append(payload.name, payload.data);
@@ -2932,15 +2939,12 @@ const request = async (context, uri, httpVerb, payload, success, error, headers)
         inputPayload = payload;
     }
     else if (payload && (typeof payload === 'string' || (typeof payload === 'object' && Object.keys(payload).length > 0))) {
-        const headerNames = Object.keys(headers);
-        if (headerNames.length > 0) {
-            requestOptions.headers = {
-                ...headers,
-                ...(headerNames.indexOf('Content-Type') === -1 ? { 'Content-Type': 'application/json' } : {})
-            };
+        // Only set Content-Type for non-FormData payloads
+        if (!requestOptions.headers) {
+            requestOptions.headers = {};
         }
-        else {
-            requestOptions.headers = { 'Content-Type': 'application/json' };
+        if (!requestOptions.headers['Content-Type']) {
+            requestOptions.headers['Content-Type'] = 'application/json';
         }
         const contentType = requestOptions?.headers?.['Content-Type'] || 'application/json';
         if (typeof payload === 'object') {
