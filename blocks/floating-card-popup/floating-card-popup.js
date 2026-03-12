@@ -19,12 +19,7 @@ function buildPopupElement(config, doc) {
   );
 
   if (config.image) {
-    const imageWrap = createElementFromHTML(
-      '<div class="floating-popup-image-wrap"></div>',
-      doc,
-    );
-    imageWrap.appendChild(config.image);
-    cardBody.appendChild(imageWrap);
+    cardBody.appendChild(config.image);
   }
 
   const content = createElementFromHTML(
@@ -37,9 +32,13 @@ function buildPopupElement(config, doc) {
     content.appendChild(config.titleElement);
   }
 
-  if (config.descriptionElement) {
-    config.descriptionElement.classList.add('floating-popup-description');
-    content.appendChild(config.descriptionElement);
+  if (config.description) {
+    content.appendChild(
+      createElementFromHTML(
+        `<div class="floating-popup-description">${config.description}</div>`,
+        doc,
+      ),
+    );
   }
 
   cardBody.appendChild(content);
@@ -73,54 +72,30 @@ function markDismissed(storageKey, reopenOnRevisit) {
 
 export default function decorate(block) {
   const doc = block.ownerDocument;
-
   const [
     imageDiv,
-    imageAltDiv,
     titleDiv,
     descriptionDiv,
     linkDiv,
-    linkTextDiv,
-    linkTitleDiv,
-    linkTypeDiv,
     targetSettingsDiv,
     delaySecondsDiv,
     reopenOnRevisitDiv,
   ] = [...block.children];
 
   const link = linkDiv?.querySelector('a');
-  const image = imageDiv?.querySelector('picture, img');
+  const image = imageDiv?.querySelector('img');
   const titleElement = titleDiv?.firstElementChild;
-  const descriptionElement = descriptionDiv?.firstElementChild;
-  const imageAlt = imageAltDiv?.textContent?.trim() || '';
 
   const config = {
     image,
-    imageAlt,
     titleElement,
-    descriptionElement,
-    linkElement: link || null,
     title: titleElement?.textContent?.trim() || '',
+    description: descriptionDiv?.querySelector('div')?.innerHTML || '',
+    linkElement: link || null,
     targetLink: targetSettingsDiv?.querySelector('div')?.textContent?.trim() === 'true',
     delaySeconds: Number(delaySecondsDiv?.querySelector('div')?.textContent?.trim()) || 0,
     reopenOnRevisit: reopenOnRevisitDiv?.querySelector('div')?.textContent?.trim() === 'true',
   };
-
-  if (config.imageAlt && config.image?.tagName === 'IMG') {
-    config.image.setAttribute('alt', config.imageAlt);
-  }
-
-  if (config.linkElement && linkTextDiv?.textContent?.trim()) {
-    config.linkElement.textContent = linkTextDiv.textContent.trim();
-  }
-
-  if (config.linkElement && linkTitleDiv?.textContent?.trim()) {
-    config.linkElement.setAttribute('title', linkTitleDiv.textContent.trim());
-  }
-
-  if (config.linkElement && linkTypeDiv?.textContent?.trim()) {
-    config.linkElement.classList.add(linkTypeDiv.textContent.trim().toLowerCase());
-  }
 
   if (!config.title && !config.linkElement) return;
 
