@@ -43,6 +43,37 @@ function days(endDate, startDate) {
 }
 
 /**
+ * Generates SHA256 hash of payload and returns Base64 encoded string
+ *
+ * @async
+ * @param {object} payload - The payload object to hash
+ * @returns {Promise<string>} - Base64 encoded SHA256 hash
+ */
+async function generatePayloadHash(payload) {
+  try {
+    // 1. Convert payload to compacted JSON string (no whitespace)
+    const compactedBodyString = JSON.stringify(payload);
+
+    // 2. Convert string to Uint8Array for hashing
+    const encoder = new TextEncoder();
+    const data = encoder.encode(compactedBodyString);
+
+    // 3. Generate SHA256 hash using Web Crypto API
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+    // 4. Convert hash to Base64
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashBase64 = btoa(String.fromCharCode.apply(null, hashArray));
+
+    return hashBase64;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error generating payload hash:', error);
+    return null;
+  }
+}
+
+/**
  * Fetches CSRF token from the API
  *
  * @async
@@ -209,4 +240,5 @@ export {
   fetchCsrfToken,
   addCsrfToken,
   addCustomHeader,
+  generatePayloadHash,
 };

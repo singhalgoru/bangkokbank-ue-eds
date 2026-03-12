@@ -25,7 +25,7 @@
 import { propertyChange, ExecuteRule, Initialize, RemoveItem, Change, FormLoad, FieldChanged, ValidationComplete, Valid, Invalid, SubmitSuccess, CustomEvent, RequestSuccess, RequestFailure, SubmitError, Submit, Save, Reset, SubmitFailure, Focus, RemoveInstance, AddInstance, AddItem, Click } from './afb-events.js';
 import Formula from '../formula/index.js';
 import { format, parseDefaultDate, datetimeToNumber, parseDateSkeleton, numberToDatetime, formatDate, parseDate } from './afb-formatters.min.js';
-import { fetchCsrfToken } from '../../functions.js';
+import { fetchCsrfToken, generatePayloadHash } from '../../functions.js';
 
 function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3057,16 +3057,21 @@ const submit = async (context, success, error, submitAs = 'multipart/form-data',
         submitContentType = 'multipart/form-data';
     }
     
-    // Fetch CSRF token and add to headers
+    // Fetch CSRF token and generate payload hash
     const csrfToken = await fetchCsrfToken();
-    const headers = {
-        'Content-Type': submitContentType
-    };
-    if (csrfToken) {
-        headers['X-CSRF-Token'] = csrfToken;
-    }
+    const payloadHash = await generatePayloadHash(submitDataAndMetaData);
     
-    await request(context, endpoint, 'POST', formData, success, error, headers);
+    // Wrap formData with headers structure that request function expects
+    const payloadWithHeaders = {
+        body: formData,
+        headers: {
+            'Content-Type': submitContentType,
+            ...(csrfToken && { 'X-CSRF-Token': csrfToken }),
+            ...(payloadHash && { 'X-Payload-Hash': payloadHash })
+        }
+    };
+    
+    await request(context, endpoint, 'POST', payloadWithHeaders, success, error, {});
 };
 const multipartFormData = (data, attachments) => {
     const formData = new FormData();
