@@ -19,7 +19,12 @@ function buildPopupElement(config, doc) {
   );
 
   if (config.image) {
-    cardBody.appendChild(config.image.cloneNode(true));
+    const imageWrap = createElementFromHTML(
+      '<div class="floating-popup-image-wrap"></div>',
+      doc,
+    );
+    imageWrap.appendChild(config.image);
+    cardBody.appendChild(imageWrap);
   }
 
   const content = createElementFromHTML(
@@ -27,31 +32,22 @@ function buildPopupElement(config, doc) {
     doc,
   );
 
-  if (config.title) {
-    content.appendChild(
-      createElementFromHTML(
-        `<h2 class="floating-popup-title">${config.title}</h2>`,
-        doc,
-      ),
-    );
+  if (config.titleElement) {
+    config.titleElement.classList.add('floating-popup-title');
+    content.appendChild(config.titleElement);
   }
 
-  if (config.description) {
-    content.appendChild(
-      createElementFromHTML(
-        `<div class="floating-popup-description">${config.description}</div>`,
-        doc,
-      ),
-    );
+  if (config.descriptionElement) {
+    config.descriptionElement.classList.add('floating-popup-description');
+    content.appendChild(config.descriptionElement);
   }
 
   cardBody.appendChild(content);
   inner.appendChild(cardBody);
 
-  if (config.link) {
-    const anchor = config.link.cloneNode(true);
-    anchor.classList.add('button-m');
-    inner.appendChild(anchor);
+  if (config.linkElement) {
+    config.linkElement.classList.add('button-m');
+    inner.appendChild(config.linkElement);
   }
 
   wrapper.appendChild(inner);
@@ -80,48 +76,67 @@ export default function decorate(block) {
 
   const [
     imageDiv,
+    imageAltDiv,
     titleDiv,
     descriptionDiv,
     linkDiv,
+    linkTextDiv,
+    linkTitleDiv,
+    linkTypeDiv,
     targetSettingsDiv,
     delaySecondsDiv,
     reopenOnRevisitDiv,
   ] = [...block.children];
 
   const link = linkDiv?.querySelector('a');
+  const image = imageDiv?.querySelector('picture, img');
+  const titleElement = titleDiv?.firstElementChild;
+  const descriptionElement = descriptionDiv?.firstElementChild;
+  const imageAlt = imageAltDiv?.textContent?.trim() || '';
 
   const config = {
-    image: imageDiv?.querySelector('img') || null,
-    imageAlt: imageDiv?.querySelector('img')?.getAttribute('alt') || '',
-    title: titleDiv?.querySelector('div')?.textContent?.trim() || '',
-    description: descriptionDiv?.querySelector('div')?.innerHTML || '',
-    link: link || null,
-    linkText: link?.textContent?.trim() || '',
-    linkTitle: link?.getAttribute('title') || '',
+    image,
+    imageAlt,
+    titleElement,
+    descriptionElement,
+    linkElement: link || null,
+    title: titleElement?.textContent?.trim() || '',
     targetLink: targetSettingsDiv?.querySelector('div')?.textContent?.trim() === 'true',
     delaySeconds: Number(delaySecondsDiv?.querySelector('div')?.textContent?.trim()) || 0,
     reopenOnRevisit: reopenOnRevisitDiv?.querySelector('div')?.textContent?.trim() === 'true',
   };
 
-  block.textContent = '';
-  block.classList.add('floating-popup-config-hidden');
+  if (config.imageAlt && config.image?.tagName === 'IMG') {
+    config.image.setAttribute('alt', config.imageAlt);
+  }
 
-  if (!config.title && !config.link) return;
+  if (config.linkElement && linkTextDiv?.textContent?.trim()) {
+    config.linkElement.textContent = linkTextDiv.textContent.trim();
+  }
+
+  if (config.linkElement && linkTitleDiv?.textContent?.trim()) {
+    config.linkElement.setAttribute('title', linkTitleDiv.textContent.trim());
+  }
+
+  if (config.linkElement && linkTypeDiv?.textContent?.trim()) {
+    config.linkElement.classList.add(linkTypeDiv.textContent.trim().toLowerCase());
+  }
+
+  if (!config.title && !config.linkElement) return;
 
   const delay = Number(config.delaySeconds) || 0;
   const storageKey = `${STORAGE_KEY_PREFIX}${window.location.pathname}`;
   const popupEl = buildPopupElement(config, doc);
+  block.replaceChildren(popupEl);
 
   const show = () => {
     if (!shouldShowPopup(storageKey, config.reopenOnRevisit)) return;
 
-    document.body.appendChild(popupEl);
     requestAnimationFrame(() => popupEl.classList.add('floating-popup-visible'));
 
     const closePopup = () => {
       popupEl.classList.remove('floating-popup-visible');
       markDismissed(storageKey, config.reopenOnRevisit);
-      setTimeout(() => popupEl.remove(), 300);
     };
 
     popupEl.querySelector('.floating-popup-close')?.addEventListener('click', closePopup);
