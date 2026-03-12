@@ -178,6 +178,15 @@ main img {
     .section {
         padding-inline: var(--bbl-space-section-xl);
     }
+
+    .section.columns-3 {
+        display: flex;
+        gap: 24px;
+    }
+
+    .section.columns-3  > * {
+        flex: 1;
+    }
 }
 
 @media (width > 87.5rem) {

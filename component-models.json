@@ -237,6 +237,15 @@
                 "value": "pad-bot-30"
               }
             ]
+          },
+          {
+            "name": "Layout",
+            "children": [
+              {
+                "name": "Columns 3",
+                "value": "columns-3"
+              }
+            ]
           }
         ]
       }
