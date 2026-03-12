@@ -109,7 +109,8 @@ function decorateTitles(element) {
         if (styleValue === 'underline') {
           heading.classList.add('title-underline');
         }
-        // Add other style mappings here in the future
+        // Title type (h1-h6) is handled by the heading element itself, no class needed
+        // Add other style mappings here in the future (e.g., bold, italic, etc.)
       });
     }
 
