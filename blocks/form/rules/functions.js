@@ -244,6 +244,153 @@ function dateToDaysSinceEpoch(date) {
   return Math.floor(dateObj.getTime() / (1000 * 60 * 60 * 24));
 }
 
+/**
+ * Fetches CSRF token from the API
+ *
+ * @async
+ * @returns {Promise<string|null>} - The CSRF token or null if fetch fails
+ */
+async function fetchCsrfToken() {
+  try {
+    const response = await fetch('https://pwsdevenvironment.azure-api.net/api/FormSubmissionService/forms/csrf/token', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      return data.token || data.csrfToken || data;
+    }
+    
+    console.error('Failed to fetch CSRF token:', response.status);
+    return null;
+  } catch (error) {
+    console.error('Error fetching CSRF token:', error);
+    return null;
+  }
+}
+
+/**
+ * Adds CSRF token to the form submission payload with headers.
+ * Fetches the CSRF token from the API and adds it to the X-CSRF-Token header.
+ *
+ * @async
+ * @param {object} payload - The form submission payload (typically from $form.exportData())
+ * @returns {Promise<object>} - The payload with CSRF token added to headers in format { body, headers }
+ *
+ * @example
+ * // Usage in submit button's click event in form JSON:
+ * {
+ *   "id": "submitButton",
+ *   "fieldType": "button",
+ *   "name": "submit",
+ *   "label": { "value": "Submit" },
+ *   "events": {
+ *     "click": ["submitForm(await addCsrfToken($form.exportData()))"]
+ *   }
+ * }
+ *
+ * @example
+ * // Usage with request function for API calls:
+ * {
+ *   "events": {
+ *     "change": [
+ *       "request('https://api.example.com/endpoint', 'POST', await addCsrfToken($form.exportData()), 'custom:success', 'custom:error')"
+ *     ]
+ *   }
+ * }
+ */
+async function addCsrfToken(payload) {
+  const token = await fetchCsrfToken();
+  
+  if (token) {
+    // Return payload in the format expected by the runtime's request function
+    return {
+      body: payload,
+      headers: {
+        'X-CSRF-Token': token
+      }
+    };
+  }
+  
+  // If token fetch fails, return payload as-is
+  return payload;
+}
+
+/**
+ * Adds a custom header to the form submission payload.
+ * Use this to add any custom header (e.g., API keys, authentication tokens) to form submissions.
+ *
+ * @param {object} payload - The form submission payload (can be plain data or { body, headers } format)
+ * @param {string} headerName - The name of the header to add (e.g., 'X-API-Key', 'Authorization')
+ * @param {string} headerValue - The value of the header
+ * @returns {object} - The payload with custom header added in format { body, headers }
+ *
+ * @example
+ * // Usage 1: Add single custom header on submit button click
+ * {
+ *   "id": "submitButton",
+ *   "fieldType": "button",
+ *   "events": {
+ *     "click": [
+ *       "submitForm(addCustomHeader($form.exportData(), 'X-API-Key', 'your-api-key-here'))"
+ *     ]
+ *   }
+ * }
+ *
+ * @example
+ * // Usage 2: Chain with addCsrfToken to add both CSRF token and custom header
+ * {
+ *   "events": {
+ *     "click": [
+ *       "submitForm(addCustomHeader(await addCsrfToken($form.exportData()), 'X-Client-ID', 'client-123'))"
+ *     ]
+ *   }
+ * }
+ *
+ * @example
+ * // Usage 3: Add authorization header dynamically from form field
+ * {
+ *   "events": {
+ *     "click": [
+ *       "submitForm(addCustomHeader($form.exportData(), 'Authorization', 'Bearer ' + authToken.$value))"
+ *     ]
+ *   }
+ * }
+ *
+ * @example
+ * // Usage 4: With request function for custom API calls
+ * {
+ *   "events": {
+ *     "change": [
+ *       "request('https://api.example.com/data', 'POST', addCustomHeader({data: $field.$value}, 'X-Request-ID', '12345'), 'custom:success', 'custom:error')"
+ *     ]
+ *   }
+ * }
+ */
+function addCustomHeader(payload, headerName, headerValue) {
+  // If payload already has headers structure, merge with existing headers
+  if (payload && typeof payload === 'object' && 'body' in payload && 'headers' in payload) {
+    return {
+      body: payload.body,
+      headers: {
+        ...payload.headers,
+        [headerName]: headerValue
+      }
+    };
+  }
+  
+  // Otherwise, create new structure with headers
+  return {
+    body: payload,
+    headers: {
+      [headerName]: headerValue
+    }
+  };
+}
+
 export {
   externalize,
   validateURL,
@@ -254,4 +401,7 @@ export {
   defaultSubmitErrorHandler,
   fetchCaptchaToken,
   dateToDaysSinceEpoch,
+  addCsrfToken,
+  fetchCsrfToken,
+  addCustomHeader,
 };
