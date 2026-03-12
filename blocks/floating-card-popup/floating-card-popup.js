@@ -27,9 +27,13 @@ function buildPopupElement(config, doc) {
     doc,
   );
 
-  if (config.titleElement) {
-    config.titleElement.classList.add('floating-popup-title');
-    content.appendChild(config.titleElement);
+  if (config.title) {
+    content.appendChild(
+      createElementFromHTML(
+        `<div class="floating-popup-title">${config.title}</div>`,
+        doc,
+      ),
+    );
   }
 
   if (config.description) {
