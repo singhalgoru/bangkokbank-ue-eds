@@ -89,8 +89,41 @@ function decorateSvgWithAltText(element) {
   });
 }
 
+/**
+ * Decorates title elements with style classes based on their data attributes
+ * @param {Element} element container element
+ */
+function decorateTitles(element) {
+  // Find all heading elements (h1-h6) and apply style classes
+  element.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
+    // Check for style data attribute (can be comma-separated values from multiselect)
+    const style = heading.getAttribute('data-style')
+      || heading.getAttribute('data-aue-prop-style')
+      || heading.dataset.style;
+
+    if (style) {
+      // Split by comma in case multiple styles are selected
+      const styles = style.split(',').map((s) => s.trim()).filter((s) => s);
+
+      styles.forEach((styleValue) => {
+        if (styleValue === 'underline') {
+          heading.classList.add('title-underline');
+        }
+        // Add other style mappings here in the future
+      });
+    }
+
+    // Also check if styles are already applied as classes
+    if (heading.classList.contains('underline')) {
+      heading.classList.add('title-underline');
+      heading.classList.remove('underline');
+    }
+  });
+}
+
 export {
   decorateTerritoryButtons,
   decorateButtonsV1,
   decorateSvgWithAltText,
+  decorateTitles,
 };

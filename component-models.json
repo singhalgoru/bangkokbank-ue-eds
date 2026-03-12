@@ -97,6 +97,24 @@
             "value": "h6"
           }
         ]
+      },
+      {
+        "component": "multiselect",
+        "name": "style",
+        "label": "Style",
+        "valueType": "string",
+        "required": false,
+        "options": [
+          {
+            "name": "Text Decoration",
+            "children": [
+              {
+                "name": "Underline",
+                "value": "underline"
+              }
+            ]
+          }
+        ]
       }
     ]
   },

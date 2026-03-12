@@ -16,6 +16,7 @@ import {
 import {
   decorateSvgWithAltText,
   decorateTerritoryButtons,
+  decorateTitles,
 } from './bbl-decorators.js';
 
 import decorateTabs from '../blocks/tabs/tabs-helper.js';
@@ -133,6 +134,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateTerritoryButtons(main);
   decorateSvgWithAltText(main);
+  decorateTitles(main);
   setExternalLinksTarget(main);
 
   const pageVariant = getMetadata('pagevariant');
