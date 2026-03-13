@@ -333,7 +333,7 @@ body.wealth main :is(.button-container .button, .button) {
    SECTION-LEVEL  - Global Styles
    ========================================================================= */
 
-.section.central-aligned .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+.section.center-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
     text-align: center;
 }
 
@@ -353,7 +353,7 @@ body.wealth main :is(.button-container .button, .button) {
     background-color: #9e9e9e;
 }
 
-.section.underline-title.central-aligned .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6)::after {
+.section.underline-title.center-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6)::after {
     left: 50%;
     transform: translateX(-50%);
 }
