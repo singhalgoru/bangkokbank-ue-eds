@@ -237,6 +237,15 @@
                 "value": "pad-bot-30"
               }
             ]
+          },
+          {
+            "name": "Layout",
+            "children": [
+              {
+                "name": "Columns 3",
+                "value": "columns-3"
+              }
+            ]
           }
         ]
       }
@@ -1632,6 +1641,48 @@
             "value": false
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "currency-converter",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fromLabel",
+        "label": "From Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "toLabel",
+        "label": "To Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "converterIcon",
+        "label": "Converter Icon",
+        "description": "Icon or image for the currency converter",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "converterIconAlt",
+        "label": "Converter Icon Alt Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "currencyList",
+        "label": "Currency List",
+        "valueType": "string",
+        "required": true
       }
     ]
   },

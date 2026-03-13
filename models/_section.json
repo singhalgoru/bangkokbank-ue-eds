@@ -92,6 +92,15 @@
                   "value": "pad-bot-30"
                 }
               ]
+            },
+            {
+              "name": "Layout",
+              "children": [
+                {
+                  "name": "Columns 3",
+                  "value": "columns-3"
+                }
+              ]
             }
           ]
         }
@@ -124,7 +133,8 @@
         "embed-adaptive-form",
         "content-insert-cards",
         "menu-card-actions",
-        "download-file"
+        "download-file",
+        "currency-converter"
       ]
     }
   ]
