@@ -58,8 +58,7 @@ function buildPopupElement(config, doc) {
 }
 
 function shouldShowPopup(storageKey, reopenOnRevisit) {
-  const isReload = performance.getEntriesByType('navigation')[0]?.type === 'reload';
-  if (isReload || reopenOnRevisit) return true;
+  if (reopenOnRevisit) return true;
   try {
     return localStorage.getItem(storageKey) !== 'true';
   } catch {
@@ -76,21 +75,18 @@ function markDismissed(storageKey, reopenOnRevisit) {
 
 export default function decorate(block) {
   const doc = block.ownerDocument;
-  const [
-    imageDiv,
-    titleDiv,
-    descriptionDiv,
-    linkDiv,
-    targetSettingsDiv,
-    delaySecondsDiv,
-    reopenOnRevisitDiv,
-  ] = [...block.children];
+  const [imageDiv, titleDiv, descriptionDiv, linkDiv, ...configRows] = [...block.children];
+  const configRowsLength = configRows.length;
+  const reopenOnRevisitDiv = configRows[configRowsLength - 1];
+  const delaySecondsDiv = configRows[configRowsLength - 2];
+  const targetSettingsDiv = configRowsLength > 2 ? configRows[configRowsLength - 3] : null;
+  const linkElement = linkDiv?.querySelector('a') || null;
 
   const config = {
     image: imageDiv?.querySelector('img'),
     title: titleDiv?.querySelector('div')?.innerHTML || '',
     description: descriptionDiv?.querySelector('div')?.innerHTML || '',
-    linkElement: linkDiv?.querySelector('a') || null,
+    linkElement,
     targetLink: targetSettingsDiv?.querySelector('div')?.textContent?.trim() === 'true',
     delaySeconds: Number(delaySecondsDiv?.querySelector('div')?.textContent?.trim()) || 0,
     reopenOnRevisit: reopenOnRevisitDiv?.querySelector('div')?.textContent?.trim() === 'true',
