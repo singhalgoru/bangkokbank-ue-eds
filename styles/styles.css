@@ -333,17 +333,17 @@ body.wealth main :is(.button-container .button, .button) {
    SECTION-LEVEL  - Global Styles
    ========================================================================= */
 
-.section.center-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+.section.center-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6):first-child {
     text-align: center;
 }
 
-.section.underline-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+.section.underline-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6):first-child {
     position: relative;
     padding-bottom: 20px;
     margin: 30px 0;
 }
 
-.section.underline-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6)::after {
+.section.underline-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6):first-child::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -353,13 +353,13 @@ body.wealth main :is(.button-container .button, .button) {
     background-color: #9e9e9e;
 }
 
-.section.underline-title.center-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6)::after {
+.section.underline-title.center-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6):first-child::after {
     left: 50%;
     transform: translateX(-50%);
 }
 
 @media (width > 47.5rem) {
-    .section.underline-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+    .section.underline-title .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6):first-child {
         padding-bottom: 30px;
     }
 }
