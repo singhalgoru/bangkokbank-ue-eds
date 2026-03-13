@@ -97,6 +97,17 @@
             "value": "h6"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "styleType",
+        "label": "Style Type",
+        "options": [
+          {
+            "name": "underline",
+            "value": "underline"
+          }
+        ]
       }
     ]
   },
