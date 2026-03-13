@@ -97,17 +97,6 @@
             "value": "h6"
           }
         ]
-      },
-      {
-        "component": "select",
-        "name": "styleType",
-        "label": "Style Type",
-        "options": [
-          {
-            "name": "underline",
-            "value": "underline"
-          }
-        ]
       }
     ]
   },
@@ -246,6 +235,15 @@
               {
                 "name": "Padding Bottom",
                 "value": "pad-bot-30"
+              }
+            ]
+          },
+          {
+            "name": "Style",
+            "children": [
+              {
+                "name": "Underline Title",
+                "value": "underline-title"
               }
             ]
           }
