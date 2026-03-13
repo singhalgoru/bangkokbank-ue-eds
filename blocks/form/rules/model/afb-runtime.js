@@ -2900,7 +2900,7 @@ const getCustomEventName = (name) => {
     }
     return eName;
 };
-const request = async (context, uri, httpVerb, payload, success, error, headers) => {
+const request = async (context, uri, httpVerb, payload, success, error, headers = {}) => {
     const endpoint = uri;
     const requestOptions = {
         method: httpVerb
@@ -2927,8 +2927,11 @@ const request = async (context, uri, httpVerb, payload, success, error, headers)
     // Always merge headers into requestOptions if they exist
     const headerNames = Object.keys(headers);
     if (headerNames.length > 0) {
-        requestOptions.headers = { ...headers };
-    }
+    requestOptions.headers = {
+      ...(requestOptions.headers || {}),
+      ...headers,
+    };
+  }
     
     if (payload && payload instanceof FileObject && payload.data instanceof File) {
         const formData = new FormData();
@@ -3060,22 +3063,19 @@ const submit = async (context, success, error, submitAs = 'multipart/form-data',
         formData = multipartFormData(submitDataAndMetaData, attachments);
         submitContentType = 'multipart/form-data';
     }
-    
-    // Fetch CSRF token and generate payload hash
+    // NEW: fetch CSRF token and payload hash
     const csrfToken = await fetchCsrfToken();
     const payloadHash = await generatePayloadHash(submitDataAndMetaData);
-    
-    // Wrap formData with headers structure that request function expects
-    const payloadWithHeaders = {
-        body: formData,
-        headers: {
-            'Content-Type': submitContentType,
-            ...(csrfToken && { 'X-CSRF-Token': csrfToken }),
-            ...(payloadHash && { 'X-Payload-Hash': payloadHash })
-        }
+
+    // NEW: build headers; do NOT set Content-Type for FormData here
+    const headers = {
+        ...(submitContentType && submitContentType !== 'multipart/form-data' && { 'Content-Type': submitContentType }),
+        ...(csrfToken && { 'X-CSRF-Token': csrfToken }),
+        ...(payloadHash && { 'X-Payload-Hash': payloadHash }),
     };
-    
-    await request(context, endpoint, 'POST', payloadWithHeaders, success, error, {});
+
+    await request(context, endpoint, 'POST', formData, success, error, headers);
+
 };
 const multipartFormData = (data, attachments) => {
     const formData = new FormData();
