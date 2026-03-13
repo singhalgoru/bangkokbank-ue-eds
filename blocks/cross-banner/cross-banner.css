@@ -1,4 +1,8 @@
-.section:is(.full-bleed-bg, .full-bleed-special).cross-banner-container {
+.section.full-bleed-special.cross-banner-container{
+  padding-inline: 0;
+}
+
+.section.full-bleed-bg.cross-banner-container .content {
   padding-inline: 0;
 }
 
