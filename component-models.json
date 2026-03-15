@@ -7272,7 +7272,7 @@
           },
           {
             "name": "Subnav with tab",
-            "value": "subnav-with-tab"
+            "value": "subnav-tab"
           }
         ]
       },
@@ -7288,7 +7288,7 @@
             {
               "var": "classes"
             },
-            "subnav-with-tab"
+            "subnav-tab"
           ]
         }
       },
@@ -7302,7 +7302,7 @@
             {
               "var": "classes"
             },
-            "subnav-with-tab"
+            "subnav-tab"
           ]
         }
       },
@@ -7318,7 +7318,7 @@
             {
               "var": "classes"
             },
-            "subnav-with-tab"
+            "subnav-tab"
           ]
         }
       },
@@ -7332,7 +7332,7 @@
             {
               "var": "classes"
             },
-            "subnav-with-tab"
+            "subnav-tab"
           ]
         }
       }
