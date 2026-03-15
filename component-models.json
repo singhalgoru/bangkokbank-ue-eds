@@ -7269,6 +7269,10 @@
           {
             "name": "Subnav without dropdown",
             "value": "subnav-without-dropdown"
+          },
+          {
+            "name": "Subnav with tab",
+            "value": "subnav-with-tab"
           }
         ]
       }
